@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DressModal } from "@/components/DressModal";
+import { MagneticButton } from "./MagneticButton";
 
 const collection = [
   { 
@@ -411,8 +412,8 @@ export function EditorialCollection() {
     <section id="collection-start" className="bg-[var(--background)] py-32 md:py-48 relative min-h-[100vh]">
       <div className="max-w-[65rem] mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-7xl font-serif text-[var(--text-main)] mb-6">The Collection</h2>
-          <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-[var(--text-muted)]">Select an exquisite piece to reveal its story</p>
+          <h2 className="text-[5rem] md:text-[8rem] lg:text-[10rem] font-serif font-extralight text-[var(--text-main)] leading-[0.9] tracking-tight mb-8">The Collection</h2>
+          <p className="font-mono text-xs md:text-sm uppercase tracking-[0.4em] text-[var(--text-muted)]">Select an exquisite piece to reveal its story</p>
         </div>
 
         {/* Category Tabs */}
@@ -466,22 +467,24 @@ export function EditorialCollection() {
 
         {filteredCollection.length > 6 && !showAllItems && (
           <div className="flex justify-center mt-16 mb-8 relative z-40">
-            <button
-              onClick={() => setShowAllItems(true)}
-              className="group flex items-center gap-4 border border-[var(--text-muted)]/30 px-8 py-4 hover:border-[var(--dada-red)] transition-colors duration-300"
-            >
-              <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--text-main)]">More</span>
-              <span className="w-8 h-[1px] bg-[var(--text-muted)] group-hover:bg-[var(--dada-red)] transition-colors duration-300"></span>
-            </button>
+            <MagneticButton>
+              <button
+                onClick={() => setShowAllItems(true)}
+                className="group flex items-center gap-4 border border-[var(--text-muted)]/30 px-8 py-4 hover:border-[var(--dada-red)] transition-colors duration-300"
+              >
+                <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--text-main)]">More</span>
+                <span className="w-8 h-[1px] bg-[var(--text-muted)] group-hover:bg-[var(--dada-red)] transition-colors duration-300"></span>
+              </button>
+            </MagneticButton>
           </div>
         )}
 
         {/* Explore Other Collections Grid */}
         {categories.length > 0 && (
           <div className="mt-32 border-t border-[var(--text-muted)]/20 pt-24">
-            <div className="text-center mb-16">
-              <h3 className="text-3xl md:text-4xl font-serif text-[var(--text-main)] mb-6">Explore Other Collections</h3>
-              <p className="font-mono text-xs md:text-sm uppercase tracking-[0.2em] text-[var(--text-muted)]">Discover more from our atelier</p>
+            <div className="text-center mb-24">
+              <h3 className="text-[4rem] md:text-[6rem] lg:text-[8rem] font-serif font-extralight text-[var(--text-main)] mb-8 tracking-tight leading-none">Explore Other Collections</h3>
+              <p className="font-mono text-xs uppercase tracking-[0.4em] text-[var(--text-muted)]">Discover more from our atelier</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {categories.filter(c => c !== "All").map((cat) => {

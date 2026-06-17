@@ -31,15 +31,15 @@ export function TheEdgeCampaign() {
         
         {/* Massive Editorial Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 border-b border-white/20 pb-12">
-          <h2 className="text-5xl md:text-8xl lg:text-[9rem] font-sans font-black tracking-tighter leading-none uppercase">
+          <h2 className="text-[6rem] md:text-[10rem] lg:text-[14rem] font-sans font-black tracking-tighter leading-[0.8] uppercase">
             Create<br/>
-            <span className="font-serif italic text-[var(--dada-red)] font-light">The Edge.</span>
+            <span className="font-serif italic text-[var(--dada-red)] font-extralight text-[5rem] md:text-[9rem] lg:text-[11rem] ml-12 md:ml-24 leading-[0.8] block -mt-4 md:-mt-8">The Edge.</span>
           </h2>
           <div className="max-w-md">
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-white/50 mb-4">
               The Genesis / The Result
             </p>
-            <p className="font-serif text-lg md:text-xl text-white/80 leading-relaxed">
+            <p className="font-mono text-xs md:text-sm uppercase tracking-[0.2em] leading-loose text-white/80 mt-8">
               From a singular stroke of watercolor to a breathtaking reality. We don't just design dresses; we forge armor for the modern muse. Unapologetic. Wearable. Art.
             </p>
           </div>

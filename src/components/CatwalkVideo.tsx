@@ -71,7 +71,7 @@ export function CatwalkVideo() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1 }}
-            className="text-5xl md:text-8xl font-serif text-white tracking-widest uppercase mix-blend-overlay"
+            className="text-[6rem] md:text-[10rem] lg:text-[14rem] font-serif font-extralight text-white tracking-widest uppercase mix-blend-overlay leading-[0.8]"
           >
             Pure Movement
           </motion.h2>
@@ -80,7 +80,7 @@ export function CatwalkVideo() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="mt-6 text-xl md:text-3xl font-serif text-white/90 italic drop-shadow-xl max-w-2xl"
+            className="mt-12 text-xs md:text-sm font-mono tracking-[0.4em] uppercase text-white/90 drop-shadow-xl max-w-2xl leading-loose"
           >
             Effortless elegance, translating the wild rhythm of nature into pure couture.
           </motion.p>

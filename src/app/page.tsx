@@ -9,6 +9,7 @@ import { EditorialCollection } from "@/components/EditorialCollection";
 import { TestimonialSlider } from "@/components/TestimonialSlider";
 import { StorySection } from "@/components/StorySection";
 import { FAQAccordion } from "@/components/FAQAccordion";
+import { MagneticButton } from "@/components/MagneticButton";
 import { NewsletterCTA } from "@/components/NewsletterCTA";
 import { TheEdgeCampaign } from "@/components/TheEdgeCampaign";
 import { Logo } from "@/components/Logo";
@@ -79,7 +80,7 @@ function FeatureSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-serif text-[var(--text-main)] leading-[1.1]"
+                className="text-6xl md:text-8xl lg:text-[10rem] font-serif font-extralight text-[var(--text-main)] leading-[0.9] tracking-tight"
               >
                 {title}
               </motion.h2>
@@ -90,7 +91,7 @@ function FeatureSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="text-lg md:text-xl text-[var(--text-muted)] font-serif leading-relaxed"
+                className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.2em] leading-loose"
               >
                 {text}
               </motion.div>
@@ -123,7 +124,7 @@ function FeatureSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-serif text-[var(--text-main)] leading-[1.1]"
+                className="text-6xl md:text-8xl lg:text-[10rem] font-serif font-extralight text-[var(--text-main)] leading-[0.9] tracking-tight"
               >
                 {title}
               </motion.h2>
@@ -134,7 +135,7 @@ function FeatureSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="text-lg md:text-xl text-[var(--text-muted)] font-serif leading-relaxed"
+                className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.2em] leading-loose"
               >
                 {text}
               </motion.div>
@@ -159,9 +160,9 @@ export default function Home() {
         subtitle="The Philosophy"
         title={
           <span className="flex flex-col">
-            <span className="font-sans text-2xl md:text-3xl font-black uppercase tracking-tighter">Color is</span>
-            <span className="font-serif italic text-6xl md:text-8xl text-[var(--dada-red)] -mt-2 md:-mt-4">Power.</span>
-            <span className="font-serif text-3xl md:text-4xl mt-4 tracking-tight">Wear it without apology.</span>
+            <span className="font-sans text-xs md:text-sm font-black tracking-[0.3em] uppercase">Color is</span>
+            <span className="font-serif italic font-light text-[6rem] md:text-[12rem] lg:text-[15rem] text-[var(--dada-red)] -mt-4 md:-mt-8 leading-[0.8]">Power.</span>
+            <span className="font-mono text-xs uppercase tracking-[0.4em] mt-8 text-white/70">Wear it without apology.</span>
           </span>
         }
         text={<p>In Art Couture, color is not an accent, it's a declaration. Fearless, unapologetic, and unforgettable. The palette we choose defines the space we occupy, drawing inspiration from high-voltage modern art and timeless classical silhouettes. When you step into the room, the world should pause.</p>}
@@ -172,8 +173,8 @@ export default function Home() {
         subtitle="The Technique"
         title={
           <span className="flex flex-col">
-            <span className="font-serif text-4xl md:text-5xl">Patterns designed from the</span>
-            <span className="font-sans font-black text-5xl md:text-7xl uppercase tracking-tighter mt-2 text-[var(--dada-red)]">Art we create.</span>
+            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Patterns designed from the</span>
+            <span className="font-sans font-black text-6xl md:text-9xl lg:text-[11rem] uppercase tracking-tighter mt-2 text-[var(--dada-red)] leading-[0.8]">Art we create.</span>
           </span>
         }
         text={<p>Behind every dress lies a canvas. At Art Couture, we design our own patterns, born from the colors we love and the artworks we create. Each yard of fabric is meticulously crafted, ensuring the brushstrokes of our paintings seamlessly map to the curves of the couture. This is wearable fine art.</p>}
@@ -185,9 +186,9 @@ export default function Home() {
         subtitle="The Aesthetic"
         title={
           <span className="flex flex-col">
-            <span className="font-sans font-black text-6xl md:text-8xl uppercase tracking-tighter">Bold</span>
-            <span className="font-serif italic text-4xl md:text-6xl text-[var(--dada-red)] -mt-4 ml-8">Patterns,</span>
-            <span className="font-serif text-4xl md:text-5xl mt-2">Striking Silhouettes.</span>
+            <span className="font-sans font-black text-[6rem] md:text-[10rem] lg:text-[12rem] uppercase tracking-tighter leading-[0.8]">Bold</span>
+            <span className="font-serif italic font-light text-[5rem] md:text-[8rem] lg:text-[10rem] text-[var(--dada-red)] -mt-4 md:-mt-8 ml-8 md:ml-16 leading-[0.8]">Patterns,</span>
+            <span className="font-serif font-extralight text-4xl md:text-6xl mt-4">Striking Silhouettes.</span>
           </span>
         }
         text={<p>Visual rhythm is essential to our design language. We take pride in geometric complexity, organic flow, and daring contrast. Our patterns do not merely sit on the fabric - they actively converse with the silhouette, creating garments that are visually arresting from every angle.</p>}
@@ -198,9 +199,8 @@ export default function Home() {
         subtitle="The Studio"
         title={
           <span className="flex flex-col">
-            <span className="font-serif text-3xl md:text-4xl">This is where design and art</span>
-            <span className="font-sans font-black text-5xl md:text-7xl uppercase tracking-tighter mt-2">Breathe the</span>
-            <span className="font-serif italic text-5xl md:text-7xl text-[var(--dada-red)] -mt-2">same air.</span>
+            <span className="font-serif font-light text-4xl md:text-6xl">This is where design and art</span>
+            <span className="font-serif italic font-light text-[5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-4 leading-[0.8]">same air.</span>
           </span>
         }
         text={<p>The atelier is a sanctuary of imagination. Surrounded by canvases, oil paints, drafting tables, and bolts of silk, our creative directors blend two distinct disciplines into a singular vision. Here, an idea can start as a charcoal sketch and finish as a breathtaking gala gown.</p>}
@@ -213,8 +213,8 @@ export default function Home() {
         title={
           <span className="flex flex-col">
             <span className="font-sans font-black text-4xl md:text-5xl uppercase tracking-tight">Explore the Art</span>
-            <span className="font-serif text-3xl md:text-4xl mt-2">That Inspires</span>
-            <span className="font-serif italic text-6xl md:text-8xl text-[var(--dada-red)] -mt-2">Couture</span>
+            <span className="font-serif font-light text-4xl md:text-6xl mt-4">That Inspires</span>
+            <span className="font-serif italic font-light text-[6rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-4 leading-[0.8]">Couture</span>
           </span>
         }
         text={<p>From canvas to closet, every piece by Gabrielle Benot is born from the same obsession with beauty, color, and style. The textures found in her original paintings dictate the hand of the fabrics chosen for our collections, creating a dialogue between the gallery wall and the runway.</p>}
@@ -225,9 +225,8 @@ export default function Home() {
         subtitle="The Process"
         title={
           <span className="flex flex-col">
-            <span className="font-serif text-4xl md:text-5xl">A meticulous</span>
-            <span className="font-sans font-black text-5xl md:text-7xl uppercase tracking-tighter mt-1 text-[var(--dada-red)]">Dedication</span>
-            <span className="font-serif italic text-4xl md:text-6xl -mt-2">to craft.</span>
+            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">A meticulous</span>
+            <span className="font-serif italic font-light text-[5rem] md:text-[9rem] lg:text-[12rem] -mt-4 leading-[0.8] text-[var(--dada-red)]">to craft.</span>
           </span>
         }
         text={<p>Hours of hand-beading, precise pattern cutting, and visionary draping go into every Art Couture creation. We believe that true luxury cannot be rushed. It is felt in the weight of the silk, the structure of the corset, and the flawless finish of every hidden seam.</p>}
@@ -240,8 +239,8 @@ export default function Home() {
         title={
           <span className="flex flex-col">
             <span className="font-sans font-black text-5xl md:text-7xl uppercase tracking-tighter">Gowns</span>
-            <span className="font-serif text-3xl md:text-4xl mt-2">as rare as the</span>
-            <span className="font-serif italic text-5xl md:text-7xl text-[var(--dada-red)] mt-1">Women who wear them.</span>
+            <span className="font-serif font-light text-4xl md:text-6xl mt-4">as rare as the</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.9]">Women who wear them.</span>
           </span>
         }
         text={<p>Born from the artistic vision of Gabrielle Benot and the couture craftsmanship of Charmaigne Menn, "Gabi et Char" redefines eveningwear for the modern icon. Each gown in this collection is a symphony of rare fabrics: silk satin, hand-embroidered tulle, velvet that drinks in the light, crafted to embrace the body with precision and grace.</p>}
@@ -260,8 +259,8 @@ export default function Home() {
         title={
           <span className="flex flex-col">
             <span className="font-sans font-black text-6xl md:text-8xl uppercase tracking-tighter">Luxury</span>
-            <span className="font-serif text-3xl md:text-4xl mt-2">is in the details</span>
-            <span className="font-serif italic text-5xl md:text-7xl text-[var(--dada-red)] mt-1">You can feel.</span>
+            <span className="font-serif font-light text-4xl md:text-6xl mt-4">is in the details</span>
+            <span className="font-serif italic font-light text-[5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] mt-2 leading-[0.8]">You can feel.</span>
           </span>
         }
         text={<p>From sculptural neoprene to hand-cut French lace appliqué, sheer silk tulle, and richly embroidered jacquard, each collection explores fabric as both canvas and form. We source our textiles from the most prestigious mills, ensuring that every touch is an experience in pure extravagance.</p>}
@@ -272,9 +271,8 @@ export default function Home() {
         subtitle="The Experience"
         title={
           <span className="flex flex-col">
-            <span className="font-serif text-4xl md:text-5xl">Turning</span>
-            <span className="font-sans font-black text-5xl md:text-7xl uppercase tracking-tighter mt-2 text-[var(--dada-red)]">Moments</span>
-            <span className="font-serif italic text-4xl md:text-6xl -mt-1">into Masterpieces.</span>
+            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Turning</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.9]">into Masterpieces.</span>
           </span>
         }
         text={

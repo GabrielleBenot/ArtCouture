@@ -25,7 +25,7 @@ export function ArtGallery() {
             <h2 className="text-xs font-mono tracking-[0.4em] uppercase text-[var(--dada-red)] mb-6 block">
               The Origin
             </h2>
-            <h3 className="text-5xl md:text-7xl lg:text-8xl font-serif text-[var(--text-main)] leading-none tracking-tight">
+            <h3 className="text-[5rem] md:text-[8rem] lg:text-[12rem] font-serif font-extralight text-[var(--text-main)] leading-[0.8] tracking-tight">
               The Art Behind<br/>The Patterns.
             </h3>
           </motion.div>
@@ -34,7 +34,7 @@ export function ArtGallery() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="text-xl md:text-2xl text-[var(--text-muted)] font-serif italic max-w-lg mt-12 md:mt-0"
+            className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.2em] leading-loose max-w-lg mt-12 md:mt-0"
           >
             Original mixed media artworks by Gabrielle Benot that serve as the foundation for our haute couture collections.
           </motion.p>
