@@ -31,16 +31,16 @@ export function TheEdgeCampaign() {
         
         {/* Massive Editorial Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 border-b border-white/20 pb-12">
-          <h2 className="text-[6rem] md:text-[10rem] lg:text-[14rem] font-sans font-black tracking-tighter leading-[0.8] uppercase">
+          <h2 className="text-[3.5rem] md:text-[10rem] lg:text-[14rem] font-sans font-black tracking-tighter leading-[0.8] uppercase">
             Create<br/>
-            <span className="font-serif italic text-[var(--dada-red)] font-extralight text-[5rem] md:text-[9rem] lg:text-[11rem] ml-12 md:ml-24 leading-[0.8] block -mt-4 md:-mt-8">The Edge.</span>
+            <span className="font-serif italic text-[var(--dada-red)] font-extralight text-[3rem] md:text-[9rem] lg:text-[11rem] ml-6 md:ml-24 leading-[0.8] block -mt-4 md:-mt-8">The Edge.</span>
           </h2>
           <div className="max-w-md">
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-white/50 mb-4">
               The Genesis / The Result
             </p>
             <p className="font-mono text-xs md:text-sm uppercase tracking-[0.15em] leading-[1.8] text-white/80 mt-8">
-              From a singular stroke of watercolor to a breathtaking reality. We don't just design dresses; we forge armor for the modern muse. Unapologetic. Wearable. Art.
+              From a single brushstroke to a breathtaking reality. We do not simply design dresses. We forge armor for the modern muse. Unapologetic. Wearable. Art.
             </p>
           </div>
         </div>
@@ -58,6 +58,7 @@ export function TheEdgeCampaign() {
               style={{ filter }}
               src="/campaign/atelier_sketch.png" 
               alt="Atelier Sketch"
+              loading="lazy"
               className="relative z-10 w-full h-full object-cover object-center mix-blend-multiply shadow-2xl"
             />
             <div className="absolute bottom-6 left-6 z-20 mix-blend-difference">
@@ -74,6 +75,7 @@ export function TheEdgeCampaign() {
               style={{ filter }}
               src="/campaign/create_the_edge.jpg" 
               alt="Create The Edge"
+              loading="lazy"
               className="w-full h-full object-cover object-center"
             />
             <div className="absolute bottom-6 left-6 z-20">

@@ -9,9 +9,9 @@ const collection = [
     title: "Fuchsia Majesty", 
     category: "Dresses",
     price: "$7,955", 
-    description: "Bold silk satin with a thigh high slit and crystal detailing, crafted for commanding entrances.",
-    fabric: "Draped from 100-momme Italian silk duchess satin, enriched with iridescent micro-crystals hand-embroidered over forty hours.",
-    customization: "Custom-tailored to your exact silhouette. Available in an exclusive palette of jewel tones with bespoke slit lengths.",
+    description: "A bespoke evening gown of unapologetic glamour — bold silk satin sculpted with a daring thigh-high slit and thousands of hand-set crystals. This handcrafted couture dress commands every entrance with the confidence of luxury fashion at its most fearless.",
+    fabric: "Draped from 100-momme Italian silk duchess satin in vivid fuchsia, enriched with iridescent micro-crystals hand-embroidered over forty hours by our atelier's master beaders.",
+    customization: "Custom-tailored to your exact silhouette with bespoke slit lengths and corsetry adjustments. Available in an exclusive palette of jewel tones — from deep amethyst to midnight ruby.",
     img: "https://storage.googleapis.com/mixo-sites/images/file-b1585176-4ab0-4441-9ca1-0979786596cd.jpg",
     detailImages: [
       "/details/new_fuchsia_bodice_1781676487560.png",
@@ -19,15 +19,15 @@ const collection = [
       "/details/new_fuchsia_drape_1781676508356.png"
     ],
     aspectClass: "aspect-[3/4]",
-    sketchImg: "/images/sketches/model.png"
+    processImg: "/images/process/beading.png"
   },
   { 
     title: "Blush Enchantress", 
     category: "Dresses",
     price: "$8,700", 
-    description: "Layers of silk organza and petal appliqués, the embodiment of modern femininity.",
-    fabric: "Hand-dyed rosewater silk organza floating weightlessly over cascading French Chantilly lace, adorned with 3D silk-chiffon floral appliqués.",
-    customization: "Bodice structure and petal density are sculpted to your preference. Different colors of the fabric can be chosen (e.g., ivory, white, or light pink).",
+    description: "An enchanting handcrafted couture dress that layers silk organza and delicate petal appliqués into a vision of modern femininity. Perfect as a custom wedding dress or red carpet gown, this designer dress embodies the romance of haute couture.",
+    fabric: "Hand-dyed rosewater silk organza floating weightlessly over cascading French Chantilly lace, adorned with 3D silk-chiffon floral appliqués — each petal individually shaped and stitched by hand.",
+    customization: "Bodice structure, petal density, and train length are sculpted to your preference. Available in ivory, blush, champagne, or custom-dyed shades to complement your bridal or evening vision.",
     img: "https://storage.googleapis.com/mixo-sites/images/file-3a32d6f7-9d96-47e6-9e16-1d3e8c356fa3.jpg",
     detailImages: [
       "/details/new_blushench_bodice_1781676653156.png",
@@ -35,15 +35,15 @@ const collection = [
       "/details/new_blushench_drape_1781676696150.png"
     ],
     aspectClass: "aspect-[2/3]",
-    sketchImg: "/images/sketches/mannequin.png"
+    processImg: "/images/process/draping.png"
   },
   { 
     title: "Golden Whisper", 
     category: "Dresses",
     price: "$9,200", 
-    description: "Champagne tulle drenched in hand-set crystals, alive with light.",
-    fabric: "Weightless illusion tulle meticulously encrusted with gold-leaf threading and thousands of Swarovski champagne crystals.",
-    customization: "Train length and crystal density are entirely bespoke. Internal corsetry can be engineered for unparalleled structural support.",
+    description: "A luminous gala gown of champagne tulle drenched in hand-set crystals, alive with every shift of light. This bespoke evening gown captures the essence of silk couture — weightless, radiant, and utterly unforgettable on the red carpet.",
+    fabric: "Weightless illusion tulle meticulously encrusted with gold-leaf threading and thousands of Swarovski champagne crystals, layered over a structured silk faille foundation for effortless movement.",
+    customization: "Train length, crystal density, and silhouette are entirely bespoke. Internal corsetry is precision-engineered for unparalleled structural support tailored to your body.",
     img: "https://storage.googleapis.com/mixo-sites/images/file-fbdb7417-d98d-4d96-99ed-20eb22b057ae.jpg",
     detailImages: [
       "/details/new_golden_bodice_1781676585562.png",
@@ -51,15 +51,15 @@ const collection = [
       "/details/new_golden_drape_1781676619023.png"
     ],
     aspectClass: "aspect-[3/4]",
-    sketchImg: "/images/sketches/gown.png"
+    processImg: "/images/process/crystals.png"
   },
   { 
     title: "Crimson Allure", 
     category: "Dresses",
     price: "$7,980", 
-    description: "Confidence, cut in silk. Sleek silk crepe with shimmering side panels, unapologetically bold.",
-    fabric: "Heavy-weight double-faced silk crepe de chine that cascades like liquid fire, featuring ruby micro-sequin side panelling.",
-    customization: "Neckline plunge and sequin gradient can be flawlessly tailored to the client's preference. Hardware finishes available in 24k gold or platinum.",
+    description: "Confidence, cut in silk couture. This sleek red carpet gown pairs sumptuous silk crepe with shimmering side panels for unapologetic drama. A designer dress born for galas, premieres, and every moment that demands luxury fashion with edge.",
+    fabric: "Heavy-weight double-faced silk crepe de chine that cascades like liquid fire, featuring hand-embroidered ruby micro-sequin side panelling with gradient intensity.",
+    customization: "Neckline plunge depth and sequin gradient density are flawlessly tailored to your preference. Hardware finishes available in 24k gold or platinum, with optional monogrammed interior.",
     img: "https://storage.googleapis.com/mixo-sites/images/file-efa8732c-2726-4513-9f7d-66e84a3ead12.jpg",
     detailImages: [
       "/details/new_crimson_bodice_1781676541872.png",
@@ -67,239 +67,259 @@ const collection = [
       "/details/new_crimson_drape_1781676568248.png"
     ],
     aspectClass: "aspect-[4/5]",
-    sketchImg: "/images/sketches/tools.png"
+    processImg: "/images/process/sewing.png"
   },
   { 
     title: "Ethereal Mist", 
     category: "Dresses",
     price: "$8,500", 
-    description: "A vision of floating tulle and delicate beadwork.",
-    fabric: "Layers of silk tulle over a structured silk faille base.",
-    customization: "Beadwork pattern can be personalized.",
+    description: "A breathtaking bespoke evening gown where clouds of floating tulle dissolve into delicate hand-embroidered beadwork. This haute couture masterpiece moves like mist across a moonlit stage — ethereal, weightless, and profoundly romantic for the most discerning luxury fashion connoisseur.",
+    fabric: "Six layers of gossamer French silk tulle cascade over a precision-structured silk faille base, each layer individually hand-cut and finished with micro-rolled hems for a cloud-like silhouette.",
+    customization: "Beadwork pattern, crystal density, and tulle layering are fully personalized. Choose from platinum, opalescent, or aurora borealis bead palettes, with bespoke train lengths from sweep to cathedral.",
     img: "https://images.unsplash.com/photo-1566162200408-2f56dc9f69b6?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[3/4]"
+    aspectClass: "aspect-[3/4]",
+    processImg: "/images/process/lace.png"
   },
   { 
     title: "Sapphire Dream", 
     category: "Dresses",
     price: "$11,000", 
-    description: "Deep jewel tones meet masterful draping.",
-    fabric: "Rich sapphire silk velvet with a silk satin lining.",
-    customization: "Neckline can be altered to off-the-shoulder.",
+    description: "Deep jewel tones meet masterful draping in this spellbinding gala gown that commands attention from every angle. A handcrafted couture dress of extraordinary depth, where sapphire silk velvet pools and cascades like midnight water — the pinnacle of luxury fashion.",
+    fabric: "Rich Italian sapphire silk velvet with a luminous hand-burnished pile, fully lined in contrasting jewel-toned silk charmeuse for a sumptuous interior that glides against the skin.",
+    customization: "Neckline can be sculpted from high boat-neck to dramatic off-the-shoulder décolletage. Drape depth, back exposure, and custom jewel-tone colorways available through private consultation.",
     img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[2/3]"
+    aspectClass: "aspect-[2/3]",
+    processImg: "/images/process/threading.png"
   },
   { 
     title: "Blush Couture", 
     category: "Accessories",
     price: "$11,700", 
-    description: "The ultimate expression of our atelier. Layers of silk organza and petal appliqués.",
-    fabric: "Ethereal ivory silk tulle intricately paired with hand-cut Guipure lace, falling into a voluminous, breathtaking architectural skirt.",
-    customization: "Skirt volume completely adjustable via a masterful detachable crinoline. Different colors of the fabric can be chosen (e.g., ivory, white, or light pink).",
+    description: "The ultimate expression of our atelier's bespoke accessories craft — layers of silk organza and hand-sculpted petal appliqués converge in a breathtaking statement piece. This haute couture creation elevates luxury fashion beyond adornment into wearable architecture.",
+    fabric: "Ethereal ivory silk tulle intricately paired with hand-cut French Guipure lace, each petal individually sculpted and secured with invisible micro-stitching, falling into a voluminous architectural skirt.",
+    customization: "Skirt volume is completely adjustable via a masterful detachable crinoline system. Available in ivory, blush, champagne, or custom-dyed hues — perfect for brides, galas, or editorial moments.",
     img: "https://storage.googleapis.com/mixo-sites/images/file-e25b0f24-1bdb-4182-886e-58dd451f1664.jpg",
     detailImages: [
       "/details/new_blushcout_bodice_1781676712185.png",
       "/details/new_blushcout_texture_1781676722580.png",
       "/details/new_blushcout_drape_1781676734418.png"
     ],
-    aspectClass: "aspect-[2/3]"
+    aspectClass: "aspect-[2/3]",
+    processImg: "/images/process/applique.png"
   },
   { 
     title: "Pearl Symphony", 
     category: "Accessories",
     price: "$4,200", 
-    description: "Hand-strung freshwater pearls and diamond accents.",
-    fabric: "18k white gold interwoven with South Sea pearls.",
-    customization: "Available in rose gold and yellow gold finishes.",
+    description: "A symphony of hand-strung freshwater pearls and brilliant diamond accents, this bespoke accessories masterpiece embodies the quiet grandeur of haute couture jewelry. Exquisite as a bridal accent, mother of the bride treasure, or red carpet finishing touch.",
+    fabric: "18k white gold filigree meticulously interwoven with lustrous South Sea pearls of exceptional nacre quality, accented by VS-clarity diamond pavé set by our master jeweler over sixty painstaking hours.",
+    customization: "Available in rose gold, yellow gold, and platinum finishes. Pearl size graduation, strand length, and diamond accent placement are tailored to your personal aesthetic through private fitting.",
     img: "https://images.unsplash.com/photo-1599643478524-fb66f7ca065b?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[3/4]"
+    aspectClass: "aspect-[3/4]",
+    processImg: "/images/process/luneville.png"
   },
   { 
     title: "Obsidian Clutch", 
     category: "Accessories",
     price: "$5,500", 
-    description: "Structured evening bag crafted from rare materials.",
-    fabric: "Matte crocodile leather with platinum hardware.",
-    customization: "Monogramming available on interior silk lining.",
+    description: "A structured evening clutch crafted from the world's rarest materials — the essential bespoke accessories companion for any red carpet gown or gala gown moment. This luxury fashion statement piece transforms the art of arrival into a ritual of quiet power.",
+    fabric: "Hand-selected matte Niloticus crocodile leather in deep obsidian, paired with mirror-polished platinum hardware and an interior of hand-dyed midnight silk charmeuse.",
+    customization: "Monogramming available on the interior silk lining in gold or platinum thread. Exotic leather colorways, hardware finishes, and clasp gemstone inlays are available through our bespoke program.",
     img: "https://images.unsplash.com/photo-1584395442286-d62152862d29?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[4/5]"
+    aspectClass: "aspect-[4/5]",
+    processImg: "/images/process/buttons.png"
   },
   { 
     title: "Crystal Steps", 
     category: "Accessories",
     price: "$2,800", 
-    description: "The glass slipper reimagined for the modern muse.",
-    fabric: "Lucite heel with Swarovski crystal-encrusted straps.",
-    customization: "Heel height adjustable between 85mm and 110mm.",
+    description: "The glass slipper reimagined for the modern muse — a dazzling fusion of transparency and sparkle that elevates any bespoke evening gown or custom wedding dress. These bespoke accessories are luxury fashion's answer to Cinderella, designed for real-world red carpets.",
+    fabric: "Optically pure Italian Lucite heel sculpted to architectural precision, paired with straps encrusted in over three hundred individually hand-set Swarovski crystals with aurora borealis finish.",
+    customization: "Heel height adjustable between 85mm and 110mm. Strap crystal colorway, sole personalization, and custom sizing ensure a perfect bespoke fit for your most important evening.",
     img: "https://images.unsplash.com/photo-1576182103429-0158dfa64010?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[3/4]"
+    aspectClass: "aspect-[3/4]",
+    processImg: "/images/process/handstitch.png"
   },
   { 
     title: "Golden Hour", 
     category: "Accessories",
     price: "$3,100", 
-    description: "A breathtaking statement piece that catches every ray of light.",
-    fabric: "24k gold-plated brass and smoked topaz crystals.",
-    customization: "Available in silver and rose gold.",
+    description: "A breathtaking bespoke accessories statement piece that catches and refracts every ray of light into prismatic splendor. Worn alone or layered with haute couture, this handcrafted treasure defines luxury fashion's golden hour — luminous, warm, and impossibly radiant.",
+    fabric: "Solid brass foundation with 24k gold plating applied in three meticulous layers for enduring luster, adorned with hand-set smoked topaz crystals sourced from master gem cutters in Idar-Oberstein.",
+    customization: "Available in sterling silver, 24k gold, and rose gold vermeil finishes. Crystal colorway, chain length, and clasp style are fully customizable through our bespoke accessories atelier.",
     img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[2/3]"
+    aspectClass: "aspect-[2/3]",
+    processImg: "/images/process/ribbon.png"
   },
   { 
     title: "Velvet Veil", 
     category: "Accessories",
     price: "$1,500", 
-    description: "A dramatic finishing touch to any couture ensemble.",
-    fabric: "Silk velvet and hand-woven netting.",
-    customization: "Embroidery options for the netting.",
+    description: "A dramatic finishing touch that transforms any haute couture ensemble into a moment of cinematic mystery. This handcrafted veil is among our most coveted bespoke accessories — equally stunning for a custom wedding dress as for a red carpet gown editorial.",
+    fabric: "Sumptuous silk velvet band in deep noir, paired with hand-woven French illusion netting featuring delicate picot edging and scattered micro-crystal accents that catch the light like captured stars.",
+    customization: "Hand-embroidered motifs — from celestial constellations to monogram initials — can adorn the netting. Veil length, velvet band width, and crystal density are tailored to your vision.",
     img: "https://images.unsplash.com/photo-1509631179647-0c1158b0f443?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[4/5]"
+    aspectClass: "aspect-[4/5]",
+    processImg: "/images/process/dyeing.png"
   },
   { 
     title: "Midnight Elegance", 
     category: "Jackets",
     price: "$8,850", 
-    description: "Where darkness whispers luxury. Deep navy velvet sculpted to perfection, draping with quiet power.",
-    fabric: "Midnight blue silk-viscose pané velvet, extraordinarily soft and plush, catching the light like a starlit winter sky.",
-    customization: "Backless plunge depth and sleeve length are bespoke. Choice of heavy silk charmeuse interior lining in contrasting jewel tones.",
+    description: "Where darkness whispers luxury fashion. This couture jacket in deep navy velvet is sculpted to perfection, draping with quiet power that rivals any red carpet gown. A designer dress alternative for those who command a room through understated haute couture mastery.",
+    fabric: "Midnight blue silk-viscose pané velvet, extraordinarily soft and plush with a hand-brushed pile that catches the light like a starlit winter sky, fully lined in heavy silk charmeuse.",
+    customization: "Backless plunge depth, sleeve length, and shoulder silhouette are bespoke. Interior lining available in contrasting jewel tones — emerald, ruby, or sapphire silk charmeuse.",
     img: "https://storage.googleapis.com/mixo-sites/images/file-fd88942d-471c-4ef4-ac9b-1d4292999cb3.jpg",
     detailImages: [
       "/details/new_midnight_bodice_1781676446002.png",
       "/details/new_midnight_texture_1781676459211.png",
       "/details/new_midnight_drape_1781676475270.png"
     ],
-    aspectClass: "aspect-[3/4]"
+    aspectClass: "aspect-[3/4]",
+    processImg: "/images/process/cutting.png"
   },
   { 
     title: "Noir Power", 
     category: "Jackets",
     price: "$7,200", 
-    description: "A commanding tailored blazer with exaggerated lapels.",
-    fabric: "Heavy Italian wool crepe with silk lapels.",
-    customization: "Shoulder pad structure and button materials can be customized.",
+    description: "A commanding couture jacket with exaggerated lapels that redefine power dressing for the modern era. This designer dress alternative bridges the worlds of haute couture tailoring and luxury fashion's boldest silhouettes — fierce, sculpted, and undeniably authoritative.",
+    fabric: "Heavy Italian virgin wool crepe in deep noir, contrasted with lustrous silk duchesse satin peaked lapels and a hand-finished interior of silk twill with branded jacquard weave.",
+    customization: "Shoulder pad architecture, button materials (mother-of-pearl, horn, or gold), lapel width, and overall silhouette are fully bespoke. Sleeve lining monogramming included.",
     img: "/collections/jacket_two.png",
     detailImages: [],
-    aspectClass: "aspect-[2/3]"
+    aspectClass: "aspect-[2/3]",
+    processImg: "/images/process/corset.png"
   },
   { 
     title: "Ivory Architecture", 
     category: "Jackets",
     price: "$9,100", 
-    description: "Structured double-breasted coat that redefines shape.",
-    fabric: "Cashmere-blend woven in Scotland.",
-    customization: "Lining features hand-painted silk motifs.",
+    description: "A structured double-breasted couture jacket that redefines shape with architectural precision and haute couture craftsmanship. This ivory masterpiece is luxury fashion's answer to modern sculpture — equally at home over a bespoke evening gown or commanding the street as a standalone designer dress.",
+    fabric: "Exquisite cashmere-wool blend woven by heritage mills in the Scottish Borders, brushed to a cloud-soft hand with natural ivory depth that deepens with each wear.",
+    customization: "Interior lining features bespoke hand-painted silk motifs commissioned from our in-house artist. Button finish, belt closure, and shoulder line are tailored through private fitting.",
     img: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[3/4]"
+    aspectClass: "aspect-[3/4]",
+    processImg: "/images/process/measuring.png"
   },
   { 
     title: "Crimson Drape", 
     category: "Jackets",
     price: "$6,500", 
-    description: "A fluid trench coat that moves like liquid.",
-    fabric: "Water-resistant silk gabardine.",
-    customization: "Belt thickness and buckle material are bespoke.",
+    description: "A fluid couture jacket reimagined as a crimson trench that moves like liquid silk — drama distilled into luxury fashion's most wearable silhouette. Layer over a cocktail dress or bespoke evening gown for an entrance that lingers in memory long after you've arrived.",
+    fabric: "Italian water-resistant silk gabardine in deep crimson, with a matte finish that captures movement like poured wine. Fully lined in contrasting silk twill with storm flap detailing.",
+    customization: "Belt thickness, buckle material (brushed gold, silver, or horn), collar height, and hem length are all bespoke. Available in twelve exclusive colorways through private consultation.",
     img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[4/5]"
+    aspectClass: "aspect-[4/5]",
+    processImg: "/images/process/steaming.png"
   },
   { 
     title: "Onyx Edge", 
     category: "Jackets",
     price: "$8,200", 
-    description: "A sharp, minimalist coat with a dramatic collar.",
-    fabric: "Heavy wool melton and silk satin.",
-    customization: "Hidden interior pockets and monogramming.",
+    description: "A sharp, minimalist couture jacket with a dramatic stand collar that cuts through convention with razor precision. This designer dress-level outerwear piece is luxury fashion distilled to its purest form — where every seam speaks of haute couture discipline and artistry.",
+    fabric: "Heavy Italian wool melton in deep onyx with a dense, sculptural hand, contrasted by silk duchesse satin collar facings and interior panel detailing for hidden opulence.",
+    customization: "Hidden interior pockets, silk lining monogramming in metallic thread, collar height, and button concealment are fully bespoke. Dramatic back vent and sleeve length tailored to your frame.",
     img: "https://images.unsplash.com/photo-1544441893-675973e31985?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[3/4]"
+    aspectClass: "aspect-[3/4]",
+    processImg: "/images/process/painting.png"
   },
   { 
     title: "Tweed Illusion", 
     category: "Jackets",
     price: "$7,800", 
-    description: "A modern take on the classic tailored tweed.",
-    fabric: "Hand-woven boucle with metallic threads.",
-    customization: "Trim details and button choices are fully bespoke.",
+    description: "A modern couture jacket that reimagines the classic tailored tweed with hand-woven textures and unexpected metallic luminosity. This designer dress companion bridges heritage craft and avant-garde luxury fashion — the kind of haute couture piece that starts conversations and ends debates.",
+    fabric: "Hand-woven French bouclé with interlaced metallic gold and silver threads, creating a subtly shimmering surface that shifts between matte and lustrous depending on the light.",
+    customization: "Trim details — from silk ribbon edging to hand-braided cord — and button choices (vintage crystal, enameled gold, or hand-carved mother-of-pearl) are fully bespoke through our atelier.",
     img: "https://images.unsplash.com/photo-1548624149-f9b1859aa7d0?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[2/3]"
+    aspectClass: "aspect-[2/3]",
+    processImg: "/images/process/swatches.png"
   },
   { 
     title: "Ivory Cascade", 
     category: "Blouses",
     price: "$3,400", 
-    description: "A masterclass in modern draping. Pure silk crepe de chine blouse with dramatic sweeping ties.",
-    fabric: "100% heavy silk crepe de chine from Como, Italy. Finished with mother-of-pearl button closures.",
-    customization: "Tie length and sleeve volume can be adjusted. Available in Ivory, Obsidian, and Blush.",
+    description: "A masterclass in modern draping and silk couture — this luxury blouse pairs pure silk crepe de chine with dramatic sweeping ties for effortless editorial elegance. A versatile designer dress companion that transitions from boardroom power to evening allure with a single adjustment.",
+    fabric: "100% heavy silk crepe de chine sourced from heritage weavers in Como, Italy. Finished with luminous mother-of-pearl button closures and French-seamed construction throughout.",
+    customization: "Tie length, sleeve volume, and collar structure can be adjusted to your preference. Available in Ivory, Obsidian, Blush, and seasonal exclusive colorways.",
     img: "https://storage.googleapis.com/mixo-sites/images/file-77426bbf-6aac-41f4-8c9f-16b8a9375343.PNG",
     detailImages: [
       "/details/new_blushcout_bodice_1781676712185.png",
       "/details/new_blushcout_texture_1781676722580.png",
       "/details/new_blushcout_drape_1781676734418.png"
     ],
-    aspectClass: "aspect-[3/4]"
+    aspectClass: "aspect-[3/4]",
+    processImg: "/images/process/sketching.png"
   },
   { 
     title: "Chiffon Whisper", 
     category: "Blouses",
     price: "$2,900", 
-    description: "Sheer silk blouse with intricate pleating.",
-    fabric: "French silk chiffon with Chantilly lace trims.",
-    customization: "Cuff links available in pearl or diamond.",
+    description: "A sheer luxury blouse of French silk chiffon with intricate hand-pleating that whispers against the skin like a secret. This hand-embroidered piece of silk couture is the perfect layering companion for any bespoke evening gown, cocktail dress, or couture jacket moment.",
+    fabric: "Gossamer French silk chiffon from Lyon with hand-rolled edges, trimmed in heirloom Chantilly lace with scalloped detailing. Each pleat is individually pressed and set by hand.",
+    customization: "Cuff closures available in freshwater pearl or pavé diamond. Pleat density, sleeve length, and chiffon opacity can be adjusted through bespoke fitting consultation.",
     img: "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[2/3]"
+    aspectClass: "aspect-[2/3]",
+    processImg: "/images/process/pleating.png"
   },
   { 
     title: "Satin Armor", 
     category: "Blouses",
     price: "$3,800", 
-    description: "High-neck silk blouse with strong shoulder structure.",
-    fabric: "100-momme Italian silk satin.",
-    customization: "Collar height and tie length are bespoke.",
+    description: "A high-neck luxury blouse that marries silk couture softness with the architectural authority of strong, sculpted shoulders. This designer dress-level silk piece is as commanding beneath a couture jacket as it is striking worn alone — haute couture power, reimagined for modern women.",
+    fabric: "100-momme Italian silk satin with an extraordinary weight and luminous drape, featuring precision-cut bias panels and concealed internal shoulder architecture for sculptural definition.",
+    customization: "Collar height, tie length, shoulder structure, and cuff detailing are fully bespoke. Available in twelve curated silk colorways, each dyed exclusively for our atelier.",
     img: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[3/4]"
+    aspectClass: "aspect-[3/4]",
+    processImg: "/images/process/pinning.png"
   },
   { 
     title: "Organza Cloud", 
     category: "Blouses",
     price: "$4,100", 
-    description: "Voluminous sleeves that float around the arms.",
-    fabric: "Hand-dyed silk organza from Lyon.",
-    customization: "Sleeve volume and elasticity are tailored.",
+    description: "Voluminous sleeves that float around the arms like sculpted clouds — this luxury blouse transforms silk organza into wearable poetry. A hand-embroidered silk couture statement that pairs effortlessly with a cocktail dress skirt or adds ethereal drama beneath a couture jacket.",
+    fabric: "Hand-dyed silk organza from heritage ateliers in Lyon, treated with a specialized finish that holds its voluminous shape while remaining featherlight. Each sleeve uses over two meters of fabric.",
+    customization: "Sleeve volume, gathered cuff elasticity, and body fit are individually tailored. Available in custom-dyed colorways from whisper pastels to saturated jewel tones.",
     img: "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[4/5]"
+    aspectClass: "aspect-[4/5]",
+    processImg: "/images/process/pressing.png"
   },
   { 
     title: "Silk Essential", 
     category: "Blouses",
     price: "$2,200", 
-    description: "The perfect minimalist silk shirt.",
-    fabric: "Sandwashed silk charmeuse.",
-    customization: "Available in 12 custom dye colors.",
+    description: "The perfect minimalist luxury blouse — pure silk couture reduced to its most essential, elegant form. This sandwashed silk charmeuse shirt is the foundation of any haute couture wardrobe, effortlessly pairing with everything from a bespoke evening gown skirt to tailored trousers.",
+    fabric: "Sandwashed silk charmeuse with a buttery, lived-in softness achieved through a specialized enzyme wash process. The natural luster creates depth that synthetic fabrics cannot replicate.",
+    customization: "Available in twelve exclusive custom-dye colorways developed by our in-house colorist. Collar shape, cuff style, and body length are tailored through bespoke fitting.",
     img: "https://images.unsplash.com/photo-1434389673669-e08b4cac3105?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[3/4]"
+    aspectClass: "aspect-[3/4]",
+    processImg: "/images/process/ironing.png"
   },
   { 
     title: "Lace Romance", 
     category: "Blouses",
     price: "$4,500", 
-    description: "Intricate lace overlay with a demure silhouette.",
-    fabric: "French Chantilly lace over silk organza.",
-    customization: "Lace pattern variations available upon request.",
+    description: "An intricate hand-embroidered luxury blouse where French Chantilly lace cascades over silk organza in a demure yet captivating silhouette. This silk couture piece is a mother of the bride favorite and a timeless addition to any haute couture collection — romance rendered in thread and light.",
+    fabric: "Heirloom-quality French Chantilly lace with floral and foliate motifs, delicately layered over whisper-weight silk organza. Each lace panel is hand-matched for seamless pattern continuity.",
+    customization: "Lace pattern variations — from botanical to geometric — are available upon request. Organza underlayer color, sleeve length, and neckline shape are fully bespoke through atelier consultation.",
     img: "https://images.unsplash.com/photo-1574291814206-363acdf2aa79?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[2/3]"
+    aspectClass: "aspect-[2/3]",
+    processImg: "/images/process/embroidery.png"
   }
 ];
 
@@ -326,26 +346,28 @@ function DressCard({
       onClick={onClick}
     >
       <div className="w-full h-full relative">
-        {/* The Image with Vintage B&W Filter by default */}
+        {/* Process Photo - shown by default, fades on hover */}
+        {item.processImg && (
+          <img 
+            src={item.processImg} 
+            alt={`${item.title} process`} 
+            loading="lazy"
+            className="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-out group-hover:opacity-0 z-[1]"
+            style={{ filter: 'grayscale(100%) sepia(40%) hue-rotate(330deg) brightness(0.75) contrast(0.85)' }}
+          />
+        )}
+
+        {/* The Product Image - hidden by default, revealed on hover */}
         <motion.img 
           src={item.img} 
           alt={item.title}
-          className={`w-full h-full object-cover absolute inset-0 transition-all duration-[2s] ${isActiveCategory ? '' : 'group-hover:scale-110 grayscale contrast-125 sepia-[.2] group-hover:grayscale-0 group-hover:contrast-100 group-hover:sepia-0'} ${item.sketchImg ? 'group-hover:opacity-0' : ''}`}
+          className={`w-full h-full object-cover absolute inset-0 transition-all duration-[2s] ${isActiveCategory ? '' : 'group-hover:scale-110'}`}
         />
-        
-        {/* Optional Sketch Image */}
-        {item.sketchImg && (
-          <img 
-            src={item.sketchImg} 
-            alt={`${item.title} sketch`} 
-            className="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 ease-out group-hover:opacity-100"
-          />
-        )}
         
         {/* Grainy Film Overlay that fades out on hover */}
         {!isActiveCategory && (
           <div 
-            className="absolute inset-0 opacity-40 group-hover:opacity-0 transition-opacity duration-1000 mix-blend-overlay pointer-events-none"
+            className="absolute inset-0 opacity-[0.55] group-hover:opacity-0 transition-opacity duration-1000 mix-blend-overlay pointer-events-none z-[2]"
             style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
           />
         )}
@@ -383,6 +405,7 @@ function DressCard({
 
 export function EditorialCollection() {
   const [selectedDress, setSelectedDress] = useState<DressItem | null>(null);
+  const [enquiryService, setEnquiryService] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [showAllItems, setShowAllItems] = useState(false);
 
@@ -480,61 +503,182 @@ export function EditorialCollection() {
 
         {filteredCollection.length > 6 && !showAllItems && (
           <div className="flex justify-center mt-16 mb-8 relative z-40">
-            <MagneticButton>
-              <button
-                onClick={() => setShowAllItems(true)}
-                className="group flex items-center gap-4 border border-[var(--text-muted)]/30 px-8 py-4 hover:border-[var(--dada-red)] transition-colors duration-300"
-              >
-                <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--text-main)]">More</span>
-                <span className="w-8 h-[1px] bg-[var(--text-muted)] group-hover:bg-[var(--dada-red)] transition-colors duration-300"></span>
-              </button>
-            </MagneticButton>
+            <button
+              onClick={() => setShowAllItems(true)}
+              className="group flex items-center gap-4 border border-[var(--text-muted)]/30 px-8 py-4 hover:border-[var(--dada-red)] transition-colors duration-300 cursor-pointer"
+            >
+              <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--text-main)]">More</span>
+              <span className="w-8 h-[1px] bg-[var(--text-muted)] group-hover:bg-[var(--dada-red)] transition-colors duration-300"></span>
+            </button>
           </div>
         )}
 
-        {/* Explore Other Collections Grid */}
-        {categories.length > 0 && (
-          <div className="mt-32 border-t border-[var(--text-muted)]/20 pt-24">
-            <div className="text-center mb-24">
-              <h3 className="text-[4rem] md:text-[6rem] lg:text-[8rem] font-serif font-extralight text-[var(--text-main)] mb-8 tracking-tight leading-none">Explore Other Collections</h3>
-              <p className="font-mono text-xs uppercase tracking-[0.4em] text-[var(--text-muted)]">Discover more from our atelier</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {categories.filter(c => c !== "All").map((cat) => {
-                const preview = getCategoryPreview(cat);
-                if (!preview) return null;
-                
-                const placeholderImage = {
-                  "Dresses": "/collections/sil_dress.png?v=3",
-                  "Jackets": "/collections/sil_jacket.png?v=3",
-                  "Accessories": "/collections/sil_accessories.png?v=3",
-                  "Blouses": "/collections/sil_blouse.png?v=3"
-                }[cat] || "/collections/sil_dress.png?v=3";
-                
-                return (
-                  <DressCard 
-                    key={cat} 
-                    item={{
-                      ...preview, 
-                      title: cat, 
-                      img: placeholderImage, 
-                      aspectClass: "aspect-[3/4]",
-                      sketchImg: undefined
-                    }} 
-                    onClick={() => {
-                      if (activeCategory === cat) return;
-                      setActiveCategory(cat);
-                      window.scrollTo({ top: document.getElementById('collection-start')?.offsetTop || 0, behavior: 'smooth' });
-                    }} 
-                    isPlaceholder={true}
-                    isActiveCategory={activeCategory === cat}
-                  />
-                );
-              })}
-            </div>
+        {/* Our Services Grid */}
+        <div className="mt-32 border-t border-[var(--text-muted)]/20 pt-24">
+          <div className="text-center mb-24">
+            <h3 className="text-[4rem] md:text-[6rem] lg:text-[8rem] font-serif font-extralight text-[var(--text-main)] mb-8 tracking-tight leading-none">Our Services</h3>
+            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[var(--text-muted)]">Bespoke experiences from our atelier</p>
           </div>
-        )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { 
+                title: "Bespoke Gowns", 
+                description: "Custom couture created exclusively for you, from initial sketch to final fitting.",
+                img: "/images/process/draping.png"
+              },
+              { 
+                title: "Bridal Couture", 
+                description: "Your dream wedding gown, handcrafted with the finest silks, lace, and beadwork.",
+                img: "/images/process/beading.png"
+              },
+              { 
+                title: "Couture Rental", 
+                description: "Access our exclusive collection for red carpet events and special occasions.",
+                img: "/images/process/pressing.png"
+              },
+              { 
+                title: "Photography Sessions", 
+                description: "Editorial-quality sessions that capture you in couture elegance.",
+                img: "/images/process/painting.png"
+              }
+            ].map((service) => (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8 }}
+                className="group relative overflow-hidden cursor-pointer aspect-[3/4]"
+                onClick={() => setEnquiryService(service.title)}
+              >
+                <img 
+                  src={service.img} 
+                  alt={service.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover absolute inset-0 transition-all duration-1000 group-hover:scale-110"
+                  style={{ filter: 'grayscale(100%) sepia(40%) hue-rotate(330deg) brightness(0.75) contrast(0.85)' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                
+                {/* Corner brackets */}
+                <div className="absolute top-4 left-4 md:top-6 md:left-6 w-10 h-10 md:w-12 md:h-12 border-t-[0.5px] border-l-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
+                <div className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 border-t-[0.5px] border-r-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
+                <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 w-10 h-10 md:w-12 md:h-12 border-b-[0.5px] border-l-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
+                <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 w-10 h-10 md:w-12 md:h-12 border-b-[0.5px] border-r-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
+                
+                <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 z-20">
+                  <h4 className="text-lg md:text-xl lg:text-2xl font-serif text-white tracking-[0.15em] font-light drop-shadow-lg group-hover:-translate-y-2 transition-transform duration-500">
+                    {service.title}
+                  </h4>
+                  <p className="font-mono text-[10px] text-white/60 uppercase tracking-widest mt-3 max-w-[200px] leading-relaxed opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
+                    {service.description}
+                  </p>
+                  <p className="font-mono text-xs text-white/70 uppercase tracking-widest mt-4 flex items-center gap-3 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                    <span>Enquire</span>
+                    <span className="w-6 h-[1px] bg-white/70 inline-block"></span>
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
+
+      {/* Enquiry Modal */}
+      <AnimatePresence>
+        {enquiryService && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center p-6"
+            onClick={() => setEnquiryService(null)}
+          >
+            <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 40, scale: 0.95 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="relative bg-[#0a0a0a] border border-white/10 w-full max-w-lg p-10 md:p-14"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close button */}
+              <button 
+                onClick={() => setEnquiryService(null)}
+                className="absolute top-6 right-6 text-white/40 hover:text-white transition-colors"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+
+              <span className="block font-serif italic text-sm uppercase tracking-[0.2em] text-[var(--dada-red)] mb-4">Enquire</span>
+              <h3 className="text-3xl md:text-4xl font-serif font-extralight text-white mb-2">{enquiryService}</h3>
+              <p className="font-mono text-xs text-white/40 uppercase tracking-widest mb-10">We&apos;ll respond within 24 hours</p>
+
+              <form 
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.currentTarget;
+                  const formData = new FormData(form);
+                  formData.append('_subject', `Service Enquiry: ${enquiryService}`);
+                  try {
+                    await fetch("https://formspree.io/f/mnjyyqan", {
+                      method: "POST",
+                      body: formData,
+                      headers: { Accept: "application/json" },
+                    });
+                    setEnquiryService(null);
+                  } catch {
+                    // Silently handle - form still closes
+                    setEnquiryService(null);
+                  }
+                }}
+                className="space-y-6"
+              >
+                <input type="hidden" name="service" value={enquiryService || ''} />
+                <div>
+                  <label className="block font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 mb-2">Your Name</label>
+                  <input 
+                    name="name"
+                    type="text" 
+                    required
+                    className="w-full bg-transparent border-b border-white/20 focus:border-[var(--dada-red)] outline-none text-white font-serif text-lg py-3 transition-colors duration-300 placeholder:text-white/20"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div>
+                  <label className="block font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 mb-2">Email Address</label>
+                  <input 
+                    name="email"
+                    type="email" 
+                    required
+                    className="w-full bg-transparent border-b border-white/20 focus:border-[var(--dada-red)] outline-none text-white font-serif text-lg py-3 transition-colors duration-300 placeholder:text-white/20"
+                    placeholder="your@email.com"
+                  />
+                </div>
+                <div>
+                  <label className="block font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 mb-2">Your Message</label>
+                  <textarea 
+                    name="message"
+                    rows={4}
+                    required
+                    className="w-full bg-transparent border-b border-white/20 focus:border-[var(--dada-red)] outline-none text-white font-serif text-lg py-3 transition-colors duration-300 resize-none placeholder:text-white/20"
+                    placeholder="Tell us about your vision..."
+                  />
+                </div>
+                <button 
+                  type="submit"
+                  className="w-full mt-4 py-4 bg-[var(--dada-red)] text-white font-mono text-xs uppercase tracking-[0.3em] hover:bg-[var(--dada-red)]/80 transition-colors duration-300 cursor-pointer"
+                >
+                  Send Enquiry
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {selectedDress && (

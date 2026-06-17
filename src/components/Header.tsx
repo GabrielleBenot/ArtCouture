@@ -1,47 +1,289 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Logo } from "./Logo";
+
+const navLinks = [
+  { label: "Shop Boutique", href: "#boutique" },
+  { label: "Collections", href: "#collections" },
+  { label: "Our Story", href: "#story" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Contact", href: "#contact" },
+];
+
+const overlayVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const } },
+  exit: { opacity: 0, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] as const, delay: 0.15 } },
+};
+
+const linkContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.07, delayChildren: 0.2 },
+  },
+  exit: {
+    transition: { staggerChildren: 0.04, staggerDirection: -1 },
+  },
+};
+
+const linkItemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+  },
+  exit: {
+    opacity: 0,
+    y: -15,
+    transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
+const footerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const, delay: 0.55 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.2 },
+  },
+};
+
+function HamburgerIcon({ open }: { open: boolean }) {
+  return (
+    <div className="relative w-6 h-5 flex flex-col justify-between">
+      <motion.span
+        className="block h-[1.5px] w-full bg-current origin-center"
+        animate={open ? { rotate: 45, y: 7.5 } : { rotate: 0, y: 0 }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      />
+      <motion.span
+        className="block h-[1.5px] w-full bg-current origin-center"
+        animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+        transition={{ duration: 0.2 }}
+      />
+      <motion.span
+        className="block h-[1.5px] w-full bg-current origin-center"
+        animate={open ? { rotate: -45, y: -7.5 } : { rotate: 0, y: 0 }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      />
+    </div>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+
+function PinterestIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 2C6.48 2 2 6.48 2 12c0 4.08 2.46 7.58 5.97 9.12-.08-.72-.16-1.83.03-2.62.17-.71 1.12-4.74 1.12-4.74s-.29-.57-.29-1.41c0-1.32.77-2.31 1.73-2.31.81 0 1.21.61 1.21 1.34 0 .82-.52 2.04-.79 3.17-.22.95.47 1.72 1.41 1.72 1.69 0 2.99-1.78 2.99-4.36 0-2.28-1.64-3.87-3.97-3.87-2.71 0-4.3 2.03-4.3 4.13 0 .82.31 1.69.71 2.17.08.09.09.17.07.27-.07.3-.24.95-.27 1.08-.04.18-.15.22-.34.13-1.25-.58-2.03-2.42-2.03-3.89 0-3.16 2.3-6.07 6.63-6.07 3.48 0 6.19 2.48 6.19 5.79 0 3.46-2.18 6.24-5.2 6.24-1.02 0-1.97-.53-2.3-1.15l-.62 2.38c-.23.87-.84 1.96-1.25 2.62.94.29 1.94.45 2.97.45 5.52 0 10-4.48 10-10S17.52 2 12 2z" />
+    </svg>
+  );
+}
+
 export function Header() {
   const { scrollY } = useScroll();
   const isScrolled = useTransform(scrollY, [0, 50], [false, true]);
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    return isScrolled.onChange((v) => setScrolled(v));
+    return isScrolled.on("change", (v: boolean) => setScrolled(v));
   }, [isScrolled]);
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  const handleLinkClick = useCallback(() => {
+    setMenuOpen(false);
+  }, []);
+
   return (
-    <header 
-      className={`fixed top-0 w-full z-50 flex items-center justify-between px-6 md:px-12 transition-all duration-500 ${
-        scrolled 
-          ? "py-4 bg-black/90 backdrop-blur-md text-white border-b border-white/10" 
-          : "py-6 mix-blend-difference text-white"
-      }`}
-    >
-      <div className="flex-1">
-        <a href="#boutique" className={`font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors ${scrolled ? "text-white" : "text-white"}`}>
-          Shop Boutique
-        </a>
-      </div>
+    <>
+      <header
+        className={`fixed top-0 w-full z-50 flex items-center justify-between px-6 md:px-12 transition-all duration-500 ${
+          scrolled
+            ? "py-4 bg-black/90 backdrop-blur-md text-white border-b border-white/10"
+            : "py-6 mix-blend-difference text-white"
+        }`}
+      >
+        <div className="flex-1 hidden md:block">
+          <a
+            href="#boutique"
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white"
+          >
+            Shop Boutique
+          </a>
+        </div>
 
-      <div className="flex-1 flex justify-center text-white">
-        <Logo className="h-8 w-auto" />
-      </div>
+        <div className="flex-1 flex justify-center text-white">
+          <Logo className="h-8 w-auto" />
+        </div>
 
-      <div className="flex-1 flex justify-end items-center gap-4 md:gap-8">
-        <a href="#collections" className={`font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white hidden sm:block`}>
-          Collections
-        </a>
-        <a href="#story" className={`font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white hidden md:block`}>
-          Our Story
-        </a>
-        <a href="#faq" className={`font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white hidden lg:block`}>
-          FAQ
-        </a>
-        <a href="#contact" className={`font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white`}>
-          Contact
-        </a>
-      </div>
-    </header>
+        <div className="flex-1 hidden md:flex justify-end items-center gap-8">
+          <a
+            href="#collections"
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white"
+          >
+            Collections
+          </a>
+          <a
+            href="#story"
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white hidden md:block"
+          >
+            Our Story
+          </a>
+          <a
+            href="#faq"
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white hidden lg:block"
+          >
+            FAQ
+          </a>
+          <a
+            href="#contact"
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white"
+          >
+            Contact
+          </a>
+        </div>
+
+        <div className="flex-1 flex justify-end md:hidden">
+          <button
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className="relative z-[60] text-white p-1"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+          >
+            <HamburgerIcon open={menuOpen} />
+          </button>
+        </div>
+      </header>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            key="mobile-menu"
+            className="fixed inset-0 z-[55] bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center text-white"
+            variants={overlayVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <button
+              onClick={() => setMenuOpen(false)}
+              className="absolute top-6 right-6 text-white p-2 z-[60]"
+              aria-label="Close menu"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+
+            <motion.nav
+              className="flex flex-col items-center gap-6"
+              variants={linkContainerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              {navLinks.map((link) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  onClick={handleLinkClick}
+                  className="font-serif italic text-3xl sm:text-4xl tracking-wide hover:text-[var(--dada-red)] transition-colors duration-300"
+                  variants={linkItemVariants}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+            </motion.nav>
+
+            <motion.div
+              className="absolute bottom-12 flex flex-col items-center gap-6"
+              variants={footerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <div className="flex items-center gap-6">
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/60 hover:text-[var(--dada-red)] transition-colors duration-300"
+                  aria-label="Instagram"
+                >
+                  <InstagramIcon />
+                </a>
+                <a
+                  href="https://pinterest.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/60 hover:text-[var(--dada-red)] transition-colors duration-300"
+                  aria-label="Pinterest"
+                >
+                  <PinterestIcon />
+                </a>
+              </div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40">
+                1010 Pearl St, Ste A, La Jolla, CA 92037
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

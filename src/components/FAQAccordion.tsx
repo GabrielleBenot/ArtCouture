@@ -4,16 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
   {
-    question: "How much does it cost?",
-    answer: "The cost of our custom fashion and art designs varies depending on the complexity and size of the design, as well as the materials and techniques used. On average, our designs range from $$ to $$$$, but we can provide a more accurate quote after discussing the specific needs and preferences of each customer. Additionally, we offer flexible payment options and payment plans to make our services accessible to everyone."
+    question: "What is the investment?",
+    answer: "Each Art Couture piece is priced according to its complexity, the rarity of its materials, and the hours of handwork involved. Bespoke gowns typically range from $3,000 to $12,000. We welcome the opportunity to discuss your vision and provide a detailed quote during a private consultation."
   },
   {
-    question: "Who is this for?",
-    answer: "Our custom Fashion and Art designs are for individuals who value creativity, individuality and self-expression. We cater to people who want to stand out with unique and personalized clothing, Art and accessories. Whether you're a fashion lover, an artist or just looking to add a touch of originality to your wardrobe or home, Art Couture is the perfect place for you."
+    question: "Who wears Art Couture?",
+    answer: "Women who see clothing as more than fashion. They see it as self-expression. Our clients are collectors, creatives, and women who desire something truly singular. If you have ever wanted to wear a work of art, this is your atelier."
   },
   {
-    question: "What makes this different?",
-    answer: "Our custom fashion and Art Collab offers unique designs created by talented in-house artists and fashion designers. We personalize each piece to reflect the customer's individual style and use high-quality materials for lasting beauty. Our commitment to exceptional customer service sets us apart."
+    question: "What makes Art Couture different?",
+    answer: "Every gown starts as a painting. Gabrielle Benot creates the original artwork, and Charmaigne Menn translates its colors, textures, and patterns directly into bespoke fabrics with the precision of a master couturière. No other couture house works this way. The art is not inspired by fashion. The fashion is the art."
   }
 ];
 

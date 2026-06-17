@@ -4,36 +4,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MagneticButton } from "./MagneticButton";
 
 export function IntroLoader() {
-  const [beamVisible, setBeamVisible] = useState(false);
+  const [phase, setPhase] = useState<"idle" | "flash" | "split" | "done">("idle");
   const [entered, setEntered] = useState(false);
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [hasAnimatedOut, setHasAnimatedOut] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.history.scrollRestoration = 'manual';
     }
-    const hasEntered = sessionStorage.getItem('art-couture-entered');
-    if (hasEntered) {
-      setEntered(true);
-      setIsFirstLoad(false);
-    } else {
-      // Force top scroll when intro loader mounts
-      window.scrollTo(0, 0);
-    }
+    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
     if (entered) {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
-      // Force scroll to top after overflow is restored to actually apply the scroll
       setTimeout(() => {
         window.scrollTo(0, 0);
       }, 50);
-      return;
+      const timer = setTimeout(() => {
+        setHasAnimatedOut(true);
+      }, 1500);
+      return () => clearTimeout(timer);
     }
 
-    // If not entered, lock scroll
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
 
@@ -45,88 +39,138 @@ export function IntroLoader() {
 
   const handleEnter = () => {
     window.scrollTo(0, 0);
-    setBeamVisible(true);
+    // Phase 1: Brief white flash
+    setPhase("flash");
     setTimeout(() => {
-      setBeamVisible(false);
-      setEntered(true);
-      sessionStorage.setItem('art-couture-entered', 'true');
-    }, 600);
+      // Phase 2: Split curtains apart
+      setPhase("split");
+      setTimeout(() => {
+        // Phase 3: Done — unmount
+        setPhase("done");
+        setEntered(true);
+      }, 900);
+    }, 300);
   };
 
-  if (entered && !isFirstLoad) return null;
+  if (hasAnimatedOut) return null;
 
   return (
-    <section className={`fixed inset-0 z-[9999] w-full h-screen overflow-hidden bg-[#fafaf8] transition-transform duration-1000 ${entered ? '-translate-y-full' : 'translate-y-0'}`}>
-      <div className="absolute inset-0 flex flex-col lg:flex-row">
-        {/* Left Side: Text */}
-        <div className="w-full lg:w-[45%] h-1/2 lg:h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 z-10 bg-[#fafaf8]">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.1 }}
-          >
-            <span className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--dada-red)] mb-6 block">Art Couture Studio</span>
-          </motion.div>
+    <>
+      {/* Main intro content */}
+      <section className={`fixed inset-0 z-[9999] w-full h-screen overflow-hidden bg-[#fafaf8] transition-all duration-1000 ${phase === "split" || phase === "done" ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'}`}>
+        <div className="absolute inset-0 flex flex-col lg:flex-row">
+          {/* Left Side: Text */}
+          <div className="w-full lg:w-[45%] h-1/2 lg:h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 z-10 bg-[#fafaf8]">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.1 }}
+            >
+              <span className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--dada-red)] mb-6 block">Art Couture Studio</span>
+            </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-sans font-black tracking-tighter text-[#050505] leading-[1.05] mb-8"
-          >
-            Where vision becomes style<br/>and style becomes <span className="font-serif italic font-normal">art.</span>
-          </motion.h1>
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="text-5xl md:text-6xl lg:text-7xl font-sans font-black tracking-tighter text-[#050505] leading-[1.05] mb-8"
+            >
+              Where vision becomes style<br/>and style becomes <span className="font-serif italic font-normal">art.</span>
+            </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="text-lg md:text-xl font-serif text-[#050505]/70 leading-relaxed mb-12 max-w-md"
-          >
-            Discover the intersection of art studio and couture atelier, where unique artworks and bespoke fashion blend seamlessly.
-          </motion.p>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.7 }}
-          >
-            <MagneticButton>
-              <button 
-                onClick={handleEnter}
-                className="bg-black text-white px-10 py-5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-[var(--dada-red)] transition-colors duration-300"
-              >
-                Click to enter
-              </button>
-            </MagneticButton>
-          </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="text-lg md:text-xl font-serif text-[#050505]/70 leading-relaxed mb-12 max-w-md"
+            >
+              Step inside the atelier where original paintings become haute couture. Every color, every brushstroke, every bespoke gown, crafted entirely by hand in La Jolla.
+            </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.7 }}
+            >
+              <MagneticButton>
+                <button 
+                  onClick={handleEnter}
+                  className="bg-black text-white px-10 py-5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-[var(--dada-red)] transition-colors duration-300"
+                >
+                  Click to enter
+                </button>
+              </MagneticButton>
+            </motion.div>
+          </div>
+
+          {/* Right Side: Image */}
+          <div className="w-full lg:w-[55%] h-1/2 lg:h-full relative flex items-center justify-center p-8">
+            <motion.img 
+              initial={{ scale: 1.1, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 2, ease: "easeOut" }}
+              src="https://storage.googleapis.com/mixo-sites/images/file-b2b2d022-3c50-445d-92df-17b797dfa179.png" 
+              alt="Art Couture Intro" 
+              className="w-full h-full object-contain mix-blend-multiply"
+            />
+          </div>
         </div>
+      </section>
 
-        {/* Right Side: Image */}
-        <div className="w-full lg:w-[55%] h-1/2 lg:h-full relative flex items-center justify-center p-8">
-          <motion.img 
-            initial={{ scale: 1.1, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 2, ease: "easeOut" }}
-            src="https://storage.googleapis.com/mixo-sites/images/file-b2b2d022-3c50-445d-92df-17b797dfa179.png" 
-            alt="Art Couture Intro" 
-            className="w-full h-full object-contain mix-blend-multiply"
-          />
-        </div>
-      </div>
-
-      {/* Orange Beam Effect */}
+      {/* Dramatic Curtain Split Overlay */}
       <AnimatePresence>
-        {beamVisible && (
-          <motion.div 
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            exit={{ opacity: 0, scaleX: 0 }}
-            transition={{ duration: 0.5, ease: "circOut" }}
-            className="absolute top-1/2 left-0 w-full h-[4px] -mt-[2px] bg-[var(--dada-red)] z-[60] shadow-[0_0_60px_15px_rgba(255,89,0,0.9)] origin-center"
-          />
+        {(phase === "flash" || phase === "split") && (
+          <>
+            {/* Brief white flash */}
+            <motion.div
+              key="flash"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: phase === "flash" ? 0.8 : 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[10000] bg-white pointer-events-none"
+            />
+
+            {/* Left curtain */}
+            <motion.div
+              key="curtain-left"
+              initial={{ x: "0%" }}
+              animate={{ x: phase === "split" ? "-100%" : "0%" }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+              className="fixed top-0 left-0 w-1/2 h-full z-[10001] bg-black"
+            >
+              <div className="absolute inset-0 flex items-center justify-end pr-2">
+                <span className="font-serif italic text-white/10 text-[20vw] leading-none select-none">A</span>
+              </div>
+            </motion.div>
+
+            {/* Right curtain */}
+            <motion.div
+              key="curtain-right"
+              initial={{ x: "0%" }}
+              animate={{ x: phase === "split" ? "100%" : "0%" }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+              className="fixed top-0 right-0 w-1/2 h-full z-[10001] bg-black"
+            >
+              <div className="absolute inset-0 flex items-center justify-start pl-2">
+                <span className="font-serif italic text-white/10 text-[20vw] leading-none select-none">C</span>
+              </div>
+            </motion.div>
+
+            {/* Center line accent */}
+            <motion.div
+              key="center-line"
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: phase === "flash" ? 1 : 0 }}
+              exit={{ scaleY: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="fixed top-0 left-1/2 -translate-x-1/2 w-[2px] h-full z-[10002] bg-[var(--dada-red)] origin-center"
+            />
+          </>
         )}
       </AnimatePresence>
-    </section>
+    </>
   );
 }

@@ -18,14 +18,15 @@ export function CinematicHero() {
           loop 
           muted 
           playsInline
-          className="w-full h-full object-cover object-center grayscale opacity-80"
+          className="w-full h-full object-cover object-center opacity-80"
+          style={{ filter: 'grayscale(100%) sepia(20%) brightness(0.8) contrast(0.9)' }}
         >
-          <source src="/ballerina_trimmed.mp4" type="video/mp4" />
+          <source src="/videos/silk_fabric.mp4" type="video/mp4" />
         </video>
       </motion.div>
       
       {/* Subtle gradient overlay to ensure text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent pointer-events-none z-[2]" />
 
         {/* Text Content overlaying the video */}
         <div className="absolute inset-0 z-10 flex flex-col justify-center p-8 md:p-16 lg:p-24 text-left">
@@ -36,23 +37,31 @@ export function CinematicHero() {
             <span className="text-[var(--dada-red)]">worn.</span>
           </h1>
           <p className="font-serif text-base md:text-xl text-white/80 leading-relaxed max-w-2xl mix-blend-difference mb-12">
-            Enter a world where the rigid boundaries of gallery walls dissolve into the fluidity of silk and structured silhouettes. Every collection is an original exhibition, translating the raw emotion of fine art into breathtaking, wearable architecture.
+            Every gown begins as a painting. The colors, textures, and brushstrokes of Gabrielle Benot&apos;s original artworks are translated into the finest bespoke fabrics and sculpted into haute couture by Charmaigne Menn&apos;s masterful hand.
           </p>
 
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 1 }}
-            className="flex flex-col items-center w-fit gap-4 mix-blend-difference mt-4"
+            className="flex flex-col items-center w-fit gap-3 mix-blend-difference mt-4"
           >
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white">Scroll to discover</span>
-            <div className="w-[1px] h-16 bg-white/30 overflow-hidden relative">
+            <span className="font-serif italic text-[11px] tracking-[0.25em] text-white/70">Scroll to discover</span>
+            <div className="w-[1px] h-12 bg-white/15 overflow-hidden relative">
               <motion.div 
-                className="w-full h-full bg-white absolute top-0 left-0 origin-top"
-                animate={{ scaleY: [0, 1, 0], y: ["0%", "0%", "100%"] }}
-                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                className="w-full bg-white/60 absolute top-0 left-0"
+                style={{ height: '40%' }}
+                animate={{ y: ["-40%", "280%"] }}
+                transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
               />
             </div>
+            <motion.svg 
+              width="10" height="6" viewBox="0 0 10 6" fill="none"
+              animate={{ y: [0, 3, 0] }}
+              transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+            >
+              <path d="M1 1L5 5L9 1" stroke="white" strokeOpacity="0.5" strokeWidth="0.75" />
+            </motion.svg>
           </motion.div>
         </div>
     </section>

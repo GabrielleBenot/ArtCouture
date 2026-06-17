@@ -36,7 +36,7 @@ export function ArtGallery() {
             transition={{ duration: 1, delay: 0.2 }}
             className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-lg mt-12 md:mt-0"
           >
-            Original mixed media artworks by Gabrielle Benot that serve as the foundation for our haute couture collections.
+            Original mixed-media artworks by Gabrielle Benot, each one serving as the creative blueprint that Charmaigne Menn transforms into our haute couture collections.
           </motion.p>
         </div>
 

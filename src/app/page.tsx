@@ -12,14 +12,16 @@ import { FAQAccordion } from "@/components/FAQAccordion";
 import { MagneticButton } from "@/components/MagneticButton";
 import { NewsletterCTA } from "@/components/NewsletterCTA";
 import { TheEdgeCampaign } from "@/components/TheEdgeCampaign";
-import { Logo } from "@/components/Logo";
+import { NewsEvents } from "@/components/NewsEvents";
+import { Footer } from "@/components/Footer";
+import { BackToTop } from "@/components/BackToTop";
 import { motion } from "framer-motion";
 
 import { useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
 
 // Parallax Image Component for sections
-function ParallaxImage({ src, alt }: { src: string, alt: string }) {
+function ParallaxImage({ src, alt, blend, className }: { src: string, alt: string, blend?: boolean, className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -32,12 +34,24 @@ function ParallaxImage({ src, alt }: { src: string, alt: string }) {
 
   return (
     <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
-      <motion.img 
-        style={{ y, scale }} 
-        src={src} 
-        alt={alt} 
-        className="max-w-[90%] md:max-w-[85%] max-h-[85vh] w-auto h-auto object-contain drop-shadow-2xl rounded-sm"
-      />
+      {blend ? (
+        <motion.div style={{ y, scale }} className="max-w-[90%] md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden mix-blend-multiply">
+          <img 
+            src={src} 
+            alt={alt} 
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+      ) : (
+        <motion.img 
+          style={{ y, scale }} 
+          src={src} 
+          alt={alt} 
+          loading="lazy"
+          className={`max-w-[90%] md:max-w-[85%] max-h-[85vh] w-auto h-auto object-contain rounded-sm mix-blend-multiply ${className || ''}`}
+        />
+      )}
     </div>
   );
 }
@@ -50,6 +64,7 @@ function FeatureSection({
   imgSrc, 
   reverse = false,
   subtitle,
+  blendImage = false,
   imageClassName = "flex-[1.2] w-full",
   textClassName = "flex-1 space-y-6"
 }: { 
@@ -59,6 +74,7 @@ function FeatureSection({
   imgSrc: string, 
   reverse?: boolean,
   subtitle?: string,
+  blendImage?: boolean,
   imageClassName?: string,
   textClassName?: string
 }) {
@@ -73,7 +89,7 @@ function FeatureSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1 }}
-                className="block font-mono text-xs uppercase tracking-[0.3em] text-[var(--dada-red)]"
+                className="block font-serif italic text-sm uppercase tracking-[0.2em] text-[var(--dada-red)]"
               >
                 {subtitle}
               </motion.span>
@@ -102,13 +118,13 @@ function FeatureSection({
             )}
           </div>
           <div className={imageClassName}>
-            <ParallaxImage src={imgSrc} alt="Art Couture Gallery" />
+            <ParallaxImage src={imgSrc} alt="Art Couture Gallery" blend={blendImage} />
           </div>
         </>
       ) : (
         <>
           <div className={`${imageClassName} order-2 md:order-1`}>
-            <ParallaxImage src={imgSrc} alt="Art Couture Gallery" />
+            <ParallaxImage src={imgSrc} alt="Art Couture Gallery" blend={blendImage} />
           </div>
           <div className={`${textClassName} lg:pl-12 order-1 md:order-2`}>
             {subtitle && (
@@ -117,7 +133,7 @@ function FeatureSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1 }}
-                className="block font-mono text-xs uppercase tracking-[0.3em] text-[var(--dada-red)]"
+                className="block font-serif italic text-sm uppercase tracking-[0.2em] text-[var(--dada-red)]"
               >
                 {subtitle}
               </motion.span>
@@ -165,24 +181,30 @@ export default function Home() {
         title={
           <span className="flex flex-col">
             <span className="font-sans text-xs md:text-sm font-black tracking-[0.3em] uppercase relative z-10">Color is</span>
-            <span className="font-serif italic font-light text-[5rem] md:text-[10rem] lg:text-[12rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8] relative z-0">Power.</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[10rem] lg:text-[12rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8] relative z-0">Power.</span>
             <span className="font-mono text-xs uppercase tracking-[0.4em] mt-8 text-white/70">Wear it without apology.</span>
           </span>
         }
-        text={<p>In Art Couture, color is not an accent, it's a declaration. Fearless, unapologetic, and unforgettable. The palette we choose defines the space we occupy, drawing inspiration from high-voltage modern art and timeless classical silhouettes. When you step into the room, the world should pause.</p>}
+        text={<p>At Art Couture, color is not an accent. It is a declaration. Every palette begins on the canvas before it ever touches fabric. We draw from bold contemporary painting and classical form to create bespoke pieces that do not simply enter a room. They command it.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-0ae10f15-2ee8-43af-885e-16f4bbe10af4.png"
         imageClassName="flex-[1.44] w-full"
+        blendImage
       />
+
+      {/* Visual Breaker */}
+      <div className="max-w-xs mx-auto py-8">
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
+      </div>
 
       <FeatureSection 
         subtitle="The Technique"
         title={
           <span className="flex flex-col">
             <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Patterns designed from the</span>
-            <span className="font-sans font-black text-6xl md:text-9xl lg:text-[11rem] uppercase tracking-tighter mt-2 text-[var(--dada-red)] leading-[0.8]">Art we create.</span>
+            <span className="font-sans font-black text-[3rem] md:text-9xl lg:text-[11rem] uppercase tracking-tighter mt-2 text-[var(--dada-red)] leading-[0.8]">Art we create.</span>
           </span>
         }
-        text={<p>Behind every dress lies a canvas. At Art Couture, we design our own patterns, born from the colors we love and the artworks we create. Each yard of fabric is meticulously crafted, ensuring the brushstrokes of our paintings seamlessly map to the curves of the couture. This is wearable fine art.</p>}
+        text={<p>Behind every couture dress lies a canvas. We design our own exclusive patterns, born from the paintings we create in our La Jolla studio. Each yard of luxury fabric is meticulously engineered so the brushstrokes of the original artwork follow the curves of the body. This is wearable fine art.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-5f0d0213-9b29-4c2c-b415-54c0f9fb6235.jpg"
         reverse
       />
@@ -191,24 +213,29 @@ export default function Home() {
         subtitle="The Aesthetic"
         title={
           <span className="flex flex-col">
-            <span className="font-sans font-black text-[6rem] md:text-[10rem] lg:text-[12rem] uppercase tracking-tighter leading-[0.8]">Bold</span>
-            <span className="font-serif italic font-light text-[5rem] md:text-[8rem] lg:text-[10rem] text-[var(--dada-red)] -mt-4 md:-mt-8 ml-8 md:ml-16 leading-[0.8]">Patterns,</span>
+            <span className="font-sans font-black text-[4rem] md:text-[10rem] lg:text-[12rem] uppercase tracking-tighter leading-[0.8]">Bold</span>
+            <span className="font-serif italic font-light text-[3.5rem] md:text-[8rem] lg:text-[10rem] text-[var(--dada-red)] -mt-4 md:-mt-8 ml-8 md:ml-16 leading-[0.8]">Patterns,</span>
             <span className="font-serif font-extralight text-4xl md:text-6xl mt-4">Striking Silhouettes.</span>
           </span>
         }
-        text={<p>Visual rhythm is essential to our design language. We take pride in geometric complexity, organic flow, and daring contrast. Our patterns do not merely sit on the fabric - they actively converse with the silhouette, creating garments that are visually arresting from every angle.</p>}
+        text={<p>Our patterns do not simply sit on fabric. They move with it. Geometric precision meets organic flow, creating handcrafted garments that shift and reveal new details from every angle. Nothing is accidental. Every line has a reason.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
       />
+
+      {/* Visual Breaker */}
+      <div className="max-w-xs mx-auto py-8">
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--dada-red)]/30 to-transparent" />
+      </div>
 
       <FeatureSection 
         subtitle="The Studio"
         title={
           <span className="flex flex-col">
             <span className="font-serif font-light text-4xl md:text-6xl">This is where design and art<br/>breathes the</span>
-            <span className="font-serif italic font-light text-[5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-4 leading-[0.75]">same air.</span>
+            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-4 leading-[0.75]">same air.</span>
           </span>
         }
-        text={<p>The atelier is a sanctuary of imagination. Surrounded by canvases, oil paints, drafting tables, and bolts of silk, our creative directors blend two distinct disciplines into a singular vision. Here, an idea can start as a charcoal sketch and finish as a breathtaking gala gown.</p>}
+        text={<p>The atelier is a sanctuary of imagination. Surrounded by canvases, watercolors, drafting tables, and bolts of silk, Gabrielle and Charmaigne blend two distinct disciplines into a singular vision. Here, an idea can start as a charcoal sketch and finish as a breathtaking gala gown.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-4b000517-aa66-445e-8e2e-89c2d295dc73.png"
         reverse
       />
@@ -219,10 +246,10 @@ export default function Home() {
           <span className="flex flex-col">
             <span className="font-sans font-black text-4xl md:text-5xl uppercase tracking-tight">Explore the Art</span>
             <span className="font-serif font-light text-4xl md:text-6xl mt-4">That Inspires</span>
-            <span className="font-serif italic font-light text-[6rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-4 leading-[0.8]">Couture</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-4 leading-[0.8]">Couture</span>
           </span>
         }
-        text={<p>From canvas to closet, every piece by Gabrielle Benot is born from the same obsession with beauty, color, and style. The textures found in her original paintings dictate the hand of the fabrics chosen for our collections, creating a dialogue between the gallery wall and the runway.</p>}
+        text={<p>Gabrielle Benot&apos;s original paintings are not inspiration boards. They are the source material. The textures in her brushwork determine the weight and drape of the fine fabrics that Charmaigne Menn selects and sculpts. What you see on the gallery wall becomes what you wear on the floor.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7c7c79ac-f9d7-4fe7-bcd1-7d29e0eae366.png"
       />
 
@@ -231,13 +258,18 @@ export default function Home() {
         title={
           <span className="flex flex-col">
             <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">A meticulous approach</span>
-            <span className="font-serif italic font-light text-[5rem] md:text-[9rem] lg:text-[12rem] -mt-4 leading-[0.8] text-[var(--dada-red)]">to craft.</span>
+            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[12rem] -mt-4 leading-[0.8] text-[var(--dada-red)]">to craft.</span>
           </span>
         }
-        text={<p>Hours of hand-beading, precise pattern cutting, and visionary draping go into every Art Couture creation. We believe that true luxury cannot be rushed. It is felt in the weight of the silk, the structure of the corset, and the flawless finish of every hidden seam.</p>}
+        text={<p>Every couture creation passes through the traditions of French broderie d&apos;art. Lun&eacute;ville hook embroidery, hand-beading, precise pattern cutting, and sculptural draping are woven into each piece. True luxury cannot be rushed. It is felt in the weight of the silk, the architecture of the corset, and the flawless finish of every hidden seam.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-fa8b3115-7c86-48e7-882f-3ba57f6aeb6f.jpg"
         reverse
       />
+
+      {/* Visual Breaker */}
+      <div className="max-w-xs mx-auto py-8">
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
+      </div>
 
       <FeatureSection 
         subtitle="The Promise"
@@ -248,7 +280,7 @@ export default function Home() {
             <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">Women who wear them.</span>
           </span>
         }
-        text={<p>Born from the artistic vision of Gabrielle Benot and the couture craftsmanship of Charmaigne Menn, "Gabi et Char" redefines eveningwear for the modern icon. Each gown in this collection is a symphony of rare fabrics: silk satin, hand-embroidered tulle, velvet that drinks in the light, crafted to embrace the body with precision and grace.</p>}
+        text={<p>Born from the artistic vision of European-trained painter Gabrielle Benot and the masterful couture craftsmanship of South African-born Charmaigne Menn, &ldquo;Gabi et Char&rdquo; redefines eveningwear for the modern icon. Their shared global perspective and well-travelled eye for beauty converge in every gown. Each silhouette is an exclusive design, created entirely in-house: rare silk satin, hand-embroidered tulle finished with Lun&eacute;ville beadwork, and velvet that drinks in the light, all crafted to embrace the body with precision and grace.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
       />
 
@@ -265,10 +297,10 @@ export default function Home() {
           <span className="flex flex-col">
             <span className="font-sans font-black text-6xl md:text-8xl uppercase tracking-tighter">Luxury</span>
             <span className="font-serif font-light text-4xl md:text-6xl mt-4">is in the details</span>
-            <span className="font-serif italic font-light text-[5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] mt-2 leading-[0.75]">You can feel.</span>
+            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] mt-2 leading-[0.75]">You can feel.</span>
           </span>
         }
-        text={<p>From sculptural neoprene to hand-cut French lace appliqué, sheer silk tulle, and richly embroidered jacquard, each collection explores fabric as both canvas and form. We source our textiles from the most prestigious mills, ensuring that every touch is an experience in pure extravagance.</p>}
+        text={<p>From hand-cut French Chantilly lace appliqu&eacute; and delicate Guipure lacework to sheer silk tulle adorned with Lun&eacute;ville embroidery, each collection explores fabric as both canvas and form. Every textile is sourced from the most prestigious European mills. Every embellishment is applied by hand. Every design is exclusively ours.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-cc047f31-f82c-4c0d-84c9-4ce6f1ef5713.jpg"
       />
 
@@ -298,7 +330,7 @@ export default function Home() {
             <span className="font-serif italic font-light text-[4rem] md:text-[6rem] lg:text-[7rem] text-[var(--text-main)] -mt-2 leading-[0.8]">and Rentals.</span>
           </span>
         }
-        text={<p>Select Gabi et Char creations are available for rental, and we can also arrange full photography sessions. We give photographers, stylists, and creative teams exclusive access to couture elegance for unforgettable editorial shoots, red carpets, and high-profile events.</p>}
+        text={<p>Select Gabi et Char couture creations are available for exclusive rental. We also arrange bespoke photography sessions, giving photographers, stylists, and creative teams access to haute couture for editorial shoots, red carpet events, and private occasions.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-9bbde46c-8be5-4e87-95fa-5b155120828f.jpg"
         imageClassName="flex-[3] w-full"
         textClassName="flex-1 space-y-6"
@@ -319,19 +351,7 @@ export default function Home() {
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7970ca9b-c546-4231-9c1b-836113ca438a.jpg"
       />
 
-      <FeatureSection 
-        subtitle="The Future"
-        title={<span className="block text-4xl md:text-5xl lg:text-[5rem] leading-[1.1]">Coming Soon &ndash; Silk Painting at Art Couture</span>}
-        text={
-          <>
-            <p className="mb-4">Step into the world of pure artistry with our upcoming, invitation-only silk painting workshops. Guided by master techniques and infused with Art Couture’s signature elegance, you’ll explore the centuries-old process of transforming silk into luminous works of wearable art.</p>
-            <p className="mb-4">Spaces will be strictly limited, ensuring an intimate, hands-on experience where every brushstroke is yours to keep. You will leave not just with a garment, but with a piece of art you painted yourself.</p>
-            <p className="font-bold text-[var(--dada-red)] uppercase tracking-widest text-sm">Stay tuned - this is where creativity meets couture.</p>
-          </>
-        }
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-77426bbf-6aac-41f4-8c9f-16b8a9375343.PNG"
-        reverse
-      />
+      <NewsEvents />
 
       <TestimonialSlider />
       <div id="story">
@@ -343,25 +363,8 @@ export default function Home() {
       <TheEdgeCampaign />
       <NewsletterCTA />
 
-      <footer id="contact" className="py-20 bg-[var(--background)] border-t border-[var(--border-light)] text-center relative overflow-hidden">
-        <p className="font-mono text-xs tracking-widest text-[var(--foreground)] opacity-60 mb-2 uppercase relative z-10">1010 Pearl St, Ste A, La Jolla, CA 92037</p>
-        <button 
-          onClick={(e) => {
-            e.preventDefault();
-            navigator.clipboard.writeText('info@artcouture.studio');
-            const target = e.currentTarget;
-            const originalText = target.innerText;
-            target.innerText = 'COPIED!';
-            setTimeout(() => {
-              target.innerText = 'INFO@ARTCOUTURE.STUDIO';
-            }, 2000);
-          }}
-          className="font-mono text-xs tracking-widest text-[var(--foreground)] opacity-60 mb-12 uppercase relative z-10 hover:opacity-100 hover:text-[var(--dada-red)] transition-all duration-300 inline-block cursor-pointer"
-        >
-          info@artcouture.studio
-        </button>
-        <p className="text-[10px] text-[var(--foreground)] opacity-40 uppercase tracking-[0.2em] relative z-10">© {new Date().getFullYear()} Art Couture. All rights reserved.</p>
-      </footer>
+      <BackToTop />
+      <Footer />
     </main>
   );
 }

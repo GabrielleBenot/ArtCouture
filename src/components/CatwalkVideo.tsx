@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export function CatwalkVideo() {
@@ -15,36 +15,6 @@ export function CatwalkVideo() {
   const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // Skip the initial title card/black box (starts around 5 seconds)
-    // and loop after 15 seconds of pure cheetah running (loop at 20s)
-    const startTime = 5.0; 
-    const endTime = 20.0;
-
-    const handleLoadedMetadata = () => {
-      video.currentTime = startTime;
-      video.play().catch(e => console.log("Auto-play prevented", e));
-    };
-
-    const handleTimeUpdate = () => {
-      if (video.currentTime >= endTime) {
-        video.currentTime = startTime;
-        video.play().catch(e => console.log("Auto-play prevented", e));
-      }
-    };
-
-    video.addEventListener("loadedmetadata", handleLoadedMetadata);
-    video.addEventListener("timeupdate", handleTimeUpdate);
-
-    return () => {
-      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      video.removeEventListener("timeupdate", handleTimeUpdate);
-    };
-  }, []);
-
   return (
     <section ref={containerRef} className="relative h-[120vh] w-full overflow-hidden bg-[var(--background)] flex items-center justify-center py-20">
       <motion.div 
@@ -56,11 +26,12 @@ export function CatwalkVideo() {
             ref={videoRef}
             autoPlay 
             muted 
+            loop
             playsInline
-            className="w-full h-full object-cover opacity-80 grayscale"
+            className="w-full h-full object-cover opacity-80"
+            style={{ filter: 'grayscale(100%) sepia(20%) brightness(0.8) contrast(0.9)' }}
           >
-            {/* Conceptual slow-motion cheetah running to represent pure movement */}
-            <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/6/62/Cheetahs_on_the_Edge_%28Director%27s_Cut%29.ogv/Cheetahs_on_the_Edge_%28Director%27s_Cut%29.ogv.1080p.vp9.webm" type="video/webm" />
+            <source src="/videos/catwalk.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black/40 mix-blend-multiply pointer-events-none" />
         </motion.div>
@@ -73,7 +44,7 @@ export function CatwalkVideo() {
             transition={{ duration: 1 }}
             className="text-[5rem] md:text-[8rem] lg:text-[11rem] font-serif font-extralight text-white tracking-widest uppercase mix-blend-overlay leading-[0.8]"
           >
-            Pure Movement
+            In Motion
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -82,7 +53,7 @@ export function CatwalkVideo() {
             transition={{ duration: 1, delay: 0.2 }}
             className="mt-12 text-xs md:text-sm font-mono tracking-[0.3em] uppercase text-white/90 drop-shadow-xl max-w-2xl leading-[1.8]"
           >
-            Effortless elegance, translating the wild rhythm of nature into pure couture.
+            Couture is meant to be lived in. Every seam, every drape, every cut, designed to move as beautifully as it looks standing still.
           </motion.p>
         </div>
       </motion.div>

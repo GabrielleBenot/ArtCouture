@@ -162,40 +162,69 @@ export function DressModal({
                 Inquire About This Piece
               </h3>
               
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              {submitted ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-center py-12"
+                >
+                  <span className="text-4xl block mb-6">&#10003;</span>
+                  <h3 className="font-serif italic text-2xl text-[var(--text-main)] mb-4">Thank you for your inquiry.</h3>
+                  <p className="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">We will be in touch within 24 hours to arrange your private consultation.</p>
+                </motion.div>
+              ) : (
+              <form className="space-y-6" onSubmit={async (e) => {
+                e.preventDefault();
+                setIsSubmitting(true);
+                const form = e.currentTarget;
+                const formData = new FormData(form);
+                try {
+                  await fetch("https://formspree.io/f/mnjyyqan", {
+                    method: "POST",
+                    body: formData,
+                    headers: { Accept: "application/json" },
+                  });
+                  setSubmitted(true);
+                } catch {
+                  setIsSubmitting(false);
+                }
+              }}>
+                <input type="hidden" name="_subject" value={`Inquiry: ${dress.title}`} />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="relative group">
-                    <input type="text" required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer" placeholder=" " />
+                    <input type="text" name="firstName" required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer" placeholder=" " />
                     <label className="absolute left-0 top-0 text-sm font-sans text-black/50 pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--dada-red)] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs">First Name</label>
                   </div>
                   <div className="relative group">
-                    <input type="text" required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer" placeholder=" " />
+                    <input type="text" name="lastName" required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer" placeholder=" " />
                     <label className="absolute left-0 top-0 text-sm font-sans text-black/50 pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--dada-red)] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs">Last Name</label>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="relative group">
-                    <input type="email" required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer" placeholder=" " />
+                    <input type="email" name="email" required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer" placeholder=" " />
                     <label className="absolute left-0 top-0 text-sm font-sans text-black/50 pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--dada-red)] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs">Email Address</label>
                   </div>
                   <div className="relative group">
-                    <input type="date" required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer text-black/80" />
+                    <input type="date" name="eventDate" className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer text-black/80" />
                     <label className="absolute left-0 -top-4 text-xs font-sans text-black/50 pointer-events-none">Event Date (Optional)</label>
                   </div>
                 </div>
 
                 <div className="relative group">
-                  <textarea rows={2} required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer resize-none" placeholder=" "></textarea>
+                  <textarea rows={2} name="message" required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer resize-none" placeholder=" "></textarea>
                   <label className="absolute left-0 top-0 text-sm font-sans text-black/50 pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--dada-red)] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs">Your Message</label>
                 </div>
 
                 <MagneticButton className="mt-8">
-                  <button type="submit" className="bg-black text-white px-8 py-3 font-mono text-[10px] tracking-widest uppercase hover:bg-[var(--dada-red)] transition-colors duration-300">
-                    Send Inquiry
+                  <button type="submit" disabled={isSubmitting} className="bg-black text-white px-8 py-3 font-mono text-[10px] tracking-widest uppercase hover:bg-[var(--dada-red)] transition-colors duration-300 disabled:opacity-50">
+                    {isSubmitting ? "Sending..." : "Send Inquiry"}
                   </button>
                 </MagneticButton>
               </form>
+              )}
             </div>
           </motion.div>
         </div>
