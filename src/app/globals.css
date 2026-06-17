@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+@theme {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-foreground: var(--text-main);
+  --font-sans: var(--font-general);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+  --color-brand-accent: var(--dada-red);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Core Brand Colors (Hybrid ArtCouture) */
+  --background-rgb: 250, 250, 248;
+  --background: #fafaf8;
+  --text-main: #0a0a0a;
+  --text-muted: rgba(0, 0, 0, 0.6);
+  --border-light: rgba(0, 0, 0, 0.1);
+  --border-dark: rgba(0, 0, 0, 0.85);
+
+  /* Primary Accent: ArtCouture Orange */
+  --dada-red: #ff5900; 
+  --dada-red-glow: rgba(255, 89, 0, 0.2);
+
+  /* Glassmorphism Core Specs - Light Mode */
+  --glass-bg: rgba(250, 250, 248, 0.85);
+  --glass-blur: blur(16px);
+  --glass-border: 1px solid rgba(0, 0, 0, 0.08);
+
+  /* Premium Typography */
+  --font-serif: var(--font-playfair);
+  --font-general: var(--font-inter);
 }
 
 body {
+  background-color: var(--background);
+  color: var(--text-main);
+  font-family: var(--font-general);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar to prevent design breaks */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--dada-red);
+  border-radius: 2px;
 }
