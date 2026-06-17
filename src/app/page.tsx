@@ -80,7 +80,7 @@ function FeatureSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.1 }}
-                className="text-6xl md:text-8xl lg:text-[10rem] font-serif font-extralight text-[var(--text-main)] leading-[0.9] tracking-tight"
+                className="text-6xl md:text-8xl lg:text-[10rem] font-serif font-extralight text-[var(--text-main)] leading-[0.75] tracking-tight"
               >
                 {title}
               </motion.h2>
@@ -124,7 +124,7 @@ function FeatureSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.1 }}
-                className="text-6xl md:text-8xl lg:text-[10rem] font-serif font-extralight text-[var(--text-main)] leading-[0.9] tracking-tight"
+                className="text-6xl md:text-8xl lg:text-[10rem] font-serif font-extralight text-[var(--text-main)] leading-[0.75] tracking-tight"
               >
                 {title}
               </motion.h2>
@@ -240,7 +240,7 @@ export default function Home() {
           <span className="flex flex-col">
             <span className="font-sans font-black text-5xl md:text-7xl uppercase tracking-tighter">Gowns</span>
             <span className="font-serif font-light text-4xl md:text-6xl mt-4">as rare as the</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.9]">Women who wear them.</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">Women who wear them.</span>
           </span>
         }
         text={<p>Born from the artistic vision of Gabrielle Benot and the couture craftsmanship of Charmaigne Menn, "Gabi et Char" redefines eveningwear for the modern icon. Each gown in this collection is a symphony of rare fabrics: silk satin, hand-embroidered tulle, velvet that drinks in the light, crafted to embrace the body with precision and grace.</p>}
@@ -272,7 +272,7 @@ export default function Home() {
         title={
           <span className="flex flex-col">
             <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Turning</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.9]">into Masterpieces.</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">into Masterpieces.</span>
           </span>
         }
         text={
