@@ -60,6 +60,6 @@ export function PulsatingCTA({ text, href, onClick, type, className = "" }: CTAP
       }}
     >
       {text}
-    </motion.a>
+    </Component>
   );
 }

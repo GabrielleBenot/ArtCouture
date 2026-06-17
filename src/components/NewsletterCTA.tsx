@@ -26,7 +26,7 @@ export function NewsletterCTA() {
           </p>
           
           <form 
-            action="https://formspree.io/f/YOUR_FORMSPREE_ID" 
+            action="https://formspree.io/f/mnjyyqan" 
             method="POST" 
             className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto"
           >
