@@ -21,8 +21,11 @@ export function FAQAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-32 bg-[var(--background)] border-t border-[var(--border-light)]">
-      <div className="max-w-3xl mx-auto px-6">
+    <section className="relative py-32 bg-[var(--background)] border-t border-[var(--border-light)] overflow-hidden">
+      <div className="absolute inset-0 z-0 opacity-[0.03] grayscale mix-blend-multiply pointer-events-none flex items-center justify-center">
+        <img src="/images/sketches/model.png" alt="" className="w-full h-full object-cover md:object-contain scale-150 md:scale-125" />
+      </div>
+      <div className="relative z-10 max-w-3xl mx-auto px-6">
         <h2 className="text-4xl md:text-5xl font-serif text-[var(--text-main)] text-center mb-16">Questions?</h2>
         <div className="space-y-4">
           {faqs.map((faq, index) => (

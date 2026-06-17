@@ -4,8 +4,13 @@ import { motion } from "framer-motion";
 
 export function StorySection() {
   return (
-    <section className="py-32 bg-[var(--background)] border-t border-[var(--border-light)]">
-      <div className="max-w-5xl mx-auto px-6">
+    <section className="relative py-32 bg-[var(--background)] border-t border-[var(--border-light)] overflow-hidden">
+      {/* Subtle Background Watermark */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] grayscale mix-blend-multiply pointer-events-none flex items-center justify-center">
+        <img src="/images/sketches/mannequin.png" alt="" className="w-full h-full object-cover md:object-contain scale-150 md:scale-125" />
+      </div>
+
+      <div className="relative z-10 max-w-5xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

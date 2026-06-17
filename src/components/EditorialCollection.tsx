@@ -18,7 +18,8 @@ const collection = [
       "/details/new_fuchsia_texture_1781676497805.png",
       "/details/new_fuchsia_drape_1781676508356.png"
     ],
-    aspectClass: "aspect-[3/4]"
+    aspectClass: "aspect-[3/4]",
+    sketchImg: "/images/sketches/model.png"
   },
   { 
     title: "Blush Enchantress", 
@@ -33,7 +34,8 @@ const collection = [
       "/details/new_blushench_texture_1781676675527.png",
       "/details/new_blushench_drape_1781676696150.png"
     ],
-    aspectClass: "aspect-[2/3]"
+    aspectClass: "aspect-[2/3]",
+    sketchImg: "/images/sketches/mannequin.png"
   },
   { 
     title: "Golden Whisper", 
@@ -48,7 +50,8 @@ const collection = [
       "/details/new_golden_texture_1781676602641.png",
       "/details/new_golden_drape_1781676619023.png"
     ],
-    aspectClass: "aspect-[3/4]"
+    aspectClass: "aspect-[3/4]",
+    sketchImg: "/images/sketches/gown.png"
   },
   { 
     title: "Crimson Allure", 
@@ -63,7 +66,8 @@ const collection = [
       "/details/new_crimson_texture_1781676555017.png",
       "/details/new_crimson_drape_1781676568248.png"
     ],
-    aspectClass: "aspect-[4/5]"
+    aspectClass: "aspect-[4/5]",
+    sketchImg: "/images/sketches/tools.png"
   },
   { 
     title: "Ethereal Mist", 
@@ -326,8 +330,17 @@ function DressCard({
         <motion.img 
           src={item.img} 
           alt={item.title}
-          className={`w-full h-full object-cover transition-all duration-[2s] ${isActiveCategory ? '' : 'group-hover:scale-110 grayscale contrast-125 sepia-[.2] group-hover:grayscale-0 group-hover:contrast-100 group-hover:sepia-0'}`}
+          className={`w-full h-full object-cover absolute inset-0 transition-all duration-[2s] ${isActiveCategory ? '' : 'group-hover:scale-110 grayscale contrast-125 sepia-[.2] group-hover:grayscale-0 group-hover:contrast-100 group-hover:sepia-0'} ${item.sketchImg ? 'group-hover:opacity-0' : ''}`}
         />
+        
+        {/* Optional Sketch Image */}
+        {item.sketchImg && (
+          <img 
+            src={item.sketchImg} 
+            alt={`${item.title} sketch`} 
+            className="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 ease-out group-hover:opacity-100"
+          />
+        )}
         
         {/* Grainy Film Overlay that fades out on hover */}
         {!isActiveCategory && (
