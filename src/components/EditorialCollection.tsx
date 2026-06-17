@@ -65,19 +65,26 @@ const collection = [
     aspectClass: "aspect-[4/5]"
   },
   { 
-    title: "Midnight Elegance", 
-    category: "Jackets",
-    price: "$8,850", 
-    description: "Where darkness whispers luxury. Deep navy velvet sculpted to perfection, draping with quiet power.",
-    fabric: "Midnight blue silk-viscose pané velvet, extraordinarily soft and plush, catching the light like a starlit winter sky.",
-    customization: "Backless plunge depth and sleeve length are bespoke. Choice of heavy silk charmeuse interior lining in contrasting jewel tones.",
-    img: "https://storage.googleapis.com/mixo-sites/images/file-fd88942d-471c-4ef4-ac9b-1d4292999cb3.jpg",
-    detailImages: [
-      "/details/new_midnight_bodice_1781676446002.png",
-      "/details/new_midnight_texture_1781676459211.png",
-      "/details/new_midnight_drape_1781676475270.png"
-    ],
+    title: "Ethereal Mist", 
+    category: "Dresses",
+    price: "$8,500", 
+    description: "A vision of floating tulle and delicate beadwork.",
+    fabric: "Layers of silk tulle over a structured silk faille base.",
+    customization: "Beadwork pattern can be personalized.",
+    img: "https://images.unsplash.com/photo-1566162200408-2f56dc9f69b6?w=800&q=80",
+    detailImages: [],
     aspectClass: "aspect-[3/4]"
+  },
+  { 
+    title: "Sapphire Dream", 
+    category: "Dresses",
+    price: "$11,000", 
+    description: "Deep jewel tones meet masterful draping.",
+    fabric: "Rich sapphire silk velvet with a silk satin lining.",
+    customization: "Neckline can be altered to off-the-shoulder.",
+    img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[2/3]"
   },
   { 
     title: "Blush Couture", 
@@ -95,6 +102,131 @@ const collection = [
     aspectClass: "aspect-[2/3]"
   },
   { 
+    title: "Pearl Symphony", 
+    category: "Accessories",
+    price: "$4,200", 
+    description: "Hand-strung freshwater pearls and diamond accents.",
+    fabric: "18k white gold interwoven with South Sea pearls.",
+    customization: "Available in rose gold and yellow gold finishes.",
+    img: "https://images.unsplash.com/photo-1599643478524-fb66f7ca065b?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[3/4]"
+  },
+  { 
+    title: "Obsidian Clutch", 
+    category: "Accessories",
+    price: "$5,500", 
+    description: "Structured evening bag crafted from rare materials.",
+    fabric: "Matte crocodile leather with platinum hardware.",
+    customization: "Monogramming available on interior silk lining.",
+    img: "https://images.unsplash.com/photo-1584395442286-d62152862d29?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[4/5]"
+  },
+  { 
+    title: "Crystal Steps", 
+    category: "Accessories",
+    price: "$2,800", 
+    description: "The glass slipper reimagined for the modern muse.",
+    fabric: "Lucite heel with Swarovski crystal-encrusted straps.",
+    customization: "Heel height adjustable between 85mm and 110mm.",
+    img: "https://images.unsplash.com/photo-1576182103429-0158dfa64010?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[3/4]"
+  },
+  { 
+    title: "Golden Hour", 
+    category: "Accessories",
+    price: "$3,100", 
+    description: "A breathtaking statement piece that catches every ray of light.",
+    fabric: "24k gold-plated brass and smoked topaz crystals.",
+    customization: "Available in silver and rose gold.",
+    img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[2/3]"
+  },
+  { 
+    title: "Velvet Veil", 
+    category: "Accessories",
+    price: "$1,500", 
+    description: "A dramatic finishing touch to any couture ensemble.",
+    fabric: "Silk velvet and hand-woven netting.",
+    customization: "Embroidery options for the netting.",
+    img: "https://images.unsplash.com/photo-1509631179647-0c1158b0f443?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[4/5]"
+  },
+  { 
+    title: "Midnight Elegance", 
+    category: "Jackets",
+    price: "$8,850", 
+    description: "Where darkness whispers luxury. Deep navy velvet sculpted to perfection, draping with quiet power.",
+    fabric: "Midnight blue silk-viscose pané velvet, extraordinarily soft and plush, catching the light like a starlit winter sky.",
+    customization: "Backless plunge depth and sleeve length are bespoke. Choice of heavy silk charmeuse interior lining in contrasting jewel tones.",
+    img: "https://storage.googleapis.com/mixo-sites/images/file-fd88942d-471c-4ef4-ac9b-1d4292999cb3.jpg",
+    detailImages: [
+      "/details/new_midnight_bodice_1781676446002.png",
+      "/details/new_midnight_texture_1781676459211.png",
+      "/details/new_midnight_drape_1781676475270.png"
+    ],
+    aspectClass: "aspect-[3/4]"
+  },
+  { 
+    title: "Noir Power", 
+    category: "Jackets",
+    price: "$7,200", 
+    description: "A commanding tailored blazer with exaggerated lapels.",
+    fabric: "Heavy Italian wool crepe with silk lapels.",
+    customization: "Shoulder pad structure and button materials can be customized.",
+    img: "/collections/jacket_two.png",
+    detailImages: [],
+    aspectClass: "aspect-[2/3]"
+  },
+  { 
+    title: "Ivory Architecture", 
+    category: "Jackets",
+    price: "$9,100", 
+    description: "Structured double-breasted coat that redefines shape.",
+    fabric: "Cashmere-blend woven in Scotland.",
+    customization: "Lining features hand-painted silk motifs.",
+    img: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[3/4]"
+  },
+  { 
+    title: "Crimson Drape", 
+    category: "Jackets",
+    price: "$6,500", 
+    description: "A fluid trench coat that moves like liquid.",
+    fabric: "Water-resistant silk gabardine.",
+    customization: "Belt thickness and buckle material are bespoke.",
+    img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[4/5]"
+  },
+  { 
+    title: "Onyx Edge", 
+    category: "Jackets",
+    price: "$8,200", 
+    description: "A sharp, minimalist coat with a dramatic collar.",
+    fabric: "Heavy wool melton and silk satin.",
+    customization: "Hidden interior pockets and monogramming.",
+    img: "https://images.unsplash.com/photo-1544441893-675973e31985?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[3/4]"
+  },
+  { 
+    title: "Tweed Illusion", 
+    category: "Jackets",
+    price: "$7,800", 
+    description: "A modern take on the classic tailored tweed.",
+    fabric: "Hand-woven boucle with metallic threads.",
+    customization: "Trim details and button choices are fully bespoke.",
+    img: "https://images.unsplash.com/photo-1548624149-f9b1859aa7d0?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[2/3]"
+  },
+  { 
     title: "Ivory Cascade", 
     category: "Blouses",
     price: "$3,400", 
@@ -109,18 +241,83 @@ const collection = [
     ],
     aspectClass: "aspect-[3/4]"
   },
+  { 
+    title: "Chiffon Whisper", 
+    category: "Blouses",
+    price: "$2,900", 
+    description: "Sheer silk blouse with intricate pleating.",
+    fabric: "French silk chiffon with Chantilly lace trims.",
+    customization: "Cuff links available in pearl or diamond.",
+    img: "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[2/3]"
+  },
+  { 
+    title: "Satin Armor", 
+    category: "Blouses",
+    price: "$3,800", 
+    description: "High-neck silk blouse with strong shoulder structure.",
+    fabric: "100-momme Italian silk satin.",
+    customization: "Collar height and tie length are bespoke.",
+    img: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[3/4]"
+  },
+  { 
+    title: "Organza Cloud", 
+    category: "Blouses",
+    price: "$4,100", 
+    description: "Voluminous sleeves that float around the arms.",
+    fabric: "Hand-dyed silk organza from Lyon.",
+    customization: "Sleeve volume and elasticity are tailored.",
+    img: "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[4/5]"
+  },
+  { 
+    title: "Silk Essential", 
+    category: "Blouses",
+    price: "$2,200", 
+    description: "The perfect minimalist silk shirt.",
+    fabric: "Sandwashed silk charmeuse.",
+    customization: "Available in 12 custom dye colors.",
+    img: "https://images.unsplash.com/photo-1434389673669-e08b4cac3105?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[3/4]"
+  },
+  { 
+    title: "Lace Romance", 
+    category: "Blouses",
+    price: "$4,500", 
+    description: "Intricate lace overlay with a demure silhouette.",
+    fabric: "French Chantilly lace over silk organza.",
+    customization: "Lace pattern variations available upon request.",
+    img: "https://images.unsplash.com/photo-1574291814206-363acdf2aa79?w=800&q=80",
+    detailImages: [],
+    aspectClass: "aspect-[2/3]"
+  }
 ];
 
 export type DressItem = typeof collection[0];
 
-function DressCard({ item, onClick }: { item: DressItem, onClick: () => void }) {
+function DressCard({ 
+  item, 
+  onClick,
+  isPlaceholder = false,
+  isActiveCategory = false
+}: { 
+  item: DressItem, 
+  onClick: () => void,
+  isPlaceholder?: boolean,
+  isActiveCategory?: boolean
+}) {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 1, ease: "easeOut" }}
-      className={`relative overflow-hidden cursor-pointer group w-full ${item.aspectClass}`}
+      className={`relative overflow-hidden cursor-pointer group w-full ${item.aspectClass} ${isActiveCategory ? 'ring-1 ring-[var(--dada-red)] opacity-90' : ''}`}
       onClick={onClick}
     >
       <div className="w-full h-full relative">
@@ -128,32 +325,42 @@ function DressCard({ item, onClick }: { item: DressItem, onClick: () => void }) 
         <motion.img 
           src={item.img} 
           alt={item.title}
-          className="w-full h-full object-cover transition-all duration-[2s] group-hover:scale-110 grayscale contrast-125 sepia-[.2] group-hover:grayscale-0 group-hover:contrast-100 group-hover:sepia-0"
+          className={`w-full h-full object-cover transition-all duration-[2s] ${isActiveCategory ? '' : 'group-hover:scale-110 grayscale contrast-125 sepia-[.2] group-hover:grayscale-0 group-hover:contrast-100 group-hover:sepia-0'}`}
         />
         
         {/* Grainy Film Overlay that fades out on hover */}
-        <div 
-          className="absolute inset-0 opacity-40 group-hover:opacity-0 transition-opacity duration-1000 mix-blend-overlay pointer-events-none"
-          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
-        />
+        {!isActiveCategory && (
+          <div 
+            className="absolute inset-0 opacity-40 group-hover:opacity-0 transition-opacity duration-1000 mix-blend-overlay pointer-events-none"
+            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+          />
+        )}
 
         {/* Subtle persistent overlay for title readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 ${isActiveCategory ? 'opacity-100' : 'group-hover:opacity-100'} transition-opacity duration-500`} />
         
-        {/* Elegant Partial Frame (Corner Brackets) */}
-        <div className="absolute top-4 left-4 md:top-6 md:left-6 w-12 h-12 md:w-16 md:h-16 border-t-[0.5px] border-l-[0.5px] border-[var(--dada-red)]/70 z-10 pointer-events-none transition-all duration-700 group-hover:w-16 group-hover:h-16 md:group-hover:w-20 md:group-hover:h-20 group-hover:border-[var(--dada-red)] group-hover:-translate-x-1 group-hover:-translate-y-1" />
-        <div className="absolute top-4 right-4 md:top-6 md:right-6 w-12 h-12 md:w-16 md:h-16 border-t-[0.5px] border-r-[0.5px] border-[var(--dada-red)]/70 z-10 pointer-events-none transition-all duration-700 group-hover:w-16 group-hover:h-16 md:group-hover:w-20 md:group-hover:h-20 group-hover:border-[var(--dada-red)] group-hover:translate-x-1 group-hover:-translate-y-1" />
-        <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 w-12 h-12 md:w-16 md:h-16 border-b-[0.5px] border-l-[0.5px] border-[var(--dada-red)]/70 z-10 pointer-events-none transition-all duration-700 group-hover:w-16 group-hover:h-16 md:group-hover:w-20 md:group-hover:h-20 group-hover:border-[var(--dada-red)] group-hover:-translate-x-1 group-hover:translate-y-1" />
-        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 w-12 h-12 md:w-16 md:h-16 border-b-[0.5px] border-r-[0.5px] border-[var(--dada-red)]/70 z-10 pointer-events-none transition-all duration-700 group-hover:w-16 group-hover:h-16 md:group-hover:w-20 md:group-hover:h-20 group-hover:border-[var(--dada-red)] group-hover:translate-x-1 group-hover:translate-y-1" />
+        {/* Elegant Partial Frame (Corner Brackets) - or Full Frame if Active */}
+        {isActiveCategory ? (
+          <div className="absolute inset-4 md:inset-6 border-[0.5px] border-[var(--dada-red)] z-10 pointer-events-none" />
+        ) : (
+          <>
+            <div className="absolute top-4 left-4 md:top-6 md:left-6 w-12 h-12 md:w-16 md:h-16 border-t-[0.5px] border-l-[0.5px] border-[var(--dada-red)]/70 z-10 pointer-events-none transition-all duration-700 group-hover:w-16 group-hover:h-16 md:group-hover:w-20 md:group-hover:h-20 group-hover:border-[var(--dada-red)] group-hover:-translate-x-1 group-hover:-translate-y-1" />
+            <div className="absolute top-4 right-4 md:top-6 md:right-6 w-12 h-12 md:w-16 md:h-16 border-t-[0.5px] border-r-[0.5px] border-[var(--dada-red)]/70 z-10 pointer-events-none transition-all duration-700 group-hover:w-16 group-hover:h-16 md:group-hover:w-20 md:group-hover:h-20 group-hover:border-[var(--dada-red)] group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 w-12 h-12 md:w-16 md:h-16 border-b-[0.5px] border-l-[0.5px] border-[var(--dada-red)]/70 z-10 pointer-events-none transition-all duration-700 group-hover:w-16 group-hover:h-16 md:group-hover:w-20 md:group-hover:h-20 group-hover:border-[var(--dada-red)] group-hover:-translate-x-1 group-hover:translate-y-1" />
+            <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 w-12 h-12 md:w-16 md:h-16 border-b-[0.5px] border-r-[0.5px] border-[var(--dada-red)]/70 z-10 pointer-events-none transition-all duration-700 group-hover:w-16 group-hover:h-16 md:group-hover:w-20 md:group-hover:h-20 group-hover:border-[var(--dada-red)] group-hover:translate-x-1 group-hover:translate-y-1" />
+          </>
+        )}
 
         <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 z-20">
-          <h3 className="text-3xl md:text-4xl font-serif text-white tracking-wide drop-shadow-lg transform group-hover:-translate-y-2 transition-transform duration-500">
+          <h3 className={`${isPlaceholder ? 'text-lg md:text-xl lg:text-2xl font-light tracking-[0.15em]' : 'text-3xl md:text-4xl tracking-wide'} font-serif ${isActiveCategory ? 'text-[var(--dada-red)]' : 'text-white'} drop-shadow-lg transform ${isActiveCategory ? '' : 'group-hover:-translate-y-2'} transition-transform duration-500`}>
             {item.title}
           </h3>
-          <p className="font-mono text-xs text-white/70 uppercase tracking-widest mt-3 flex items-center gap-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
-            <span>Discover</span>
-            <span className="w-6 h-[1px] bg-white/70 inline-block"></span>
-          </p>
+          {!isPlaceholder && (
+            <p className="font-mono text-xs text-white/70 uppercase tracking-widest mt-3 flex items-center gap-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
+              <span>Discover</span>
+              <span className="w-6 h-[1px] bg-white/70 inline-block"></span>
+            </p>
+          )}
         </div>
       </div>
     </motion.div>
@@ -193,7 +400,7 @@ export function EditorialCollection() {
 
   return (
     <section id="collection-start" className="bg-[var(--background)] py-32 md:py-48 relative min-h-[100vh]">
-      <div className="max-w-[90rem] mx-auto px-6 md:px-12">
+      <div className="max-w-[65rem] mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-7xl font-serif text-[var(--text-main)] mb-6">The Collection</h2>
           <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-[var(--text-muted)]">Select an exquisite piece to reveal its story</p>
@@ -249,25 +456,35 @@ export function EditorialCollection() {
         </div>
 
         {/* Explore Other Collections Grid */}
-        {floatingCategories.length > 0 && (
+        {categories.length > 0 && (
           <div className="mt-32 border-t border-[var(--text-muted)]/20 pt-24">
             <div className="text-center mb-16">
               <h3 className="text-3xl md:text-4xl font-serif text-[var(--text-main)] mb-6">Explore Other Collections</h3>
               <p className="font-mono text-xs md:text-sm uppercase tracking-[0.2em] text-[var(--text-muted)]">Discover more from our atelier</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {floatingCategories.map((cat) => {
+              {categories.filter(c => c !== "All").map((cat) => {
                 const preview = getCategoryPreview(cat);
                 if (!preview) return null;
+                
+                const silhouettes: Record<string, string> = {
+                  "Dresses": "/collections/sil_dress.png",
+                  "Jackets": "/collections/sil_jacket.png",
+                  "Accessories": "/collections/sil_accessories.png",
+                  "Blouses": "/collections/sil_blouse.png"
+                };
                 
                 return (
                   <DressCard 
                     key={cat} 
-                    item={{...preview, title: cat, aspectClass: "aspect-[3/4]"}} 
+                    item={{...preview, title: cat, img: silhouettes[cat] || preview.img, aspectClass: "aspect-[3/4]"}} 
                     onClick={() => {
+                      if (activeCategory === cat) return;
                       setActiveCategory(cat);
                       window.scrollTo({ top: document.getElementById('collection-start')?.offsetTop || 0, behavior: 'smooth' });
                     }} 
+                    isPlaceholder={true}
+                    isActiveCategory={activeCategory === cat}
                   />
                 );
               })}

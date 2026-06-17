@@ -9,10 +9,16 @@ export function IntroLoader() {
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.history.scrollRestoration = 'manual';
+    }
     const hasEntered = sessionStorage.getItem('art-couture-entered');
     if (hasEntered) {
       setEntered(true);
       setIsFirstLoad(false);
+    } else {
+      // Force top scroll when intro loader mounts
+      window.scrollTo(0, 0);
     }
   }, []);
 
@@ -20,6 +26,10 @@ export function IntroLoader() {
     if (entered) {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
+      // Force scroll to top after overflow is restored to actually apply the scroll
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 50);
       return;
     }
 
@@ -34,6 +44,7 @@ export function IntroLoader() {
   }, [entered]);
 
   const handleEnter = () => {
+    window.scrollTo(0, 0);
     setBeamVisible(true);
     setTimeout(() => {
       setBeamVisible(false);
