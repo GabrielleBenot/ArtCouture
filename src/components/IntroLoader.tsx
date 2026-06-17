@@ -45,7 +45,7 @@ export function IntroLoader() {
       // Phase 2: Split curtains apart
       setPhase("split");
       setTimeout(() => {
-        // Phase 3: Done — unmount
+        // Phase 3: Done - unmount
         setPhase("done");
         setEntered(true);
       }, 900);

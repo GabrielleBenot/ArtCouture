@@ -22,7 +22,7 @@ export function Footer() {
         className="max-w-7xl mx-auto py-20 px-6 md:px-12"
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12 text-center md:text-left">
-          {/* Left Column — Brand */}
+          {/* Left Column - Brand */}
           <div className="flex flex-col items-center md:items-start gap-5">
             <Logo className="w-10 h-10 text-white/80" />
             <p className="font-serif italic text-white/60 text-sm leading-relaxed max-w-[260px]">
@@ -33,7 +33,7 @@ export function Footer() {
             </address>
           </div>
 
-          {/* Middle Column — Quick Links */}
+          {/* Middle Column - Quick Links */}
           <div className="flex flex-col items-center md:items-start">
             <h4 className="font-mono text-xs uppercase tracking-widest text-white/40 mb-6">
               Quick Links
@@ -51,7 +51,7 @@ export function Footer() {
             </nav>
           </div>
 
-          {/* Right Column — Social & Email */}
+          {/* Right Column - Social & Email */}
           <div className="flex flex-col items-center md:items-start">
             <h4 className="font-mono text-xs uppercase tracking-widest text-white/40 mb-6">
               Follow Us
