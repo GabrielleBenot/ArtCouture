@@ -3,12 +3,15 @@ import React from "react";
 import { Header } from "@/components/Header";
 import { IntroLoader } from "@/components/IntroLoader";
 import { CinematicHero } from "@/components/CinematicHero";
+import { ScrollQuote } from "@/components/ScrollQuote";
 import { CatwalkVideo } from "@/components/CatwalkVideo";
 import { EditorialCollection } from "@/components/EditorialCollection";
 import { TestimonialSlider } from "@/components/TestimonialSlider";
 import { StorySection } from "@/components/StorySection";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { NewsletterCTA } from "@/components/NewsletterCTA";
+import { TheEdgeCampaign } from "@/components/TheEdgeCampaign";
+import { Logo } from "@/components/Logo";
 import { motion } from "framer-motion";
 
 import { useRef } from "react";
@@ -22,9 +25,9 @@ function ParallaxImage({ src, alt }: { src: string, alt: string }) {
     offset: ["start end", "end start"]
   });
   
-  // Smoothly move the image up and shrink it slightly to create depth
-  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.05, 0.9]);
+  // Subtly move the image vertically while noticeably shrinking it to create depth
+  const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.15, 0.85]);
 
   return (
     <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
@@ -40,12 +43,14 @@ function ParallaxImage({ src, alt }: { src: string, alt: string }) {
 
 // Layout helper for sections
 function FeatureSection({ 
+  id,
   title, 
   text, 
   imgSrc, 
   reverse = false,
   subtitle
 }: { 
+  id?: string,
   title?: React.ReactNode, 
   text?: React.ReactNode, 
   imgSrc: string, 
@@ -53,7 +58,7 @@ function FeatureSection({
   subtitle?: string
 }) {
   return (
-    <section className="py-16 md:py-24 px-6 max-w-[90rem] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
+    <section id={id} className="py-16 md:py-24 px-6 max-w-[90rem] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
       {!reverse ? (
         <>
           <div className="flex-1 space-y-6 lg:pr-12">
@@ -147,10 +152,10 @@ export default function Home() {
       <IntroLoader />
       <Header />
       <CinematicHero />
-
-      <div className="py-12" />
+      <ScrollQuote />
 
       <FeatureSection 
+        id="boutique"
         subtitle="The Philosophy"
         title={
           <span className="flex flex-col">
@@ -243,7 +248,9 @@ export default function Home() {
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
       />
 
-      <EditorialCollection />
+      <div id="collections">
+        <EditorialCollection />
+      </div>
       <CatwalkVideo />
 
       <div className="py-12" />
@@ -317,21 +324,24 @@ export default function Home() {
       />
 
       <TestimonialSlider />
-      <StorySection />
-      <FAQAccordion />
+      <div id="story">
+        <StorySection />
+      </div>
+      <div id="faq">
+        <FAQAccordion />
+      </div>
+      <TheEdgeCampaign />
       <NewsletterCTA />
 
-      <footer className="py-20 bg-[var(--background)] border-t border-[var(--border-light)] text-center">
-        <img 
-          src="https://storage.googleapis.com/mixo-sites/images/file-38fde64c-b715-4ba5-b5f7-fba2a5789f41.png" 
-          alt="Art Couture Logo" 
-          className="h-10 mx-auto mb-8 opacity-80"
-        />
-        <p className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase leading-loose">
-          1010 Pearl St, Ste A, La Jolla, CA 92037<br/>
-          <a href="mailto:info@artcouture.studio" className="hover:text-[var(--dada-red)] transition-colors">info@artcouture.studio</a><br/><br/>
-          © 2026 Art Couture. All rights reserved.
-        </p>
+      <footer id="contact" className="py-20 bg-[var(--background)] border-t border-[var(--border-light)] text-center relative overflow-hidden">
+        <p className="font-mono text-xs tracking-widest text-[var(--foreground)] opacity-60 mb-2 uppercase relative z-10">1010 Pearl St, Ste A, La Jolla, CA 92037</p>
+        <a 
+          href="mailto:info@artcouture.studio" 
+          className="font-mono text-xs tracking-widest text-[var(--foreground)] opacity-60 mb-12 uppercase relative z-10 hover:opacity-100 hover:text-[var(--dada-red)] transition-all duration-300 inline-block"
+        >
+          info@artcouture.studio
+        </a>
+        <p className="text-[10px] text-[var(--foreground)] opacity-40 uppercase tracking-[0.2em] relative z-10">© {new Date().getFullYear()} Art Couture. All rights reserved.</p>
       </footer>
     </main>
   );

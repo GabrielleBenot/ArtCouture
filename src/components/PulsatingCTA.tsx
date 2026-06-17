@@ -4,15 +4,22 @@ import { motion } from 'framer-motion';
 
 interface CTAProps {
   text: string;
-  href: string;
+  href?: string;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  className?: string;
 }
 
-export function PulsatingCTA({ text, href }: CTAProps) {
+export function PulsatingCTA({ text, href, onClick, type, className = "" }: CTAProps) {
+  const Component = href ? motion.a : motion.button;
+  const props = href 
+    ? { href, target: "_blank", rel: "noopener noreferrer" } 
+    : { onClick, type };
+
   return (
-    <motion.a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Component
+      {...props}
+      className={className}
       animate={{
         boxShadow: [
           '0 0 4px rgba(255, 89, 0, 0.2), inset 0 0 0px rgba(255, 89, 0, 0)',

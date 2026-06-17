@@ -5,22 +5,43 @@ import { MagneticButton } from "./MagneticButton";
 
 export function IntroLoader() {
   const [beamVisible, setBeamVisible] = useState(false);
+  const [entered, setEntered] = useState(false);
+
+  useEffect(() => {
+    // Always force scroll to top so the cinematic hero is perfectly framed
+    window.scrollTo(0, 0);
+
+    if (!entered) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      // Force scroll to top again just in case the browser tried to restore scroll
+      window.scrollTo(0, 0);
+    }
+    // Cleanup on unmount just in case
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [entered]);
 
   const handleEnter = () => {
     setBeamVisible(true);
     setTimeout(() => {
       setBeamVisible(false);
-      const nextSection = document.getElementById("cinematic-hero");
-      if (nextSection) {
-        nextSection.scrollIntoView({ behavior: "smooth" });
-      } else {
-        window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
-      }
+      setEntered(true);
+      
+      // After it slides up, we can optionally hide it completely
+      setTimeout(() => {
+        // Overlay is gone
+      }, 1000);
     }, 600);
   };
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-[#fafaf8]">
+    <section className={`fixed inset-0 z-[9999] w-full h-screen overflow-hidden bg-[#fafaf8] transition-transform duration-1000 ${entered ? '-translate-y-full' : 'translate-y-0'}`}>
       <div className="absolute inset-0 flex flex-col lg:flex-row">
         {/* Left Side: Text */}
         <div className="w-full lg:w-[45%] h-1/2 lg:h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 z-10 bg-[#fafaf8]">
@@ -60,7 +81,7 @@ export function IntroLoader() {
                 onClick={handleEnter}
                 className="bg-black text-white px-10 py-5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-[var(--dada-red)] transition-colors duration-300"
               >
-                ENTER THE WEBSITE
+                Click to enter
               </button>
             </MagneticButton>
           </motion.div>

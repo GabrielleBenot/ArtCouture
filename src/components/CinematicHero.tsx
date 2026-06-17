@@ -1,95 +1,64 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { MagneticButton } from "./MagneticButton";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export function CinematicHero() {
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 1000], [0, 200]);
-  const opacity = useTransform(scrollY, [0, 600], [1, 0]);
-  const [showQuote, setShowQuote] = useState(false);
-
-  useEffect(() => {
-    if (showQuote) {
-      // After 5 seconds (allows time for fade in, reading, and fade out), scroll down and remove overlay
-      const timer = setTimeout(() => {
-        setShowQuote(false);
-        setTimeout(() => {
-          document.getElementById("cinematic-hero")?.nextElementSibling?.scrollIntoView({ behavior: "smooth" });
-        }, 500);
-      }, 5500);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [showQuote]);
+  const yImage = useTransform(scrollY, [0, 1000], ["0%", "15%"]);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
-    <>
-      <section id="cinematic-hero" className="relative h-screen w-full overflow-hidden bg-black flex items-center justify-center pt-20 border-b-4 border-[var(--dada-red)]">
-        <motion.div style={{ y, opacity }} className="absolute inset-0 w-full h-full">
-          <img 
-            src="https://storage.googleapis.com/mixo-sites/images/file-b6c86729-ffc9-4a0b-8d69-63a2a0de2d7c.jpg"
-            alt="Art Couture Woman"
-            className="w-full h-full object-cover object-top opacity-80"
-          />
-          {/* Elegant fade to black at the bottom */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent pointer-events-none" />
+    <section id="cinematic-hero" className="relative w-full min-h-screen bg-black pt-32 pb-16 px-4 md:px-12 lg:px-24 flex items-center justify-center">
+      
+      {/* Thick framed cinematic container (maintains horizontal format) */}
+      <div className="relative w-full max-w-[100rem] aspect-[4/3] md:aspect-video mx-auto overflow-hidden bg-[#111] border border-white/10 shadow-2xl">
+        
+        <motion.div style={{ y: yImage }} className="absolute inset-0 w-full h-[120%] -top-[10%]">
+          <video 
+            ref={videoRef}
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className="w-full h-full object-cover object-center grayscale opacity-80"
+          >
+            <source src="/ballerina_trimmed.mp4" type="video/mp4" />
+          </video>
         </motion.div>
         
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-col justify-center text-left">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-3xl mix-blend-difference text-white"
-          >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-black tracking-tight leading-tight mb-6">
-              A canvas in motion.<br />A masterpiece worn.
-            </h1>
-            <p className="text-lg md:text-xl font-serif text-white/80 leading-relaxed mb-10 max-w-2xl">
-              Enter a world where the rigid boundaries of gallery walls dissolve into the fluidity of silk and structured silhouettes. Every collection is an original exhibition, translating the raw emotion of fine art into breathtaking, wearable architecture.
-            </p>
-            <MagneticButton>
-              <button 
-                onClick={(e) => {
-                  e.preventDefault();
-                  setShowQuote(true);
-                }}
-                className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 font-mono text-sm uppercase tracking-widest hover:bg-[var(--dada-red)] transition-colors duration-300 border border-white/20 hover:border-transparent"
-              >
-                EXPLORE
-              </button>
-            </MagneticButton>
-          </motion.div>
-        </div>
-      </section>
+        {/* Subtle gradient overlay to ensure text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent pointer-events-none" />
 
-      <AnimatePresence>
-        {showQuote && (
-          <motion.div
+        {/* Text Content overlaying the video */}
+        <div className="absolute inset-0 z-10 flex flex-col justify-center p-8 md:p-16 lg:p-24 text-left">
+          <h1 className="text-4xl md:text-6xl lg:text-[5.5rem] font-sans font-black tracking-tighter text-white leading-[0.9] mb-8 uppercase mix-blend-difference">
+            A canvas <br/>
+            <span className="font-serif italic font-light text-white/70 lowercase">in motion.</span><br/>
+            A masterpiece <br/>
+            <span className="text-[var(--dada-red)]">worn.</span>
+          </h1>
+          <p className="font-serif text-base md:text-xl text-white/80 leading-relaxed max-w-2xl mix-blend-difference mb-12">
+            Enter a world where the rigid boundaries of gallery walls dissolve into the fluidity of silk and structured silhouettes. Every collection is an original exhibition, translating the raw emotion of fine art into breathtaking, wearable architecture.
+          </p>
+
+          <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="fixed inset-0 z-50 bg-[#050505] flex items-center justify-center p-8 md:p-24"
+            transition={{ delay: 1.5, duration: 1 }}
+            className="flex items-center gap-4 mix-blend-difference"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ delay: 1, duration: 2, ease: "easeOut" }}
-              className="max-w-4xl text-center"
-            >
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif text-white leading-tight mb-8 italic font-light">
-                "A dress must follow the body of a woman, not the body of the woman following the shape of the dress."
-              </h2>
-              <p className="font-mono text-xs md:text-sm uppercase tracking-[0.4em] text-[var(--dada-red)]">
-                — Hubert de Givenchy
-              </p>
-            </motion.div>
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white">Scroll to discover</span>
+            <div className="w-16 h-[1px] bg-white/30 overflow-hidden relative">
+              <motion.div 
+                className="w-full h-full bg-white absolute top-0 left-0 origin-left"
+                animate={{ scaleX: [0, 1, 0], x: ["0%", "0%", "100%"] }}
+                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              />
+            </div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        </div>
+
+      </div>
+    </section>
   );
 }

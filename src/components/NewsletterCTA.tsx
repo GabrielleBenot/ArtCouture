@@ -25,9 +25,20 @@ export function NewsletterCTA() {
             <span className="text-sm not-italic font-mono uppercase tracking-widest mt-4 block">- Tom Ford</span>
           </p>
           
-          <div className="relative z-10">
-            <PulsatingCTA text="Join Us" href="#" />
-          </div>
+          <form 
+            action="https://formspree.io/f/YOUR_FORMSPREE_ID" 
+            method="POST" 
+            className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto"
+          >
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="Enter your email" 
+              required 
+              className="w-full sm:w-auto flex-1 bg-transparent border border-[var(--border-light)] px-6 py-3 font-mono text-xs uppercase tracking-widest text-[var(--text-main)] focus:outline-none focus:border-[var(--dada-red)] transition-colors placeholder:text-[var(--text-muted)] rounded-none"
+            />
+            <PulsatingCTA text="Join Us" type="submit" className="w-full sm:w-auto whitespace-nowrap" />
+          </form>
         </motion.div>
       </div>
     </section>

@@ -6,6 +6,7 @@ import { DressModal } from "@/components/DressModal";
 const collection = [
   { 
     title: "Fuchsia Majesty", 
+    category: "Dresses",
     price: "$7,955", 
     description: "Bold silk satin with a thigh high slit and crystal detailing, crafted for commanding entrances.",
     fabric: "Draped from 100-momme Italian silk duchess satin, enriched with iridescent micro-crystals hand-embroidered over forty hours.",
@@ -20,6 +21,7 @@ const collection = [
   },
   { 
     title: "Blush Enchantress", 
+    category: "Dresses",
     price: "$8,700", 
     description: "Layers of silk organza and petal appliqués, the embodiment of modern femininity.",
     fabric: "Hand-dyed rosewater silk organza floating weightlessly over cascading French Chantilly lace, adorned with 3D silk-chiffon floral appliqués.",
@@ -34,6 +36,7 @@ const collection = [
   },
   { 
     title: "Golden Whisper", 
+    category: "Dresses",
     price: "$9,200", 
     description: "Champagne tulle drenched in hand-set crystals, alive with light.",
     fabric: "Weightless illusion tulle meticulously encrusted with gold-leaf threading and thousands of Swarovski champagne crystals.",
@@ -48,6 +51,7 @@ const collection = [
   },
   { 
     title: "Crimson Allure", 
+    category: "Dresses",
     price: "$7,980", 
     description: "Confidence, cut in silk. Sleek silk crepe with shimmering side panels, unapologetically bold.",
     fabric: "Heavy-weight double-faced silk crepe de chine that cascades like liquid fire, featuring ruby micro-sequin side panelling.",
@@ -62,6 +66,7 @@ const collection = [
   },
   { 
     title: "Midnight Elegance", 
+    category: "Jackets",
     price: "$8,850", 
     description: "Where darkness whispers luxury. Deep navy velvet sculpted to perfection, draping with quiet power.",
     fabric: "Midnight blue silk-viscose pané velvet, extraordinarily soft and plush, catching the light like a starlit winter sky.",
@@ -76,6 +81,7 @@ const collection = [
   },
   { 
     title: "Blush Couture", 
+    category: "Accessories",
     price: "$11,700", 
     description: "The ultimate expression of our atelier. Layers of silk organza and petal appliqués.",
     fabric: "Ethereal ivory silk tulle intricately paired with hand-cut Guipure lace, falling into a voluminous, breathtaking architectural skirt.",
@@ -141,6 +147,18 @@ function DressCard({ item, onClick }: { item: DressItem, onClick: () => void }) 
 
 export function EditorialCollection() {
   const [selectedDress, setSelectedDress] = useState<DressItem | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+
+  const categories = ["All", ...Array.from(new Set(collection.map(item => item.category)))];
+
+  const filteredCollection = activeCategory === "All" 
+    ? collection 
+    : collection.filter(item => item.category === activeCategory);
+
+  // Split into 3 columns for Masonry layout
+  const col1 = filteredCollection.filter((_, i) => i % 3 === 0);
+  const col2 = filteredCollection.filter((_, i) => i % 3 === 1);
+  const col3 = filteredCollection.filter((_, i) => i % 3 === 2);
 
   useEffect(() => {
     if (selectedDress) {
@@ -154,30 +172,50 @@ export function EditorialCollection() {
   }, [selectedDress]);
 
   return (
-    <section className="bg-[var(--background)] py-32 md:py-48 relative">
+    <section className="bg-[var(--background)] py-32 md:py-48 relative min-h-[100vh]">
       <div className="max-w-[90rem] mx-auto px-6 md:px-12">
-        <div className="text-center mb-24 md:mb-32">
+        <div className="text-center mb-16">
           <h2 className="text-5xl md:text-7xl font-serif text-[var(--text-main)] mb-6">The Collection</h2>
           <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-[var(--text-muted)]">Select an exquisite piece to reveal its story</p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8 lg:gap-12">
+        {/* Category Tabs */}
+        <div className="flex flex-wrap items-center justify-center gap-6 mb-24">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`font-mono text-xs uppercase tracking-[0.2em] pb-2 border-b-2 transition-all duration-300 ${
+                activeCategory === cat 
+                  ? "border-[var(--dada-red)] text-[var(--text-main)] font-bold" 
+                  : "border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)]"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-8 lg:gap-12 transition-all duration-500">
           {/* Column 1 */}
           <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
-            <DressCard item={collection[0]} onClick={() => setSelectedDress(collection[0])} />
-            <DressCard item={collection[3]} onClick={() => setSelectedDress(collection[3])} />
+            {col1.map((item, idx) => (
+              <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
+            ))}
           </div>
           
-          {/* Column 2 - Offset */}
+          {/* Column 2 - Offset visually */}
           <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3 md:pt-32">
-            <DressCard item={collection[1]} onClick={() => setSelectedDress(collection[1])} />
-            <DressCard item={collection[4]} onClick={() => setSelectedDress(collection[4])} />
+            {col2.map((item, idx) => (
+              <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
+            ))}
           </div>
 
           {/* Column 3 */}
           <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
-            <DressCard item={collection[2]} onClick={() => setSelectedDress(collection[2])} />
-            <DressCard item={collection[5]} onClick={() => setSelectedDress(collection[5])} />
+            {col3.map((item, idx) => (
+              <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
+            ))}
           </div>
         </div>
       </div>
