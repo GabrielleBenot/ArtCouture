@@ -82,7 +82,7 @@ export function CatwalkVideo() {
             transition={{ duration: 1, delay: 0.2 }}
             className="mt-6 text-xl md:text-3xl font-serif text-white/90 italic drop-shadow-xl max-w-2xl"
           >
-            Untamed elegance, where nature's motion becomes living art.
+            Effortless elegance, translating the wild rhythm of nature into pure couture.
           </motion.p>
         </div>
       </motion.div>
