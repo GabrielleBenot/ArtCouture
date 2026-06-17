@@ -33,7 +33,7 @@ export function StorySection() {
               <img 
                 src="https://storage.googleapis.com/mixo-sites/images/file-79d83dc3-308d-4dd6-9173-8dc2170520f7.jpeg" 
                 alt="Gabrielle and Char" 
-                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[1.5s]"
+                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[1.5s] mix-blend-multiply"
               />
             </div>
           </div>

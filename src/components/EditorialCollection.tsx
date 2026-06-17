@@ -78,8 +78,7 @@ const collection = [
     customization: "Beadwork pattern can be personalized.",
     img: "https://images.unsplash.com/photo-1566162200408-2f56dc9f69b6?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[3/4]",
-    sketchImg: "/images/sketches/ethereal.png"
+    aspectClass: "aspect-[3/4]"
   },
   { 
     title: "Sapphire Dream", 
@@ -90,8 +89,7 @@ const collection = [
     customization: "Neckline can be altered to off-the-shoulder.",
     img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[2/3]",
-    sketchImg: "/images/sketches/sapphire.png"
+    aspectClass: "aspect-[2/3]"
   },
   { 
     title: "Blush Couture", 
