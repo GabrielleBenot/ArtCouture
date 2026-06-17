@@ -162,12 +162,14 @@ function DressCard({ item, onClick }: { item: DressItem, onClick: () => void }) 
 
 export function EditorialCollection() {
   const [selectedDress, setSelectedDress] = useState<DressItem | null>(null);
-  const [activeCategory, setActiveCategory] = useState<string>("Dresses");
+  const [activeCategory, setActiveCategory] = useState<string>("All");
 
-  const categories = Array.from(new Set(collection.map(item => item.category)));
-  const floatingCategories = categories.filter(c => c !== activeCategory);
+  const categories = ["All", ...Array.from(new Set(collection.map(item => item.category)))];
+  const floatingCategories = categories.filter(c => c !== activeCategory && c !== "All");
 
-  const filteredCollection = collection.filter(item => item.category === activeCategory);
+  const filteredCollection = activeCategory === "All" 
+    ? collection 
+    : collection.filter(item => item.category === activeCategory);
 
   // Split into 3 columns for Masonry layout
   const col1 = filteredCollection.filter((_, i) => i % 3 === 0);
@@ -195,6 +197,23 @@ export function EditorialCollection() {
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-7xl font-serif text-[var(--text-main)] mb-6">The Collection</h2>
           <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-[var(--text-muted)]">Select an exquisite piece to reveal its story</p>
+        </div>
+
+        {/* Category Tabs */}
+        <div className="flex flex-wrap items-center justify-center gap-6 mb-24 relative z-40">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`font-mono text-xs uppercase tracking-[0.2em] pb-2 border-b-2 transition-all duration-300 ${
+                activeCategory === cat 
+                  ? "border-[var(--dada-red)] text-[var(--text-main)] font-bold" 
+                  : "border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)]"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
 
         {/* Mobile Category Scroll (Hidden on desktop) */}
@@ -227,8 +246,9 @@ export function EditorialCollection() {
                 
                 const positions = [
                   "top-[10%] left-[33%] -translate-x-1/2",
-                  "top-[45%] left-[66%] -translate-x-1/2",
-                  "top-[80%] left-[33%] -translate-x-1/2"
+                  "top-[35%] left-[66%] -translate-x-1/2",
+                  "top-[60%] left-[33%] -translate-x-1/2",
+                  "top-[85%] left-[66%] -translate-x-1/2"
                 ];
                 
                 return (
@@ -238,7 +258,7 @@ export function EditorialCollection() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    className={`absolute w-[80%] md:w-[32%] aspect-[3/4] shadow-2xl pointer-events-auto cursor-pointer group ${positions[idx % 3]}`}
+                    className={`absolute w-[80%] md:w-[32%] aspect-[3/4] shadow-2xl pointer-events-auto cursor-pointer group ${positions[idx % 4]}`}
                     onClick={() => setActiveCategory(cat)}
                     whileHover={{ scale: 1.02, zIndex: 40 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
