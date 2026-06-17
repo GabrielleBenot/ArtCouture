@@ -8,26 +8,24 @@ export function CinematicHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
-    <section id="cinematic-hero" className="relative w-full min-h-screen bg-black pt-32 pb-16 px-4 md:px-12 lg:px-24 flex items-center justify-center">
+    <section id="cinematic-hero" className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center">
       
-      {/* Thick framed cinematic container (maintains horizontal format) */}
-      <div className="relative w-full max-w-[100rem] aspect-[4/3] md:aspect-video mx-auto overflow-hidden bg-[#111] border border-white/10 shadow-2xl">
-        
-        <motion.div style={{ y: yImage }} className="absolute inset-0 w-full h-[120%] -top-[10%]">
-          <video 
-            ref={videoRef}
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-            className="w-full h-full object-cover object-center grayscale opacity-80"
-          >
-            <source src="/ballerina_trimmed.mp4" type="video/mp4" />
-          </video>
-        </motion.div>
-        
-        {/* Subtle gradient overlay to ensure text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent pointer-events-none" />
+      {/* Background Video */}
+      <motion.div style={{ y: yImage }} className="absolute inset-0 w-full h-[120%] -top-[10%]">
+        <video 
+          ref={videoRef}
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="w-full h-full object-cover object-center grayscale opacity-80"
+        >
+          <source src="/ballerina_trimmed.mp4" type="video/mp4" />
+        </video>
+      </motion.div>
+      
+      {/* Subtle gradient overlay to ensure text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent pointer-events-none" />
 
         {/* Text Content overlaying the video */}
         <div className="absolute inset-0 z-10 flex flex-col justify-center p-8 md:p-16 lg:p-24 text-left">
@@ -57,8 +55,6 @@ export function CinematicHero() {
             </div>
           </motion.div>
         </div>
-
-      </div>
     </section>
   );
 }

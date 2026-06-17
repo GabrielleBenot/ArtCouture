@@ -6,25 +6,27 @@ import { MagneticButton } from "./MagneticButton";
 export function IntroLoader() {
   const [beamVisible, setBeamVisible] = useState(false);
   const [entered, setEntered] = useState(false);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   useEffect(() => {
-    // Force scroll to top and prevent browser from restoring previous scroll position
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
+    const hasEntered = sessionStorage.getItem('art-couture-entered');
+    if (hasEntered) {
+      setEntered(true);
+      setIsFirstLoad(false);
     }
-    
-    // Use timeout to override any immediate scroll restorations from frameworks/lenis
-    setTimeout(() => window.scrollTo(0, 0), 50);
+  }, []);
 
-    if (!entered) {
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
-    } else {
+  useEffect(() => {
+    if (entered) {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
-      setTimeout(() => window.scrollTo(0, 0), 50);
+      return;
     }
-    // Cleanup on unmount just in case
+
+    // If not entered, lock scroll
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
     return () => {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
@@ -36,13 +38,11 @@ export function IntroLoader() {
     setTimeout(() => {
       setBeamVisible(false);
       setEntered(true);
-      
-      // After it slides up, we can optionally hide it completely
-      setTimeout(() => {
-        // Overlay is gone
-      }, 1000);
+      sessionStorage.setItem('art-couture-entered', 'true');
     }, 600);
   };
+
+  if (entered && !isFirstLoad) return null;
 
   return (
     <section className={`fixed inset-0 z-[9999] w-full h-screen overflow-hidden bg-[#fafaf8] transition-transform duration-1000 ${entered ? '-translate-y-full' : 'translate-y-0'}`}>
