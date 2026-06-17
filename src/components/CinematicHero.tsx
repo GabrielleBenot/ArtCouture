@@ -1,24 +1,27 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { MagneticButton } from "./MagneticButton";
-import { X, Lock } from "lucide-react";
 
 export function CinematicHero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, 200]);
   const opacity = useTransform(scrollY, [0, 600], [1, 0]);
-  const [showVault, setShowVault] = useState(false);
+  const [showQuote, setShowQuote] = useState(false);
 
-  // Vault images (all 6 dresses)
-  const vaultImages = [
-    { src: "https://storage.googleapis.com/mixo-sites/images/file-b1585176-4ab0-4441-9ca1-0979786596cd.jpg", title: "Fuchsia Majesty" },
-    { src: "https://storage.googleapis.com/mixo-sites/images/file-3a32d6f7-9d96-47e6-9e16-1d3e8c356fa3.jpg", title: "Blush Enchantress" },
-    { src: "https://storage.googleapis.com/mixo-sites/images/file-fbdb7417-d98d-4d96-99ed-20eb22b057ae.jpg", title: "Golden Whisper" },
-    { src: "https://storage.googleapis.com/mixo-sites/images/file-efa8732c-2726-4513-9f7d-66e84a3ead12.jpg", title: "Crimson Allure" },
-    { src: "https://storage.googleapis.com/mixo-sites/images/file-fd88942d-471c-4ef4-ac9b-1d4292999cb3.jpg", title: "Midnight Echo" },
-    { src: "https://storage.googleapis.com/mixo-sites/images/file-e25b0f24-1bdb-4182-886e-58dd451f1664.jpg", title: "Blush Couture" }
-  ];
+  useEffect(() => {
+    if (showQuote) {
+      // After 5 seconds (allows time for fade in, reading, and fade out), scroll down and remove overlay
+      const timer = setTimeout(() => {
+        setShowQuote(false);
+        setTimeout(() => {
+          document.getElementById("cinematic-hero")?.nextElementSibling?.scrollIntoView({ behavior: "smooth" });
+        }, 500);
+      }, 5500);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [showQuote]);
 
   return (
     <>
@@ -50,7 +53,7 @@ export function CinematicHero() {
               <button 
                 onClick={(e) => {
                   e.preventDefault();
-                  setShowVault(true);
+                  setShowQuote(true);
                 }}
                 className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 font-mono text-sm uppercase tracking-widest hover:bg-[var(--dada-red)] transition-colors duration-300 border border-white/20 hover:border-transparent"
               >
@@ -62,74 +65,28 @@ export function CinematicHero() {
       </section>
 
       <AnimatePresence>
-        {showVault && (
+        {showQuote && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 bg-[#111] text-white overflow-y-auto overflow-x-hidden flex flex-col"
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="fixed inset-0 z-50 bg-[#050505] flex items-center justify-center p-8 md:p-24"
           >
-            {/* Header */}
-            <div className="w-full flex justify-between items-center p-6 md:p-12 sticky top-0 z-20 bg-gradient-to-b from-[#111] to-transparent">
-              <span className="font-sans font-black text-sm uppercase tracking-[0.2em] flex items-center gap-3">
-                <Lock size={16} /> The Vault
-              </span>
-              <button 
-                onClick={() => setShowVault(false)}
-                className="hover:text-[var(--dada-red)] transition-colors bg-black/50 p-2 rounded-full backdrop-blur-md"
-              >
-                <X size={24} strokeWidth={1.5} />
-              </button>
-            </div>
-
-            {/* Masonry Vault Grid */}
-            <div className="px-6 md:px-12 pb-24 max-w-[100rem] mx-auto w-full">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 pt-10">
-                {vaultImages.map((img, i) => (
-                  <motion.div 
-                    key={i}
-                    initial={{ opacity: 0, y: 100 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + (i * 0.1), duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className={`relative group overflow-hidden ${i % 2 === 0 ? 'mt-0 md:mt-24' : ''}`}
-                  >
-                    <div className="aspect-[3/4] w-full bg-[#222]">
-                      <img 
-                        src={img.src} 
-                        alt={img.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
-                      />
-                    </div>
-                    {/* Vault Info Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--dada-red)] mb-2">Archive 00{i + 1}</p>
-                      <h3 className="font-serif text-3xl text-white">{img.title}</h3>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-              
-              {/* Call to action */}
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.2, duration: 1 }}
-                className="mt-32 flex justify-center"
-              >
-                <button 
-                  onClick={() => {
-                    setShowVault(false);
-                    setTimeout(() => {
-                      document.getElementById("cinematic-hero")?.nextElementSibling?.scrollIntoView({ behavior: "smooth" });
-                    }, 800);
-                  }}
-                  className="font-mono text-sm border border-white/30 px-12 py-5 uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all duration-300"
-                >
-                  Continue to Collections
-                </button>
-              </motion.div>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ delay: 1, duration: 2, ease: "easeOut" }}
+              className="max-w-4xl text-center"
+            >
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif text-white leading-tight mb-8 italic font-light">
+                "A dress must follow the body of a woman, not the body of the woman following the shape of the dress."
+              </h2>
+              <p className="font-mono text-xs md:text-sm uppercase tracking-[0.4em] text-[var(--dada-red)]">
+                — Hubert de Givenchy
+              </p>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
