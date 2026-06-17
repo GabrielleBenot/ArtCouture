@@ -1,9 +1,11 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export function CatwalkVideo() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -13,6 +15,36 @@ export function CatwalkVideo() {
   const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Skip the initial title card/black box (starts around 5 seconds)
+    // and loop after 15 seconds of pure cheetah running (loop at 20s)
+    const startTime = 5.0; 
+    const endTime = 20.0;
+
+    const handleLoadedMetadata = () => {
+      video.currentTime = startTime;
+      video.play().catch(e => console.log("Auto-play prevented", e));
+    };
+
+    const handleTimeUpdate = () => {
+      if (video.currentTime >= endTime) {
+        video.currentTime = startTime;
+        video.play().catch(e => console.log("Auto-play prevented", e));
+      }
+    };
+
+    video.addEventListener("loadedmetadata", handleLoadedMetadata);
+    video.addEventListener("timeupdate", handleTimeUpdate);
+
+    return () => {
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+    };
+  }, []);
+
   return (
     <section ref={containerRef} className="relative h-[120vh] w-full overflow-hidden bg-[var(--background)] flex items-center justify-center py-20">
       <motion.div 
@@ -21,14 +53,14 @@ export function CatwalkVideo() {
       >
         <motion.div style={{ y }} className="absolute inset-0 w-full h-[140%] -top-[20%]">
           <video 
+            ref={videoRef}
             autoPlay 
             muted 
-            loop 
             playsInline
-            className="w-full h-full object-cover opacity-80"
+            className="w-full h-full object-cover opacity-80 grayscale"
           >
-            {/* Elegant slow-motion fabric/runway video loop */}
-            <source src="https://videos.pexels.com/video-files/853889/853889-hd_1920_1080_25fps.mp4" type="video/mp4" />
+            {/* Conceptual slow-motion cheetah running to represent pure movement */}
+            <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/6/62/Cheetahs_on_the_Edge_%28Director%27s_Cut%29.ogv/Cheetahs_on_the_Edge_%28Director%27s_Cut%29.ogv.1080p.vp9.webm" type="video/webm" />
           </video>
           <div className="absolute inset-0 bg-black/40 mix-blend-multiply pointer-events-none" />
         </motion.div>
@@ -50,7 +82,7 @@ export function CatwalkVideo() {
             transition={{ duration: 1, delay: 0.2 }}
             className="mt-6 text-xl md:text-3xl font-serif text-white/90 italic drop-shadow-xl max-w-2xl"
           >
-            Where fabric breathes and art comes alive.
+            Untamed elegance, where nature's motion becomes living art.
           </motion.p>
         </div>
       </motion.div>

@@ -21,20 +21,29 @@ export function Header() {
       }`}
     >
       <div className="flex-1">
-        <button className={`font-mono text-xs uppercase tracking-widest hover:text-[var(--dada-red)] transition-colors text-black`}>
-          Boutique
+        <button className={`font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-black`}>
+          Shop Boutique
         </button>
       </div>
 
       <div className="flex-1 flex justify-center">
-        <h1 className="text-2xl md:text-3xl font-serif text-black font-medium tracking-tight">
+        <h1 className="text-xl md:text-3xl font-serif text-black font-medium tracking-tight">
           Art Couture
         </h1>
       </div>
 
-      <div className="flex-1 flex justify-end">
-        <button className={`font-mono text-xs uppercase tracking-widest hover:text-[var(--dada-red)] transition-colors text-black`}>
-          Menu
+      <div className="flex-1 flex justify-end items-center gap-4 md:gap-8">
+        <button className={`font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-black hidden sm:block`}>
+          Collections
+        </button>
+        <button className={`font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-black hidden md:block`}>
+          Our Story
+        </button>
+        <button className={`font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-black hidden lg:block`}>
+          FAQ
+        </button>
+        <button className={`font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-black`}>
+          Contact
         </button>
       </div>
     </motion.header>

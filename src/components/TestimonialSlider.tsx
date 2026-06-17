@@ -17,7 +17,7 @@ export function TestimonialSlider() {
             Art Couture has given me the opportunity to find stylish and creative designs that I never thought existed.
           </p>
           <div className="flex flex-col items-center">
-            <span className="font-mono text-xs tracking-widest uppercase text-[var(--text-muted)]">— Morgan Ermington</span>
+            <span className="font-mono text-xs tracking-widest uppercase text-[var(--text-muted)]">- Morgan Ermington</span>
           </div>
         </motion.div>
       </div>

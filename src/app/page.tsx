@@ -185,7 +185,7 @@ export default function Home() {
             <span className="font-serif text-4xl md:text-5xl mt-2">Striking Silhouettes.</span>
           </span>
         }
-        text={<p>Visual rhythm is essential to our design language. We take pride in geometric complexity, organic flow, and daring contrast. Our patterns do not merely sit on the fabric—they actively converse with the silhouette, creating garments that are visually arresting from every angle.</p>}
+        text={<p>Visual rhythm is essential to our design language. We take pride in geometric complexity, organic flow, and daring contrast. Our patterns do not merely sit on the fabric - they actively converse with the silhouette, creating garments that are visually arresting from every angle.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
       />
 
@@ -298,18 +298,18 @@ export default function Home() {
       <FeatureSection 
         subtitle="The Vision"
         title="At Art Couture, we create more than couture."
-        text={<p>We create experiences that linger beyond the moment — gowns and art woven with memory, photography styled like cinema, each detail crafted to make you the heroine of your own story. What begins in beauty lives on as art, treasured forever.</p>}
+        text={<p>We create experiences that linger beyond the moment - gowns and art woven with memory, photography styled like cinema, each detail crafted to make you the heroine of your own story. What begins in beauty lives on as art, treasured forever.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7970ca9b-c546-4231-9c1b-836113ca438a.jpg"
       />
 
       <FeatureSection 
         subtitle="The Future"
-        title="Coming Soon — Silk Painting at Art Couture"
+        title="Coming Soon - Silk Painting at Art Couture"
         text={
           <>
             <p className="mb-4">Step into the world of pure artistry with our upcoming, invitation-only silk painting workshops. Guided by master techniques and infused with Art Couture’s signature elegance, you’ll explore the centuries-old process of transforming silk into luminous works of wearable art.</p>
             <p className="mb-4">Spaces will be strictly limited, ensuring an intimate, hands-on experience where every brushstroke is yours to keep. You will leave not just with a garment, but with a piece of art you painted yourself.</p>
-            <p className="font-bold text-[var(--dada-red)] uppercase tracking-widest text-sm">Stay tuned—this is where creativity meets couture.</p>
+            <p className="font-bold text-[var(--dada-red)] uppercase tracking-widest text-sm">Stay tuned - this is where creativity meets couture.</p>
           </>
         }
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-77426bbf-6aac-41f4-8c9f-16b8a9375343.PNG"

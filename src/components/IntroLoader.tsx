@@ -67,14 +67,14 @@ export function IntroLoader() {
         </div>
 
         {/* Right Side: Image */}
-        <div className="w-full lg:w-[55%] h-1/2 lg:h-full relative overflow-hidden">
+        <div className="w-full lg:w-[55%] h-1/2 lg:h-full relative flex items-center justify-center p-8">
           <motion.img 
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 2, ease: "easeOut" }}
             src="https://storage.googleapis.com/mixo-sites/images/file-b2b2d022-3c50-445d-92df-17b797dfa179.png" 
             alt="Art Couture Intro" 
-            className="w-full h-full object-cover lg:rounded-l-[3rem] shadow-2xl"
+            className="w-full h-full object-contain mix-blend-multiply"
           />
         </div>
       </div>

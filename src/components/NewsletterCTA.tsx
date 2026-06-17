@@ -22,7 +22,7 @@ export function NewsletterCTA() {
           </h2>
           <p className="text-lg md:text-xl text-[var(--text-muted)] font-serif italic mb-12 relative z-10 max-w-2xl mx-auto">
             “Art is something that makes you breathe with a different kind of happiness.”<br/>
-            <span className="text-sm not-italic font-mono uppercase tracking-widest mt-4 block">— Tom Ford</span>
+            <span className="text-sm not-italic font-mono uppercase tracking-widest mt-4 block">- Tom Ford</span>
           </p>
           
           <div className="relative z-10">
