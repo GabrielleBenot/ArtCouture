@@ -488,17 +488,17 @@ export function EditorialCollection() {
                 const preview = getCategoryPreview(cat);
                 if (!preview) return null;
                 
-                const silhouettes: Record<string, string> = {
-                  "Dresses": "/collections/sil_dress.png",
-                  "Jackets": "/collections/sil_jacket.png",
-                  "Accessories": "/collections/sil_accessories.png",
-                  "Blouses": "/collections/sil_blouse.png"
-                };
+                const placeholderImage = {
+                  "Dresses": "/collections/sil_dress.png?v=3",
+                  "Jackets": "/collections/sil_jacket.png?v=3",
+                  "Accessories": "/collections/sil_accessories.png?v=3",
+                  "Blouses": "/collections/sil_blouse.png?v=3"
+                }[cat] || "/collections/sil_dress.png?v=3";
                 
                 return (
                   <DressCard 
                     key={cat} 
-                    item={{...preview, title: cat, img: silhouettes[cat] || preview.img, aspectClass: "aspect-[3/4]"}} 
+                    item={{...preview, title: cat, img: placeholderImage, aspectClass: "aspect-[3/4]"}} 
                     onClick={() => {
                       if (activeCategory === cat) return;
                       setActiveCategory(cat);
