@@ -226,30 +226,34 @@ export function EditorialCollection() {
                 if (!preview) return null;
                 
                 const positions = [
-                  "top-[10%] left-[32%] -translate-x-1/2 rotate-3",
-                  "top-[45%] left-[68%] -translate-x-1/2 -rotate-6",
-                  "top-[80%] left-[35%] -translate-x-1/2 rotate-2"
+                  "top-[10%] left-[33%] -translate-x-1/2",
+                  "top-[45%] left-[66%] -translate-x-1/2",
+                  "top-[80%] left-[33%] -translate-x-1/2"
                 ];
                 
                 return (
                   <motion.div 
                     key={cat}
                     layoutId={`cat-${cat}`}
-                    initial={{ opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    className={`absolute w-40 lg:w-48 aspect-[3/4] p-3 bg-[#fafaf8] shadow-2xl pointer-events-auto cursor-pointer group ${positions[idx % 3]}`}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className={`absolute w-[80%] md:w-[32%] aspect-[3/4] shadow-2xl pointer-events-auto cursor-pointer group ${positions[idx % 3]}`}
                     onClick={() => setActiveCategory(cat)}
-                    whileHover={{ scale: 1.05, zIndex: 40, rotate: 0 }}
+                    whileHover={{ scale: 1.02, zIndex: 40 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <div className="w-full h-full relative overflow-hidden">
-                      <img src={preview.img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500" />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <h4 className="text-white font-serif tracking-[0.2em] uppercase text-sm drop-shadow-lg transform group-hover:-translate-y-1 transition-transform duration-300">
+                      <img src={preview.img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 z-20">
+                        <h4 className="text-white font-serif tracking-[0.1em] text-3xl md:text-4xl drop-shadow-lg transform group-hover:-translate-y-2 transition-transform duration-500">
                           {cat}
                         </h4>
+                        <p className="font-mono text-xs text-white/70 uppercase tracking-widest mt-3 flex items-center gap-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
+                          <span>View Collection</span>
+                          <span className="w-6 h-[1px] bg-white/70 inline-block"></span>
+                        </p>
                       </div>
                     </div>
                   </motion.div>
