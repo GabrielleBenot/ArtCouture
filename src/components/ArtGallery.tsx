@@ -54,6 +54,7 @@ export function ArtGallery() {
                 <img 
                   src={art.img} 
                   alt={art.title} 
+                  loading="lazy"
                   className="w-full h-full object-cover shadow-md transform group-hover:scale-[1.05] transition-transform duration-700 ease-out"
                 />
               </div>

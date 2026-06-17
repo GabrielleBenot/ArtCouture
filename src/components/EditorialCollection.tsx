@@ -361,6 +361,7 @@ function DressCard({
         <motion.img 
           src={item.img} 
           alt={`${item.title} – Art Couture bespoke haute couture`}
+          loading="lazy"
           className={`w-full h-full object-cover absolute inset-0 transition-all duration-[2s] ${isActiveCategory ? '' : 'group-hover:scale-110'}`}
         />
         
