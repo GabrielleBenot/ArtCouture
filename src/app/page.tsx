@@ -49,20 +49,24 @@ function FeatureSection({
   text, 
   imgSrc, 
   reverse = false,
-  subtitle
+  subtitle,
+  imageClassName = "flex-[1.2] w-full",
+  textClassName = "flex-1 space-y-6"
 }: { 
   id?: string,
   title?: React.ReactNode, 
   text?: React.ReactNode, 
   imgSrc: string, 
   reverse?: boolean,
-  subtitle?: string
+  subtitle?: string,
+  imageClassName?: string,
+  textClassName?: string
 }) {
   return (
     <section id={id} className="py-16 md:py-24 px-6 max-w-[90rem] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
       {!reverse ? (
         <>
-          <div className="flex-1 space-y-6 lg:pr-12">
+          <div className={`${textClassName} lg:pr-12`}>
             {subtitle && (
               <motion.span 
                 initial={{ opacity: 0, y: 10 }}
@@ -97,16 +101,16 @@ function FeatureSection({
               </motion.div>
             )}
           </div>
-          <div className="flex-[1.2] w-full">
+          <div className={imageClassName}>
             <ParallaxImage src={imgSrc} alt="Art Couture Gallery" />
           </div>
         </>
       ) : (
         <>
-          <div className="flex-[1.2] w-full order-2 md:order-1">
+          <div className={`${imageClassName} order-2 md:order-1`}>
             <ParallaxImage src={imgSrc} alt="Art Couture Gallery" />
           </div>
-          <div className="flex-1 space-y-6 lg:pl-12 order-1 md:order-2">
+          <div className={`${textClassName} lg:pl-12 order-1 md:order-2`}>
             {subtitle && (
               <motion.span 
                 initial={{ opacity: 0, y: 10 }}
@@ -167,6 +171,7 @@ export default function Home() {
         }
         text={<p>In Art Couture, color is not an accent, it's a declaration. Fearless, unapologetic, and unforgettable. The palette we choose defines the space we occupy, drawing inspiration from high-voltage modern art and timeless classical silhouettes. When you step into the room, the world should pause.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-0ae10f15-2ee8-43af-885e-16f4bbe10af4.png"
+        imageClassName="flex-[1.44] w-full"
       />
 
       <FeatureSection 
@@ -199,8 +204,8 @@ export default function Home() {
         subtitle="The Studio"
         title={
           <span className="flex flex-col">
-            <span className="font-serif font-light text-4xl md:text-6xl">This is where design and art</span>
-            <span className="font-serif italic font-light text-[5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-4 leading-[0.8]">same air.</span>
+            <span className="font-serif font-light text-4xl md:text-6xl">This is where design and art<br/>breathes the</span>
+            <span className="font-serif italic font-light text-[5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-4 leading-[0.75]">same air.</span>
           </span>
         }
         text={<p>The atelier is a sanctuary of imagination. Surrounded by canvases, oil paints, drafting tables, and bolts of silk, our creative directors blend two distinct disciplines into a singular vision. Here, an idea can start as a charcoal sketch and finish as a breathtaking gala gown.</p>}
@@ -290,11 +295,12 @@ export default function Home() {
         title="Photography and Rentals."
         text={<p>Select Gabi et Char creations are available for rental, and we can also arrange full photography sessions. We give photographers, stylists, and creative teams exclusive access to couture elegance for unforgettable editorial shoots, red carpets, and high-profile events.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-9bbde46c-8be5-4e87-95fa-5b155120828f.jpg"
+        imageClassName="flex-[1.5] w-full"
       />
 
       <FeatureSection 
         subtitle="The Legacy"
-        title={<span className="text-[var(--dada-red)]">Because extraordinary moments deserve extraordinary attire.</span>}
+        title={<span className="text-[var(--dada-red)] block text-4xl md:text-5xl lg:text-[5rem] leading-[1.1]">Because extraordinary moments deserve extraordinary attire.</span>}
         text={<p>At Art Couture, we create gowns for the event and custom Art to preserve its memory. Let us be part of your most treasured celebrations, immortalizing your style through our dedicated artistic lens.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-9472415d-e1c1-4321-b3d7-ab4da4fe3317.PNG"
         reverse
@@ -302,14 +308,14 @@ export default function Home() {
 
       <FeatureSection 
         subtitle="The Vision"
-        title="At Art Couture, we create more than couture."
+        title={<span className="block text-4xl md:text-5xl lg:text-[5rem] leading-[1.1]">At Art Couture, we create more than couture.</span>}
         text={<p>We create experiences that linger beyond the moment - gowns and art woven with memory, photography styled like cinema, each detail crafted to make you the heroine of your own story. What begins in beauty lives on as art, treasured forever.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7970ca9b-c546-4231-9c1b-836113ca438a.jpg"
       />
 
       <FeatureSection 
         subtitle="The Future"
-        title="Coming Soon - Silk Painting at Art Couture"
+        title={<span className="block text-4xl md:text-5xl lg:text-[5rem] leading-[1.1]">Coming Soon &ndash; Silk Painting at Art Couture</span>}
         text={
           <>
             <p className="mb-4">Step into the world of pure artistry with our upcoming, invitation-only silk painting workshops. Guided by master techniques and infused with Art Couture’s signature elegance, you’ll explore the centuries-old process of transforming silk into luminous works of wearable art.</p>
