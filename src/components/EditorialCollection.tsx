@@ -370,6 +370,11 @@ function DressCard({
 export function EditorialCollection() {
   const [selectedDress, setSelectedDress] = useState<DressItem | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [showAllItems, setShowAllItems] = useState(false);
+
+  useEffect(() => {
+    setShowAllItems(false);
+  }, [activeCategory]);
 
   const categories = ["All", ...Array.from(new Set(collection.map(item => item.category)))];
   const floatingCategories = categories.filter(c => c !== activeCategory && c !== "All");
@@ -378,10 +383,14 @@ export function EditorialCollection() {
     ? collection 
     : collection.filter(item => item.category === activeCategory);
 
+  const displayedCollection = showAllItems 
+    ? filteredCollection 
+    : filteredCollection.slice(0, 6);
+
   // Split into 3 columns for Masonry layout
-  const col1 = filteredCollection.filter((_, i) => i % 3 === 0);
-  const col2 = filteredCollection.filter((_, i) => i % 3 === 1);
-  const col3 = filteredCollection.filter((_, i) => i % 3 === 2);
+  const col1 = displayedCollection.filter((_, i) => i % 3 === 0);
+  const col2 = displayedCollection.filter((_, i) => i % 3 === 1);
+  const col3 = displayedCollection.filter((_, i) => i % 3 === 2);
 
   const getCategoryPreview = (categoryName: string) => {
     return collection.find(item => item.category === categoryName);
@@ -454,6 +463,18 @@ export function EditorialCollection() {
             </div>
           </motion.div>
         </div>
+
+        {filteredCollection.length > 6 && !showAllItems && (
+          <div className="flex justify-center mt-16 mb-8 relative z-40">
+            <button
+              onClick={() => setShowAllItems(true)}
+              className="group flex items-center gap-4 border border-[var(--text-muted)]/30 px-8 py-4 hover:border-[var(--dada-red)] transition-colors duration-300"
+            >
+              <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--text-main)]">More</span>
+              <span className="w-8 h-[1px] bg-[var(--text-muted)] group-hover:bg-[var(--dada-red)] transition-colors duration-300"></span>
+            </button>
+          </div>
+        )}
 
         {/* Explore Other Collections Grid */}
         {categories.length > 0 && (
