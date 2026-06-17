@@ -292,10 +292,16 @@ export default function Home() {
 
       <FeatureSection 
         subtitle="The Services"
-        title="Photography and Rentals."
+        title={
+          <span className="flex flex-col">
+            <span className="font-sans font-light text-5xl md:text-6xl lg:text-7xl tracking-tighter">Photography</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[6rem] lg:text-[7rem] text-[var(--text-main)] -mt-2 leading-[0.8]">and Rentals.</span>
+          </span>
+        }
         text={<p>Select Gabi et Char creations are available for rental, and we can also arrange full photography sessions. We give photographers, stylists, and creative teams exclusive access to couture elegance for unforgettable editorial shoots, red carpets, and high-profile events.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-9bbde46c-8be5-4e87-95fa-5b155120828f.jpg"
-        imageClassName="flex-[1.5] w-full"
+        imageClassName="flex-[3] w-full"
+        textClassName="flex-1 space-y-6"
       />
 
       <FeatureSection 
