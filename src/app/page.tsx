@@ -335,12 +335,21 @@ export default function Home() {
 
       <footer id="contact" className="py-20 bg-[var(--background)] border-t border-[var(--border-light)] text-center relative overflow-hidden">
         <p className="font-mono text-xs tracking-widest text-[var(--foreground)] opacity-60 mb-2 uppercase relative z-10">1010 Pearl St, Ste A, La Jolla, CA 92037</p>
-        <a 
-          href="mailto:info@artcouture.studio" 
-          className="font-mono text-xs tracking-widest text-[var(--foreground)] opacity-60 mb-12 uppercase relative z-10 hover:opacity-100 hover:text-[var(--dada-red)] transition-all duration-300 inline-block"
+        <button 
+          onClick={(e) => {
+            e.preventDefault();
+            navigator.clipboard.writeText('info@artcouture.studio');
+            const target = e.currentTarget;
+            const originalText = target.innerText;
+            target.innerText = 'COPIED!';
+            setTimeout(() => {
+              target.innerText = 'INFO@ARTCOUTURE.STUDIO';
+            }, 2000);
+          }}
+          className="font-mono text-xs tracking-widest text-[var(--foreground)] opacity-60 mb-12 uppercase relative z-10 hover:opacity-100 hover:text-[var(--dada-red)] transition-all duration-300 inline-block cursor-pointer"
         >
           info@artcouture.studio
-        </a>
+        </button>
         <p className="text-[10px] text-[var(--foreground)] opacity-40 uppercase tracking-[0.2em] relative z-10">© {new Date().getFullYear()} Art Couture. All rights reserved.</p>
       </footer>
     </main>

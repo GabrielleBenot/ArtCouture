@@ -8,8 +8,13 @@ export function IntroLoader() {
   const [entered, setEntered] = useState(false);
 
   useEffect(() => {
-    // Always force scroll to top so the cinematic hero is perfectly framed
-    window.scrollTo(0, 0);
+    // Force scroll to top and prevent browser from restoring previous scroll position
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    
+    // Use timeout to override any immediate scroll restorations from frameworks/lenis
+    setTimeout(() => window.scrollTo(0, 0), 50);
 
     if (!entered) {
       document.body.style.overflow = "hidden";
@@ -17,8 +22,7 @@ export function IntroLoader() {
     } else {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
-      // Force scroll to top again just in case the browser tried to restore scroll
-      window.scrollTo(0, 0);
+      setTimeout(() => window.scrollTo(0, 0), 50);
     }
     // Cleanup on unmount just in case
     return () => {
