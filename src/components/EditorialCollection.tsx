@@ -514,7 +514,13 @@ export function EditorialCollection() {
                 return (
                   <DressCard 
                     key={cat} 
-                    item={{...preview, title: cat, img: placeholderImage, aspectClass: "aspect-[3/4]"}} 
+                    item={{
+                      ...preview, 
+                      title: cat, 
+                      img: placeholderImage, 
+                      aspectClass: "aspect-[3/4]",
+                      sketchImg: undefined
+                    }} 
                     onClick={() => {
                       if (activeCategory === cat) return;
                       setActiveCategory(cat);
