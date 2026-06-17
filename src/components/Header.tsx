@@ -25,7 +25,7 @@ export function Header() {
       </div>
 
       <div className="flex-1 flex justify-center text-white">
-        <Logo className="h-12 w-auto" />
+        <Logo className="h-8 w-auto" />
       </div>
 
       <div className="flex-1 flex justify-end items-center gap-4 md:gap-8">
