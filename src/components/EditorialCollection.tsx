@@ -192,7 +192,7 @@ export function EditorialCollection() {
   }, [selectedDress]);
 
   return (
-    <section className="bg-[var(--background)] py-32 md:py-48 relative min-h-[100vh]">
+    <section id="collection-start" className="bg-[var(--background)] py-32 md:py-48 relative min-h-[100vh]">
       <div className="max-w-[90rem] mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-7xl font-serif text-[var(--text-main)] mb-6">The Collection</h2>
@@ -216,73 +216,8 @@ export function EditorialCollection() {
           ))}
         </div>
 
-        {/* Mobile Category Scroll (Hidden on desktop) */}
-        <div className="flex md:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-8 mb-8 no-scrollbar px-4 -mx-4">
-          {floatingCategories.map(cat => {
-            const preview = getCategoryPreview(cat);
-            if (!preview) return null;
-            return (
-              <div 
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className="snap-center shrink-0 w-32 aspect-[3/4] relative bg-white p-2 shadow-md flex-col flex"
-              >
-                <img src={preview.img} className="w-full h-full object-cover grayscale-[0.5]" />
-                <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                  <span className="font-serif text-white tracking-widest uppercase text-sm drop-shadow-md">{cat}</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="relative">
-          {/* Desktop Floating Category Collage Overlay */}
-          <div className="absolute inset-0 z-30 pointer-events-none hidden md:block min-h-[600px]">
-            <AnimatePresence>
-              {floatingCategories.map((cat, idx) => {
-                const preview = getCategoryPreview(cat);
-                if (!preview) return null;
-                
-                const positions = [
-                  "top-[10%] left-[33%] -translate-x-1/2",
-                  "top-[35%] left-[66%] -translate-x-1/2",
-                  "top-[60%] left-[33%] -translate-x-1/2",
-                  "top-[85%] left-[66%] -translate-x-1/2"
-                ];
-                
-                return (
-                  <motion.div 
-                    key={cat}
-                    layoutId={`cat-${cat}`}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    className={`absolute w-[80%] md:w-[32%] aspect-[3/4] shadow-2xl pointer-events-auto cursor-pointer group ${positions[idx % 4]}`}
-                    onClick={() => setActiveCategory(cat)}
-                    whileHover={{ scale: 1.02, zIndex: 40 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    <div className="w-full h-full relative overflow-hidden">
-                      <img src={preview.img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-                      <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 z-20">
-                        <h4 className="text-white font-serif tracking-[0.1em] text-3xl md:text-4xl drop-shadow-lg transform group-hover:-translate-y-2 transition-transform duration-500">
-                          {cat}
-                        </h4>
-                        <p className="font-mono text-xs text-white/70 uppercase tracking-widest mt-3 flex items-center gap-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
-                          <span>View Collection</span>
-                          <span className="w-6 h-[1px] bg-white/70 inline-block"></span>
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
-
-          {/* Masonry Grid */}
+        {/* Masonry Grid */}
+        <div className="relative min-h-[600px]">
           <motion.div 
             key={activeCategory}
             initial={{ opacity: 0, y: 20 }}
@@ -290,28 +225,55 @@ export function EditorialCollection() {
             transition={{ duration: 0.8 }}
             className="flex flex-col md:flex-row gap-8 lg:gap-12"
           >
-          {/* Column 1 */}
-          <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
-            {col1.map((item, idx) => (
-              <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
-            ))}
-          </div>
-          
-          {/* Column 2 - Offset visually */}
-          <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3 md:pt-32">
-            {col2.map((item, idx) => (
-              <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
-            ))}
-          </div>
+            {/* Column 1 */}
+            <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
+              {col1.map((item, idx) => (
+                <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
+              ))}
+            </div>
+            
+            {/* Column 2 - Offset visually */}
+            <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3 md:pt-32">
+              {col2.map((item, idx) => (
+                <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
+              ))}
+            </div>
 
-          {/* Column 3 */}
-          <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
-            {col3.map((item, idx) => (
-              <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
-            ))}
-          </div>
+            {/* Column 3 */}
+            <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
+              {col3.map((item, idx) => (
+                <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
+              ))}
+            </div>
           </motion.div>
         </div>
+
+        {/* Explore Other Collections Grid */}
+        {floatingCategories.length > 0 && (
+          <div className="mt-32 border-t border-[var(--text-muted)]/20 pt-24">
+            <div className="text-center mb-16">
+              <h3 className="text-3xl md:text-4xl font-serif text-[var(--text-main)] mb-6">Explore Other Collections</h3>
+              <p className="font-mono text-xs md:text-sm uppercase tracking-[0.2em] text-[var(--text-muted)]">Discover more from our atelier</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {floatingCategories.map((cat) => {
+                const preview = getCategoryPreview(cat);
+                if (!preview) return null;
+                
+                return (
+                  <DressCard 
+                    key={cat} 
+                    item={{...preview, title: cat, aspectClass: "aspect-[3/4]"}} 
+                    onClick={() => {
+                      setActiveCategory(cat);
+                      window.scrollTo({ top: document.getElementById('collection-start')?.offsetTop || 0, behavior: 'smooth' });
+                    }} 
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       <AnimatePresence>
