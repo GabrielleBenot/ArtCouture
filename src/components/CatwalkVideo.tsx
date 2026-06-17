@@ -71,7 +71,7 @@ export function CatwalkVideo() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1 }}
-            className="text-[6rem] md:text-[10rem] lg:text-[14rem] font-serif font-extralight text-white tracking-widest uppercase mix-blend-overlay leading-[0.8]"
+            className="text-[5rem] md:text-[8rem] lg:text-[11rem] font-serif font-extralight text-white tracking-widest uppercase mix-blend-overlay leading-[0.8]"
           >
             Pure Movement
           </motion.h2>
