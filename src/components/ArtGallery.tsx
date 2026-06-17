@@ -50,7 +50,7 @@ export function ArtGallery() {
               transition={{ duration: 0.8, delay: (i % 3) * 0.15 }}
               className="group"
             >
-              <div className="w-full aspect-square overflow-hidden mb-8 bg-gray-100 border border-[var(--border-light)] p-2 md:p-4">
+              <div className="w-full aspect-square overflow-hidden mb-8">
                 <img 
                   src={art.img} 
                   alt={art.title} 
