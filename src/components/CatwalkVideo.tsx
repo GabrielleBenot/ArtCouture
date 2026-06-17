@@ -28,6 +28,7 @@ export function CatwalkVideo() {
             muted 
             loop
             playsInline
+            preload="metadata"
             aria-label="Art Couture runway catwalk presentation featuring bespoke haute couture gowns"
             title="Art Couture fashion show catwalk"
             poster="/campaign/create_the_edge.jpg"

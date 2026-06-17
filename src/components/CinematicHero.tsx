@@ -18,7 +18,8 @@ export function CinematicHero() {
           loop 
           muted 
           playsInline
-          aria-label="Art Couture haute couture silk fabric flowing in motion at the La Jolla atelier"
+          preload="metadata"
+          aria-label="Art Couture haute couture silk fabric flowing in motion at the atelier"
           title="Art Couture atelier silk fabric"
           poster="/campaign/create_the_edge.jpg"
           className="w-full h-full object-cover object-center opacity-80"
