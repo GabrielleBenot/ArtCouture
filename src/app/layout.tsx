@@ -15,35 +15,35 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Art Couture | Where Art Inspires Haute Couture",
+  title: "Art Couture | Bespoke Haute Couture by Gabrielle Benot & Charmaigne Menn",
   description:
-    "Explore Art Couture, bespoke couture dresses by Gabi et Char, born from paintings, colors, and textures that transform art into fashion.",
+    "Art Couture by Gabrielle Benot and Charmaigne Menn. Bespoke haute couture gowns born from original paintings, handcrafted in our private atelier. Custom evening gowns, bridal couture, and wearable art.",
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
-    title: "Art Couture | Where Art Inspires Haute Couture",
+    title: "Art Couture | Bespoke Haute Couture by Gabrielle Benot & Charmaigne Menn",
     description:
-      "Bespoke couture dresses by Gabi et Char — born from paintings, colors, and textures that transform art into fashion.",
+      "Bespoke haute couture gowns by Gabrielle Benot and Charmaigne Menn. Original paintings transformed into wearable art at our private atelier.",
     type: "website",
     url: "https://artcouture.studio",
     images: [
       {
-        url: "https://storage.googleapis.com/mixo-sites/images/file-0ae10f15-2ee8-43af-885e-16f4bbe10af4.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Art Couture — Where Art Inspires Haute Couture",
+        alt: "Art Couture by Gabrielle Benot and Charmaigne Menn – Bespoke Haute Couture Atelier",
       },
     ],
     siteName: "Art Couture",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Art Couture | Where Art Inspires Haute Couture",
+    title: "Art Couture | Bespoke Haute Couture by Gabrielle Benot & Charmaigne Menn",
     description:
-      "Bespoke couture dresses by Gabi et Char — born from paintings, colors, and textures that transform art into fashion.",
+      "Bespoke haute couture gowns by Gabrielle Benot and Charmaigne Menn. Original paintings transformed into wearable art at our private atelier.",
     images: [
-      "https://storage.googleapis.com/mixo-sites/images/file-0ae10f15-2ee8-43af-885e-16f4bbe10af4.png",
+      "/og-image.png",
     ],
   },
   metadataBase: new URL("https://artcouture.studio"),
@@ -57,7 +57,7 @@ const jsonLd = {
   url: "https://artcouture.studio",
   logo: "https://artcouture.studio/favicon.svg",
   description:
-    "Bespoke haute couture born from original paintings. Art Couture fuses fine art and fashion in La Jolla, California.",
+    "Bespoke haute couture born from original paintings. Art Couture fuses fine art and fashion.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "1010 Pearl St, Ste A",

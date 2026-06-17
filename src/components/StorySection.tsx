@@ -7,7 +7,7 @@ export function StorySection() {
     <section className="relative py-32 bg-[#0a0a0a] overflow-hidden">
       {/* Subtle Background Watermark */}
       <div className="absolute inset-0 z-0 opacity-[0.05] grayscale mix-blend-screen pointer-events-none flex items-center justify-center">
-        <img src="/images/sketches/mannequin.png" alt="" loading="lazy" className="w-full h-full object-cover md:object-contain scale-150 md:scale-125 invert" />
+        <img src="/images/sketches/mannequin.png" alt="" role="presentation" loading="lazy" className="w-full h-full object-cover md:object-contain scale-150 md:scale-125 invert" />
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
@@ -32,7 +32,7 @@ export function StorySection() {
               <div className="absolute inset-0 bg-[var(--dada-red-glow)] mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 pointer-events-none" />
               <img 
                 src="https://storage.googleapis.com/mixo-sites/images/file-79d83dc3-308d-4dd6-9173-8dc2170520f7.jpeg" 
-                alt="Gabrielle Benot and Charmaigne Menn" 
+                alt="Gabrielle Benot and Charmaigne Menn founders of Art Couture atelier La Jolla" 
                 loading="lazy"
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[1.5s]"
               />

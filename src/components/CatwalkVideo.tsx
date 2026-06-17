@@ -28,6 +28,9 @@ export function CatwalkVideo() {
             muted 
             loop
             playsInline
+            aria-label="Art Couture runway catwalk presentation featuring bespoke haute couture gowns"
+            title="Art Couture fashion show catwalk"
+            poster="/campaign/create_the_edge.jpg"
             className="w-full h-full object-cover opacity-80"
             style={{ filter: 'grayscale(100%) sepia(20%) brightness(0.8) contrast(0.9)' }}
           >

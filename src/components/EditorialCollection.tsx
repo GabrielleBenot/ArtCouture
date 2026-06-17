@@ -350,7 +350,7 @@ function DressCard({
         {item.processImg && (
           <img 
             src={item.processImg} 
-            alt={`${item.title} process`} 
+            alt={`Art Couture ${item.title} bespoke couture craftsmanship`} 
             loading="lazy"
             className="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-out group-hover:opacity-0 z-[1]"
             style={{ filter: 'grayscale(100%) sepia(40%) hue-rotate(330deg) brightness(0.75) contrast(0.85)' }}
@@ -360,7 +360,7 @@ function DressCard({
         {/* The Product Image - hidden by default, revealed on hover */}
         <motion.img 
           src={item.img} 
-          alt={item.title}
+          alt={`${item.title} – Art Couture bespoke haute couture`}
           className={`w-full h-full object-cover absolute inset-0 transition-all duration-[2s] ${isActiveCategory ? '' : 'group-hover:scale-110'}`}
         />
         
@@ -553,7 +553,7 @@ export function EditorialCollection() {
               >
                 <img 
                   src={service.img} 
-                  alt={service.title}
+                  alt={`Art Couture ${service.title} – bespoke atelier service`}
                   loading="lazy"
                   className="w-full h-full object-cover absolute inset-0 transition-all duration-1000 group-hover:scale-110"
                   style={{ filter: 'grayscale(100%) sepia(40%) hue-rotate(330deg) brightness(0.75) contrast(0.85)' }}

@@ -62,6 +62,7 @@ function FeatureSection({
   title, 
   text, 
   imgSrc, 
+  imgAlt = "Art Couture Gallery",
   reverse = false,
   subtitle,
   blendImage = false,
@@ -72,6 +73,7 @@ function FeatureSection({
   title?: React.ReactNode, 
   text?: React.ReactNode, 
   imgSrc: string, 
+  imgAlt?: string,
   reverse?: boolean,
   subtitle?: string,
   blendImage?: boolean,
@@ -118,13 +120,13 @@ function FeatureSection({
             )}
           </div>
           <div className={imageClassName}>
-            <ParallaxImage src={imgSrc} alt="Art Couture Gallery" blend={blendImage} />
+            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} />
           </div>
         </>
       ) : (
         <>
           <div className={`${imageClassName} order-2 md:order-1`}>
-            <ParallaxImage src={imgSrc} alt="Art Couture Gallery" blend={blendImage} />
+            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} />
           </div>
           <div className={`${textClassName} lg:pl-12 order-1 md:order-2`}>
             {subtitle && (
@@ -187,6 +189,7 @@ export default function Home() {
         }
         text={<p>At Art Couture, color is not an accent. It is a declaration. Every palette begins on the canvas before it ever touches fabric. We draw from bold contemporary painting and classical form to create bespoke pieces that do not simply enter a room. They command it.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-0ae10f15-2ee8-43af-885e-16f4bbe10af4.png"
+        imgAlt="Art Couture original watercolor painting by Gabrielle Benot"
         imageClassName="flex-[1.44] w-full"
         blendImage
       />
@@ -206,6 +209,7 @@ export default function Home() {
         }
         text={<p>Behind every couture dress lies a canvas. We design our own exclusive patterns, born from the paintings we create in our La Jolla studio. Each yard of luxury fabric is meticulously engineered so the brushstrokes of the original artwork follow the curves of the body. This is wearable fine art.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-5f0d0213-9b29-4c2c-b415-54c0f9fb6235.jpg"
+        imgAlt="Hand-painted silk fabric pattern by Art Couture atelier"
         reverse
       />
 
@@ -220,6 +224,7 @@ export default function Home() {
         }
         text={<p>Our patterns do not simply sit on fabric. They move with it. Geometric precision meets organic flow, creating handcrafted garments that shift and reveal new details from every angle. Nothing is accidental. Every line has a reason.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
+        imgAlt="Bespoke geometric couture fabric pattern by Art Couture"
       />
 
       {/* Visual Breaker */}
@@ -237,6 +242,7 @@ export default function Home() {
         }
         text={<p>The atelier is a sanctuary of imagination. Surrounded by canvases, watercolors, drafting tables, and bolts of silk, Gabrielle and Charmaigne blend two distinct disciplines into a singular vision. Here, an idea can start as a charcoal sketch and finish as a breathtaking gala gown.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-4b000517-aa66-445e-8e2e-89c2d295dc73.png"
+        imgAlt="Art Couture La Jolla atelier studio watercolor painting"
         reverse
       />
 
@@ -251,6 +257,7 @@ export default function Home() {
         }
         text={<p>Gabrielle Benot&apos;s original paintings are not inspiration boards. They are the source material. The textures in her brushwork determine the weight and drape of the fine fabrics that Charmaigne Menn selects and sculpts. What you see on the gallery wall becomes what you wear on the floor.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7c7c79ac-f9d7-4fe7-bcd1-7d29e0eae366.png"
+        imgAlt="Gabrielle Benot original abstract painting for couture collection"
       />
 
       <FeatureSection 
@@ -263,6 +270,7 @@ export default function Home() {
         }
         text={<p>Every couture creation passes through the traditions of French broderie d&apos;art. Lun&eacute;ville hook embroidery, hand-beading, precise pattern cutting, and sculptural draping are woven into each piece. True luxury cannot be rushed. It is felt in the weight of the silk, the architecture of the corset, and the flawless finish of every hidden seam.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-fa8b3115-7c86-48e7-882f-3ba57f6aeb6f.jpg"
+        imgAlt="Charmaigne Menn haute couture craftsmanship hand draping"
         reverse
       />
 
@@ -282,6 +290,7 @@ export default function Home() {
         }
         text={<p>Born from the artistic vision of European-trained painter Gabrielle Benot and the masterful couture craftsmanship of South African-born Charmaigne Menn, &ldquo;Gabi et Char&rdquo; redefines eveningwear for the modern icon. Their shared global perspective and well-travelled eye for beauty converge in every gown. Each silhouette is an exclusive design, created entirely in-house: rare silk satin, hand-embroidered tulle finished with Lun&eacute;ville beadwork, and velvet that drinks in the light, all crafted to embrace the body with precision and grace.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
+        imgAlt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
       />
 
       <div id="collections">
@@ -302,6 +311,7 @@ export default function Home() {
         }
         text={<p>From hand-cut French Chantilly lace appliqu&eacute; and delicate Guipure lacework to sheer silk tulle adorned with Lun&eacute;ville embroidery, each collection explores fabric as both canvas and form. Every textile is sourced from the most prestigious European mills. Every embellishment is applied by hand. Every design is exclusively ours.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-cc047f31-f82c-4c0d-84c9-4ce6f1ef5713.jpg"
+        imgAlt="Art Couture hand-embroidered lace detail close-up"
       />
 
       <FeatureSection 
@@ -319,6 +329,7 @@ export default function Home() {
           </>
         }
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-0e7d90e6-d13a-428b-ac7d-24701f9e4c31.jpg"
+        imgAlt="Art Couture editorial photography session"
         reverse
       />
 
@@ -332,6 +343,7 @@ export default function Home() {
         }
         text={<p>Select Gabi et Char couture creations are available for exclusive rental. We also arrange bespoke photography sessions, giving photographers, stylists, and creative teams access to haute couture for editorial shoots, red carpet events, and private occasions.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-9bbde46c-8be5-4e87-95fa-5b155120828f.jpg"
+        imgAlt="Art Couture couture rental and photography services"
         imageClassName="flex-[3] w-full"
         textClassName="flex-1 space-y-6"
       />
@@ -341,6 +353,7 @@ export default function Home() {
         title={<span className="text-[var(--dada-red)] block text-4xl md:text-5xl lg:text-[5rem] leading-[1.1]">Because extraordinary moments deserve extraordinary attire.</span>}
         text={<p>At Art Couture, we create gowns for the event and custom Art to preserve its memory. Let us be part of your most treasured celebrations, immortalizing your style through our dedicated artistic lens.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-9472415d-e1c1-4321-b3d7-ab4da4fe3317.PNG"
+        imgAlt="Art Couture bespoke gown for special occasions"
         reverse
       />
 
@@ -349,6 +362,7 @@ export default function Home() {
         title={<span className="block text-4xl md:text-5xl lg:text-[5rem] leading-[1.1]">At Art Couture, we create more than couture.</span>}
         text={<p>We create experiences that linger beyond the moment - gowns and art woven with memory, photography styled like cinema, each detail crafted to make you the heroine of your own story. What begins in beauty lives on as art, treasured forever.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7970ca9b-c546-4231-9c1b-836113ca438a.jpg"
+        imgAlt="Art Couture private atelier evening experience"
       />
 
       <NewsEvents />

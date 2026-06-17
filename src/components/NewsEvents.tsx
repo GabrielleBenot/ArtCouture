@@ -124,7 +124,7 @@ export function NewsEvents() {
               <div className="relative aspect-[4/3] overflow-hidden mb-6">
                 <img
                   src={item.image}
-                  alt={item.title}
+                  alt={`Art Couture ${item.title} – ${item.tag}`}
                   loading="lazy"
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
                 />

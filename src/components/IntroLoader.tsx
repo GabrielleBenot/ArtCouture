@@ -57,7 +57,7 @@ export function IntroLoader() {
   return (
     <>
       {/* Main intro content */}
-      <section className={`fixed inset-0 z-[9999] w-full h-screen overflow-hidden bg-[#fafaf8] transition-all duration-1000 ${phase === "split" || phase === "done" ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'}`}>
+      <section className={`fixed inset-0 z-[9999] w-full h-screen overflow-hidden bg-[#fafaf8] transition-all duration-700 ${phase === "done" ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <div className="absolute inset-0 flex flex-col lg:flex-row">
           {/* Left Side: Text */}
           <div className="w-full lg:w-[45%] h-1/2 lg:h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 z-10 bg-[#fafaf8]">
@@ -110,7 +110,7 @@ export function IntroLoader() {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 2, ease: "easeOut" }}
               src="https://storage.googleapis.com/mixo-sites/images/file-b2b2d022-3c50-445d-92df-17b797dfa179.png" 
-              alt="Art Couture Intro" 
+              alt="Art Couture by Gabrielle Benot and Charmaigne Menn – bespoke haute couture atelier La Jolla" 
               className="w-full h-full object-contain mix-blend-multiply"
             />
           </div>
