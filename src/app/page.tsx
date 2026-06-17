@@ -230,7 +230,7 @@ export default function Home() {
         subtitle="The Process"
         title={
           <span className="flex flex-col">
-            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">A meticulous</span>
+            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">A meticulous approach</span>
             <span className="font-serif italic font-light text-[5rem] md:text-[9rem] lg:text-[12rem] -mt-4 leading-[0.8] text-[var(--dada-red)]">to craft.</span>
           </span>
         }

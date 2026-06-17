@@ -1,0 +1,36 @@
+[debug] [2026-06-17T09:27:48.673Z] ----------------------------------------------------------------------
+[debug] [2026-06-17T09:27:48.675Z] Command:       /Users/julia/.nvm/versions/node/v20.20.1/bin/node /Users/julia/.npm/_npx/7750544ccf494d8b/node_modules/.bin/firebase deploy --only hosting
+[debug] [2026-06-17T09:27:48.675Z] CLI Version:   15.20.0
+[debug] [2026-06-17T09:27:48.676Z] Platform:      darwin
+[debug] [2026-06-17T09:27:48.676Z] Node Version:  v20.20.1
+[debug] [2026-06-17T09:27:48.676Z] Time:          Wed Jun 17 2026 02:27:48 GMT-0700 (Pacific Daylight Time)
+[debug] [2026-06-17T09:27:48.676Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-17T09:27:49.675Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-06-17T09:27:49.675Z] > authorizing via signed-in user (leapedgem@gmail.com)
+[debug] [2026-06-17T09:27:49.675Z] [iam] checking project art-couture-new-website for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-06-17T09:27:49.676Z] Checked if tokens are valid: true, expires at: 1781690236136
+[debug] [2026-06-17T09:27:49.676Z] Checked if tokens are valid: true, expires at: 1781690236136
+[debug] [2026-06-17T09:27:49.676Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/art-couture-new-website:testIamPermissions [none]
+[debug] [2026-06-17T09:27:49.676Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/art-couture-new-website:testIamPermissions  x-goog-user-project=art-couture-new-website
+[debug] [2026-06-17T09:27:49.676Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/art-couture-new-website:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-06-17T09:27:49.973Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/art-couture-new-website:testIamPermissions 200
+[debug] [2026-06-17T09:27:49.974Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/art-couture-new-website:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-06-17T09:27:49.974Z] Checked if tokens are valid: true, expires at: 1781690236136
+[debug] [2026-06-17T09:27:49.975Z] Checked if tokens are valid: true, expires at: 1781690236136
+[debug] [2026-06-17T09:27:49.975Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/art-couture-new-website [none]
+[debug] [2026-06-17T09:27:50.217Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/art-couture-new-website 200
+[debug] [2026-06-17T09:27:50.218Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/art-couture-new-website {"projectId":"art-couture-new-website","projectNumber":"419442496394","displayName":"Art Couture New Website","name":"projects/art-couture-new-website","resources":{"hostingSite":"art-couture-new-website"},"state":"ACTIVE","etag":"1_0105dae6-1186-4889-8d6c-59b51d545226"}
+[info] 
+[info] === Deploying to 'art-couture-new-website'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-06-17T09:27:50.221Z] Checked if tokens are valid: true, expires at: 1781690236136
+[debug] [2026-06-17T09:27:50.221Z] Checked if tokens are valid: true, expires at: 1781690236136
+[debug] [2026-06-17T09:27:50.221Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/art-couture-new-website/sites/art-couture-new-website [none]
+[debug] [2026-06-17T09:27:50.950Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/art-couture-new-website/sites/art-couture-new-website 200
+[debug] [2026-06-17T09:27:50.951Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/art-couture-new-website/sites/art-couture-new-website {"name":"projects/art-couture-new-website/sites/art-couture-new-website","defaultUrl":"https://art-couture-new-website.web.app","type":"DEFAULT_SITE"}
+[debug] [2026-06-17T09:27:50.956Z] Checked if tokens are valid: true, expires at: 1781690236136
+[debug] [2026-06-17T09:27:50.956Z] Checked if tokens are valid: true, expires at: 1781690236136
+[debug] [2026-06-17T09:27:50.957Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/art-couture-new-website/versions [none]
+[debug] [2026-06-17T09:27:50.957Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/art-couture-new-website/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
