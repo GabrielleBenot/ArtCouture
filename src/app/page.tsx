@@ -160,8 +160,8 @@ export default function Home() {
         subtitle="The Philosophy"
         title={
           <span className="flex flex-col">
-            <span className="font-sans text-xs md:text-sm font-black tracking-[0.3em] uppercase">Color is</span>
-            <span className="font-serif italic font-light text-[6rem] md:text-[12rem] lg:text-[15rem] text-[var(--dada-red)] -mt-4 md:-mt-8 leading-[0.8]">Power.</span>
+            <span className="font-sans text-xs md:text-sm font-black tracking-[0.3em] uppercase relative z-10">Color is</span>
+            <span className="font-serif italic font-light text-[5rem] md:text-[10rem] lg:text-[12rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8] relative z-0">Power.</span>
             <span className="font-mono text-xs uppercase tracking-[0.4em] mt-8 text-white/70">Wear it without apology.</span>
           </span>
         }
