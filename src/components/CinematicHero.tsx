@@ -45,13 +45,13 @@ export function CinematicHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 1 }}
-            className="flex items-center gap-4 mix-blend-difference"
+            className="flex flex-col items-center w-fit gap-4 mix-blend-difference mt-4"
           >
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white">Scroll to discover</span>
-            <div className="w-16 h-[1px] bg-white/30 overflow-hidden relative">
+            <div className="w-[1px] h-16 bg-white/30 overflow-hidden relative">
               <motion.div 
-                className="w-full h-full bg-white absolute top-0 left-0 origin-left"
-                animate={{ scaleX: [0, 1, 0], x: ["0%", "0%", "100%"] }}
+                className="w-full h-full bg-white absolute top-0 left-0 origin-top"
+                animate={{ scaleY: [0, 1, 0], y: ["0%", "0%", "100%"] }}
                 transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
               />
             </div>

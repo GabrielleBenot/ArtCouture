@@ -94,6 +94,21 @@ const collection = [
     ],
     aspectClass: "aspect-[2/3]"
   },
+  { 
+    title: "Ivory Cascade", 
+    category: "Blouses",
+    price: "$3,400", 
+    description: "A masterclass in modern draping. Pure silk crepe de chine blouse with dramatic sweeping ties.",
+    fabric: "100% heavy silk crepe de chine from Como, Italy. Finished with mother-of-pearl button closures.",
+    customization: "Tie length and sleeve volume can be adjusted. Available in Ivory, Obsidian, and Blush.",
+    img: "https://storage.googleapis.com/mixo-sites/images/file-77426bbf-6aac-41f4-8c9f-16b8a9375343.PNG",
+    detailImages: [
+      "/details/new_blushcout_bodice_1781676712185.png",
+      "/details/new_blushcout_texture_1781676722580.png",
+      "/details/new_blushcout_drape_1781676734418.png"
+    ],
+    aspectClass: "aspect-[3/4]"
+  },
 ];
 
 export type DressItem = typeof collection[0];
@@ -147,18 +162,21 @@ function DressCard({ item, onClick }: { item: DressItem, onClick: () => void }) 
 
 export function EditorialCollection() {
   const [selectedDress, setSelectedDress] = useState<DressItem | null>(null);
-  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [activeCategory, setActiveCategory] = useState<string>("Dresses");
 
-  const categories = ["All", ...Array.from(new Set(collection.map(item => item.category)))];
+  const categories = Array.from(new Set(collection.map(item => item.category)));
+  const floatingCategories = categories.filter(c => c !== activeCategory);
 
-  const filteredCollection = activeCategory === "All" 
-    ? collection 
-    : collection.filter(item => item.category === activeCategory);
+  const filteredCollection = collection.filter(item => item.category === activeCategory);
 
   // Split into 3 columns for Masonry layout
   const col1 = filteredCollection.filter((_, i) => i % 3 === 0);
   const col2 = filteredCollection.filter((_, i) => i % 3 === 1);
   const col3 = filteredCollection.filter((_, i) => i % 3 === 2);
+
+  const getCategoryPreview = (categoryName: string) => {
+    return collection.find(item => item.category === categoryName);
+  };
 
   useEffect(() => {
     if (selectedDress) {
@@ -179,24 +197,75 @@ export function EditorialCollection() {
           <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-[var(--text-muted)]">Select an exquisite piece to reveal its story</p>
         </div>
 
-        {/* Category Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-6 mb-24">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`font-mono text-xs uppercase tracking-[0.2em] pb-2 border-b-2 transition-all duration-300 ${
-                activeCategory === cat 
-                  ? "border-[var(--dada-red)] text-[var(--text-main)] font-bold" 
-                  : "border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)]"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        {/* Mobile Category Scroll (Hidden on desktop) */}
+        <div className="flex md:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-8 mb-8 no-scrollbar px-4 -mx-4">
+          {floatingCategories.map(cat => {
+            const preview = getCategoryPreview(cat);
+            if (!preview) return null;
+            return (
+              <div 
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className="snap-center shrink-0 w-32 aspect-[3/4] relative bg-white p-2 shadow-md flex-col flex"
+              >
+                <img src={preview.img} className="w-full h-full object-cover grayscale-[0.5]" />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                  <span className="font-serif text-white tracking-widest uppercase text-sm drop-shadow-md">{cat}</span>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8 lg:gap-12 transition-all duration-500">
+        <div className="relative">
+          {/* Desktop Floating Category Collage Overlay */}
+          <div className="absolute inset-0 z-30 pointer-events-none hidden md:block min-h-[600px]">
+            <AnimatePresence>
+              {floatingCategories.map((cat, idx) => {
+                const preview = getCategoryPreview(cat);
+                if (!preview) return null;
+                
+                const positions = [
+                  "top-[10%] left-[32%] -translate-x-1/2 rotate-3",
+                  "top-[45%] left-[68%] -translate-x-1/2 -rotate-6",
+                  "top-[80%] left-[35%] -translate-x-1/2 rotate-2"
+                ];
+                
+                return (
+                  <motion.div 
+                    key={cat}
+                    layoutId={`cat-${cat}`}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    className={`absolute w-40 lg:w-48 aspect-[3/4] p-3 bg-[#fafaf8] shadow-2xl pointer-events-auto cursor-pointer group ${positions[idx % 3]}`}
+                    onClick={() => setActiveCategory(cat)}
+                    whileHover={{ scale: 1.05, zIndex: 40, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <div className="w-full h-full relative overflow-hidden">
+                      <img src={preview.img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <h4 className="text-white font-serif tracking-[0.2em] uppercase text-sm drop-shadow-lg transform group-hover:-translate-y-1 transition-transform duration-300">
+                          {cat}
+                        </h4>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+
+          {/* Masonry Grid */}
+          <motion.div 
+            key={activeCategory}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col md:flex-row gap-8 lg:gap-12"
+          >
           {/* Column 1 */}
           <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
             {col1.map((item, idx) => (
@@ -217,6 +286,7 @@ export function EditorialCollection() {
               <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
             ))}
           </div>
+          </motion.div>
         </div>
       </div>
 
