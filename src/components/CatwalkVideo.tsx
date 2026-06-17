@@ -80,7 +80,7 @@ export function CatwalkVideo() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="mt-12 text-xs md:text-sm font-mono tracking-[0.4em] uppercase text-white/90 drop-shadow-xl max-w-2xl leading-loose"
+            className="mt-12 text-xs md:text-sm font-mono tracking-[0.3em] uppercase text-white/90 drop-shadow-xl max-w-2xl leading-[1.8]"
           >
             Effortless elegance, translating the wild rhythm of nature into pure couture.
           </motion.p>

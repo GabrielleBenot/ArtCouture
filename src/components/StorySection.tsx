@@ -15,10 +15,10 @@ export function StorySection() {
         >
           <div className="flex-1 text-center md:text-left space-y-6">
             <h2 className="text-6xl md:text-8xl lg:text-[10rem] font-serif font-extralight text-[var(--text-main)] leading-[0.9] tracking-tight mb-12">Our Story</h2>
-            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.2em] leading-loose">
+            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8]">
               Art Couture is a Fashion Boutique and Art Gallery that combines the talents of mixed media artist Gabrielle Benot and Haute Couture fashion designer Charmaigne Menn. The artists' vision is to blur the lines between Art and fashion and create a space where customers can find one-of-a-kind designs and collectible pieces of art.
             </p>
-            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.2em] leading-loose">
+            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8]">
               Each garment is crafted with the same care as a piece of fine art and the gallery features Gabrielle's stunning mixed media creations. Art Couture invites you to embrace your individuality and experience the beauty of the fusion of Art and fashion.
             </p>
           </div>

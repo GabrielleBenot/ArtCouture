@@ -91,7 +91,7 @@ function FeatureSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.2em] leading-loose"
+                className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8]"
               >
                 {text}
               </motion.div>
@@ -135,7 +135,7 @@ function FeatureSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.2em] leading-loose"
+                className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8]"
               >
                 {text}
               </motion.div>

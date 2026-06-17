@@ -39,7 +39,7 @@ export function TheEdgeCampaign() {
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-white/50 mb-4">
               The Genesis / The Result
             </p>
-            <p className="font-mono text-xs md:text-sm uppercase tracking-[0.2em] leading-loose text-white/80 mt-8">
+            <p className="font-mono text-xs md:text-sm uppercase tracking-[0.15em] leading-[1.8] text-white/80 mt-8">
               From a singular stroke of watercolor to a breathtaking reality. We don't just design dresses; we forge armor for the modern muse. Unapologetic. Wearable. Art.
             </p>
           </div>
