@@ -17,14 +17,14 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Art Couture | Bespoke Haute Couture by Gabrielle Benot & Charmaigne Menn",
   description:
-    "Art Couture by Gabrielle Benot and Charmaigne Menn. Bespoke haute couture gowns born from original paintings, handcrafted in our private atelier. Custom evening gowns, bridal couture, and wearable art.",
+    "Art Couture by Gabrielle Benot and Charmaigne Menn. Bespoke haute couture gowns born from original paintings, handcrafted with Lunéville embroidery in our private atelier. Custom evening gowns, bridal couture, and wearable art.",
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
     title: "Art Couture | Bespoke Haute Couture by Gabrielle Benot & Charmaigne Menn",
     description:
-      "Bespoke haute couture gowns by Gabrielle Benot and Charmaigne Menn. Original paintings transformed into wearable art at our private atelier.",
+      "Bespoke haute couture gowns by Gabrielle Benot and Charmaigne Menn. Original paintings transformed into wearable art with Lunéville embroidery at our private atelier.",
     type: "website",
     url: "https://artcouture.studio",
     images: [
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Art Couture | Bespoke Haute Couture by Gabrielle Benot & Charmaigne Menn",
     description:
-      "Bespoke haute couture gowns by Gabrielle Benot and Charmaigne Menn. Original paintings transformed into wearable art at our private atelier.",
+      "Bespoke haute couture gowns by Gabrielle Benot and Charmaigne Menn. Original paintings transformed into wearable art with Lunéville embroidery at our private atelier.",
     images: [
       "/og-image.png",
     ],
