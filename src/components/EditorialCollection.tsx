@@ -9,8 +9,8 @@ const collection = [
     title: "Fuchsia Majesty", 
     category: "Dresses",
     price: "$7,955", 
-    description: "A bespoke evening gown of unapologetic glamour, richly embroidered mesh encrusted with thousands of hand-set crystals and a daring thigh-high slit. This handcrafted couture dress commands every entrance with the confidence of luxury fashion at its most fearless.",
-    fabric: "Densely embroidered mesh in vivid fuchsia, layered with intricate crystal beadwork and sequin detailing hand-applied over forty hours by our atelier's master beaders. The structured weight of the embroidery gives the gown a luxurious, substantial drape.",
+    description: "A bespoke silk evening gown of unapologetic glamour, featuring a dramatic high slit and exquisite Swarovski crystal embroidery along the thigh. This handcrafted couture dress commands every entrance with the confidence of luxury fashion at its most fearless.",
+    fabric: "Lustrous silk in vivid fuchsia, sculpted to the body with a daring slit and adorned with hand-applied Swarovski crystal embroidery cascading along the thigh, each stone individually set by our atelier's master beaders.",
     customization: "Custom-tailored to your exact silhouette with bespoke slit lengths and corsetry adjustments. Available in an exclusive palette of jewel tones, from deep amethyst to midnight ruby.",
     img: "https://storage.googleapis.com/mixo-sites/images/file-b1585176-4ab0-4441-9ca1-0979786596cd.jpg",
     detailImages: [
@@ -41,8 +41,8 @@ const collection = [
     title: "Golden Whisper", 
     category: "Dresses",
     price: "$9,200", 
-    description: "A luminous gala gown of champagne tulle drenched in hand-set crystals, alive with every shift of light. This bespoke evening gown captures the essence of silk couture: weightless, radiant, and utterly unforgettable on the red carpet.",
-    fabric: "Weightless illusion tulle meticulously encrusted with gold-leaf threading and thousands of Swarovski champagne crystals, layered over a structured silk faille foundation for effortless movement.",
+    description: "A luminous gala gown of champagne mesh drenched in hand-set Swarovski crystals, alive with every shift of light. This bespoke evening gown is richly embroidered and luxuriously heavy, with a captivating transparency that is radiant and utterly unforgettable on the red carpet.",
+    fabric: "Transparent mesh meticulously encrusted with gold-leaf threading and thousands of Swarovski champagne crystals, the dense embroidery lending a substantial, luxurious weight that drapes beautifully against the body.",
     customization: "Train length, crystal density, and silhouette are entirely bespoke. Internal corsetry is precision-engineered for unparalleled structural support tailored to your body.",
     img: "https://storage.googleapis.com/mixo-sites/images/file-fbdb7417-d98d-4d96-99ed-20eb22b057ae.jpg",
     detailImages: [
@@ -76,7 +76,7 @@ const collection = [
     description: "A breathtaking bespoke evening gown where clouds of floating tulle dissolve into delicate hand-embroidered beadwork. This haute couture masterpiece moves like mist across a moonlit stage: ethereal, weightless, and profoundly romantic for the most discerning luxury fashion connoisseur.",
     fabric: "Six layers of gossamer French silk tulle cascade over a precision-structured silk faille base, each layer individually hand-cut and finished with micro-rolled hems for a cloud-like silhouette.",
     customization: "Beadwork pattern, crystal density, and tulle layering are fully personalized. Choose from platinum, opalescent, or aurora borealis bead palettes, with bespoke train lengths from sweep to cathedral.",
-    img: "https://images.unsplash.com/photo-1566162200408-2f56dc9f69b6?w=800&q=80",
+    img: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/lace.png"
@@ -116,7 +116,7 @@ const collection = [
     description: "A symphony of hand-strung freshwater pearls and brilliant diamond accents, this bespoke accessories masterpiece embodies the quiet grandeur of haute couture jewelry. Exquisite as a bridal accent, mother of the bride treasure, or red carpet finishing touch.",
     fabric: "18k white gold filigree meticulously interwoven with lustrous South Sea pearls of exceptional nacre quality, accented by VS-clarity diamond pavé set by our master jeweler over sixty painstaking hours.",
     customization: "Available in rose gold, yellow gold, and platinum finishes. Pearl size graduation, strand length, and diamond accent placement are tailored to your personal aesthetic through private fitting.",
-    img: "https://images.unsplash.com/photo-1599643478524-fb66f7ca065b?w=800&q=80",
+    img: "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/luneville.png"
@@ -128,7 +128,7 @@ const collection = [
     description: "A structured evening clutch crafted from the world's rarest materials, the essential bespoke accessories companion for any red carpet gown or gala gown moment. This luxury fashion statement piece transforms the art of arrival into a ritual of quiet power.",
     fabric: "Hand-selected matte Niloticus crocodile leather in deep obsidian, paired with mirror-polished platinum hardware and an interior of hand-dyed midnight silk charmeuse.",
     customization: "Monogramming available on the interior silk lining in gold or platinum thread. Exotic leather colorways, hardware finishes, and clasp gemstone inlays are available through our bespoke program.",
-    img: "https://images.unsplash.com/photo-1584395442286-d62152862d29?w=800&q=80",
+    img: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[4/5]",
     processImg: "/images/process/buttons.png"
@@ -140,7 +140,7 @@ const collection = [
     description: "The glass slipper reimagined for the modern muse: a dazzling fusion of transparency and sparkle that elevates any bespoke evening gown or custom wedding dress. These bespoke accessories are luxury fashion's answer to Cinderella, designed for real-world red carpets.",
     fabric: "Optically pure Italian Lucite heel sculpted to architectural precision, paired with straps encrusted in over three hundred individually hand-set Swarovski crystals with aurora borealis finish.",
     customization: "Heel height adjustable between 85mm and 110mm. Strap crystal colorway, sole personalization, and custom sizing ensure a perfect bespoke fit for your most important evening.",
-    img: "https://images.unsplash.com/photo-1576182103429-0158dfa64010?w=800&q=80",
+    img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/handstitch.png"
@@ -164,7 +164,7 @@ const collection = [
     description: "A dramatic finishing touch that transforms any haute couture ensemble into a moment of cinematic mystery. This handcrafted veil is among our most coveted bespoke accessories, equally stunning for a custom wedding dress as for a red carpet gown editorial.",
     fabric: "Sumptuous silk velvet band in deep noir, paired with hand-woven French illusion netting featuring delicate picot edging and scattered micro-crystal accents that catch the light like captured stars.",
     customization: "Hand-embroidered motifs, from celestial constellations to monogram initials, can adorn the netting. Veil length, velvet band width, and crystal density are tailored to your vision.",
-    img: "https://images.unsplash.com/photo-1509631179647-0c1158b0f443?w=800&q=80",
+    img: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[4/5]",
     processImg: "/images/process/dyeing.png"
@@ -240,7 +240,7 @@ const collection = [
     description: "A modern couture jacket that reimagines the classic tailored tweed with hand-woven textures and unexpected metallic luminosity. This designer dress companion bridges heritage craft and avant-garde luxury fashion, the kind of haute couture piece that starts conversations and ends debates.",
     fabric: "Hand-woven French bouclé with interlaced metallic gold and silver threads, creating a subtly shimmering surface that shifts between matte and lustrous depending on the light.",
     customization: "Trim details, from silk ribbon edging to hand-braided cord, and button choices (vintage crystal, enameled gold, or hand-carved mother-of-pearl) are fully bespoke through our atelier.",
-    img: "https://images.unsplash.com/photo-1548624149-f9b1859aa7d0?w=800&q=80",
+    img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[2/3]",
     processImg: "/images/process/swatches.png"
@@ -304,7 +304,7 @@ const collection = [
     description: "The perfect minimalist luxury blouse: pure silk couture reduced to its most essential, elegant form. This sandwashed silk charmeuse shirt is the foundation of any haute couture wardrobe, effortlessly pairing with everything from a bespoke evening gown skirt to tailored trousers.",
     fabric: "Sandwashed silk charmeuse with a buttery, lived-in softness achieved through a specialized enzyme wash process. The natural luster creates depth that synthetic fabrics cannot replicate.",
     customization: "Available in twelve exclusive custom-dye colorways developed by our in-house colorist. Collar shape, cuff style, and body length are tailored through bespoke fitting.",
-    img: "https://images.unsplash.com/photo-1434389673669-e08b4cac3105?w=800&q=80",
+    img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/ironing.png"
