@@ -78,7 +78,8 @@ const collection = [
     customization: "Beadwork pattern can be personalized.",
     img: "https://images.unsplash.com/photo-1566162200408-2f56dc9f69b6?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[3/4]"
+    aspectClass: "aspect-[3/4]",
+    sketchImg: "/images/sketches/ethereal.png"
   },
   { 
     title: "Sapphire Dream", 
@@ -89,7 +90,8 @@ const collection = [
     customization: "Neckline can be altered to off-the-shoulder.",
     img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80",
     detailImages: [],
-    aspectClass: "aspect-[2/3]"
+    aspectClass: "aspect-[2/3]",
+    sketchImg: "/images/sketches/sapphire.png"
   },
   { 
     title: "Blush Couture", 
@@ -351,7 +353,7 @@ function DressCard({
         )}
 
         {/* Subtle persistent overlay for title readability */}
-        <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 ${isActiveCategory ? 'opacity-100' : 'group-hover:opacity-100'} transition-opacity duration-500`} />
+        <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 ${isActiveCategory ? 'opacity-100' : 'group-hover:opacity-100'} transition-opacity duration-500`} />
         
         {/* Elegant Partial Frame (Corner Brackets) - or Full Frame if Active */}
         {isActiveCategory ? (
