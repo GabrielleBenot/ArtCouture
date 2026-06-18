@@ -124,7 +124,6 @@ export function NewsEvents() {
           </h2>
         </motion.div>
 
-        {/* News Carousel (mobile) / Grid (desktop) */}
         <div className="flex md:hidden gap-6 overflow-x-auto snap-x snap-mandatory pb-8 -mx-6 px-6 scrollbar-hide">
           {newsItems.map((item, i) => (
             <motion.article
@@ -134,11 +133,9 @@ export function NewsEvents() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.8, delay: i * 0.1 }}
               className="group flex-shrink-0 w-[75vw] snap-center"
-              onTouchStart={() => handleCardTap(i)}
-              onClick={() => handleCardTap(i)}
             >
               {/* Image */}
-              <div className="relative aspect-[4/5] overflow-hidden">
+              <div className="relative aspect-[3/4] overflow-hidden">
                 <img
                   src={item.image}
                   alt={`Art Couture ${item.title} – ${item.tag}`}
@@ -146,8 +143,9 @@ export function NewsEvents() {
                   className={`w-full h-full object-cover transition-all duration-1000 transform ${
                     colorCards.has(i) ? 'grayscale-0 scale-105' : 'grayscale'
                   }`}
+                  onTouchStart={() => handleCardTap(i)}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 {/* Tag */}
                 <span className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.3em] text-white bg-[var(--dada-red)] px-3 py-1.5">
                   {item.tag}
@@ -156,49 +154,36 @@ export function NewsEvents() {
                 <span className="absolute top-4 right-4 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
                   {String(i + 1).padStart(2, '0')} / {String(newsItems.length).padStart(2, '0')}
                 </span>
-                {/* Title overlay at bottom */}
+                {/* Title overlay */}
                 <div className="absolute bottom-4 left-4 right-4 z-10">
-                  <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-white/50 mb-2">
+                  <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-white/50 mb-1">
                     {item.date}
                   </span>
-                  <h3 className="font-serif text-xl text-white font-light leading-snug mb-3">
+                  <h3 className="font-serif text-xl text-white font-light leading-snug">
                     {item.title}
                   </h3>
-                  {item.cta && (
-                    <button
-                      onClick={() => setActiveEvent(item.title)}
-                      className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--dada-red)] border-b border-[var(--dada-red)]/30 pb-1 cursor-pointer bg-transparent"
-                    >
-                      {item.cta}
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M1 6H11M7 2L11 6L7 10" stroke="currentColor" strokeWidth="1" />
-                      </svg>
-                    </button>
-                  )}
                 </div>
               </div>
-              {/* Expandable description */}
-              <AnimatePresence>
-                {expandedCard === i && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
-                    className="overflow-hidden"
-                  >
-                    <p className="font-mono text-[11px] uppercase tracking-[0.08em] leading-[1.8] text-white/60 pt-4 pb-2">
-                      {item.description}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              {/* Orange accent line under each card */}
-              <div className="h-[2px] bg-gradient-to-r from-[var(--dada-red)] via-[var(--dada-red)]/40 to-transparent mt-3" />
-              {/* Tap hint */}
-              <span className="block font-mono text-[8px] uppercase tracking-[0.3em] text-white/25 mt-2 text-center">
-                {expandedCard === i ? 'Tap to close' : 'Tap for details'}
-              </span>
+              {/* Description always visible */}
+              <div className="pt-4 pb-2">
+                <p className="font-mono text-[10px] uppercase tracking-[0.06em] leading-[1.8] text-white/50 line-clamp-4">
+                  {item.description}
+                </p>
+              </div>
+              {/* CTA button */}
+              {item.cta && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); setActiveEvent(item.title); }}
+                  className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--dada-red)] border border-[var(--dada-red)]/30 px-4 py-2.5 mt-2 cursor-pointer bg-transparent hover:bg-[var(--dada-red)] hover:text-white transition-all duration-300"
+                >
+                  {item.cta}
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M1 6H11M7 2L11 6L7 10" stroke="currentColor" strokeWidth="1" />
+                  </svg>
+                </button>
+              )}
+              {/* Orange accent line */}
+              <div className="h-[1px] bg-gradient-to-r from-[var(--dada-red)] via-[var(--dada-red)]/30 to-transparent mt-4" />
             </motion.article>
           ))}
         </div>
