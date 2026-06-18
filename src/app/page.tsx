@@ -298,7 +298,7 @@ export default function Home() {
         text={<p>Born from the artistic vision of European-trained painter Gabrielle Benot and the masterful couture craftsmanship of South African-born Charmaigne Menn, &ldquo;Gabi et Char&rdquo; redefines eveningwear for the modern icon. Their shared global perspective and well-travelled eye for beauty converge in every gown. Each silhouette is an exclusive design, created entirely in-house: rare silk satin, hand-embroidered tulle finished with Lun&eacute;ville beadwork, and velvet that drinks in the light, all crafted to embrace the body with precision and grace.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
         imgAlt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
-        imageClassName="w-full md:flex-[1.44] overflow-hidden flex justify-center items-center scale-[1.2] md:scale-100"
+        imageClassName="w-full md:flex-[1.44] overflow-hidden flex justify-center items-center scale-[0.96] md:scale-100"
         blendImage
       />
 
