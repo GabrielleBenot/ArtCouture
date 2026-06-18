@@ -35,12 +35,12 @@ function ParallaxImage({ src, alt, blend, className }: { src: string, alt: strin
   return (
     <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
       {blend ? (
-        <motion.div style={{ y, scale }} className="max-w-full md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden mix-blend-multiply mx-auto">
+        <motion.div style={{ y, scale }} className="max-w-full md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden bg-[var(--background)] mx-auto">
           <img 
             src={src} 
             alt={alt} 
             loading="lazy"
-            className="w-full h-full object-contain scale-75"
+            className="w-full h-full object-contain scale-75 mix-blend-multiply"
           />
         </motion.div>
       ) : (
