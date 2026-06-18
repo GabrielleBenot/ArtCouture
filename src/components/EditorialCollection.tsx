@@ -407,19 +407,17 @@ function DressCard({
 export function EditorialCollection() {
   const [selectedDress, setSelectedDress] = useState<DressItem | null>(null);
   const [enquiryService, setEnquiryService] = useState<string | null>(null);
-  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [activeCategory, setActiveCategory] = useState<string>("Dresses");
   const [showAllItems, setShowAllItems] = useState(false);
 
   useEffect(() => {
     setShowAllItems(false);
   }, [activeCategory]);
 
-  const categories = ["All", ...Array.from(new Set(collection.map(item => item.category)))];
-  const floatingCategories = categories.filter(c => c !== activeCategory && c !== "All");
+  const categories = Array.from(new Set(collection.map(item => item.category)));
+  const floatingCategories = categories.filter(c => c !== activeCategory);
 
-  const filteredCollection = activeCategory === "All" 
-    ? collection 
-    : collection.filter(item => item.category === activeCategory);
+  const filteredCollection = collection.filter(item => item.category === activeCategory);
 
   const displayedCollection = showAllItems 
     ? filteredCollection 
@@ -454,7 +452,7 @@ export function EditorialCollection() {
         </div>
 
         {/* Category Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-6 mb-24 relative z-40">
+        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mb-24 relative z-40">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -477,7 +475,7 @@ export function EditorialCollection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col md:flex-row gap-8 lg:gap-12"
+            className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-12 max-w-[85%] md:max-w-none mx-auto"
           >
             {/* Column 1 */}
             <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">

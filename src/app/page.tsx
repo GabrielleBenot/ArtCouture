@@ -220,14 +220,14 @@ export default function Home() {
         title={
           <span className="flex flex-col">
             <span className="font-sans font-black text-[5.4rem] md:text-[10rem] lg:text-[12rem] uppercase tracking-tighter leading-[0.8]">Bold</span>
-            <span className="font-serif italic font-light text-[4.7rem] md:text-[8rem] lg:text-[10rem] text-[var(--dada-red)] -mt-4 md:-mt-8 ml-8 md:ml-16 leading-[0.8]">Patterns,</span>
+            <span className="font-serif italic font-light text-[5.4rem] md:text-[8rem] lg:text-[10rem] text-[var(--dada-red)] -mt-4 md:-mt-8 ml-8 md:ml-16 leading-[0.8]">Patterns,</span>
             <span className="font-serif font-extralight text-4xl md:text-6xl mt-4">Striking Silhouettes.</span>
           </span>
         }
         text={<p>Our patterns do not simply sit on fabric. They move with it. Geometric precision meets organic flow, creating handcrafted garments that shift and reveal new details from every angle. Nothing is accidental. Every line has a reason.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
         imgAlt="Bespoke geometric couture fabric pattern by Art Couture"
-        imageClassName="flex-[1.44] w-full -mt-6 md:mt-0 flex justify-center -mr-8 md:mr-0"
+        imageClassName="flex-[1.44] w-full -mt-6 md:mt-0 flex justify-center"
       />
 
       {/* Visual Breaker */}
@@ -263,18 +263,20 @@ export default function Home() {
         text={<p>Gabrielle Benot&apos;s original paintings are not inspiration boards. They are the source material. The textures in her brushwork determine the weight and drape of the fine fabrics that Charmaigne Menn selects and sculpts. What you see on the gallery wall becomes what you wear on the floor.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7c7c79ac-f9d7-4fe7-bcd1-7d29e0eae366.png"
         imgAlt="Gabrielle Benot original abstract painting for couture collection"
+        imageClassName="flex-[1.44] w-full"
       />
 
       <FeatureSection 
         subtitle="The Process"
         title={
           <span className="flex flex-col">
-            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">A meticulous approach</span>
-            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[12rem] -mt-4 leading-[0.8] text-[var(--dada-red)]">to craft.</span>
+            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">A meticulous</span>
+            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl -mt-1 md:mt-0">approach</span>
+            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[12rem] -mt-2 md:-mt-4 leading-[0.8] text-[var(--dada-red)]">to craft.</span>
           </span>
         }
         text={<p>Every couture creation passes through the traditions of French broderie d&apos;art. Lun&eacute;ville hook embroidery, hand-beading, precise pattern cutting, and sculptural draping are woven into each piece. True luxury cannot be rushed. It is felt in the weight of the silk, the architecture of the corset, and the flawless finish of every hidden seam.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-fa8b3115-7c86-48e7-882f-3ba57f6aeb6f.jpg"
+        imgSrc="/images/process_craft.jpg"
         imgAlt="Charmaigne Menn haute couture craftsmanship hand draping"
         reverse
       />
@@ -288,7 +290,7 @@ export default function Home() {
         subtitle="The Promise"
         title={
           <span className="flex flex-col">
-            <span className="font-sans font-black text-5xl md:text-7xl uppercase tracking-tighter">Gowns</span>
+            <span className="font-sans font-black text-[3.75rem] md:text-7xl uppercase tracking-tighter">Gowns</span>
             <span className="font-serif font-light text-4xl md:text-6xl mt-4">as rare as the</span>
             <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">Women who wear them.</span>
           </span>
