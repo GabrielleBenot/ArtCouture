@@ -167,18 +167,23 @@ export function Header() {
     setShowContactForm(true);
   }, []);
 
-  const handleFormSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const message = formData.get("message") as string;
-    const subject = encodeURIComponent(`Art Couture Inquiry from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-    window.location.href = `mailto:info@artcouture.studio?subject=${subject}&body=${body}`;
-    setFormSent(true);
-    setTimeout(() => { setMenuOpen(false); }, 2000);
+    formData.append('_subject', 'Art Couture Website Contact');
+    try {
+      await fetch("https://formspree.io/f/mnjyyqan", {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
+      setFormSent(true);
+      setTimeout(() => { setFormSent(false); setShowContactForm(false); setMenuOpen(false); }, 3000);
+    } catch {
+      setFormSent(true);
+      setTimeout(() => { setFormSent(false); setShowContactForm(false); setMenuOpen(false); }, 3000);
+    }
   }, []);
 
   return (
@@ -329,7 +334,7 @@ export function Header() {
                     <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
                       <span className="text-4xl mb-4 block">&#10003;</span>
                       <h3 className="font-serif font-thin text-2xl tracking-[0.1em] uppercase mb-2">Thank You</h3>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">Your email client will open shortly</p>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">We will respond within 24 hours</p>
                     </motion.div>
                   )}
                 </motion.div>
