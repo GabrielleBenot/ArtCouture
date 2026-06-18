@@ -33,7 +33,7 @@ export function CinematicHero() {
 
         {/* Text Content overlaying the video */}
         <div className="absolute inset-0 z-10 flex flex-col justify-center p-8 md:p-16 lg:p-24 text-left">
-          <h1 className="text-4xl md:text-6xl lg:text-[5.5rem] font-sans font-black tracking-tighter text-white leading-[0.9] mb-8 uppercase mix-blend-difference">
+          <h1 className="text-[2.8rem] md:text-6xl lg:text-[5.5rem] font-sans font-black tracking-tighter text-white leading-[0.9] mb-8 uppercase mix-blend-difference">
             A canvas <br/>
             <span className="font-serif italic font-light text-white/70 lowercase">in motion.</span><br/>
             A masterpiece <br/>
@@ -47,9 +47,9 @@ export function CinematicHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 1 }}
-            className="flex flex-col items-center w-fit gap-3 mix-blend-difference mt-4"
+            className="flex flex-col items-center w-fit gap-3 mix-blend-difference mt-10 md:mt-4"
           >
-            <span className="font-serif italic text-[11px] tracking-[0.25em] text-white/70">Scroll to discover</span>
+            <span className="font-serif italic text-[12px] md:text-[11px] tracking-[0.25em] text-white/70">Scroll to discover</span>
             <div className="w-[1px] h-12 bg-white/15 overflow-hidden relative">
               <motion.div 
                 className="w-full bg-white/60 absolute top-0 left-0"

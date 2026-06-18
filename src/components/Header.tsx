@@ -157,8 +157,8 @@ export function Header() {
           </a>
         </div>
 
-        <div className="flex-1 flex justify-center text-white">
-          <Logo className="h-8 w-auto" />
+        <div className="flex-1 flex justify-start md:justify-center text-white">
+          <Logo className="h-[2.3rem] md:h-8 w-auto" />
         </div>
 
         <div className="flex-1 hidden md:flex justify-end items-center gap-8">
