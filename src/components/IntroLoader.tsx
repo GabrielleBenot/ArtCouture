@@ -101,7 +101,7 @@ export function IntroLoader() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.3 }}
               className="text-[3.8rem] font-sans font-black tracking-tighter text-[#050505] leading-[0.95] text-center"
-              style={{ textShadow: '0 0 30px rgba(255,255,255,1), 0 0 60px rgba(255,255,255,0.8), 0 0 90px rgba(255,255,255,0.5)' }}
+              style={{ textShadow: '0 0 8px rgba(255,255,255,0.6)' }}
             >
               Where vision<br/>becomes style<br/>and style becomes<br/><span className="font-serif italic font-normal text-[4.5rem]">art.</span>
             </motion.h1>
