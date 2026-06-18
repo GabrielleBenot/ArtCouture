@@ -92,9 +92,9 @@ export function IntroLoader() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.3 }}
-              className="text-[3.2rem] font-sans font-black tracking-tighter text-[#050505] leading-[0.95] text-center mb-6"
+              className="text-[2.8rem] font-sans font-black tracking-tighter text-[#050505] leading-[1] text-center mb-6"
             >
-              Where<br/>vision<br/>becomes<br/>style<br/><span className="font-serif italic font-normal text-[3.8rem]">art.</span>
+              Where vision<br/>becomes style<br/>and style becomes<br/><span className="font-serif italic font-normal text-[3.4rem]">art.</span>
             </motion.h1>
 
             {/* Orange accent line */}
