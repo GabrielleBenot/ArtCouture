@@ -414,14 +414,14 @@ function ServiceCard({ service, onEnquire }: { service: { title: string, descrip
       <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 w-10 h-10 md:w-12 md:h-12 border-b-[0.5px] border-l-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
       <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 w-10 h-10 md:w-12 md:h-12 border-b-[0.5px] border-r-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
       
-      <div className="absolute inset-x-0 bottom-0 z-20 px-5 pb-12 pt-16 md:px-8 md:pb-14 md:pt-20 flex flex-col justify-end">
-        <h4 className="text-lg md:text-xl lg:text-2xl font-serif text-white tracking-[0.15em] font-light drop-shadow-lg">
+      <div className="absolute inset-x-0 bottom-0 z-20 px-5 pb-10 pt-12 md:px-8 md:pb-14 md:pt-20 flex flex-col justify-end">
+        <h4 className="text-base md:text-xl lg:text-2xl font-serif text-white tracking-[0.15em] font-light drop-shadow-lg">
           {service.title}
         </h4>
-        <p className={`font-mono text-[10px] text-white/60 uppercase tracking-widest mt-3 max-w-[200px] leading-relaxed transition-all duration-500 delay-100 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} group-hover:opacity-100 group-hover:translate-y-0`}>
+        <p className={`hidden md:block font-mono text-[10px] text-white/60 uppercase tracking-widest mt-3 max-w-[200px] leading-relaxed transition-all duration-500 delay-100 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} group-hover:opacity-100 group-hover:translate-y-0`}>
           {service.description}
         </p>
-        <p className={`font-mono text-xs text-white/70 uppercase tracking-widest mt-4 flex items-center gap-3 transition-all duration-500 delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} group-hover:opacity-100 group-hover:translate-y-0`}>
+        <p className={`font-mono text-[10px] md:text-xs text-white/70 uppercase tracking-widest mt-3 md:mt-4 flex items-center gap-3 transition-all duration-500 delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} group-hover:opacity-100 group-hover:translate-y-0`}>
           <span>Enquire</span>
           <span className="w-6 h-[1px] bg-white/70 inline-block"></span>
         </p>
