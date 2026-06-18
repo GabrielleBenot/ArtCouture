@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { DressModal } from "@/components/DressModal";
 import { MagneticButton } from "./MagneticButton";
 
@@ -336,8 +336,12 @@ function DressCard({
   isPlaceholder?: boolean,
   isActiveCategory?: boolean
 }) {
+  const cardRef = React.useRef<HTMLDivElement>(null);
+  const isInView = useInView(cardRef, { once: false, amount: 0.6 });
+  
   return (
     <motion.div 
+      ref={cardRef}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -346,29 +350,29 @@ function DressCard({
       onClick={onClick}
     >
       <div className="w-full h-full relative">
-        {/* Process Photo - shown by default, fades on hover */}
+        {/* Process Photo - shown by default, fades on hover/scroll */}
         {item.processImg && (
           <img 
             src={item.processImg} 
             alt={`Art Couture ${item.title} bespoke couture craftsmanship`} 
             loading="lazy"
-            className="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-out group-hover:opacity-0 z-[1]"
+            className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-out group-hover:opacity-0 z-[1] ${isInView ? 'opacity-0' : 'opacity-100'}`}
             style={{ filter: 'grayscale(100%) sepia(40%) hue-rotate(330deg) brightness(0.75) contrast(0.85)' }}
           />
         )}
 
-        {/* The Product Image - hidden by default, revealed on hover */}
+        {/* The Product Image - revealed on hover/scroll */}
         <motion.img 
           src={item.img} 
           alt={`${item.title} – Art Couture bespoke haute couture`}
           loading="lazy"
-          className={`w-full h-full object-cover absolute inset-0 transition-all duration-[2s] ${isActiveCategory ? '' : 'group-hover:scale-110'}`}
+          className={`w-full h-full object-cover absolute inset-0 transition-all duration-[2s] ${isActiveCategory ? '' : 'group-hover:scale-110'} ${isInView ? 'scale-105' : ''}`}
         />
         
-        {/* Grainy Film Overlay that fades out on hover */}
+        {/* Grainy Film Overlay that fades out on hover/scroll */}
         {!isActiveCategory && (
           <div 
-            className="absolute inset-0 opacity-[0.55] group-hover:opacity-0 transition-opacity duration-1000 mix-blend-overlay pointer-events-none z-[2]"
+            className={`absolute inset-0 group-hover:opacity-0 transition-opacity duration-1000 mix-blend-overlay pointer-events-none z-[2] ${isInView ? 'opacity-0' : 'opacity-[0.55]'}`}
             style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
           />
         )}
@@ -389,7 +393,7 @@ function DressCard({
         )}
 
         <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 z-20">
-          <h3 className={`${isPlaceholder ? 'text-lg md:text-xl lg:text-2xl font-light tracking-[0.15em]' : 'text-3xl md:text-4xl tracking-wide'} font-serif ${isActiveCategory ? 'text-[var(--dada-red)]' : 'text-white'} drop-shadow-lg transform ${isActiveCategory ? '' : 'group-hover:-translate-y-2'} transition-transform duration-500`}>
+          <h3 className={`${isPlaceholder ? 'text-lg md:text-xl lg:text-2xl font-light tracking-[0.15em]' : 'text-3xl md:text-4xl tracking-wide font-light'} font-serif ${isActiveCategory ? 'text-[var(--dada-red)]' : 'text-white'} drop-shadow-lg transform ${isActiveCategory ? '' : 'group-hover:-translate-y-2'} transition-transform duration-500`}>
             {item.title}
           </h3>
           {!isPlaceholder && (
