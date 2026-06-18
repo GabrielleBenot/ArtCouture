@@ -252,7 +252,7 @@ export default function Home() {
             <span className="font-mono text-xs uppercase tracking-[0.4em] mt-2 md:mt-8 text-white/70">Wear it without apology.</span>
           </span>
         }
-        text={<p>Gabrielle studied fashion design at the Scandinavian Academy of Fashion Design in Copenhagen (formerly Margrethe-Skolen) before turning to painting full-time. That trained eye for silhouette and texture lives in every brushstroke. Layers of pigment, mixed media, raw canvas showing through. Her paintings are never mood boards. They are the blueprint that determines which fabrics Charmaigne will source, how they&apos;ll drape, how they&apos;ll move. The art inspires the fashion, and the fashion inspires new art.</p>}
+        text={<p>Gabrielle sees color everywhere, in the light on a wall at golden hour, in the way a scarf falls across someone&apos;s shoulder, in the rust on an old gate. She trained in fashion design at the Scandinavian Academy of Fashion Design in Copenhagen before following her heart to the canvas. But that love of fabric, of how something drapes and moves, never left her. It lives in every painting she makes, and eventually, it finds its way back into cloth.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-0ae10f15-2ee8-43af-885e-16f4bbe10af4.png"
         imgAlt="Art Couture original watercolor painting by Gabrielle Benot"
         imageClassName="flex-[1.44] w-full -ml-4 md:ml-0"
