@@ -112,7 +112,7 @@ export function IntroLoader() {
               style={{ boxShadow: '0 0 8px rgba(255,89,0,0.4), 0 0 20px rgba(255,255,255,0.9)' }}
             />
 
-            {/* Enter button - right under the orange line */}
+            {/* Enter button - editorial underline style */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -122,9 +122,17 @@ export function IntroLoader() {
               <MagneticButton>
                 <button 
                   onClick={handleEnter}
-                  className="relative overflow-hidden border border-black/30 text-[#050505] px-12 py-4 rounded-full font-mono text-[10px] uppercase tracking-[0.35em] backdrop-blur-sm bg-white/40 hover:bg-black hover:text-white transition-all duration-500"
+                  className="group relative font-mono text-[10px] uppercase tracking-[0.35em] text-[#050505] py-2 bg-transparent border-none cursor-pointer"
+                  style={{ textShadow: '0 0 15px rgba(255,255,255,1), 0 0 30px rgba(255,255,255,0.8)' }}
                 >
                   Enter the Atelier
+                  <motion.span
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.8, delay: 1.4, ease: [0.76, 0, 0.24, 1] }}
+                    className="absolute bottom-0 left-0 w-full h-[1px] bg-[#050505] origin-left group-hover:scaleX-0 group-hover:origin-right transition-transform duration-500"
+                    style={{ boxShadow: '0 0 6px rgba(255,255,255,0.8)' }}
+                  />
                 </button>
               </MagneticButton>
             </motion.div>
