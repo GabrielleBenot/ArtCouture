@@ -34,7 +34,7 @@ export function StorySection() {
                 src="/images/gabi_et_char_cropped.jpg" 
                 alt="Gabrielle Benot and Charmaigne Menn founders of Art Couture atelier" 
                 loading="lazy"
-                className="w-full h-full object-cover object-[center_40%] scale-110 grayscale group-hover:grayscale-0 transition-all duration-[1.5s]"
+                className="w-full h-full object-cover object-[center_30%] scale-110 grayscale group-hover:grayscale-0 transition-all duration-[1.5s]"
               />
             </div>
             <span className="block text-center font-serif text-xs tracking-[0.2em] text-white/50 mt-4">Charmaigne Menn &amp; Gabrielle Benot</span>
