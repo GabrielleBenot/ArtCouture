@@ -242,7 +242,7 @@ export function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={handleLinkClick}
-                  className="font-mono font-light text-2xl sm:text-3xl tracking-[0.15em] uppercase hover:text-[var(--dada-red)] transition-colors duration-300"
+                  className="font-mono font-extralight text-2xl sm:text-3xl tracking-[0.15em] uppercase hover:text-[var(--dada-red)] transition-colors duration-300"
                   variants={linkItemVariants}
                 >
                   {link.label}
