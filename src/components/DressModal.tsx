@@ -56,7 +56,7 @@ export function DressModal({
         </button>
 
         {/* Left: Image */}
-        <div className="w-full md:w-[50%] h-[40vh] md:h-full shrink-0 relative p-4 md:p-6 lg:p-8">
+        <div className="w-full md:w-[50%] h-[55vh] md:h-full shrink-0 relative p-2 md:p-6 lg:p-8">
           <motion.div 
             initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -78,7 +78,7 @@ export function DressModal({
 
             {/* Glassmorphism Editorial Index */}
             {images.length > 1 && (
-              <div className="absolute top-1/3 -translate-y-1/2 left-4 md:left-6 z-50 py-5 md:py-8 px-4 md:px-6 rounded-xl bg-black/30 backdrop-blur-xl border border-white/10 shadow-2xl flex flex-col gap-5 md:gap-8 items-start">
+              <div className="absolute top-1/3 -translate-y-1/2 left-4 md:left-6 z-50 py-5 md:py-8 px-4 md:px-6 rounded-xl bg-black/30 backdrop-blur-xl border border-white/10 shadow-2xl hidden md:flex flex-col gap-5 md:gap-8 items-start">
                 {images.map((img, idx) => {
                   const labels = ["The Silhouette", "The Bodice", "Fabric Detail", "The Hem"];
                   const label = labels[idx] || `Detail ${idx}`;
@@ -111,15 +111,15 @@ export function DressModal({
               </div>
             )}
             
-            {/* Elegant dark gradient overlay for text legibility */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-90 pointer-events-none" />
+            {/* Elegant dark gradient overlay for text legibility - subtle on mobile */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent md:from-black/80 md:via-black/10 pointer-events-none" />
             
             {/* Floating Fabric and Customization Text */}
             <motion.div 
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1 }}
-              className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 md:right-8 text-white pr-4"
+              className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 md:right-8 text-white pr-4 hidden md:block"
             >
               <div className="mb-4 md:mb-6">
                 <span className="block font-mono font-thin text-[10px] uppercase tracking-[0.4em] text-white/60 mb-2 border-l border-[var(--dada-red)] pl-3">The Fabric</span>
@@ -136,6 +136,28 @@ export function DressModal({
               </div>
             </motion.div>
           </motion.div>
+
+          {/* Mobile horizontal image tabs */}
+          {images.length > 1 && (
+            <div className="flex md:hidden gap-2 justify-center py-2 absolute bottom-4 left-0 right-0 z-50">
+              {images.map((img, idx) => {
+                const labels = ["Silhouette", "Bodice", "Fabric", "Hem"];
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImageIndex(idx)}
+                    className={`font-mono text-[8px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full transition-all duration-300 ${
+                      activeImageIndex === idx
+                        ? 'bg-white text-black'
+                        : 'bg-black/40 text-white/70 backdrop-blur-sm'
+                    }`}
+                  >
+                    {labels[idx] || `0${idx + 1}`}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Right: Content & Form */}
