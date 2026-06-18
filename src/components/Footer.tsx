@@ -59,7 +59,7 @@ export function Footer() {
             <div className="flex gap-5 mb-8">
               {/* Instagram */}
               <a
-                href="https://www.instagram.com/artcouture.studio"
+                href="https://www.instagram.com/art_couture_boutique"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"

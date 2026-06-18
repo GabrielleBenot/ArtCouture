@@ -345,7 +345,7 @@ export function Header() {
             >
               <div className="flex items-center gap-6">
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/art_couture_boutique"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/60 hover:text-[var(--dada-red)] transition-colors duration-300"
