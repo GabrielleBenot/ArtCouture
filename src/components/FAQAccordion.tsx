@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const faqs = [
   {
     question: "What is the investment?",
-    answer: "Each Art Couture piece is priced according to its complexity, the rarity of its materials, and the hours of handwork involved. Bespoke gowns typically range from $3,000 to $12,000. We welcome the opportunity to discuss your vision and provide a detailed quote during a private consultation."
+    answer: "Each Art Couture piece is priced according to its complexity, the rarity of its materials, and the hours of handwork involved. Bespoke gowns typically range from $3,000 to $20,000. We welcome the opportunity to discuss your vision and provide a detailed quote during a private consultation."
   },
   {
     question: "Who wears Art Couture?",
