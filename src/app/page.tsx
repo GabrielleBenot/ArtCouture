@@ -234,7 +234,7 @@ export default function Home() {
             <span className="font-mono text-xs uppercase tracking-[0.4em] mt-2 md:mt-8 text-white/70">Wear it without apology.</span>
           </span>
         }
-        text={<p>Gabrielle studied fashion design at the Copenhagen School of Design before turning to painting full-time. That trained eye for silhouette lives in every brushstroke. The palettes begin on canvas. The couture follows.</p>}
+        text={<p>Gabrielle studied fashion design at the Scandinavian Academy of Fashion Design in Copenhagen, formerly Margrethe-Skolen, before turning to painting full-time. That trained eye for silhouette lives in every brushstroke. The palettes begin on canvas. The couture follows.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-0ae10f15-2ee8-43af-885e-16f4bbe10af4.png"
         imgAlt="Art Couture original watercolor painting by Gabrielle Benot"
         imageClassName="flex-[1.44] w-full -ml-4 md:ml-0"
