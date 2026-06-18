@@ -324,7 +324,7 @@ export default function Home() {
             <span className="font-serif font-extralight text-4xl md:text-6xl mt-4">Striking Silhouettes.</span>
           </span>
         }
-        text={<p>Nothing is applied. Everything is built in. Every line is deliberate, every color hand-mixed from Gabrielle&apos;s original palette. The garments shift and reveal new details as you move, because that is what art should do.</p>}
+        text={<p>Nothing is accidental. Every line is deliberate, every color drawn from Gabrielle&apos;s original artwork. The art inspires the fashion, and the fashion inspires new art. The garments shift and reveal new details as you move, because that is what wearable art should do.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
         imgAlt="Bespoke geometric couture fabric pattern by Art Couture"
         imageClassName="w-[calc(100%+3rem)] -ml-[calc(1.5rem+5%)] md:ml-0 md:w-full -mt-6 md:mt-0 md:flex-[1.44] overflow-hidden"
