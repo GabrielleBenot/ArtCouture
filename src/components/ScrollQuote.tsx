@@ -15,7 +15,7 @@ export function ScrollQuote() {
   const lineWidth = useTransform(scrollYProgress, [0.2, 0.5], ["0%", "40%"]);
 
   return (
-    <section ref={ref} className="w-full h-[120vh] bg-black border-b border-white/10 relative">
+    <section ref={ref} className="w-full h-[85vh] md:h-[120vh] bg-black border-b border-white/10 relative">
       <div className="sticky top-0 h-screen w-full flex items-center justify-center p-8 overflow-hidden">
         <motion.div style={{ opacity, scale }} className="max-w-4xl text-center flex flex-col items-center">
           {/* Top decorative line */}

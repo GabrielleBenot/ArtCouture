@@ -73,7 +73,7 @@ export function IntroLoader() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className="text-4xl md:text-6xl lg:text-7xl font-sans font-black tracking-tighter text-[#050505] leading-[1.05] mb-4 lg:mb-8"
+              className="text-[3.15rem] md:text-6xl lg:text-7xl font-sans font-black tracking-tighter text-[#050505] leading-[1.05] mb-4 lg:mb-8"
             >
               Where vision becomes style<br/>and style becomes <span className="font-serif italic font-normal">art.</span>
             </motion.h1>
