@@ -408,6 +408,51 @@ function DressCard({
   )
 }
 
+function ServiceCard({ service, onEnquire }: { service: { title: string, description: string, img: string }, onEnquire: () => void }) {
+  const cardRef = React.useRef<HTMLDivElement>(null);
+  const isInView = useInView(cardRef, { once: false, amount: 0.5 });
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.8 }}
+      className="group relative overflow-hidden cursor-pointer aspect-[3/4]"
+      onClick={onEnquire}
+    >
+      <img 
+        src={service.img} 
+        alt={`Art Couture ${service.title} – bespoke atelier service`}
+        loading="lazy"
+        className="w-full h-full object-cover absolute inset-0 transition-all duration-1000 group-hover:scale-110"
+        style={{ filter: 'grayscale(100%) sepia(40%) hue-rotate(330deg) brightness(0.75) contrast(0.85)' }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+      
+      {/* Corner brackets */}
+      <div className="absolute top-4 left-4 md:top-6 md:left-6 w-10 h-10 md:w-12 md:h-12 border-t-[0.5px] border-l-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
+      <div className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 border-t-[0.5px] border-r-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
+      <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 w-10 h-10 md:w-12 md:h-12 border-b-[0.5px] border-l-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
+      <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 w-10 h-10 md:w-12 md:h-12 border-b-[0.5px] border-r-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
+      
+      <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 z-20">
+        <h4 className={`text-lg md:text-xl lg:text-2xl font-serif text-white tracking-[0.15em] font-light drop-shadow-lg transition-transform duration-500 ${isInView ? '-translate-y-2' : ''} group-hover:-translate-y-2`}>
+          {service.title}
+        </h4>
+        <p className={`font-mono text-[10px] text-white/60 uppercase tracking-widest mt-3 max-w-[200px] leading-relaxed transition-all duration-500 delay-100 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} group-hover:opacity-100 group-hover:translate-y-0`}>
+          {service.description}
+        </p>
+        <p className={`font-mono text-xs text-white/70 uppercase tracking-widest mt-4 flex items-center gap-3 transition-all duration-500 delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} group-hover:opacity-100 group-hover:translate-y-0`}>
+          <span>Enquire</span>
+          <span className="w-6 h-[1px] bg-white/70 inline-block"></span>
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
 export function EditorialCollection() {
   const [selectedDress, setSelectedDress] = useState<DressItem | null>(null);
   const [enquiryService, setEnquiryService] = useState<string | null>(null);
@@ -521,8 +566,9 @@ export function EditorialCollection() {
           <div className="text-center mb-24">
             <h3 className="text-[4rem] md:text-[6rem] lg:text-[8rem] font-serif font-extralight text-[var(--text-main)] mb-8 tracking-tight leading-none">Our Services</h3>
             <p className="font-mono text-xs uppercase tracking-[0.4em] text-[var(--text-muted)]">Bespoke experiences from our atelier</p>
+            <div className="w-16 h-[2px] bg-[var(--dada-red)] mx-auto mt-6" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             {[
               { 
                 title: "Bespoke Gowns", 
@@ -545,45 +591,10 @@ export function EditorialCollection() {
                 img: "/images/process/painting.png"
               }
             ].map((service) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.8 }}
-                className="group relative overflow-hidden cursor-pointer aspect-[3/4]"
-                onClick={() => setEnquiryService(service.title)}
-              >
-                <img 
-                  src={service.img} 
-                  alt={`Art Couture ${service.title} – bespoke atelier service`}
-                  loading="lazy"
-                  className="w-full h-full object-cover absolute inset-0 transition-all duration-1000 group-hover:scale-110"
-                  style={{ filter: 'grayscale(100%) sepia(40%) hue-rotate(330deg) brightness(0.75) contrast(0.85)' }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                
-                {/* Corner brackets */}
-                <div className="absolute top-4 left-4 md:top-6 md:left-6 w-10 h-10 md:w-12 md:h-12 border-t-[0.5px] border-l-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
-                <div className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 border-t-[0.5px] border-r-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
-                <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 w-10 h-10 md:w-12 md:h-12 border-b-[0.5px] border-l-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
-                <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 w-10 h-10 md:w-12 md:h-12 border-b-[0.5px] border-r-[0.5px] border-[var(--dada-red)]/50 pointer-events-none transition-all duration-700 group-hover:w-14 group-hover:h-14 group-hover:border-[var(--dada-red)]" />
-                
-                <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 z-20">
-                  <h4 className="text-lg md:text-xl lg:text-2xl font-serif text-white tracking-[0.15em] font-light drop-shadow-lg group-hover:-translate-y-2 transition-transform duration-500">
-                    {service.title}
-                  </h4>
-                  <p className="font-mono text-[10px] text-white/60 uppercase tracking-widest mt-3 max-w-[200px] leading-relaxed opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
-                    {service.description}
-                  </p>
-                  <p className="font-mono text-xs text-white/70 uppercase tracking-widest mt-4 flex items-center gap-3 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
-                    <span>Enquire</span>
-                    <span className="w-6 h-[1px] bg-white/70 inline-block"></span>
-                  </p>
-                </div>
-              </motion.div>
+              <ServiceCard key={service.title} service={service} onEnquire={() => setEnquiryService(service.title)} />
             ))}
           </div>
+          <div className="w-16 h-[2px] bg-[var(--dada-red)] mx-auto mt-12" />
         </div>
       </div>
 

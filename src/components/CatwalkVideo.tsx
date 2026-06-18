@@ -19,7 +19,7 @@ export function CatwalkVideo() {
     <section ref={containerRef} className="relative h-[120vh] w-full overflow-hidden bg-[var(--background)] flex items-center justify-center py-20">
       <motion.div 
         style={{ scale }}
-        className="relative w-[90%] md:w-[70%] h-[80vh] overflow-hidden rounded-sm"
+        className="relative w-full md:w-[70%] h-[80vh] overflow-hidden rounded-sm"
       >
         <motion.div style={{ y }} className="absolute inset-0 w-full h-[140%] -top-[20%]">
           <video 

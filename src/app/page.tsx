@@ -312,9 +312,9 @@ export default function Home() {
         subtitle="The Detail"
         title={
           <span className="flex flex-col">
-            <span className="font-sans font-black text-6xl md:text-8xl uppercase tracking-tighter">Luxury</span>
-            <span className="font-serif font-light text-4xl md:text-6xl mt-4">is in the details</span>
-            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] mt-2 leading-[0.75]">You can feel.</span>
+            <span className="font-sans font-black text-[4.7rem] md:text-8xl uppercase tracking-tighter leading-[0.85]">Luxury</span>
+            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">is in the details</span>
+            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">You can feel.</span>
           </span>
         }
         text={<p>From hand-cut French Chantilly lace appliqu&eacute; and delicate Guipure lacework to sheer silk tulle adorned with Lun&eacute;ville embroidery, each collection explores fabric as both canvas and form. Every textile is sourced from the most prestigious European mills. Every embellishment is applied by hand. Every design is exclusively ours.</p>}
