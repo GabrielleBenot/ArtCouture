@@ -33,7 +33,7 @@ export function TheEdgeCampaign() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 border-b border-white/20 pb-12">
           <h2 className="text-[3.5rem] md:text-[10rem] lg:text-[14rem] font-sans font-black tracking-tighter leading-[0.8] uppercase">
             Create<br/>
-            <span className="font-serif italic text-[var(--dada-red)] font-extralight text-[3rem] md:text-[9rem] lg:text-[11rem] ml-6 md:ml-24 leading-[0.8] block -mt-4 md:-mt-8">The Edge.</span>
+            <span className="font-serif italic text-[var(--dada-red)] font-extralight text-[4.2rem] md:text-[9rem] lg:text-[11rem] ml-6 md:ml-24 leading-[0.8] block -mt-4 md:-mt-8">The Edge.</span>
           </h2>
           <div className="max-w-md">
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-white/50 mb-4">
@@ -69,7 +69,7 @@ export function TheEdgeCampaign() {
           {/* Right - The Edge Image (Sliding In) */}
           <motion.div 
             style={{ y: y2, x: x2 }}
-            className="absolute right-0 bottom-0 w-[90%] md:w-[65%] aspect-video z-20 shadow-2xl"
+            className="absolute right-0 bottom-0 w-full md:w-[65%] aspect-[4/3] md:aspect-video z-20 shadow-2xl"
           >
             <motion.img 
               style={{ filter }}

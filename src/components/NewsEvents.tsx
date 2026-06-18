@@ -109,8 +109,57 @@ export function NewsEvents() {
           </h2>
         </motion.div>
 
-        {/* News Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+        {/* News Carousel (mobile) / Grid (desktop) */}
+        <div className="flex md:hidden gap-4 overflow-x-auto snap-x snap-mandatory pb-6 -mx-6 px-6 scrollbar-hide">
+          {newsItems.map((item, i) => (
+            <motion.article
+              key={item.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.8, delay: i * 0.1 }}
+              className="group flex-shrink-0 w-[80vw] snap-center"
+            >
+              {/* Image */}
+              <div className="relative aspect-[4/5] overflow-hidden mb-4">
+                <img
+                  src={item.image}
+                  alt={`Art Couture ${item.title} – ${item.tag}`}
+                  loading="lazy"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                {/* Tag */}
+                <span className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.3em] text-white bg-[var(--dada-red)] px-3 py-1.5">
+                  {item.tag}
+                </span>
+                {/* Title overlay at bottom */}
+                <div className="absolute bottom-4 left-4 right-4 z-10">
+                  <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-white/50 mb-2">
+                    {item.date}
+                  </span>
+                  <h3 className="font-serif text-xl text-white font-light leading-snug mb-3">
+                    {item.title}
+                  </h3>
+                  {item.cta && (
+                    <button
+                      onClick={() => setActiveEvent(item.title)}
+                      className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--dada-red)] border-b border-[var(--dada-red)]/30 pb-1 cursor-pointer bg-transparent"
+                    >
+                      {item.cta}
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M1 6H11M7 2L11 6L7 10" stroke="currentColor" strokeWidth="1" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
           {newsItems.map((item, i) => (
             <motion.article
               key={item.title}
