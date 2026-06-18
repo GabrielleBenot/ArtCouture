@@ -479,19 +479,19 @@ export function EditorialCollection() {
 
         {/* Category Tabs */}
         <div className="flex items-center justify-center mb-24 relative z-40">
-          <div className="flex items-center gap-8 md:gap-10 overflow-x-auto scrollbar-hide px-4">
+          <div className="grid grid-cols-2 md:flex md:items-center gap-y-6 gap-x-10 md:gap-10">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className="relative font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] pb-3 transition-colors duration-300 whitespace-nowrap flex-shrink-0"
+                className="relative font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] pb-3 transition-colors duration-300 whitespace-nowrap text-center"
                 style={{ color: activeCategory === cat ? 'var(--text-main)' : 'var(--text-muted)' }}
               >
                 {cat}
                 {activeCategory === cat && (
                   <motion.div
                     layoutId="categoryIndicator"
-                    className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[var(--dada-red)]"
+                    className="absolute bottom-0 left-1/4 right-1/4 md:left-0 md:right-0 h-[1.5px] bg-[var(--dada-red)]"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}

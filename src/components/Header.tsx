@@ -138,6 +138,8 @@ export function Header() {
   const isScrolled = useTransform(scrollY, [0, 50], [false, true]);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [formSent, setFormSent] = useState(false);
 
   useEffect(() => {
     return isScrolled.on("change", (v: boolean) => setScrolled(v));
@@ -148,6 +150,8 @@ export function Header() {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      setShowContactForm(false);
+      setFormSent(false);
     }
     return () => {
       document.body.style.overflow = "";
@@ -156,6 +160,25 @@ export function Header() {
 
   const handleLinkClick = useCallback(() => {
     setMenuOpen(false);
+  }, []);
+
+  const handleContactClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowContactForm(true);
+  }, []);
+
+  const handleFormSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
+    const subject = encodeURIComponent(`Art Couture Inquiry from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+    window.location.href = `mailto:info@artcouture.studio?subject=${subject}&body=${body}`;
+    setFormSent(true);
+    setTimeout(() => { setMenuOpen(false); }, 2000);
   }, []);
 
   return (
@@ -249,25 +272,69 @@ export function Header() {
               </svg>
             </button>
 
-            <motion.nav
-              className="flex flex-col items-center gap-6"
-              variants={linkContainerVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              {navLinks.map((link) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  onClick={handleLinkClick}
-                  className="font-serif font-thin text-2xl sm:text-3xl tracking-[0.15em] uppercase hover:text-[var(--dada-red)] transition-colors duration-300"
-                  variants={linkItemVariants}
+            <AnimatePresence mode="wait">
+              {!showContactForm ? (
+                <motion.nav
+                  key="nav-links"
+                  className="flex flex-col items-center gap-6"
+                  variants={linkContainerVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
                 >
-                  {link.label}
-                </motion.a>
-              ))}
-            </motion.nav>
+                  {navLinks.map((link) => (
+                    <motion.a
+                      key={link.href}
+                      href={link.href}
+                      onClick={link.href === "#contact" ? handleContactClick : handleLinkClick}
+                      className="font-serif font-thin text-2xl sm:text-3xl tracking-[0.15em] uppercase hover:text-[var(--dada-red)] transition-colors duration-300"
+                      variants={linkItemVariants}
+                    >
+                      {link.label}
+                    </motion.a>
+                  ))}
+                </motion.nav>
+              ) : (
+                <motion.div
+                  key="contact-form"
+                  initial={{ opacity: 0, x: 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -40 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full max-w-sm px-8"
+                >
+                  <button
+                    onClick={() => setShowContactForm(false)}
+                    className="flex items-center gap-2 text-white/50 hover:text-white mb-8 transition-colors"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="19" y1="12" x2="5" y2="12" />
+                      <polyline points="12 19 5 12 12 5" />
+                    </svg>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em]">Back</span>
+                  </button>
+
+                  {!formSent ? (
+                    <>
+                      <h3 className="font-serif font-thin text-2xl tracking-[0.1em] uppercase mb-2">Get in Touch</h3>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 mb-8">We would love to hear from you</p>
+                      <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
+                        <input name="name" type="text" required placeholder="Your Name" className="bg-transparent border-b border-white/20 focus:border-[var(--dada-red)] pb-3 font-mono text-sm text-white placeholder:text-white/30 outline-none transition-colors duration-300" />
+                        <input name="email" type="email" required placeholder="Email Address" className="bg-transparent border-b border-white/20 focus:border-[var(--dada-red)] pb-3 font-mono text-sm text-white placeholder:text-white/30 outline-none transition-colors duration-300" />
+                        <textarea name="message" required rows={4} placeholder="Your Message" className="bg-transparent border-b border-white/20 focus:border-[var(--dada-red)] pb-3 font-mono text-sm text-white placeholder:text-white/30 outline-none transition-colors duration-300 resize-none" />
+                        <button type="submit" className="mt-4 font-mono text-xs uppercase tracking-[0.3em] text-white/80 hover:text-white border border-white/20 hover:border-[var(--dada-red)] py-3 px-8 transition-all duration-300">Send Message</button>
+                      </form>
+                    </>
+                  ) : (
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
+                      <span className="text-4xl mb-4 block">&#10003;</span>
+                      <h3 className="font-serif font-thin text-2xl tracking-[0.1em] uppercase mb-2">Thank You</h3>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">Your email client will open shortly</p>
+                    </motion.div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <motion.div
               className="absolute bottom-12 flex flex-col items-center gap-6"
@@ -305,9 +372,7 @@ export function Header() {
                   <FacebookIcon />
                 </a>
               </div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40">
-                By Appointment Only
-              </p>
+
             </motion.div>
           </motion.div>
         )}
