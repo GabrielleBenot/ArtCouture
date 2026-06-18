@@ -227,7 +227,7 @@ export default function Home() {
         text={<p>Our patterns do not simply sit on fabric. They move with it. Geometric precision meets organic flow, creating handcrafted garments that shift and reveal new details from every angle. Nothing is accidental. Every line has a reason.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
         imgAlt="Bespoke geometric couture fabric pattern by Art Couture"
-        imageClassName="flex-[1.44] w-full -mt-6 md:mt-0 flex justify-center"
+        imageClassName="w-full -mt-6 md:mt-0 md:flex-[1.44] overflow-hidden flex justify-center items-center"
       />
 
       {/* Visual Breaker */}
@@ -298,6 +298,7 @@ export default function Home() {
         text={<p>Born from the artistic vision of European-trained painter Gabrielle Benot and the masterful couture craftsmanship of South African-born Charmaigne Menn, &ldquo;Gabi et Char&rdquo; redefines eveningwear for the modern icon. Their shared global perspective and well-travelled eye for beauty converge in every gown. Each silhouette is an exclusive design, created entirely in-house: rare silk satin, hand-embroidered tulle finished with Lun&eacute;ville beadwork, and velvet that drinks in the light, all crafted to embrace the body with precision and grace.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
         imgAlt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
+        imageClassName="w-full md:flex-[1.44] overflow-hidden flex justify-center items-center scale-[1.2] md:scale-100"
       />
 
       <div id="collections">
