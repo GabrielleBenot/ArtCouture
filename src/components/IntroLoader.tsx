@@ -84,8 +84,8 @@ export function IntroLoader() {
             className="absolute top-14 left-0 right-0 flex justify-center z-10"
           >
             <span
-              className="font-mono text-xs tracking-[0.4em] uppercase text-[var(--dada-red)] font-bold"
-              style={{ textShadow: '0 0 12px rgba(255,255,255,1), 0 0 25px rgba(255,255,255,1), 0 0 50px rgba(255,255,255,0.8)' }}
+              className="font-mono text-[11px] tracking-[0.45em] uppercase text-[var(--dada-red)] font-bold px-5 py-2 rounded-full backdrop-blur-md bg-white/50"
+              style={{ boxShadow: '0 0 20px rgba(255,255,255,0.6)' }}
             >
               Art Couture Studio
             </span>
