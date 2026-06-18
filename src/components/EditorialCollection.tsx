@@ -95,7 +95,7 @@ const collection = [
   },
   { 
     title: "Blush Couture", 
-    category: "Accessories",
+    category: "Dresses",
     price: "$11,700", 
     description: "The ultimate expression of our atelier's bespoke accessories craft: layers of silk organza and hand-sculpted petal appliqués converge in a breathtaking statement piece. This haute couture creation elevates luxury fashion beyond adornment into wearable architecture.",
     fabric: "Ethereal ivory silk tulle intricately paired with hand-cut French Guipure lace, each petal individually sculpted and secured with invisible micro-stitching, falling into a voluminous architectural skirt.",
@@ -171,7 +171,7 @@ const collection = [
   },
   { 
     title: "Midnight Elegance", 
-    category: "Jackets",
+    category: "Dresses",
     price: "$8,850", 
     description: "Where darkness whispers luxury fashion. This couture jacket in deep navy velvet is sculpted to perfection, draping with quiet power that rivals any red carpet gown. A designer dress alternative for those who command a room through understated haute couture mastery.",
     fabric: "Midnight blue silk-viscose pané velvet, extraordinarily soft and plush with a hand-brushed pile that catches the light like a starlit winter sky, fully lined in heavy silk charmeuse.",
