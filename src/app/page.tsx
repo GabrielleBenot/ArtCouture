@@ -211,6 +211,7 @@ export default function Home() {
         text={<p>Behind every couture dress lies a canvas. We design our own exclusive patterns, born from the paintings we create in our La Jolla studio. Each yard of luxury fabric is meticulously engineered so the brushstrokes of the original artwork follow the curves of the body. This is wearable fine art.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-5f0d0213-9b29-4c2c-b415-54c0f9fb6235.jpg"
         imgAlt="Hand-painted silk fabric pattern by Art Couture atelier"
+        imageClassName="flex-1 w-full scale-110 md:scale-100 flex justify-center"
         reverse
       />
 
