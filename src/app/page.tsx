@@ -191,7 +191,7 @@ export default function Home() {
           className="max-w-4xl mx-auto flex flex-col items-center text-center"
         >
           {/* Circular Photo */}
-          <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border border-white/10 shadow-2xl mb-8 group">
+          <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.3)] mb-8 group">
             <div className="absolute inset-0 bg-[var(--dada-red-glow)] mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 pointer-events-none" />
             <img 
               src="https://storage.googleapis.com/mixo-sites/images/file-79d83dc3-308d-4dd6-9173-8dc2170520f7.jpeg" 
@@ -202,8 +202,8 @@ export default function Home() {
           </div>
 
           {/* Names */}
-          <span className="font-serif text-base md:text-lg tracking-[0.15em] text-[var(--text-main)] mb-1">Charmaigne Menn &amp; Gabrielle Benot</span>
-          <span className="font-serif italic text-lg md:text-xl tracking-[0.2em] text-[var(--text-muted)] mb-4">Gabi et Char</span>
+          <span className="font-serif text-xs md:text-sm tracking-[0.2em] text-[var(--text-muted)] mb-1">Charmaigne Menn &amp; Gabrielle Benot</span>
+          <span className="font-serif italic text-sm md:text-base tracking-[0.25em] text-[var(--text-main)] mb-4">Gabi et Char</span>
           <div className="w-12 h-[1px] bg-white/20 mb-8" />
 
           {/* Headline */}
