@@ -440,7 +440,7 @@ export default function Home() {
           <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">Beyond the Gown</span>
           <h2 className="flex flex-col mb-8">
             <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Wear it.</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">Be photographed in it.</span>
+            <span className="font-serif italic font-light text-[3rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">Be photographed in it.</span>
           </h2>
           <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mb-4">
             We offer editorial-style photography sessions where our creative team styles and directs every detail. The result? Images that feel like a fashion editorial, starring you.
@@ -538,7 +538,7 @@ export default function Home() {
                     />
                   ))}
                 </div>
-                <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[var(--text-muted)]">Swipe or tap to explore</span>
+                <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[var(--text-muted)]">Swipe to explore</span>
               </div>
             </div>
           );
