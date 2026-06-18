@@ -577,30 +577,40 @@ export function EditorialCollection() {
         )}
 
         {/* Shop the Collection CTA */}
-        <div className="flex flex-col items-center mt-20 mb-12 relative z-40 gap-6">
-          <a
-            href="https://shop.gabriellebenot.com/collections/art-couture"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative w-32 h-32 md:w-36 md:h-36 rounded-full border border-[var(--text-muted)]/30 hover:border-[var(--dada-red)] transition-all duration-700 cursor-pointer flex items-center justify-center overflow-hidden"
-          >
-            {/* Fill circle on hover */}
-            <div className="absolute inset-0 rounded-full bg-[var(--dada-red)] scale-0 group-hover:scale-100 transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)]" />
-            
-            {/* Rotating ring text */}
-            <svg className="absolute inset-0 w-full h-full animate-[spin_20s_linear_infinite]" viewBox="0 0 140 140">
-              <defs>
-                <path id="circlePath" d="M 70,70 m -52,0 a 52,52 0 1,1 104,0 a 52,52 0 1,1 -104,0" />
-              </defs>
-              <text className="fill-[var(--text-muted)]/60 group-hover:fill-white/60 transition-colors duration-700" style={{ fontSize: '10px', letterSpacing: '6px', fontFamily: 'monospace', textTransform: 'uppercase' }}>
-                <textPath href="#circlePath">SHOP THE COLLECTION · SHOP THE COLLECTION ·</textPath>
-              </text>
-            </svg>
-            
-            {/* Center text */}
-            <span className="relative z-10 font-serif italic text-xl md:text-2xl tracking-wider text-[var(--text-main)] group-hover:text-white transition-colors duration-500">Shop</span>
-          </a>
-        </div>
+        {(() => {
+          const [shopClicked, setShopClicked] = React.useState(false);
+          return (
+            <div className="flex flex-col items-center mt-20 mb-12 relative z-40 gap-6">
+              <div
+                onClick={() => {
+                  if (shopClicked) return;
+                  setShopClicked(true);
+                  setTimeout(() => {
+                    window.open('https://shop.gabriellebenot.com/collections/art-couture', '_blank');
+                    setShopClicked(false);
+                  }, 2000);
+                }}
+                className={`group relative w-32 h-32 md:w-36 md:h-36 rounded-full border transition-all duration-700 cursor-pointer flex items-center justify-center overflow-hidden ${shopClicked ? 'border-orange-500 scale-95' : 'border-[var(--text-muted)]/30 hover:border-[var(--dada-red)]'}`}
+              >
+                {/* Fill circle on hover / orange on click */}
+                <div className={`absolute inset-0 rounded-full transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${shopClicked ? 'bg-orange-500 scale-100' : 'bg-[var(--dada-red)] scale-0 group-hover:scale-100'}`} />
+                
+                {/* Rotating ring text */}
+                <svg className={`absolute inset-0 w-full h-full animate-[spin_20s_linear_infinite] ${shopClicked ? 'animate-[spin_3s_linear_infinite]' : ''}`} viewBox="0 0 140 140">
+                  <defs>
+                    <path id="circlePath" d="M 70,70 m -52,0 a 52,52 0 1,1 104,0 a 52,52 0 1,1 -104,0" />
+                  </defs>
+                  <text className={`transition-colors duration-700 ${shopClicked ? 'fill-white/80' : 'fill-[var(--text-muted)]/60 group-hover:fill-white/60'}`} style={{ fontSize: '10px', letterSpacing: '6px', fontFamily: 'monospace', textTransform: 'uppercase' }}>
+                    <textPath href="#circlePath">SHOP THE COLLECTION · SHOP THE COLLECTION ·</textPath>
+                  </text>
+                </svg>
+                
+                {/* Center text */}
+                <span className={`relative z-10 font-serif italic text-xl md:text-2xl tracking-wider transition-colors duration-500 ${shopClicked ? 'text-white' : 'text-[var(--text-main)] group-hover:text-white'}`}>{shopClicked ? '...' : 'Shop'}</span>
+              </div>
+            </div>
+          );
+        })()}
       </div>
 
       {/* Enquiry Modal */}
