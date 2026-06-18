@@ -76,14 +76,14 @@ export function IntroLoader() {
             />
           </motion.div>
 
-          {/* Centered content with frosted glass background */}
+          {/* Centered content */}
           <div className="relative z-10 flex flex-col items-center justify-center h-full px-8">
-            <div className="bg-white/70 backdrop-blur-xl rounded-3xl px-8 py-12 flex flex-col items-center shadow-sm">
             <motion.span
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.1 }}
               className="font-mono text-[10px] tracking-[0.4em] uppercase text-[var(--dada-red)] mb-8"
+              style={{ textShadow: '0 0 20px rgba(255,255,255,0.9), 0 0 40px rgba(255,255,255,0.7)' }}
             >
               Art Couture Studio
             </motion.span>
@@ -93,6 +93,7 @@ export function IntroLoader() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.3 }}
               className="text-[2.8rem] font-sans font-black tracking-tighter text-[#050505] leading-[1] text-center mb-6"
+              style={{ textShadow: '0 0 30px rgba(255,255,255,1), 0 0 60px rgba(255,255,255,0.8), 0 0 90px rgba(255,255,255,0.5)' }}
             >
               Where vision<br/>becomes style<br/>and style becomes<br/><span className="font-serif italic font-normal text-[3.4rem]">art.</span>
             </motion.h1>
@@ -103,6 +104,7 @@ export function IntroLoader() {
               animate={{ width: 80 }}
               transition={{ duration: 1, delay: 0.8 }}
               className="h-[2px] bg-[var(--dada-red)] mb-10"
+              style={{ boxShadow: '0 0 15px rgba(255,255,255,0.8)' }}
             />
 
             <motion.div
@@ -113,13 +115,12 @@ export function IntroLoader() {
               <MagneticButton>
                 <button 
                   onClick={handleEnter}
-                  className="relative overflow-hidden border border-black/30 text-[#050505] px-12 py-4 rounded-full font-mono text-[10px] uppercase tracking-[0.35em] backdrop-blur-sm bg-white/50 hover:bg-black hover:text-white transition-all duration-500"
+                  className="relative overflow-hidden border border-black/30 text-[#050505] px-12 py-4 rounded-full font-mono text-[10px] uppercase tracking-[0.35em] backdrop-blur-sm bg-white/40 hover:bg-black hover:text-white transition-all duration-500"
                 >
                   Enter the Atelier
                 </button>
               </MagneticButton>
             </motion.div>
-            </div>
           </div>
         </div>
 
