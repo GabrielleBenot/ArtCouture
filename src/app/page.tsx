@@ -182,7 +182,7 @@ export default function Home() {
       <ScrollQuote />
 
       {/* 1. MEET GABI & CHAR - Photo + intro */}
-      <section id="boutique" className="py-20 md:py-28 px-6">
+      <section id="boutique" className="pt-20 md:pt-28 pb-32 md:pb-40 px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -214,7 +214,7 @@ export default function Home() {
 
           {/* Intro text */}
           <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-xl">
-            Every gown starts as a painting. Gabi paints it, Char builds it. The colors on our canvases are the same ones you&apos;ll wear.
+            Every gown starts as a painting. Gabi paints it, Char builds it. The colors on our canvases are the same ones you&apos;ll wear. No two pieces are ever alike.
           </p>
         </motion.div>
       </section>
