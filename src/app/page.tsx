@@ -40,7 +40,7 @@ function ParallaxImage({ src, alt, blend, className }: { src: string, alt: strin
             src={src} 
             alt={alt} 
             loading="lazy"
-            className="w-full h-full object-cover scale-75"
+            className="w-full h-full object-contain scale-75"
           />
         </motion.div>
       ) : (
