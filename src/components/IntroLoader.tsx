@@ -103,35 +103,26 @@ export function IntroLoader() {
               Where vision<br/>becomes style<br/>and style becomes<br/><span className="font-serif italic font-normal text-[4.5rem]">art.</span>
             </motion.h1>
 
-            {/* Orange accent line */}
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: 100 }}
-              transition={{ duration: 1, delay: 0.8 }}
-              className="h-[3px] bg-[var(--dada-red)] rounded-full mt-4"
-              style={{ boxShadow: '0 0 8px rgba(255,89,0,0.4), 0 0 20px rgba(255,255,255,0.9)' }}
-            />
-
-            {/* Enter button - editorial underline style */}
+            {/* Enter button - editorial underline style in orange */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1 }}
-              className="mt-3 flex justify-center z-20"
+              className="mt-6 flex justify-center z-20"
             >
               <MagneticButton>
                 <button 
                   onClick={handleEnter}
-                  className="group relative font-mono text-[10px] uppercase tracking-[0.35em] text-[#050505] py-2 bg-transparent border-none cursor-pointer"
-                  style={{ textShadow: '0 0 15px rgba(255,255,255,1), 0 0 30px rgba(255,255,255,0.8)' }}
+                  className="group relative font-mono text-[10px] uppercase tracking-[0.35em] text-[var(--dada-red)] py-2 bg-transparent border-none cursor-pointer"
+                  style={{ textShadow: '0 0 12px rgba(255,89,0,0.3), 0 0 25px rgba(255,255,255,0.9)' }}
                 >
                   Enter the Atelier
                   <motion.span
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{ duration: 0.8, delay: 1.4, ease: [0.76, 0, 0.24, 1] }}
-                    className="absolute bottom-0 left-0 w-full h-[1px] bg-[#050505] origin-left group-hover:scaleX-0 group-hover:origin-right transition-transform duration-500"
-                    style={{ boxShadow: '0 0 6px rgba(255,255,255,0.8)' }}
+                    className="absolute bottom-0 left-0 w-full h-[1px] bg-[var(--dada-red)] origin-left"
+                    style={{ boxShadow: '0 0 8px rgba(255,89,0,0.4)' }}
                   />
                 </button>
               </MagneticButton>
