@@ -337,7 +337,7 @@ export default function Home() {
             transition={{ duration: 1 }}
             className="block text-center font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-8"
           >
-            The Fabrics We Work With
+            A Selection of Our Finest Materials
           </motion.span>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {[
