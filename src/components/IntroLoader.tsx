@@ -111,25 +111,24 @@ export function IntroLoader() {
               className="h-[3px] bg-[var(--dada-red)] rounded-full mt-6"
               style={{ boxShadow: '0 0 8px rgba(255,89,0,0.4), 0 0 20px rgba(255,255,255,0.9)' }}
             />
-          </div>
 
-          {/* Enter button - pinned to bottom */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="absolute bottom-16 left-0 right-0 flex justify-center z-20"
-          >
-            <MagneticButton>
-              <button 
-                onClick={handleEnter}
-                className="relative overflow-hidden border border-black/30 text-[#050505] px-12 py-4 rounded-full font-mono text-[10px] uppercase tracking-[0.35em] backdrop-blur-sm bg-white/40 hover:bg-black hover:text-white transition-all duration-500"
-              >
-                Enter the Atelier
-              </button>
-            </MagneticButton>
-          </motion.div>
-        </div>
+            {/* Enter button - right under the orange line */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1 }}
+              className="mt-8 flex justify-center z-20"
+            >
+              <MagneticButton>
+                <button 
+                  onClick={handleEnter}
+                  className="relative overflow-hidden border border-black/30 text-[#050505] px-12 py-4 rounded-full font-mono text-[10px] uppercase tracking-[0.35em] backdrop-blur-sm bg-white/40 hover:bg-black hover:text-white transition-all duration-500"
+                >
+                  Enter the Atelier
+                </button>
+              </MagneticButton>
+            </motion.div>
+          </div>
 
         {/* Desktop: Original side-by-side layout (untouched) */}
         <div className="absolute inset-0 hidden lg:flex flex-row">
