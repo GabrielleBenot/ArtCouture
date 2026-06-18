@@ -338,7 +338,7 @@ export default function Home() {
             Lun&eacute;ville hook embroidery, hand-beading, sculptural draping. These are old-world techniques that take real time. We don&apos;t rush. You can feel the difference in the weight of the silk, the architecture of the corset, the finish of every hidden seam.
           </p>
           <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl">
-            Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle adorned with embroidery. We source our textiles from Europe&apos;s finest mills. Every embellishment is applied by hand. Every design is exclusively ours.
+            Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle layered with precision. We source our textiles from Europe&apos;s finest mills. No detail is overlooked, no shortcut taken.
           </p>
         </motion.div>
 
@@ -359,7 +359,7 @@ export default function Home() {
             <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">Women who wear them.</span>
           </h3>
           <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl">
-            Each gown is an exclusive design, created entirely in-house: rare silk satin, hand-embroidered tulle with Lun&eacute;ville beadwork, and velvet that drinks in the light. Crafted to embrace the body with precision and grace.
+            Each gown is an exclusive design, created entirely in-house: rare satin, beaded tulle, and velvet that drinks in the light. Crafted to embrace the body with precision and grace. One client. One vision. One piece.
           </p>
         </motion.div>
 
