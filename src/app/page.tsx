@@ -5,7 +5,7 @@ import { IntroLoader } from "@/components/IntroLoader";
 import { CinematicHero } from "@/components/CinematicHero";
 import { ScrollQuote } from "@/components/ScrollQuote";
 import { CatwalkVideo } from "@/components/CatwalkVideo";
-import { EditorialCollection } from "@/components/EditorialCollection";
+import { EditorialCollection, ServicesGrid } from "@/components/EditorialCollection";
 import { TestimonialSlider } from "@/components/TestimonialSlider";
 import { StorySection } from "@/components/StorySection";
 import { FAQAccordion } from "@/components/FAQAccordion";
@@ -397,6 +397,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* OUR SERVICES */}
+      <ServicesGrid />
+
       {/* PHOTOGRAPHY & RENTALS */}
       <FeatureSection 
         subtitle="Beyond the Gown"
@@ -442,7 +445,7 @@ export default function Home() {
             <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">Women who wear them.</span>
           </span>
         }
-        text={<p>Born from Gabi&apos;s paintings and Char&apos;s couture mastery, each gown is an exclusive design created entirely in-house: rare silk satin, hand-embroidered tulle with Lun&eacute;ville beadwork, velvet that drinks in the light. Crafted to embrace the body with precision and grace.</p>}
+        text={<p>Each gown is an exclusive design, created entirely in-house: rare silk satin, hand-embroidered tulle with Lun&eacute;ville beadwork, and velvet that drinks in the light. Crafted to embrace the body with precision and grace.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
         imgAlt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
         imageClassName="w-full md:flex-[1.44] overflow-hidden flex justify-center items-center scale-[1.38] -translate-x-[5%] md:translate-x-0 md:scale-100 mx-auto"

@@ -565,42 +565,6 @@ export function EditorialCollection() {
             </button>
           </div>
         )}
-
-        {/* Our Services Grid */}
-        <div className="mt-32 border-t border-[var(--text-muted)]/20 pt-24">
-          <div className="text-center mb-24">
-            <h3 className="text-[4rem] md:text-[6rem] lg:text-[8rem] font-serif font-extralight text-[var(--text-main)] mb-8 tracking-tight leading-none">Our Services</h3>
-            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[var(--text-muted)]">Bespoke experiences from our atelier</p>
-            <div className="w-16 h-[2px] bg-[var(--dada-red)] mx-auto mt-6" />
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-            {[
-              { 
-                title: "Bespoke Gowns", 
-                description: "Custom couture created exclusively for you, from initial sketch to final fitting.",
-                img: "/images/process/draping.jpg"
-              },
-              { 
-                title: "Bridal Couture", 
-                description: "Your dream wedding gown, handcrafted with the finest silks, lace, and beadwork.",
-                img: "/images/process/beading.jpg"
-              },
-              { 
-                title: "Couture Rental", 
-                description: "Access our exclusive collection for red carpet events and special occasions.",
-                img: "/images/process/pressing.jpg"
-              },
-              { 
-                title: "Photography Sessions", 
-                description: "Editorial-quality sessions that capture you in couture elegance.",
-                img: "/images/process/painting.jpg"
-              }
-            ].map((service) => (
-              <ServiceCard key={service.title} service={service} onEnquire={() => setEnquiryService(service.title)} />
-            ))}
-          </div>
-          <div className="w-16 h-[2px] bg-[var(--dada-red)] mx-auto mt-12" />
-        </div>
       </div>
 
       {/* Enquiry Modal */}
@@ -705,6 +669,141 @@ export function EditorialCollection() {
             dress={selectedDress} 
             onClose={() => setSelectedDress(null)} 
           />
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
+
+export function ServicesGrid() {
+  const [enquiryService, setEnquiryService] = React.useState<string | null>(null);
+
+  return (
+    <section className="py-24 md:py-32 px-6 max-w-[90rem] mx-auto">
+      <div className="text-center mb-24">
+        <h3 className="text-[4rem] md:text-[6rem] lg:text-[8rem] font-serif font-extralight text-[var(--text-main)] mb-8 tracking-tight leading-none">Our Services</h3>
+        <p className="font-mono text-xs uppercase tracking-[0.4em] text-[var(--text-muted)]">Bespoke experiences from our atelier</p>
+        <div className="w-16 h-[2px] bg-[var(--dada-red)] mx-auto mt-6" />
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+        {[
+          { 
+            title: "Bespoke Gowns", 
+            description: "Custom couture created exclusively for you, from initial sketch to final fitting.",
+            img: "/images/process/draping.jpg"
+          },
+          { 
+            title: "Bridal Couture", 
+            description: "Your dream wedding gown, handcrafted with the finest silks, lace, and beadwork.",
+            img: "/images/process/beading.jpg"
+          },
+          { 
+            title: "Couture Rental", 
+            description: "Access our exclusive collection for red carpet events and special occasions.",
+            img: "/images/process/pressing.jpg"
+          },
+          { 
+            title: "Photography Sessions", 
+            description: "Editorial-quality sessions that capture you in couture elegance.",
+            img: "/images/process/painting.jpg"
+          }
+        ].map((service) => (
+          <ServiceCard key={service.title} service={service} onEnquire={() => setEnquiryService(service.title)} />
+        ))}
+      </div>
+      <div className="w-16 h-[2px] bg-[var(--dada-red)] mx-auto mt-12" />
+
+      {/* Enquiry Modal */}
+      <AnimatePresence>
+        {enquiryService && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center p-6"
+            onClick={() => setEnquiryService(null)}
+          >
+            <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 40, scale: 0.95 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="relative bg-[#0a0a0a] border border-white/10 w-full max-w-lg p-10 md:p-14"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                onClick={() => setEnquiryService(null)}
+                className="absolute top-6 right-6 text-white/40 hover:text-white transition-colors"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+
+              <span className="block font-serif italic text-sm uppercase tracking-[0.2em] text-[var(--dada-red)] mb-4">Enquire</span>
+              <h3 className="text-3xl md:text-4xl font-serif font-extralight text-white mb-2">{enquiryService}</h3>
+              <p className="font-mono text-xs text-white/40 uppercase tracking-widest mb-10">We&apos;ll respond within 24 hours</p>
+
+              <form 
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.currentTarget;
+                  const formData = new FormData(form);
+                  formData.append('_subject', `Service Enquiry: ${enquiryService}`);
+                  try {
+                    await fetch("https://formspree.io/f/mnjyyqan", {
+                      method: "POST",
+                      body: formData,
+                      headers: { Accept: "application/json" },
+                    });
+                    setEnquiryService(null);
+                  } catch {
+                    setEnquiryService(null);
+                  }
+                }}
+                className="space-y-6"
+              >
+                <input type="hidden" name="service" value={enquiryService || ''} />
+                <div>
+                  <label className="block font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 mb-2">Your Name</label>
+                  <input 
+                    name="name"
+                    type="text" 
+                    required
+                    className="w-full bg-transparent border-b border-white/20 focus:border-[var(--dada-red)] outline-none text-white font-serif text-lg py-3 transition-colors duration-300 placeholder:text-white/20"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div>
+                  <label className="block font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 mb-2">Email Address</label>
+                  <input 
+                    name="email"
+                    type="email" 
+                    required
+                    className="w-full bg-transparent border-b border-white/20 focus:border-[var(--dada-red)] outline-none text-white font-serif text-lg py-3 transition-colors duration-300 placeholder:text-white/20"
+                    placeholder="your@email.com"
+                  />
+                </div>
+                <div>
+                  <label className="block font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 mb-2">Your Message</label>
+                  <textarea 
+                    name="message"
+                    rows={4}
+                    required
+                    className="w-full bg-transparent border-b border-white/20 focus:border-[var(--dada-red)] outline-none text-white font-serif text-lg py-3 transition-colors duration-300 resize-none placeholder:text-white/20"
+                    placeholder="Tell us about your vision..."
+                  />
+                </div>
+                <button 
+                  type="submit"
+                  className="w-full mt-4 py-4 bg-[var(--dada-red)] text-white font-mono text-xs uppercase tracking-[0.3em] hover:bg-[var(--dada-red)]/80 transition-colors duration-300 cursor-pointer"
+                >
+                  Send Enquiry
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
     </section>
