@@ -63,14 +63,19 @@ export function NewsEvents() {
   const [activeEvent, setActiveEvent] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [colorCards, setColorCards] = useState<Set<number>>(new Set());
+  const [expandedCard, setExpandedCard] = useState<number | null>(null);
   const colorTimers = React.useRef<Map<number, NodeJS.Timeout>>(new Map());
 
   const handleCardTap = (index: number) => {
-    if (colorCards.has(index)) return;
-    const timer = setTimeout(() => {
-      setColorCards(prev => new Set(prev).add(index));
-    }, 2000);
-    colorTimers.current.set(index, timer);
+    // Toggle expanded state
+    setExpandedCard(prev => prev === index ? null : index);
+    // Start color timer
+    if (!colorCards.has(index)) {
+      const timer = setTimeout(() => {
+        setColorCards(prev => new Set(prev).add(index));
+      }, 2000);
+      colorTimers.current.set(index, timer);
+    }
   };
 
   const activeItem = newsItems.find((item) => item.title === activeEvent);
@@ -172,8 +177,28 @@ export function NewsEvents() {
                   )}
                 </div>
               </div>
+              {/* Expandable description */}
+              <AnimatePresence>
+                {expandedCard === i && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <p className="font-mono text-[11px] uppercase tracking-[0.08em] leading-[1.8] text-white/60 pt-4 pb-2">
+                      {item.description}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
               {/* Orange accent line under each card */}
               <div className="h-[2px] bg-gradient-to-r from-[var(--dada-red)] via-[var(--dada-red)]/40 to-transparent mt-3" />
+              {/* Tap hint */}
+              <span className="block font-mono text-[8px] uppercase tracking-[0.3em] text-white/25 mt-2 text-center">
+                {expandedCard === i ? 'Tap to close' : 'Tap for details'}
+              </span>
             </motion.article>
           ))}
         </div>
