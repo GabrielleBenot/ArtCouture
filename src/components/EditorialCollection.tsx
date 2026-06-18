@@ -314,7 +314,7 @@ function DressCard({
   isActiveCategory?: boolean
 }) {
   const cardRef = React.useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, { once: false, margin: "-20% 0px -60% 0px" });
+  const isInView = useInView(cardRef, { once: false, margin: "-25% 0px -65% 0px" });
   
   return (
     <motion.div 
