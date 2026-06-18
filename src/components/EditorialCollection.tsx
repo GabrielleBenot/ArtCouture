@@ -369,6 +369,16 @@ function DressCard({
           </>
         )}
 
+        {/* Zoom/Click indicator icon */}
+        {!isPlaceholder && (
+          <div className="absolute top-5 right-5 md:top-7 md:right-7 z-20 opacity-50 group-hover:opacity-100 transition-opacity duration-500">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="16.5" y1="16.5" x2="21" y2="21" />
+            </svg>
+          </div>
+        )}
+
         <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 z-20">
           <h3 className={`${isPlaceholder ? 'text-lg md:text-xl lg:text-2xl font-light tracking-[0.15em]' : 'text-3xl md:text-4xl tracking-wide font-light'} font-serif ${isActiveCategory ? 'text-[var(--dada-red)]' : 'text-white'} drop-shadow-lg transform ${isActiveCategory ? '' : 'group-hover:-translate-y-2'} transition-transform duration-500`}>
             {item.title}
