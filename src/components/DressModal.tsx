@@ -160,6 +160,23 @@ export function DressModal({
           )}
         </div>
 
+        {/* Mobile scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          className="flex md:hidden flex-col items-center py-3 shrink-0"
+        >
+          <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-black/40 mb-1">Scroll for details</span>
+          <motion.svg
+            animate={{ y: [0, 4, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            width="16" height="10" viewBox="0 0 16 10" fill="none" className="text-black/30"
+          >
+            <path d="M1 1L8 8L15 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </motion.svg>
+        </motion.div>
+
         {/* Right: Content & Form */}
         <div className="w-full md:w-[50%] flex-1 overflow-y-auto flex flex-col px-6 py-6 md:px-12 lg:px-16 md:py-8">
           <motion.div
