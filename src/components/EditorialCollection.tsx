@@ -19,7 +19,7 @@ const collection = [
       "/details/new_fuchsia_drape_1781676508356.png"
     ],
     aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/beading.png"
+    processImg: "/images/process/beading.jpg"
   },
   { 
     title: "Blush Enchantress", 
@@ -35,7 +35,7 @@ const collection = [
       "/details/new_blushench_drape_1781676696150.png"
     ],
     aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/draping.png"
+    processImg: "/images/process/draping.jpg"
   },
   { 
     title: "Golden Whisper", 
@@ -51,7 +51,7 @@ const collection = [
       "/details/new_golden_drape_1781676619023.png"
     ],
     aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/crystals.png"
+    processImg: "/images/process/crystals.jpg"
   },
   { 
     title: "Crimson Allure", 
@@ -67,7 +67,7 @@ const collection = [
       "/details/new_crimson_drape_1781676568248.png"
     ],
     aspectClass: "aspect-[4/5]",
-    processImg: "/images/process/sewing.png"
+    processImg: "/images/process/sewing.jpg"
   },
   { 
     title: "Ethereal Mist", 
@@ -79,7 +79,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/lace.png"
+    processImg: "/images/process/lace.jpg"
   },
   { 
     title: "Sapphire Dream", 
@@ -91,7 +91,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/threading.png"
+    processImg: "/images/process/threading.jpg"
   },
   { 
     title: "Blush Couture", 
@@ -107,7 +107,7 @@ const collection = [
       "/details/new_blushcout_drape_1781676734418.png"
     ],
     aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/applique.png"
+    processImg: "/images/process/applique.jpg"
   },
   { 
     title: "Pearl Symphony", 
@@ -119,7 +119,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/luneville.png"
+    processImg: "/images/process/luneville.jpg"
   },
   { 
     title: "Obsidian Clutch", 
@@ -131,7 +131,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[4/5]",
-    processImg: "/images/process/buttons.png"
+    processImg: "/images/process/buttons.jpg"
   },
   { 
     title: "Crystal Steps", 
@@ -143,7 +143,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/handstitch.png"
+    processImg: "/images/process/handstitch.jpg"
   },
   { 
     title: "Golden Hour", 
@@ -155,7 +155,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/ribbon.png"
+    processImg: "/images/process/ribbon.jpg"
   },
   { 
     title: "Velvet Veil", 
@@ -167,7 +167,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[4/5]",
-    processImg: "/images/process/dyeing.png"
+    processImg: "/images/process/dyeing.jpg"
   },
   { 
     title: "Midnight Elegance", 
@@ -183,7 +183,7 @@ const collection = [
       "/details/new_midnight_drape_1781676475270.png"
     ],
     aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/cutting.png"
+    processImg: "/images/process/cutting.jpg"
   },
   { 
     title: "Noir Power", 
@@ -195,7 +195,7 @@ const collection = [
     img: "/collections/jacket_two.png",
     detailImages: [],
     aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/corset.png"
+    processImg: "/images/process/corset.jpg"
   },
   { 
     title: "Ivory Architecture", 
@@ -207,7 +207,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/measuring.png"
+    processImg: "/images/process/measuring.jpg"
   },
   { 
     title: "Crimson Drape", 
@@ -219,7 +219,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[4/5]",
-    processImg: "/images/process/steaming.png"
+    processImg: "/images/process/steaming.jpg"
   },
   { 
     title: "Onyx Edge", 
@@ -231,7 +231,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1544441893-675973e31985?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/painting.png"
+    processImg: "/images/process/painting.jpg"
   },
   { 
     title: "Tweed Illusion", 
@@ -243,7 +243,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/swatches.png"
+    processImg: "/images/process/swatches.jpg"
   },
   { 
     title: "Ivory Cascade", 
@@ -259,7 +259,7 @@ const collection = [
       "/details/new_blushcout_drape_1781676734418.png"
     ],
     aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/sketching.png"
+    processImg: "/images/process/sketching.jpg"
   },
   { 
     title: "Chiffon Whisper", 
@@ -271,7 +271,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/pleating.png"
+    processImg: "/images/process/pleating.jpg"
   },
   { 
     title: "Satin Armor", 
@@ -283,7 +283,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/pinning.png"
+    processImg: "/images/process/pinning.jpg"
   },
   { 
     title: "Organza Cloud", 
@@ -295,7 +295,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[4/5]",
-    processImg: "/images/process/pressing.png"
+    processImg: "/images/process/pressing.jpg"
   },
   { 
     title: "Silk Essential", 
@@ -307,7 +307,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/ironing.png"
+    processImg: "/images/process/ironing.jpg"
   },
   { 
     title: "Lace Romance", 
@@ -319,7 +319,7 @@ const collection = [
     img: "https://images.unsplash.com/photo-1574291814206-363acdf2aa79?w=800&q=80",
     detailImages: [],
     aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/embroidery.png"
+    processImg: "/images/process/embroidery.jpg"
   }
 ];
 
@@ -573,22 +573,22 @@ export function EditorialCollection() {
               { 
                 title: "Bespoke Gowns", 
                 description: "Custom couture created exclusively for you, from initial sketch to final fitting.",
-                img: "/images/process/draping.png"
+                img: "/images/process/draping.jpg"
               },
               { 
                 title: "Bridal Couture", 
                 description: "Your dream wedding gown, handcrafted with the finest silks, lace, and beadwork.",
-                img: "/images/process/beading.png"
+                img: "/images/process/beading.jpg"
               },
               { 
                 title: "Couture Rental", 
                 description: "Access our exclusive collection for red carpet events and special occasions.",
-                img: "/images/process/pressing.png"
+                img: "/images/process/pressing.jpg"
               },
               { 
                 title: "Photography Sessions", 
                 description: "Editorial-quality sessions that capture you in couture elegance.",
-                img: "/images/process/painting.png"
+                img: "/images/process/painting.jpg"
               }
             ].map((service) => (
               <ServiceCard key={service.title} service={service} onEnquire={() => setEnquiryService(service.title)} />
