@@ -64,7 +64,7 @@ export function IntroLoader() {
           {/* Full-screen background image (faded) */}
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.12 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 2.5, ease: "easeOut" }}
             className="absolute inset-0 z-0"
           >
@@ -76,8 +76,9 @@ export function IntroLoader() {
             />
           </motion.div>
 
-          {/* Centered content */}
+          {/* Centered content with frosted glass background */}
           <div className="relative z-10 flex flex-col items-center justify-center h-full px-8">
+            <div className="bg-white/70 backdrop-blur-xl rounded-3xl px-8 py-12 flex flex-col items-center shadow-sm">
             <motion.span
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -118,6 +119,7 @@ export function IntroLoader() {
                 </button>
               </MagneticButton>
             </motion.div>
+            </div>
           </div>
         </div>
 
