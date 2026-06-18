@@ -182,7 +182,7 @@ export default function Home() {
       <ScrollQuote />
 
       {/* 1. MEET GABI & CHAR - Photo + intro */}
-      <section id="boutique" className="pt-36 md:pt-44 pb-36 md:pb-48 px-6">
+      <section id="boutique" className="pt-40 md:pt-48 pb-36 md:pb-48 px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
