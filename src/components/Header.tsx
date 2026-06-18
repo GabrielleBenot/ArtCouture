@@ -114,6 +114,24 @@ function PinterestIcon() {
   );
 }
 
+function FacebookIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  );
+}
+
 export function Header() {
   const { scrollY } = useScroll();
   const isScrolled = useTransform(scrollY, [0, 50], [false, true]);
@@ -275,6 +293,15 @@ export function Header() {
                   aria-label="Pinterest"
                 >
                   <PinterestIcon />
+                </a>
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/60 hover:text-[var(--dada-red)] transition-colors duration-300"
+                  aria-label="Facebook"
+                >
+                  <FacebookIcon />
                 </a>
               </div>
               <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40">
