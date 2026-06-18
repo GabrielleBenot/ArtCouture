@@ -224,9 +224,9 @@ export default function Home() {
         <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
       </div>
 
-      {/* COLOR IS POWER - Visual section */}
+      {/* THE ART - Gabrielle's world (consolidated) */}
       <FeatureSection 
-        subtitle="The Philosophy"
+        subtitle="The Art"
         title={
           <span className="flex flex-col">
             <span className="font-sans text-sm md:text-sm font-black tracking-[0.3em] uppercase relative z-10">Color is</span>
@@ -234,31 +234,15 @@ export default function Home() {
             <span className="font-mono text-xs uppercase tracking-[0.4em] mt-2 md:mt-8 text-white/70">Wear it without apology.</span>
           </span>
         }
-        text={<p>Gabrielle studied fashion design at the Scandinavian Academy of Fashion Design in Copenhagen, formerly Margrethe-Skolen, before turning to painting full-time. That trained eye for silhouette lives in every brushstroke. The palettes begin on canvas. The couture follows.</p>}
+        text={<p>Gabrielle studied fashion design at the Scandinavian Academy of Fashion Design in Copenhagen (formerly Margrethe-Skolen) before turning to painting full-time. That trained eye for silhouette and texture lives in every brushstroke. Layers of pigment, mixed media, raw canvas showing through. Her paintings are never mood boards. They are the blueprint that determines which fabrics Charmaigne will source, how they&apos;ll drape, how they&apos;ll move. The art inspires the fashion, and the fashion inspires new art.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-0ae10f15-2ee8-43af-885e-16f4bbe10af4.png"
         imgAlt="Art Couture original watercolor painting by Gabrielle Benot"
         imageClassName="flex-[1.44] w-full -ml-4 md:ml-0"
         textClassName="flex-1 space-y-4 md:space-y-6"
       />
 
-      <FeatureSection 
-        subtitle="The Inspiration"
-        title={
-          <span className="flex flex-col">
-            <span className="font-sans font-black text-4xl md:text-5xl uppercase tracking-tight">Explore the Art</span>
-            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">That Inspires</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8]">Couture</span>
-          </span>
-        }
-        text={<p>Gabrielle&apos;s paintings are never mood boards. They are the blueprint. The textures in her brushwork, the weight of her impasto, the way pigment catches light: all of it determines which fabrics Charmaigne will source, how they&apos;ll drape, how they&apos;ll move.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7c7c79ac-f9d7-4fe7-bcd1-7d29e0eae366.png"
-        imgAlt="Gabrielle Benot original abstract painting for couture collection"
-        imageClassName="flex-[1.44] w-full"
-        reverse
-      />
-
-      {/* Second Painting */}
-      <div className="max-w-6xl mx-auto px-6 py-16 md:py-24">
+      {/* Second painting - visual only with minimal text */}
+      <div className="max-w-6xl mx-auto px-6 py-8 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -268,19 +252,40 @@ export default function Home() {
         >
           <div className="flex-1 order-2 md:order-1">
             <ParallaxImage
-              src="/images/paintings/faces_color_blind.jpg"
-              alt="Gabrielle Benot original mixed-media portrait painting"
+              src="https://storage.googleapis.com/mixo-sites/images/file-7c7c79ac-f9d7-4fe7-bcd1-7d29e0eae366.png"
+              alt="Gabrielle Benot original abstract painting for couture collection"
             />
           </div>
           <div className="flex-1 order-1 md:order-2 space-y-4 md:space-y-6">
-            <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)]">From the Studio</span>
+            <h3 className="flex flex-col">
+              <span className="font-sans font-black text-4xl md:text-5xl uppercase tracking-tight">Explore the Art</span>
+              <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">That Inspires</span>
+              <span className="font-serif italic font-light text-[4rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8]">Couture</span>
+            </h3>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Third painting */}
+      <div className="max-w-6xl mx-auto px-6 py-8 md:py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="flex flex-col md:flex-row items-center gap-12 md:gap-16"
+        >
+          <div className="flex-1 order-1 md:order-1 space-y-4 md:space-y-6">
             <h3 className="flex flex-col">
               <span className="font-sans font-black text-3xl md:text-4xl uppercase tracking-tight">Where Color</span>
               <span className="font-serif italic font-light text-[3rem] md:text-[5rem] text-[var(--dada-red)] leading-[0.8]">Meets Skin.</span>
             </h3>
-            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-md">
-              Gabrielle has always been drawn to texture. Layers of pigment, mixed media, raw canvas showing through. That same obsession shapes the couture: tactile fabrics, dimensional embroidery, surfaces you want to touch.
-            </p>
+          </div>
+          <div className="flex-1 order-2 md:order-2">
+            <ParallaxImage
+              src="/images/paintings/faces_color_blind.jpg"
+              alt="Gabrielle Benot original mixed-media portrait painting"
+            />
           </div>
         </motion.div>
       </div>
