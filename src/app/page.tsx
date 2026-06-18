@@ -302,7 +302,7 @@ export default function Home() {
 
       {/* THE CRAFT & THE PROMISE - One Grand Section */}
       <section className="py-20 md:py-28">
-        {/* Luxury Detail Image with color reveal */}
+        {/* Luxury Detail Image */}
         <div className="relative w-full max-w-5xl mx-auto mb-16 px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -320,13 +320,13 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Craft Headline + Text */}
+        {/* Combined Headline + All Text */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="max-w-4xl mx-auto text-center px-6 mb-20"
+          className="max-w-4xl mx-auto text-center px-6 mb-8"
         >
           <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">The Craft</span>
           <h2 className="flex flex-col items-center mb-8">
@@ -342,30 +342,7 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* Visual Breaker */}
-        <div className="max-w-xs mx-auto mb-20">
-          <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--dada-red)]/30 to-transparent" />
-        </div>
-
-        {/* Gown Image */}
-        <div className="relative w-full max-w-5xl mx-auto mb-16 px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="relative overflow-hidden"
-          >
-            <img 
-              src="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
-              alt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
-              loading="lazy"
-              className="w-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-[1.5s]"
-            />
-          </motion.div>
-        </div>
-
-        {/* Promise Headline + Text */}
+        {/* Gowns as Rare subheading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -373,11 +350,14 @@ export default function Home() {
           transition={{ duration: 1 }}
           className="max-w-4xl mx-auto text-center px-6 mb-20"
         >
-          <h2 className="flex flex-col items-center mb-8">
+          <div className="max-w-xs mx-auto my-10">
+            <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--dada-red)]/30 to-transparent" />
+          </div>
+          <h3 className="flex flex-col items-center mb-8">
             <span className="font-sans font-black text-[3.75rem] md:text-7xl uppercase tracking-tighter leading-[0.85]">Gowns</span>
             <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">as rare as the</span>
             <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">Women who wear them.</span>
-          </h2>
+          </h3>
           <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto">
             Each gown is an exclusive design, created entirely in-house: rare silk satin, hand-embroidered tulle with Lun&eacute;ville beadwork, and velvet that drinks in the light. Crafted to embrace the body with precision and grace.
           </p>
@@ -442,6 +422,24 @@ export default function Home() {
             <div className="h-[1px] w-12 bg-[var(--dada-red)]/40" />
           </div>
         </motion.div>
+
+        {/* Gown Image - Dramatic Closer */}
+        <div className="relative w-full max-w-5xl mx-auto mt-20 px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="relative overflow-hidden"
+          >
+            <img 
+              src="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
+              alt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
+              loading="lazy"
+              className="w-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-[1.5s]"
+            />
+          </motion.div>
+        </div>
       </section>
 
       {/* OUR SERVICES */}
