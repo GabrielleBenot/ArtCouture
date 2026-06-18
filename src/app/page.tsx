@@ -227,7 +227,7 @@ export default function Home() {
         text={<p>Our patterns do not simply sit on fabric. They move with it. Geometric precision meets organic flow, creating handcrafted garments that shift and reveal new details from every angle. Nothing is accidental. Every line has a reason.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
         imgAlt="Bespoke geometric couture fabric pattern by Art Couture"
-        imageClassName="flex-[1.44] w-full -mt-6 md:mt-0 flex justify-center"
+        imageClassName="flex-[1.44] w-full -mt-6 md:mt-0 flex justify-center -mr-3 md:mr-0"
       />
 
       {/* Visual Breaker */}
