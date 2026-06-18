@@ -287,7 +287,7 @@ export default function Home() {
         title={
           <span className="flex flex-col">
             <span className="font-sans font-black text-[6.2rem] md:text-[10rem] lg:text-[12rem] uppercase tracking-tighter leading-[0.8]">Bold</span>
-            <span className="font-serif italic font-light text-[6.2rem] md:text-[8rem] lg:text-[10rem] text-[var(--dada-red)] -mt-4 md:-mt-8 ml-8 md:ml-16 leading-[0.8]">Patterns,</span>
+            <span className="font-serif italic font-light text-[6.2rem] md:text-[8rem] lg:text-[10rem] text-[var(--dada-red)] -mt-4 md:-mt-8 ml-8 md:ml-16 leading-[0.8]">Designs,</span>
             <span className="font-serif font-extralight text-4xl md:text-6xl mt-4">Striking Silhouettes.</span>
           </span>
         }
