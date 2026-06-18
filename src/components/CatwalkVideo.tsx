@@ -16,11 +16,29 @@ export function CatwalkVideo() {
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
   return (
-    <section ref={containerRef} className="relative h-[156vh] w-full overflow-hidden bg-[var(--background)] flex items-center justify-center py-20">
+    <section ref={containerRef} className="relative h-[156vh] w-full overflow-hidden bg-[var(--background)] flex flex-col items-center justify-center py-20 gap-8">
+      {/* Section label above video */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="text-center z-10"
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--text-muted)]">The Runway</span>
+        <div className="w-12 h-[1px] bg-[var(--dada-red)] mx-auto mt-3" />
+      </motion.div>
+
       <motion.div 
         style={{ scale }}
         className="relative w-full md:w-[70%] h-[104vh] overflow-hidden rounded-sm"
       >
+        {/* Corner accents */}
+        <div className="absolute top-0 left-0 w-10 h-10 border-t-2 border-l-2 border-[var(--dada-red)] z-20 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-10 h-10 border-t-2 border-r-2 border-[var(--dada-red)] z-20 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-10 h-10 border-b-2 border-l-2 border-[var(--dada-red)] z-20 pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-10 h-10 border-b-2 border-r-2 border-[var(--dada-red)] z-20 pointer-events-none" />
+
         <motion.div style={{ y }} className="absolute inset-0 w-full h-[140%] -top-[20%]">
           <video 
             ref={videoRef}
@@ -60,6 +78,18 @@ export function CatwalkVideo() {
             Couture is meant to be lived in. Every seam, every drape, every cut, designed to move as beautifully as it looks standing still.
           </motion.p>
         </div>
+      </motion.div>
+
+      {/* Bottom accent */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, delay: 0.3 }}
+        className="text-center z-10"
+      >
+        <div className="w-12 h-[1px] bg-[var(--dada-red)] mx-auto mb-3" />
+        <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)]">Art Couture Collection</span>
       </motion.div>
     </section>
   );
