@@ -129,6 +129,7 @@ export function IntroLoader() {
               </MagneticButton>
             </motion.div>
           </div>
+        </div>
 
         {/* Desktop: Original side-by-side layout (untouched) */}
         <div className="absolute inset-0 hidden lg:flex flex-row">
