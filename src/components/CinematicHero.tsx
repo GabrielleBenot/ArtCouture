@@ -35,7 +35,7 @@ export function CinematicHero() {
       <div className="absolute bottom-0 left-0 right-0 h-[30%] bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none z-[2]" />
 
         {/* Text Content overlaying the video */}
-        <div className="absolute inset-0 z-10 flex flex-col justify-center items-center md:items-start p-8 md:p-16 lg:p-24 text-center md:text-left">
+        <div className="absolute inset-0 z-10 flex flex-col justify-center items-center md:items-start p-8 pt-20 md:p-16 lg:p-24 text-left">
           <h1 className="text-[2.8rem] md:text-6xl lg:text-[5.5rem] font-sans font-black tracking-tighter text-white leading-[0.9] mb-8 uppercase mix-blend-difference">
             A canvas <br/>
             <span className="font-serif italic font-light text-white/70 lowercase">in motion.</span><br/>
