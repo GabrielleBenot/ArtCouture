@@ -306,10 +306,10 @@ export default function Home() {
               <span className="font-serif italic font-light text-[3rem] md:text-[5rem] text-[var(--dada-red)] leading-[0.8]">She Sews.</span>
             </h3>
             <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-md">
-              Charmaigne Menn began designing at the age of eight in Durban, South Africa, inspired by a mother and grandmother who were artists themselves. Over four decades later, her reputation for impeccable construction and bespoke fit has taken her from establishing factories in South Africa to dressing prominent clients across the United States.
+              Charmaigne Menn learned to cut fabric before she could read a pattern. Growing up in Durban, South Africa, with a mother and grandmother who were artists, she was sketching dresses by the age of eight. Four decades later, that instinct has only sharpened, from building factories in South Africa to fitting gowns on clients across the United States.
             </p>
             <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-md">
-              Specializing in bridal couture, evening wear, and red carpet gowns, Charmaigne brings an architect&apos;s precision to every garment. Each piece is engineered from the inside out, with corsetry, boning, and structure that make the fabric move as though it were sculpted to the body.
+              She thinks like an architect and works like a sculptor. Every seam has a reason. Every dart shapes the body the way light shapes a room. The women who wear her couture say the same thing: it feels like it was always yours.
             </p>
           </div>
           <div className="flex-1 order-2 md:order-2">
