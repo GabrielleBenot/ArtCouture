@@ -698,7 +698,7 @@ export function ServicesGrid() {
           src="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
           alt="Art Couture logo by Gabrielle Benot and Charmaigne Menn"
           loading="lazy"
-          className="w-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-[1.5s]"
+          className="w-full object-cover mix-blend-multiply hover:mix-blend-multiply transition-all duration-[1.5s]"
         />
       </motion.div>
 
