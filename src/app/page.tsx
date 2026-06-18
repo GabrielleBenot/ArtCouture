@@ -181,23 +181,64 @@ export default function Home() {
       <CinematicHero />
       <ScrollQuote />
 
-      {/* 1. WHO WE ARE - Brief, warm intro */}
+      {/* 1. MEET GABI & CHAR - Photo + intro */}
+      <section id="boutique" className="py-20 md:py-28 px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="max-w-4xl mx-auto flex flex-col items-center text-center"
+        >
+          {/* Circular Photo */}
+          <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border border-white/10 shadow-2xl mb-8 group">
+            <div className="absolute inset-0 bg-[var(--dada-red-glow)] mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 pointer-events-none" />
+            <img 
+              src="https://storage.googleapis.com/mixo-sites/images/file-79d83dc3-308d-4dd6-9173-8dc2170520f7.jpeg" 
+              alt="Gabrielle Benot and Charmaigne Menn, founders of Art Couture" 
+              loading="lazy"
+              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[1.5s]"
+            />
+          </div>
+
+          {/* Names */}
+          <span className="font-serif italic text-lg md:text-xl tracking-[0.2em] text-white/70 mb-4">Gabi et Char</span>
+          <div className="w-12 h-[1px] bg-[var(--dada-red)] mb-8" />
+
+          {/* Headline */}
+          <h2 className="flex flex-col items-center mb-8">
+            <span className="font-sans font-black text-[3rem] md:text-6xl uppercase tracking-tighter leading-[0.85]">She paints. She sews.</span>
+            <span className="font-serif italic font-light text-[3.5rem] md:text-[6rem] lg:text-[8rem] text-[var(--dada-red)] -mt-1 md:mt-0 leading-[0.8]">Together, magic.</span>
+          </h2>
+
+          {/* Intro text */}
+          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-xl">
+            Every gown starts as a painting. Gabi paints it, Char builds it. The colors on our canvases are the same ones you&apos;ll wear.
+          </p>
+        </motion.div>
+      </section>
+
+      {/* COLOR IS POWER - Visual section */}
       <FeatureSection 
-        id="boutique"
-        subtitle="Meet Gabi & Char"
+        subtitle="The Philosophy"
         title={
           <span className="flex flex-col">
-            <span className="font-sans font-black text-[3.75rem] md:text-7xl uppercase tracking-tighter leading-[0.85]">She paints.</span>
-            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">She sews.</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">Together, magic.</span>
+            <span className="font-sans text-sm md:text-sm font-black tracking-[0.3em] uppercase relative z-10">Color is</span>
+            <span className="font-serif italic font-light text-[7.9rem] md:text-[10rem] lg:text-[12rem] text-[var(--dada-red)] mt-0 md:-mt-4 leading-[0.8] relative z-0">Power.</span>
+            <span className="font-mono text-xs uppercase tracking-[0.4em] mt-2 md:mt-8 text-white/70">Wear it without apology.</span>
           </span>
         }
-        text={<p>Every gown starts as a painting. Gabi paints it, Char builds it. The colors on our canvases are the same ones you&apos;ll wear.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
-        imgAlt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
-        imageClassName="w-full md:flex-[1.44] overflow-hidden flex justify-center items-center scale-[1.38] -translate-x-[5%] md:translate-x-0 md:scale-100 mx-auto"
-        blendImage
+        text={<p>Our palettes begin on canvas before they ever touch fabric. Bold contemporary painting meets classical form. These pieces don&apos;t just enter a room. They own it.</p>}
+        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-0ae10f15-2ee8-43af-885e-16f4bbe10af4.png"
+        imgAlt="Art Couture original watercolor painting by Gabrielle Benot"
+        imageClassName="flex-[1.44] w-full -ml-4 md:ml-0"
+        textClassName="flex-1 space-y-4 md:space-y-6"
       />
+
+      {/* Visual Breaker */}
+      <div className="max-w-xs mx-auto py-8">
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
+      </div>
 
       {/* 2. COLLECTIONS - Show the work early */}
       <div id="collections">
@@ -257,6 +298,36 @@ export default function Home() {
         imgSrc="/images/process_craft.jpg"
         imageClassName="w-full overflow-hidden [&_img]:mb-[-8px]"
         imgAlt="Charmaigne Menn haute couture craftsmanship hand draping"
+        reverse
+      />
+
+      {/* THE STUDIO */}
+      <FeatureSection 
+        subtitle="The Studio"
+        title={
+          <span className="flex flex-col">
+            <span className="font-serif font-light text-4xl md:text-6xl">Where design and art</span>
+            <span className="font-serif italic font-light text-[4.2rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-3 md:-mt-4 leading-[0.75]">breathe together.</span>
+          </span>
+        }
+        text={<p>Canvases, watercolors, drafting tables, bolts of silk. Our atelier is where ideas start as charcoal sketches and finish as gala gowns. Everything happens under one roof, side by side.</p>}
+        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-4b000517-aa66-445e-8e2e-89c2d295dc73.png"
+        imgAlt="Art Couture atelier studio watercolor painting"
+      />
+
+      <FeatureSection 
+        subtitle="The Inspiration"
+        title={
+          <span className="flex flex-col">
+            <span className="font-sans font-black text-4xl md:text-5xl uppercase tracking-tight">Explore the Art</span>
+            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">That Inspires</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8]">Couture</span>
+          </span>
+        }
+        text={<p>Gabi&apos;s paintings aren&apos;t mood boards. They&apos;re the source material. The textures in her brushwork determine the weight and drape of every fabric Char selects. What hangs on the gallery wall becomes what you wear on the floor.</p>}
+        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7c7c79ac-f9d7-4fe7-bcd1-7d29e0eae366.png"
+        imgAlt="Gabrielle Benot original abstract painting for couture collection"
+        imageClassName="flex-[1.44] w-full"
         reverse
       />
 
@@ -324,7 +395,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 8. PHOTOGRAPHY & RENTALS */}
+      {/* PHOTOGRAPHY & RENTALS */}
       <FeatureSection 
         subtitle="Beyond the Gown"
         title={
@@ -336,11 +407,44 @@ export default function Home() {
         text={
           <>
             <p className="mb-4">We offer editorial-style photography sessions where our creative team styles and directs every detail. The result? Images that feel like a fashion editorial, starring you.</p>
-            <p>Select couture pieces are also available for rental for red carpets, galas, and special occasions. And every photograph can become a one-of-a-kind fine art piece for your wall.</p>
+            <p className="text-[var(--dada-red)] font-bold">Every photograph can become a one-of-a-kind fine art piece for your wall.</p>
           </>
         }
         imgSrc="/images/masterpieces.jpg"
         imgAlt="Art Couture editorial photography session"
+        reverse
+      />
+
+      <FeatureSection 
+        subtitle="The Services"
+        title={
+          <span className="flex flex-col">
+            <span className="font-sans font-light text-5xl md:text-6xl lg:text-7xl tracking-tighter">Photography</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[6rem] lg:text-[7rem] text-[var(--text-main)] -mt-2 leading-[0.8]">and Rentals.</span>
+          </span>
+        }
+        text={<p>Select couture creations are available for exclusive rental. We also arrange bespoke photography sessions, giving photographers, stylists, and creative teams access to haute couture for editorial shoots, red carpet events, and private occasions.</p>}
+        imgSrc="/images/rentals.jpg"
+        imgAlt="Art Couture couture rental and photography services"
+        imageClassName="flex-[3] w-full"
+        textClassName="flex-1 space-y-6"
+      />
+
+      {/* THE PROMISE - Gown showcase */}
+      <FeatureSection 
+        subtitle="The Promise"
+        title={
+          <span className="flex flex-col">
+            <span className="font-sans font-black text-[3.75rem] md:text-7xl uppercase tracking-tighter leading-[0.85]">Gowns</span>
+            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">as rare as the</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">Women who wear them.</span>
+          </span>
+        }
+        text={<p>Born from Gabi&apos;s paintings and Char&apos;s couture mastery, each gown is an exclusive design created entirely in-house: rare silk satin, hand-embroidered tulle with Lun&eacute;ville beadwork, velvet that drinks in the light. Crafted to embrace the body with precision and grace.</p>}
+        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
+        imgAlt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
+        imageClassName="w-full md:flex-[1.44] overflow-hidden flex justify-center items-center scale-[1.38] -translate-x-[5%] md:translate-x-0 md:scale-100 mx-auto"
+        blendImage
         reverse
       />
 
