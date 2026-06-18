@@ -37,6 +37,7 @@ export function StorySection() {
                 className="w-full h-full object-cover object-bottom scale-125 grayscale group-hover:grayscale-0 transition-all duration-[1.5s]"
               />
             </div>
+            <span className="block text-center font-serif text-sm tracking-[0.15em] text-[var(--text-muted)] mt-4">Charmaigne Menn &amp; Gabrielle Benot</span>
           </div>
         </motion.div>
       </div>
