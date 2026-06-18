@@ -158,6 +158,15 @@ export function Header() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const openForm = () => {
+      setMenuOpen(true);
+      setShowContactForm(true);
+    };
+    window.addEventListener('openContactForm', openForm);
+    return () => window.removeEventListener('openContactForm', openForm);
+  }, []);
+
   const handleLinkClick = useCallback(() => {
     setMenuOpen(false);
   }, []);

@@ -43,7 +43,11 @@ export function Footer() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="font-serif text-sm text-white/70 hover:text-[var(--dada-red)] transition-colors duration-300"
+                  onClick={link.href === "#contact" ? (e: React.MouseEvent) => {
+                    e.preventDefault();
+                    window.dispatchEvent(new CustomEvent('openContactForm'));
+                  } : undefined}
+                  className="font-serif text-sm text-white/70 hover:text-[var(--dada-red)] transition-colors duration-300 cursor-pointer"
                 >
                   {link.label}
                 </a>
