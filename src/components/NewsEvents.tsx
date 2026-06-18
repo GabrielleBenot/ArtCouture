@@ -182,8 +182,6 @@ export function NewsEvents() {
                   </svg>
                 </button>
               )}
-              {/* Orange accent line */}
-              <div className="h-[1px] bg-gradient-to-r from-[var(--dada-red)] via-[var(--dada-red)]/30 to-transparent mt-4" />
             </motion.article>
           ))}
         </div>
