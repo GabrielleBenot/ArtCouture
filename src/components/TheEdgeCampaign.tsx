@@ -78,9 +78,6 @@ export function TheEdgeCampaign() {
               loading="lazy"
               className="w-full h-full object-contain scale-75"
             />
-            <div className="absolute bottom-6 left-6 z-20">
-              <p className="font-mono text-xs uppercase tracking-widest text-white shadow-black drop-shadow-md">02. The Edge</p>
-            </div>
           </motion.div>
 
         </div>
