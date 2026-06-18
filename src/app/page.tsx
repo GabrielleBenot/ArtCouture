@@ -301,46 +301,9 @@ export default function Home() {
 
       <div className="py-12" />
 
-      {/* 5. THE CRAFT - How it's made */}
+      {/* THE CRAFT & DETAILS - Combined */}
       <FeatureSection 
         subtitle="The Craft"
-        title={
-          <span className="flex flex-col">
-            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Handmade means</span>
-            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[12rem] -mt-2 md:-mt-4 leading-[0.8] text-[var(--dada-red)]">every stitch.</span>
-          </span>
-        }
-        text={<p>Lun&eacute;ville hook embroidery, hand-beading, sculptural draping. These are old-world techniques that take real time. We don&apos;t rush. You can feel the difference in the weight of the silk, the architecture of the corset, the finish of every hidden seam.</p>}
-        imgSrc="/images/process_craft.jpg"
-        imageClassName="w-full overflow-hidden [&_img]:mb-[-8px]"
-        imgAlt="Charmaigne Menn haute couture craftsmanship hand draping"
-        reverse
-      />
-
-      {/* THE STUDIO */}
-      <FeatureSection 
-        subtitle="The Studio"
-        title={
-          <span className="flex flex-col">
-            <span className="font-serif font-light text-4xl md:text-6xl">Where design and art</span>
-            <span className="font-serif italic font-light text-[4.2rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-3 md:-mt-4 leading-[0.75]">breathe together.</span>
-          </span>
-        }
-        text={<p>Canvases, watercolors, drafting tables, bolts of silk. Our atelier is where ideas start as charcoal sketches and finish as gala gowns. Everything happens under one roof, side by side.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-4b000517-aa66-445e-8e2e-89c2d295dc73.png"
-        imgAlt="Art Couture atelier studio watercolor painting"
-      />
-
-
-
-      {/* Visual Breaker */}
-      <div className="max-w-xs mx-auto py-8">
-        <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
-      </div>
-
-      {/* 6. LUXURY DETAIL - with color reveal */}
-      <FeatureSection 
-        subtitle="The Details"
         title={
           <span className="flex flex-col">
             <span className="font-sans font-black text-[4.7rem] md:text-8xl uppercase tracking-tighter leading-[0.85]">Luxury</span>
@@ -348,10 +311,16 @@ export default function Home() {
             <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">feel.</span>
           </span>
         }
-        text={<p>Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle with Lun&eacute;ville embroidery. We source our textiles from Europe&apos;s finest mills. Every embellishment is applied by hand. Every design is exclusively ours.</p>}
+        text={
+          <>
+            <p className="mb-4">Lun&eacute;ville hook embroidery, hand-beading, sculptural draping. These are old-world techniques that take real time. We don&apos;t rush. You can feel the difference in the weight of the silk, the architecture of the corset, the finish of every hidden seam.</p>
+            <p>Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle adorned with embroidery. We source our textiles from Europe&apos;s finest mills. Every embellishment is applied by hand. Every design is exclusively ours.</p>
+          </>
+        }
         imgSrc="/images/luxury_detail.jpg"
         imgAlt="Art Couture hand-embroidered lace detail close-up"
         revealColor
+        reverse
       />
 
       {/* 7. FABRIC SHOWCASE */}
