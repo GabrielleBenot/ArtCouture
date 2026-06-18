@@ -28,7 +28,7 @@ const collection = [
     description: "An enchanting handcrafted couture dress that layers silk organza and delicate petal appliqués into a vision of modern femininity. Perfect as a custom wedding dress or red carpet gown, this designer dress embodies the romance of haute couture.",
     fabric: "Hand-dyed rosewater silk organza floating weightlessly over cascading French Chantilly lace, adorned with 3D silk-chiffon floral appliqués, each petal individually shaped and stitched by hand.",
     customization: "Bodice structure, petal density, and train length are sculpted to your preference. Available in ivory, blush, champagne, or custom-dyed shades to complement your bridal or evening vision.",
-    img: "https://storage.googleapis.com/mixo-sites/images/file-3a32d6f7-9d96-47e6-9e16-1d3e8c356fa3.jpg",
+    img: "/images/blush_enchantress.jpg",
     detailImages: [
       "/details/new_blushench_bodice_1781676653156.png",
       "/details/new_blushench_texture_1781676675527.png",
