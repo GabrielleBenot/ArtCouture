@@ -363,7 +363,7 @@ export function Header() {
                   <PinterestIcon />
                 </a>
                 <a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/profile.php?id=100089819151144"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/60 hover:text-[var(--dada-red)] transition-colors duration-300"

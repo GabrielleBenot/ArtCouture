@@ -65,7 +65,7 @@ const jsonLd = {
   sameAs: [
     "https://www.instagram.com/art_couture_boutique",
     "https://www.pinterest.com/artcouturestudio",
-    "https://www.facebook.com/artcouturestudio",
+    "https://www.facebook.com/profile.php?id=100089819151144",
   ],
   founder: [
     { "@type": "Person", name: "Gabrielle Benot" },
