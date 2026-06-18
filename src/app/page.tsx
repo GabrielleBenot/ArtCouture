@@ -245,7 +245,7 @@ export default function Home() {
             <span className="font-serif italic font-light text-[4rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8]">Couture</span>
           </span>
         }
-        text={<p>Gabi&apos;s paintings aren&apos;t mood boards. They&apos;re the source material. The textures in her brushwork determine the weight and drape of every fabric Char selects. What hangs on the gallery wall becomes what you wear on the floor.</p>}
+        text={<p>Gabrielle&apos;s paintings aren&apos;t mood boards. They&apos;re the source material. The textures in her brushwork determine the weight and drape of every fabric Char selects. What hangs on the gallery wall becomes what you wear on the floor.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7c7c79ac-f9d7-4fe7-bcd1-7d29e0eae366.png"
         imgAlt="Gabrielle Benot original abstract painting for couture collection"
         imageClassName="flex-[1.44] w-full"
