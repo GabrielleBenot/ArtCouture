@@ -309,7 +309,7 @@ export default function Home() {
             <span className="font-sans font-black text-[3rem] md:text-9xl lg:text-[11rem] uppercase tracking-tighter mt-2 text-[var(--dada-red)] leading-[0.8]">from our art.</span>
           </span>
         }
-        text={<p>We never source prints from a catalog. Gabrielle paints them by hand, and Charmaigne engineers every yard so the brushstrokes follow the curves of the body. Bold geometry meets organic flow. The fabric becomes an extension of the canvas.</p>}
+        text={<p>We never source prints from a catalog. Every pattern begins as an original sketch or painting by Gabrielle, then Charmaigne engineers every yard so the design follows the curves of the body. Bold geometry meets organic flow. The fabric becomes an extension of the canvas.</p>}
         imgSrc="/images/patterns_fabric.jpg"
         imgAlt="Hand-painted silk fabric pattern by Art Couture atelier"
         imageClassName="flex-1 w-full scale-110 md:scale-100 flex justify-center"
