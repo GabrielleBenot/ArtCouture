@@ -299,57 +299,53 @@ export default function Home() {
       {/* 4. CATWALK VIDEO */}
       <CatwalkVideo />
 
-      <div className="py-12" />
+      {/* THE CRAFT & THE PROMISE - One Grand Section */}
+      <section className="py-20 md:py-28">
+        {/* Luxury Detail Image with color reveal */}
+        <div className="relative w-full max-w-5xl mx-auto mb-16 px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="relative overflow-hidden"
+          >
+            <img 
+              src="/images/luxury_detail.jpg"
+              alt="Art Couture hand-embroidered lace detail close-up"
+              loading="lazy"
+              className="w-full object-cover grayscale hover:grayscale-0 transition-all duration-[1.5s]"
+            />
+          </motion.div>
+        </div>
 
-      {/* THE CRAFT & DETAILS - Combined */}
-      <FeatureSection 
-        subtitle="The Craft"
-        title={
-          <span className="flex flex-col">
+        {/* Craft Headline + Text */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="max-w-4xl mx-auto text-center px-6 mb-20"
+        >
+          <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">The Craft</span>
+          <h2 className="flex flex-col items-center mb-8">
             <span className="font-sans font-black text-[4.7rem] md:text-8xl uppercase tracking-tighter leading-[0.85]">Luxury</span>
             <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">you can actually</span>
             <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">feel.</span>
-          </span>
-        }
-        text={
-          <>
-            <p className="mb-4">Lun&eacute;ville hook embroidery, hand-beading, sculptural draping. These are old-world techniques that take real time. We don&apos;t rush. You can feel the difference in the weight of the silk, the architecture of the corset, the finish of every hidden seam.</p>
-            <p>Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle adorned with embroidery. We source our textiles from Europe&apos;s finest mills. Every embellishment is applied by hand. Every design is exclusively ours.</p>
-          </>
-        }
-        imgSrc="/images/luxury_detail.jpg"
-        imgAlt="Art Couture hand-embroidered lace detail close-up"
-        revealColor
-        reverse
-      />
+          </h2>
+          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto mb-4">
+            Lun&eacute;ville hook embroidery, hand-beading, sculptural draping. These are old-world techniques that take real time. We don&apos;t rush. You can feel the difference in the weight of the silk, the architecture of the corset, the finish of every hidden seam.
+          </p>
+          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto">
+            Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle adorned with embroidery. We source our textiles from Europe&apos;s finest mills. Every embellishment is applied by hand. Every design is exclusively ours.
+          </p>
+        </motion.div>
 
+        {/* Visual Breaker */}
+        <div className="max-w-xs mx-auto mb-20">
+          <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--dada-red)]/30 to-transparent" />
+        </div>
 
-      {/* OUR SERVICES */}
-      <ServicesGrid />
-
-      {/* PHOTOGRAPHY & RENTALS - Combined */}
-      <FeatureSection 
-        subtitle="Beyond the Gown"
-        title={
-          <span className="flex flex-col">
-            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Wear it.</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">Be photographed in it.</span>
-          </span>
-        }
-        text={
-          <>
-            <p className="mb-4">We offer editorial-style photography sessions where our creative team styles and directs every detail. The result? Images that feel like a fashion editorial, starring you.</p>
-            <p className="mb-4">Select couture creations are also available for exclusive rental for red carpet events, galas, and private occasions.</p>
-            <p className="text-[var(--dada-red)] font-bold">Every photograph can become a one-of-a-kind fine art piece for your wall.</p>
-          </>
-        }
-        imgSrc="/images/masterpieces.jpg"
-        imgAlt="Art Couture editorial photography session"
-        reverse
-      />
-
-      {/* THE PROMISE - Gown showcase + Fabric Materials */}
-      <section className="py-20 md:py-28">
         {/* Gown Image */}
         <div className="relative w-full max-w-5xl mx-auto mb-16 px-6">
           <motion.div
@@ -368,7 +364,7 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Title + Text */}
+        {/* Promise Headline + Text */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -376,7 +372,6 @@ export default function Home() {
           transition={{ duration: 1 }}
           className="max-w-4xl mx-auto text-center px-6 mb-20"
         >
-          <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">The Promise</span>
           <h2 className="flex flex-col items-center mb-8">
             <span className="font-sans font-black text-[3.75rem] md:text-7xl uppercase tracking-tighter leading-[0.85]">Gowns</span>
             <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">as rare as the</span>
@@ -446,6 +441,67 @@ export default function Home() {
             <div className="h-[1px] w-12 bg-[var(--dada-red)]/40" />
           </div>
         </motion.div>
+      </section>
+
+      {/* OUR SERVICES */}
+      <ServicesGrid />
+
+      {/* PHOTOGRAPHY & RENTALS - Gallery */}
+      <section className="py-20 md:py-28 px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="max-w-4xl mx-auto text-center mb-16"
+        >
+          <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">Beyond the Gown</span>
+          <h2 className="flex flex-col items-center mb-8">
+            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Wear it.</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">Be photographed in it.</span>
+          </h2>
+          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto mb-4">
+            We offer editorial-style photography sessions where our creative team styles and directs every detail. The result? Images that feel like a fashion editorial, starring you.
+          </p>
+          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto mb-4">
+            Select couture creations are also available for exclusive rental for red carpet events, galas, and private occasions.
+          </p>
+          <p className="text-xs md:text-sm text-[var(--dada-red)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto font-bold">
+            Every photograph can become a one-of-a-kind fine art piece for your wall.
+          </p>
+        </motion.div>
+
+        {/* Photo Gallery Grid */}
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            {[
+              { src: "/images/masterpieces.jpg", label: "Editorial Session" },
+              { src: "/images/rentals.jpg", label: "Couture Rental" },
+              { src: "/images/process/painting.jpg", label: "Coming Soon" },
+              { src: "/images/process/draping.jpg", label: "Coming Soon" },
+            ].map((photo, i) => (
+              <motion.div
+                key={photo.label + i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: i * 0.15 }}
+                className="group relative aspect-[3/4] overflow-hidden cursor-pointer"
+              >
+                <img
+                  src={photo.src}
+                  alt={`Art Couture ${photo.label}`}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <span className="absolute bottom-3 left-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/80">
+                  {photo.label}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* 9. NEWS & EVENTS */}
