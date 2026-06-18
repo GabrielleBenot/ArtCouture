@@ -235,6 +235,22 @@ export default function Home() {
         textClassName="flex-1 space-y-4 md:space-y-6"
       />
 
+      <FeatureSection 
+        subtitle="The Inspiration"
+        title={
+          <span className="flex flex-col">
+            <span className="font-sans font-black text-4xl md:text-5xl uppercase tracking-tight">Explore the Art</span>
+            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">That Inspires</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8]">Couture</span>
+          </span>
+        }
+        text={<p>Gabi&apos;s paintings aren&apos;t mood boards. They&apos;re the source material. The textures in her brushwork determine the weight and drape of every fabric Char selects. What hangs on the gallery wall becomes what you wear on the floor.</p>}
+        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7c7c79ac-f9d7-4fe7-bcd1-7d29e0eae366.png"
+        imgAlt="Gabrielle Benot original abstract painting for couture collection"
+        imageClassName="flex-[1.44] w-full"
+        reverse
+      />
+
       {/* Visual Breaker */}
       <div className="max-w-xs mx-auto py-8">
         <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
@@ -315,21 +331,7 @@ export default function Home() {
         imgAlt="Art Couture atelier studio watercolor painting"
       />
 
-      <FeatureSection 
-        subtitle="The Inspiration"
-        title={
-          <span className="flex flex-col">
-            <span className="font-sans font-black text-4xl md:text-5xl uppercase tracking-tight">Explore the Art</span>
-            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">That Inspires</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8]">Couture</span>
-          </span>
-        }
-        text={<p>Gabi&apos;s paintings aren&apos;t mood boards. They&apos;re the source material. The textures in her brushwork determine the weight and drape of every fabric Char selects. What hangs on the gallery wall becomes what you wear on the floor.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7c7c79ac-f9d7-4fe7-bcd1-7d29e0eae366.png"
-        imgAlt="Gabrielle Benot original abstract painting for couture collection"
-        imageClassName="flex-[1.44] w-full"
-        reverse
-      />
+
 
       {/* Visual Breaker */}
       <div className="max-w-xs mx-auto py-8">
