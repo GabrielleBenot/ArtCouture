@@ -685,6 +685,23 @@ export function ServicesGrid() {
         <p className="font-mono text-xs uppercase tracking-[0.4em] text-[var(--text-muted)]">Bespoke experiences from our atelier</p>
         <div className="w-16 h-[2px] bg-[var(--dada-red)] mx-auto mt-6" />
       </div>
+
+      {/* Logo / Brand Seal */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="max-w-md mx-auto mb-20 overflow-hidden"
+      >
+        <img 
+          src="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
+          alt="Art Couture logo by Gabrielle Benot and Charmaigne Menn"
+          loading="lazy"
+          className="w-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-[1.5s]"
+        />
+      </motion.div>
+
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
         {[
           { 

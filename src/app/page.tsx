@@ -423,23 +423,6 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Gown Image - Dramatic Closer */}
-        <div className="relative w-full max-w-5xl mx-auto mt-20 px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="relative overflow-hidden"
-          >
-            <img 
-              src="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
-              alt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
-              loading="lazy"
-              className="w-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-[1.5s]"
-            />
-          </motion.div>
-        </div>
       </section>
 
       {/* OUR SERVICES */}
