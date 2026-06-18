@@ -183,14 +183,15 @@ export default function Home() {
         title={
           <span className="flex flex-col">
             <span className="font-sans text-sm md:text-sm font-black tracking-[0.3em] uppercase relative z-10">Color is</span>
-            <span className="font-serif italic font-light text-[4.6rem] md:text-[10rem] lg:text-[12rem] text-[var(--dada-red)] mt-2 md:-mt-4 leading-[0.8] relative z-0">Power.</span>
-            <span className="font-mono text-xs uppercase tracking-[0.4em] mt-4 md:mt-8 text-white/70">Wear it without apology.</span>
+            <span className="font-serif italic font-light text-[4.6rem] md:text-[10rem] lg:text-[12rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8] relative z-0">Power.</span>
+            <span className="font-mono text-xs uppercase tracking-[0.4em] mt-2 md:mt-8 text-white/70">Wear it without apology.</span>
           </span>
         }
         text={<p>At Art Couture, color is not an accent. It is a declaration. Every palette begins on the canvas before it ever touches fabric. We draw from bold contemporary painting and classical form to create bespoke pieces that do not simply enter a room. They command it.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-0ae10f15-2ee8-43af-885e-16f4bbe10af4.png"
         imgAlt="Art Couture original watercolor painting by Gabrielle Benot"
         imageClassName="flex-[1.44] w-full"
+        textClassName="flex-1 space-y-4 md:space-y-6"
         blendImage
       />
 
