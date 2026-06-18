@@ -218,24 +218,6 @@ export default function Home() {
           </p>
         </motion.div>
       </section>
-      {/* Personal Quote */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5 }}
-        className="max-w-3xl mx-auto text-center px-8 py-16 md:py-24"
-      >
-        <div className="w-8 h-[1px] bg-[var(--dada-red)]/40 mx-auto mb-10" />
-        <blockquote className="font-serif italic text-xl md:text-3xl lg:text-4xl text-[var(--text-main)] leading-[1.4] mb-8">
-          &ldquo;We create because we can&apos;t not create. The fabric, the color, the form, it all starts with this quiet need to make something beautiful.&rdquo;
-        </blockquote>
-        <div className="flex items-center justify-center gap-4">
-          <div className="h-[1px] w-8 bg-[var(--dada-red)]/40" />
-          <span className="font-serif italic text-sm tracking-[0.2em] text-[var(--text-muted)]">Gabi &amp; Char</span>
-          <div className="h-[1px] w-8 bg-[var(--dada-red)]/40" />
-        </div>
-      </motion.div>
 
       {/* Elegant Separator */}
       <div className="max-w-xs mx-auto pt-4 pb-20">
@@ -338,6 +320,25 @@ export default function Home() {
           </div>
         </motion.div>
       </div>
+
+      {/* Personal Quote */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.5 }}
+        className="max-w-3xl mx-auto text-center px-8 py-16 md:py-24"
+      >
+        <div className="w-8 h-[1px] bg-[var(--dada-red)]/40 mx-auto mb-10" />
+        <blockquote className="font-serif italic text-xl md:text-3xl lg:text-4xl text-[var(--text-main)] leading-[1.4] mb-8">
+          &ldquo;We create because we can&apos;t not create. The fabric, the color, the form, it all starts with this quiet need to make something beautiful.&rdquo;
+        </blockquote>
+        <div className="flex items-center justify-center gap-4">
+          <div className="h-[1px] w-8 bg-[var(--dada-red)]/40" />
+          <span className="font-serif italic text-sm tracking-[0.2em] text-[var(--text-muted)]">Gabi &amp; Char</span>
+          <div className="h-[1px] w-8 bg-[var(--dada-red)]/40" />
+        </div>
+      </motion.div>
 
       {/* Visual Breaker */}
       <div className="max-w-xs mx-auto py-8">
