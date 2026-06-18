@@ -18,10 +18,9 @@ export function CinematicHero() {
           loop 
           muted 
           playsInline
-          preload="metadata"
+          preload="auto"
           aria-label="Art Couture haute couture silk fabric flowing in motion at the atelier"
           title="Art Couture atelier silk fabric"
-          poster="/campaign/create_the_edge.jpg"
           className="w-full h-full object-cover object-center opacity-80"
           style={{ filter: 'grayscale(100%) sepia(20%) brightness(0.8) contrast(0.9)' }}
         >
