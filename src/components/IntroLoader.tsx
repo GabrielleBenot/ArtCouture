@@ -116,8 +116,8 @@ export function IntroLoader() {
               <MagneticButton>
                 <button 
                   onClick={handleEnter}
-                  className="group relative font-mono text-[10px] uppercase tracking-[0.35em] text-[var(--dada-red)] py-2 bg-transparent border-none cursor-pointer"
-                  style={{ textShadow: '0 0 12px rgba(255,89,0,0.3), 0 0 25px rgba(255,255,255,0.9)' }}
+                  className="group relative font-mono text-[10px] uppercase tracking-[0.35em] text-white py-2 bg-transparent border-none cursor-pointer"
+                  style={{ textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}
                 >
                   Enter the Atelier
                   <motion.span
