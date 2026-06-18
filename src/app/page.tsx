@@ -203,8 +203,8 @@ export default function Home() {
 
           {/* Names */}
           <span className="font-serif text-xs md:text-sm tracking-[0.2em] text-[var(--text-muted)] mb-1">Charmaigne Menn &amp; Gabrielle Benot</span>
-          <span className="font-serif italic text-sm md:text-base tracking-[0.25em] text-[var(--text-main)] mb-4">Gabi et Char</span>
-          <div className="w-12 h-[1px] bg-white/20 mb-8" />
+          <span className="font-serif italic text-sm md:text-base tracking-[0.25em] text-[var(--text-main)] mb-8">Gabi et Char</span>
+          <div className="w-12 h-[1px] bg-white/20 mb-14" />
 
           {/* Headline */}
           <h2 className="flex flex-col items-center mb-8">
@@ -413,10 +413,10 @@ export default function Home() {
           </motion.span>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {[
-              { src: "/images/fabric_silk.png", label: "Silk Satin" },
-              { src: "/images/fabric_velvet.png", label: "Velvet" },
-              { src: "/images/fabric_lace.png", label: "French Lace" },
-              { src: "/images/fabric_embroidery.png", label: "Embroidery" },
+              { src: "/images/fabric_silk.jpg", label: "Silk Satin" },
+              { src: "/images/fabric_velvet.jpg", label: "Velvet" },
+              { src: "/images/fabric_lace.jpg", label: "French Lace" },
+              { src: "/images/fabric_embroidery.jpg", label: "Embroidery" },
             ].map((fabric, i) => (
               <motion.div
                 key={fabric.label}
