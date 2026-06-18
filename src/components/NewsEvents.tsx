@@ -110,7 +110,7 @@ export function NewsEvents() {
         </motion.div>
 
         {/* News Carousel (mobile) / Grid (desktop) */}
-        <div className="flex md:hidden gap-4 overflow-x-auto snap-x snap-mandatory pb-6 -mx-6 px-6 scrollbar-hide">
+        <div className="flex md:hidden gap-6 overflow-x-auto snap-x snap-mandatory pb-8 -mx-6 px-6 scrollbar-hide">
           {newsItems.map((item, i) => (
             <motion.article
               key={item.title}
@@ -118,10 +118,10 @@ export function NewsEvents() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.8, delay: i * 0.1 }}
-              className="group flex-shrink-0 w-[80vw] snap-center"
+              className="group flex-shrink-0 w-[82vw] snap-center"
             >
               {/* Image */}
-              <div className="relative aspect-[4/5] overflow-hidden mb-4">
+              <div className="relative aspect-[4/5] overflow-hidden">
                 <img
                   src={item.image}
                   alt={`Art Couture ${item.title} – ${item.tag}`}
@@ -132,6 +132,10 @@ export function NewsEvents() {
                 {/* Tag */}
                 <span className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.3em] text-white bg-[var(--dada-red)] px-3 py-1.5">
                   {item.tag}
+                </span>
+                {/* Card number */}
+                <span className="absolute top-4 right-4 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
+                  {String(i + 1).padStart(2, '0')} / {String(newsItems.length).padStart(2, '0')}
                 </span>
                 {/* Title overlay at bottom */}
                 <div className="absolute bottom-4 left-4 right-4 z-10">
@@ -154,7 +158,15 @@ export function NewsEvents() {
                   )}
                 </div>
               </div>
+              {/* Orange accent line under each card */}
+              <div className="h-[2px] bg-gradient-to-r from-[var(--dada-red)] via-[var(--dada-red)]/40 to-transparent mt-3" />
             </motion.article>
+          ))}
+        </div>
+        {/* Scroll indicator dots */}
+        <div className="flex md:hidden justify-center gap-2 mt-2">
+          {newsItems.map((_, i) => (
+            <div key={i} className="w-1.5 h-1.5 rounded-full bg-[var(--dada-red)]/30" />
           ))}
         </div>
 
