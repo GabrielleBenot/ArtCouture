@@ -118,7 +118,7 @@ export function NewsEvents() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.8, delay: i * 0.1 }}
-              className="group flex-shrink-0 w-[82vw] snap-center"
+              className="group flex-shrink-0 w-[75vw] snap-center"
             >
               {/* Image */}
               <div className="relative aspect-[4/5] overflow-hidden">
@@ -163,11 +163,23 @@ export function NewsEvents() {
             </motion.article>
           ))}
         </div>
-        {/* Scroll indicator dots */}
-        <div className="flex md:hidden justify-center gap-2 mt-2">
-          {newsItems.map((_, i) => (
-            <div key={i} className="w-1.5 h-1.5 rounded-full bg-[var(--dada-red)]/30" />
-          ))}
+        {/* Swipe indicator */}
+        <div className="flex md:hidden items-center justify-center gap-3 mt-4">
+          <div className="flex gap-1.5">
+            {newsItems.map((_, i) => (
+              <div key={i} className="w-1.5 h-1.5 rounded-full bg-[var(--dada-red)]/30" />
+            ))}
+          </div>
+          <motion.div
+            animate={{ x: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="flex items-center gap-1.5"
+          >
+            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40">Swipe</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-[var(--dada-red)]/60">
+              <path d="M3 8H13M10 5L13 8L10 11" stroke="currentColor" strokeWidth="1" />
+            </svg>
+          </motion.div>
         </div>
 
         {/* Desktop Grid */}
