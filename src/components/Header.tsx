@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Logo } from "./Logo";
 
 const navLinks = [
-  { label: "Shop Boutique", href: "#boutique" },
+  { label: "Shop Boutique", href: "https://shop.gabriellebenot.com/collections/art-couture", external: true },
   { label: "Collections", href: "#collections" },
   { label: "News & Events", href: "#news" },
   { label: "Our Story", href: "#story" },

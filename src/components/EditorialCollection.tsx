@@ -575,6 +575,22 @@ export function EditorialCollection() {
             </button>
           </div>
         )}
+
+        {/* Shop the Collection CTA */}
+        <div className="flex justify-center mt-16 mb-8 relative z-40">
+          <a
+            href="https://shop.gabriellebenot.com/collections/art-couture"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-4 bg-[var(--dada-red)] px-10 py-5 hover:bg-[var(--dada-red)]/90 transition-all duration-300 cursor-pointer"
+          >
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-white">Shop the Collection</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform duration-300">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
       </div>
 
       {/* Enquiry Modal */}
