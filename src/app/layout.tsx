@@ -29,10 +29,10 @@ export const metadata: Metadata = {
     url: "https://artcouture.studio",
     images: [
       {
-        url: "/og-image.png",
+        url: "https://art-couture-new-website.web.app/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Art Couture by Gabrielle Benot and Charmaigne Menn – Bespoke Haute Couture Atelier",
+        alt: "Art Couture by Gabrielle Benot and Charmaigne Menn - Bespoke Haute Couture Atelier",
       },
     ],
     siteName: "Art Couture",
@@ -43,10 +43,10 @@ export const metadata: Metadata = {
     description:
       "Bespoke haute couture gowns by Gabrielle Benot and Charmaigne Menn. Original paintings transformed into wearable art with Lunéville embroidery at our private atelier.",
     images: [
-      "/og-image.png",
+      "https://art-couture-new-website.web.app/og-image.png",
     ],
   },
-  metadataBase: new URL("https://artcouture.studio"),
+  metadataBase: new URL("https://art-couture-new-website.web.app"),
 };
 
 const jsonLd = {
