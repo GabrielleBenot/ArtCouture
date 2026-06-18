@@ -330,7 +330,7 @@ export default function Home() {
         className="max-w-3xl mx-auto text-center px-8 py-16 md:py-24"
       >
         <div className="w-8 h-[1px] bg-[var(--dada-red)]/40 mx-auto mb-10" />
-        <blockquote className="font-serif italic text-xl md:text-3xl lg:text-4xl text-[var(--text-main)] leading-[1.4] mb-8">
+        <blockquote className="font-serif italic text-lg md:text-[1.7rem] lg:text-[2rem] text-[var(--text-main)] leading-[1.4] mb-8">
           &ldquo;We create because we can&apos;t not create. The fabric, the color, the form, it all starts with this quiet need to make something beautiful.&rdquo;
         </blockquote>
         <div className="flex items-center justify-center gap-4">
