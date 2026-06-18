@@ -21,7 +21,7 @@ import { useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
 
 // Parallax Image Component for sections
-function ParallaxImage({ src, alt, blend, className }: { src: string, alt: string, blend?: boolean, className?: string }) {
+function ParallaxImage({ src, alt, blend, className, revealColor }: { src: string, alt: string, blend?: boolean, className?: string, revealColor?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -31,6 +31,9 @@ function ParallaxImage({ src, alt, blend, className }: { src: string, alt: strin
   // Subtly move the image vertically while noticeably shrinking it to create depth
   const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
   const scale = useTransform(scrollYProgress, [0, 1], [1.15, 0.85]);
+  const grayscale = useTransform(scrollYProgress, [0.1, 0.45], [1, 0]);
+
+  const imgStyle = revealColor ? { y, scale, filter: useTransform(grayscale, (v: number) => `grayscale(${v})`) } : { y, scale };
 
   return (
     <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
@@ -45,7 +48,7 @@ function ParallaxImage({ src, alt, blend, className }: { src: string, alt: strin
         </motion.div>
       ) : (
         <motion.img 
-          style={{ y, scale }} 
+          style={imgStyle} 
           src={src} 
           alt={alt} 
           loading="lazy"
@@ -67,7 +70,8 @@ function FeatureSection({
   subtitle,
   blendImage = false,
   imageClassName = "flex-[1.2] w-full",
-  textClassName = "flex-1 space-y-6"
+  textClassName = "flex-1 space-y-6",
+  revealColor = false
 }: { 
   id?: string,
   title?: React.ReactNode, 
@@ -78,7 +82,8 @@ function FeatureSection({
   subtitle?: string,
   blendImage?: boolean,
   imageClassName?: string,
-  textClassName?: string
+  textClassName?: string,
+  revealColor?: boolean
 }) {
   return (
     <section id={id} className="py-16 md:py-24 px-6 max-w-[90rem] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
@@ -120,13 +125,13 @@ function FeatureSection({
             )}
           </div>
           <div className={imageClassName}>
-            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} />
+            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} revealColor={revealColor} />
           </div>
         </>
       ) : (
         <>
           <div className={`${imageClassName} order-2 md:order-1`}>
-            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} />
+            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} revealColor={revealColor} />
           </div>
           <div className={`${textClassName} lg:pl-12 order-1 md:order-2`}>
             {subtitle && (
@@ -386,6 +391,7 @@ export default function Home() {
         text={<p>From hand-cut French Chantilly lace appliqu&eacute; and delicate Guipure lacework to sheer silk tulle adorned with Lun&eacute;ville embroidery, each collection explores fabric as both canvas and form. Every textile is sourced from the most prestigious European mills. Every embellishment is applied by hand. Every design is exclusively ours.</p>}
         imgSrc="/images/luxury_detail.jpg"
         imgAlt="Art Couture hand-embroidered lace detail close-up"
+        revealColor
       />
 
       <FeatureSection 
