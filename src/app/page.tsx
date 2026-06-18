@@ -305,6 +305,28 @@ export default function Home() {
       <div id="collections">
         <EditorialCollection />
       </div>
+
+      {/* Limited Edition Callout */}
+      <section className="py-20 md:py-28 px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2 }}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--dada-red)] mb-6">Made by Hand, Made to Last</span>
+          <blockquote className="font-serif italic text-2xl md:text-4xl lg:text-[2.8rem] text-[var(--text-main)] leading-[1.3] mb-8">
+            &ldquo;Each piece is crafted entirely by hand in our atelier. Because of the meticulous work involved, our collections are produced in very limited quantities, often made to order. A small selection of ready-made pieces is available for those who prefer to take home a treasure immediately.&rdquo;
+          </blockquote>
+          <div className="flex items-center justify-center gap-4">
+            <div className="h-[1px] w-12 bg-[var(--dada-red)]/40" />
+            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--text-muted)]">Gabrielle &amp; Charmaigne</span>
+            <div className="h-[1px] w-12 bg-[var(--dada-red)]/40" />
+          </div>
+        </motion.div>
+      </section>
+
       <CatwalkVideo />
 
       <div className="py-12" />
