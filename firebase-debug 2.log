@@ -1,0 +1,17 @@
+[debug] [2026-06-18T04:29:47.935Z] ----------------------------------------------------------------------
+[debug] [2026-06-18T04:29:47.937Z] Command:       /Users/julia/.nvm/versions/node/v20.20.1/bin/node /Users/julia/.npm/_npx/7750544ccf494d8b/node_modules/.bin/firebase deploy --only hosting
+[debug] [2026-06-18T04:29:47.937Z] CLI Version:   15.21.0
+[debug] [2026-06-18T04:29:47.938Z] Platform:      darwin
+[debug] [2026-06-18T04:29:47.938Z] Node Version:  v20.20.1
+[debug] [2026-06-18T04:29:47.938Z] Detected Agent: antigravity
+[debug] [2026-06-18T04:29:47.938Z] Time:          Wed Jun 17 2026 21:29:47 GMT-0700 (Pacific Daylight Time)
+[debug] [2026-06-18T04:29:47.938Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-18T04:29:48.585Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-06-18T04:29:48.585Z] > authorizing via signed-in user (leapedgem@gmail.com)
+[debug] [2026-06-18T04:29:48.585Z] [iam] checking project art-couture-new-website for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-06-18T04:29:48.585Z] Checked if tokens are valid: true, expires at: 1781759210419
+[debug] [2026-06-18T04:29:48.585Z] Checked if tokens are valid: true, expires at: 1781759210419
+[debug] [2026-06-18T04:29:48.586Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/art-couture-new-website:testIamPermissions [none]
+[debug] [2026-06-18T04:29:48.586Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/art-couture-new-website:testIamPermissions  x-goog-user-project=art-couture-new-website
+[debug] [2026-06-18T04:29:48.586Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/art-couture-new-website:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}

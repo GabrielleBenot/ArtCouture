@@ -326,18 +326,18 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="max-w-4xl mx-auto text-center px-6 mb-8"
+          className="max-w-6xl mx-auto px-6 mb-8"
         >
           <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">The Craft</span>
-          <h2 className="flex flex-col items-center mb-8">
+          <h2 className="flex flex-col mb-8">
             <span className="font-sans font-black text-[4.7rem] md:text-8xl uppercase tracking-tighter leading-[0.85]">Luxury</span>
             <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">you can actually</span>
             <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">feel.</span>
           </h2>
-          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto mb-4">
+          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mb-4">
             Lun&eacute;ville hook embroidery, hand-beading, sculptural draping. These are old-world techniques that take real time. We don&apos;t rush. You can feel the difference in the weight of the silk, the architecture of the corset, the finish of every hidden seam.
           </p>
-          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto">
+          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl">
             Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle adorned with embroidery. We source our textiles from Europe&apos;s finest mills. Every embellishment is applied by hand. Every design is exclusively ours.
           </p>
         </motion.div>
@@ -348,17 +348,17 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="max-w-4xl mx-auto text-center px-6 mb-20"
+          className="max-w-6xl mx-auto px-6 mb-20"
         >
-          <div className="max-w-xs mx-auto my-10">
+          <div className="max-w-xs my-10">
             <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--dada-red)]/30 to-transparent" />
           </div>
-          <h3 className="flex flex-col items-center mb-8">
+          <h3 className="flex flex-col mb-8">
             <span className="font-sans font-black text-[3.75rem] md:text-7xl uppercase tracking-tighter leading-[0.85]">Gowns</span>
             <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">as rare as the</span>
             <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">Women who wear them.</span>
           </h3>
-          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto">
+          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl">
             Each gown is an exclusive design, created entirely in-house: rare silk satin, hand-embroidered tulle with Lun&eacute;ville beadwork, and velvet that drinks in the light. Crafted to embrace the body with precision and grace.
           </p>
         </motion.div>
@@ -452,20 +452,20 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="max-w-4xl mx-auto text-center mb-16"
+          className="max-w-6xl mx-auto mb-16"
         >
           <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">Beyond the Gown</span>
-          <h2 className="flex flex-col items-center mb-8">
+          <h2 className="flex flex-col mb-8">
             <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Wear it.</span>
             <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">Be photographed in it.</span>
           </h2>
-          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto mb-4">
+          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mb-4">
             We offer editorial-style photography sessions where our creative team styles and directs every detail. The result? Images that feel like a fashion editorial, starring you.
           </p>
-          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto mb-4">
+          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mb-4">
             Select couture creations are also available for exclusive rental for red carpet events, galas, and private occasions.
           </p>
-          <p className="text-xs md:text-sm text-[var(--dada-red)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto font-bold">
+          <p className="text-xs md:text-sm text-[var(--dada-red)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl font-bold">
             Every photograph can become a one-of-a-kind fine art piece for your wall.
           </p>
         </motion.div>
@@ -479,22 +479,44 @@ export default function Home() {
             { src: "/images/process/draping.jpg", label: "Coming Soon" },
           ];
           const [activePhoto, setActivePhoto] = React.useState(0);
+          const touchStart = React.useRef<number | null>(null);
+          const handleTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
+          const handleTouchEnd = (e: React.TouchEvent) => {
+            if (touchStart.current === null) return;
+            const diff = touchStart.current - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) {
+              if (diff > 0 && activePhoto < photos.length - 1) setActivePhoto(activePhoto + 1);
+              if (diff < 0 && activePhoto > 0) setActivePhoto(activePhoto - 1);
+            }
+            touchStart.current = null;
+          };
           return (
             <div className="max-w-5xl mx-auto">
-              {/* Image */}
+              {/* Image with swipe + tap zones */}
               <motion.div
                 key={activePhoto}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className="relative w-full aspect-[3/4] md:aspect-[4/3] overflow-hidden mb-6"
+                className="relative w-full aspect-[3/4] md:aspect-[4/3] overflow-hidden mb-6 select-none"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
               >
                 <img
                   src={photos[activePhoto].src}
                   alt={`Art Couture ${photos[activePhoto].label}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover pointer-events-none"
+                  draggable={false}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                {/* Tap left */}
+                {activePhoto > 0 && (
+                  <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute left-0 top-0 w-1/3 h-full z-10 cursor-w-resize" aria-label="Previous photo" />
+                )}
+                {/* Tap right */}
+                {activePhoto < photos.length - 1 && (
+                  <button onClick={() => setActivePhoto(activePhoto + 1)} className="absolute right-0 top-0 w-1/3 h-full z-10 cursor-e-resize" aria-label="Next photo" />
+                )}
                 <span className="absolute bottom-6 left-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/80">
                   {photos[activePhoto].label}
                 </span>
