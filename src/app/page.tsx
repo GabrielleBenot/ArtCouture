@@ -219,6 +219,13 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Elegant Separator */}
+      <div className="flex items-center justify-center gap-4 py-4">
+        <div className="w-16 md:w-24 h-[1px] bg-gradient-to-r from-transparent to-[var(--text-muted)]/30" />
+        <div className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]/40" />
+        <div className="w-16 md:w-24 h-[1px] bg-gradient-to-l from-transparent to-[var(--text-muted)]/30" />
+      </div>
+
       {/* COLOR IS POWER - Visual section */}
       <FeatureSection 
         subtitle="The Philosophy"
