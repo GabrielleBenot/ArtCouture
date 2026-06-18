@@ -220,7 +220,7 @@ export default function Home() {
       </section>
 
       {/* Elegant Separator */}
-      <div className="flex items-center justify-center gap-4 py-4">
+      <div className="flex items-center justify-center gap-4 pt-4 pb-14">
         <div className="w-16 md:w-24 h-[1px] bg-gradient-to-r from-transparent to-[var(--text-muted)]/30" />
         <div className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]/40" />
         <div className="w-16 md:w-24 h-[1px] bg-gradient-to-l from-transparent to-[var(--text-muted)]/30" />
@@ -258,6 +258,39 @@ export default function Home() {
         imageClassName="flex-[1.44] w-full"
         reverse
       />
+
+      {/* Second Painting */}
+      <div className="max-w-6xl mx-auto px-6 py-16 md:py-24">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="flex flex-col md:flex-row items-center gap-12 md:gap-16"
+        >
+          <div className="flex-1 order-2 md:order-1">
+            <div className="relative inline-block">
+              <img
+                src="/images/paintings/faces_color_blind.jpg"
+                alt="Gabrielle Benot original mixed-media portrait painting"
+                loading="lazy"
+                className="w-full max-w-lg shadow-[8px_8px_30px_rgba(0,0,0,0.3),-2px_-2px_10px_rgba(255,255,255,0.05)]"
+                style={{ border: '8px solid #1a1a1a' }}
+              />
+            </div>
+          </div>
+          <div className="flex-1 order-1 md:order-2 space-y-4 md:space-y-6">
+            <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)]">From the Studio</span>
+            <h3 className="flex flex-col">
+              <span className="font-sans font-black text-3xl md:text-4xl uppercase tracking-tight">Where Color</span>
+              <span className="font-serif italic font-light text-[3rem] md:text-[5rem] text-[var(--dada-red)] leading-[0.8]">Meets Skin.</span>
+            </h3>
+            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-md">
+              Every face Gabrielle paints carries the same philosophy as the gowns: color should live on the body, not just beside it. These are the studies that become silhouettes.
+            </p>
+          </div>
+        </motion.div>
+      </div>
 
       {/* Visual Breaker */}
       <div className="max-w-xs mx-auto py-8">
