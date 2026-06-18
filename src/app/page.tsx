@@ -444,9 +444,13 @@ export default function Home() {
         imgAlt="Art Couture private atelier evening experience"
       />
 
-      <NewsEvents />
+      <div id="news">
+        <NewsEvents />
+      </div>
 
-      <TestimonialSlider />
+      <div id="testimonials">
+        <TestimonialSlider />
+      </div>
       <div id="story">
         <StorySection />
       </div>

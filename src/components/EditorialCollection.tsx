@@ -478,20 +478,26 @@ export function EditorialCollection() {
         </div>
 
         {/* Category Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mb-24 relative z-40">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`font-mono text-xs uppercase tracking-[0.2em] pb-2 border-b-2 transition-all duration-300 ${
-                activeCategory === cat 
-                  ? "border-[var(--dada-red)] text-[var(--text-main)] font-bold" 
-                  : "border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)]"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        <div className="flex items-center justify-center mb-24 relative z-40">
+          <div className="flex items-center gap-8 md:gap-10 overflow-x-auto scrollbar-hide px-4">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className="relative font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] pb-3 transition-colors duration-300 whitespace-nowrap flex-shrink-0"
+                style={{ color: activeCategory === cat ? 'var(--text-main)' : 'var(--text-muted)' }}
+              >
+                {cat}
+                {activeCategory === cat && (
+                  <motion.div
+                    layoutId="categoryIndicator"
+                    className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[var(--dada-red)]"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Masonry Grid */}
