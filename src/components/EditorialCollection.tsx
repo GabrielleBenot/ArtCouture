@@ -69,30 +69,7 @@ const collection = [
     aspectClass: "aspect-[4/5]",
     processImg: "/images/process/sewing.jpg"
   },
-  { 
-    title: "Ethereal Mist", 
-    category: "Dresses",
-    price: "$8,500", 
-    description: "A breathtaking bespoke evening gown where clouds of floating tulle dissolve into delicate hand-embroidered beadwork. This haute couture masterpiece moves like mist across a moonlit stage: ethereal, weightless, and profoundly romantic for the most discerning luxury fashion connoisseur.",
-    fabric: "Six layers of gossamer French silk tulle cascade over a precision-structured silk faille base, each layer individually hand-cut and finished with micro-rolled hems for a cloud-like silhouette.",
-    customization: "Beadwork pattern, crystal density, and tulle layering are fully personalized. Choose from platinum, opalescent, or aurora borealis bead palettes, with bespoke train lengths from sweep to cathedral.",
-    img: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=800&q=80",
-    detailImages: [],
-    aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/lace.jpg"
-  },
-  { 
-    title: "Sapphire Dream", 
-    category: "Dresses",
-    price: "$11,000", 
-    description: "Deep jewel tones meet masterful draping in this spellbinding gala gown that commands attention from every angle. A handcrafted couture dress of extraordinary depth, where sapphire silk velvet pools and cascades like midnight water, the pinnacle of luxury fashion.",
-    fabric: "Rich Italian sapphire silk velvet with a luminous hand-burnished pile, fully lined in contrasting jewel-toned silk charmeuse for a sumptuous interior that glides against the skin.",
-    customization: "Neckline can be sculpted from high boat-neck to dramatic off-the-shoulder décolletage. Drape depth, back exposure, and custom jewel-tone colorways available through private consultation.",
-    img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80",
-    detailImages: [],
-    aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/threading.jpg"
-  },
+  
   { 
     title: "Blush Couture", 
     category: "Dresses",
