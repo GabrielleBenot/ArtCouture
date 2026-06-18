@@ -327,7 +327,7 @@ export default function Home() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.5 }}
-        className="max-w-3xl mx-auto text-center px-8 py-16 md:py-24"
+        className="max-w-3xl mx-auto text-center px-8 py-16 md:py-24 mb-10"
       >
         <div className="w-8 h-[1px] bg-[var(--dada-red)]/40 mx-auto mb-10" />
         <blockquote className="font-serif italic text-lg md:text-[1.7rem] lg:text-[2rem] text-[var(--text-main)] leading-[1.4] mb-8">
