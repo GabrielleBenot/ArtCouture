@@ -272,8 +272,7 @@ export default function Home() {
                 src="/images/paintings/faces_color_blind.jpg"
                 alt="Gabrielle Benot original mixed-media portrait painting"
                 loading="lazy"
-                className="w-full max-w-lg shadow-[8px_8px_30px_rgba(0,0,0,0.3),-2px_-2px_10px_rgba(255,255,255,0.05)]"
-                style={{ border: '8px solid #1a1a1a' }}
+                className="w-full max-w-lg shadow-[4px_6px_20px_rgba(0,0,0,0.4),8px_12px_40px_rgba(0,0,0,0.2),inset_0_0_0_1px_rgba(255,255,255,0.05)]"
               />
             </div>
           </div>
