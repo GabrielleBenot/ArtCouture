@@ -320,7 +320,7 @@ export default function Home() {
           </span>
         }
         text={<p>From hand-cut French Chantilly lace appliqu&eacute; and delicate Guipure lacework to sheer silk tulle adorned with Lun&eacute;ville embroidery, each collection explores fabric as both canvas and form. Every textile is sourced from the most prestigious European mills. Every embellishment is applied by hand. Every design is exclusively ours.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-cc047f31-f82c-4c0d-84c9-4ce6f1ef5713.jpg"
+        imgSrc="/images/luxury_detail.jpg"
         imgAlt="Art Couture hand-embroidered lace detail close-up"
       />
 
@@ -338,7 +338,7 @@ export default function Home() {
             <p className="text-[var(--dada-red)] font-bold">Each image can be transformed into a one-of-a-kind fine art piece, ensuring your moment lives on as both a photograph and a masterpiece.</p>
           </>
         }
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-0e7d90e6-d13a-428b-ac7d-24701f9e4c31.jpg"
+        imgSrc="/images/masterpieces.jpg"
         imgAlt="Art Couture editorial photography session"
         reverse
       />
@@ -352,7 +352,7 @@ export default function Home() {
           </span>
         }
         text={<p>Select Gabi et Char couture creations are available for exclusive rental. We also arrange bespoke photography sessions, giving photographers, stylists, and creative teams access to haute couture for editorial shoots, red carpet events, and private occasions.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-9bbde46c-8be5-4e87-95fa-5b155120828f.jpg"
+        imgSrc="/images/rentals.jpg"
         imgAlt="Art Couture couture rental and photography services"
         imageClassName="flex-[3] w-full"
         textClassName="flex-1 space-y-6"
@@ -362,7 +362,7 @@ export default function Home() {
         subtitle="The Legacy"
         title={<span className="text-[var(--dada-red)] block text-4xl md:text-5xl lg:text-[5rem] leading-[1.1]">Because extraordinary moments deserve extraordinary attire.</span>}
         text={<p>At Art Couture, we create gowns for the event and custom Art to preserve its memory. Let us be part of your most treasured celebrations, immortalizing your style through our dedicated artistic lens.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-9472415d-e1c1-4321-b3d7-ab4da4fe3317.PNG"
+        imgSrc="/images/legacy.jpg"
         imgAlt="Art Couture bespoke gown for special occasions"
         reverse
       />
