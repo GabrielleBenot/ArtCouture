@@ -285,6 +285,37 @@ export default function Home() {
         </motion.div>
       </div>
 
+      {/* CHARMAIGNE MENN - The Couturière */}
+      <div className="max-w-6xl mx-auto px-6 py-16 md:py-24">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="flex flex-col md:flex-row items-center gap-12 md:gap-16"
+        >
+          <div className="flex-1 order-1 md:order-1 space-y-4 md:space-y-6">
+            <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)]">The Couturi&egrave;re</span>
+            <h3 className="flex flex-col">
+              <span className="font-sans font-black text-3xl md:text-4xl uppercase tracking-tight">Before She Paints,</span>
+              <span className="font-serif italic font-light text-[3rem] md:text-[5rem] text-[var(--dada-red)] leading-[0.8]">She Sews.</span>
+            </h3>
+            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-md">
+              Charmaigne Menn began designing at the age of eight in Durban, South Africa, inspired by a mother and grandmother who were artists themselves. Over four decades later, her reputation for impeccable construction and bespoke fit has taken her from establishing factories in South Africa to dressing prominent clients across the United States.
+            </p>
+            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-md">
+              Specializing in bridal couture, evening wear, and red carpet gowns, Charmaigne brings an architect&apos;s precision to every garment. Each piece is engineered from the inside out, with corsetry, boning, and structure that make the fabric move as though it were sculpted to the body.
+            </p>
+          </div>
+          <div className="flex-1 order-2 md:order-2">
+            <ParallaxImage
+              src="/images/couture_mannequin.png"
+              alt="Haute couture gown by Charmaigne Menn on atelier mannequin"
+            />
+          </div>
+        </motion.div>
+      </div>
+
       {/* Visual Breaker */}
       <div className="max-w-xs mx-auto py-8">
         <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
