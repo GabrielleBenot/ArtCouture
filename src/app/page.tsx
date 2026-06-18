@@ -209,7 +209,7 @@ export default function Home() {
           {/* Headline */}
           <h2 className="flex flex-col items-center mb-8">
             <span className="font-sans font-black text-[3rem] md:text-6xl uppercase tracking-tighter leading-[0.85]">She paints. She sews.</span>
-            <span className="font-serif italic font-light text-[3.5rem] md:text-[6rem] lg:text-[8rem] text-white/90 -mt-1 md:mt-0 leading-[0.8]">Together, magic.</span>
+            <span className="font-serif italic font-light text-[3.5rem] md:text-[6rem] lg:text-[8rem] text-[var(--text-main)] -mt-1 md:mt-0 leading-[0.8]">Together, magic.</span>
           </h2>
 
           {/* Intro text */}
