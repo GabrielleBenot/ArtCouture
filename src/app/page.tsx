@@ -181,37 +181,44 @@ export default function Home() {
       <CinematicHero />
       <ScrollQuote />
 
+      {/* 1. WHO WE ARE - Brief, warm intro */}
       <FeatureSection 
         id="boutique"
-        subtitle="The Philosophy"
+        subtitle="Meet Gabi & Char"
         title={
           <span className="flex flex-col">
-            <span className="font-sans text-sm md:text-sm font-black tracking-[0.3em] uppercase relative z-10">Color is</span>
-            <span className="font-serif italic font-light text-[7.9rem] md:text-[10rem] lg:text-[12rem] text-[var(--dada-red)] mt-0 md:-mt-4 leading-[0.8] relative z-0">Power.</span>
-            <span className="font-mono text-xs uppercase tracking-[0.4em] mt-2 md:mt-8 text-white/70">Wear it without apology.</span>
+            <span className="font-sans font-black text-[3.75rem] md:text-7xl uppercase tracking-tighter leading-[0.85]">She paints.</span>
+            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">She sews.</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">Together, magic.</span>
           </span>
         }
-        text={<p>At Art Couture, color is not an accent. It is a declaration. Every palette begins on the canvas before it ever touches fabric. We draw from bold contemporary painting and classical form to create bespoke pieces that do not simply enter a room. They command it.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-0ae10f15-2ee8-43af-885e-16f4bbe10af4.png"
-        imgAlt="Art Couture original watercolor painting by Gabrielle Benot"
-        imageClassName="flex-[1.44] w-full -ml-4 md:ml-0"
-        textClassName="flex-1 space-y-4 md:space-y-6"
+        text={<p>Every gown starts as a painting. Gabi paints it, Char builds it. The colors on our canvases are the same ones you&apos;ll wear. We&apos;re two women who believe couture should feel as personal as the art that inspires it.</p>}
+        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
+        imgAlt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
+        imageClassName="w-full md:flex-[1.44] overflow-hidden flex justify-center items-center scale-[1.38] -translate-x-[5%] md:translate-x-0 md:scale-100 mx-auto"
+        blendImage
       />
+
+      {/* 2. COLLECTIONS - Show the work early */}
+      <div id="collections">
+        <EditorialCollection />
+      </div>
 
       {/* Visual Breaker */}
       <div className="max-w-xs mx-auto py-8">
-        <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--dada-red)]/30 to-transparent" />
       </div>
 
+      {/* 3. ART TO FABRIC - Consolidated Technique + Aesthetic */}
       <FeatureSection 
-        subtitle="The Technique"
+        subtitle="From Canvas to Cloth"
         title={
           <span className="flex flex-col">
-            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Patterns designed from the</span>
-            <span className="font-sans font-black text-[3rem] md:text-9xl lg:text-[11rem] uppercase tracking-tighter mt-2 text-[var(--dada-red)] leading-[0.8]">Art we create.</span>
+            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Our patterns come</span>
+            <span className="font-sans font-black text-[3rem] md:text-9xl lg:text-[11rem] uppercase tracking-tighter mt-2 text-[var(--dada-red)] leading-[0.8]">from our art.</span>
           </span>
         }
-        text={<p>Behind every couture dress lies a canvas. We design our own exclusive patterns, born from the paintings we create in our studio. Each yard of luxury fabric is meticulously engineered so the brushstrokes of the original artwork follow the curves of the body. This is wearable fine art.</p>}
+        text={<p>We don&apos;t source prints from a catalog. Gabi paints them, and Char engineers every yard of fabric so the brushstrokes follow the curves of your body. Bold geometry meets organic flow. What you see on the gallery wall becomes what you wear.</p>}
         imgSrc="/images/patterns_fabric.jpg"
         imgAlt="Hand-painted silk fabric pattern by Art Couture atelier"
         imageClassName="flex-1 w-full scale-110 md:scale-100 flex justify-center"
@@ -219,7 +226,6 @@ export default function Home() {
       />
 
       <FeatureSection 
-        subtitle="The Aesthetic"
         title={
           <span className="flex flex-col">
             <span className="font-sans font-black text-[6.2rem] md:text-[10rem] lg:text-[12rem] uppercase tracking-tighter leading-[0.8]">Bold</span>
@@ -227,58 +233,27 @@ export default function Home() {
             <span className="font-serif font-extralight text-4xl md:text-6xl mt-4">Striking Silhouettes.</span>
           </span>
         }
-        text={<p>Our patterns do not simply sit on fabric. They move with it. Geometric precision meets organic flow, creating handcrafted garments that shift and reveal new details from every angle. Nothing is accidental. Every line has a reason.</p>}
+        text={<p>These aren&apos;t decorations placed on fabric. They&apos;re built into it. Every line is deliberate, every color hand-mixed. The garments shift and reveal new details as you move. That&apos;s the whole point.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
         imgAlt="Bespoke geometric couture fabric pattern by Art Couture"
         imageClassName="w-[calc(100%+3rem)] -ml-[calc(1.5rem+5%)] md:ml-0 md:w-full -mt-6 md:mt-0 md:flex-[1.44] overflow-hidden"
       />
 
-      {/* Visual Breaker */}
-      <div className="max-w-xs mx-auto py-8">
-        <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--dada-red)]/30 to-transparent" />
-      </div>
+      {/* 4. CATWALK VIDEO */}
+      <CatwalkVideo />
 
+      <div className="py-12" />
+
+      {/* 5. THE CRAFT - How it's made */}
       <FeatureSection 
-        subtitle="The Studio"
+        subtitle="The Craft"
         title={
           <span className="flex flex-col">
-            <span className="font-serif font-light text-4xl md:text-6xl">This is where design and</span>
-            <span className="font-serif font-light text-[2.8rem] md:text-6xl -mt-1 md:mt-0">art</span>
-            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">breathes the</span>
-            <span className="font-serif italic font-light text-[4.2rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-3 md:-mt-4 leading-[0.75]">same air.</span>
+            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Handmade means</span>
+            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[12rem] -mt-2 md:-mt-4 leading-[0.8] text-[var(--dada-red)]">every stitch.</span>
           </span>
         }
-        text={<p>The atelier is a sanctuary of imagination. Surrounded by canvases, watercolors, drafting tables, and bolts of silk, Gabrielle and Charmaigne blend two distinct disciplines into a singular vision. Here, an idea can start as a charcoal sketch and finish as a breathtaking gala gown.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-4b000517-aa66-445e-8e2e-89c2d295dc73.png"
-        imgAlt="Art Couture atelier studio watercolor painting"
-        reverse
-      />
-
-      <FeatureSection 
-        subtitle="The Inspiration"
-        title={
-          <span className="flex flex-col">
-            <span className="font-sans font-black text-4xl md:text-5xl uppercase tracking-tight">Explore the Art</span>
-            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">That Inspires</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8]">Couture</span>
-          </span>
-        }
-        text={<p>Gabrielle Benot&apos;s original paintings are not inspiration boards. They are the source material. The textures in her brushwork determine the weight and drape of the fine fabrics that Charmaigne Menn selects and sculpts. What you see on the gallery wall becomes what you wear on the floor.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7c7c79ac-f9d7-4fe7-bcd1-7d29e0eae366.png"
-        imgAlt="Gabrielle Benot original abstract painting for couture collection"
-        imageClassName="flex-[1.44] w-full"
-      />
-
-      <FeatureSection 
-        subtitle="The Process"
-        title={
-          <span className="flex flex-col">
-            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">A meticulous</span>
-            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl -mt-1 md:mt-0">approach</span>
-            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[12rem] -mt-2 md:-mt-4 leading-[0.8] text-[var(--dada-red)]">to craft.</span>
-          </span>
-        }
-        text={<p>Every couture creation passes through the traditions of French broderie d&apos;art. Lun&eacute;ville hook embroidery, hand-beading, precise pattern cutting, and sculptural draping are woven into each piece. True luxury cannot be rushed. It is felt in the weight of the silk, the architecture of the corset, and the flawless finish of every hidden seam.</p>}
+        text={<p>Lun&eacute;ville hook embroidery, hand-beading, sculptural draping. These are old-world techniques that take real time. We don&apos;t rush. You can feel the difference in the weight of the silk, the architecture of the corset, the finish of every hidden seam.</p>}
         imgSrc="/images/process_craft.jpg"
         imageClassName="w-full overflow-hidden [&_img]:mb-[-8px]"
         imgAlt="Charmaigne Menn haute couture craftsmanship hand draping"
@@ -290,48 +265,23 @@ export default function Home() {
         <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
       </div>
 
+      {/* 6. LUXURY DETAIL - with color reveal */}
       <FeatureSection 
-        subtitle="The Promise"
+        subtitle="The Details"
         title={
           <span className="flex flex-col">
-            <span className="font-sans font-black text-[3.75rem] md:text-7xl uppercase tracking-tighter leading-[0.85]">Gowns</span>
-            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">as rare as the</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">Women who wear them.</span>
+            <span className="font-sans font-black text-[4.7rem] md:text-8xl uppercase tracking-tighter leading-[0.85]">Luxury</span>
+            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">you can actually</span>
+            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">feel.</span>
           </span>
         }
-        text={<p>Born from the artistic vision of European-trained painter Gabrielle Benot and the masterful couture craftsmanship of South African-born Charmaigne Menn, &ldquo;Gabi et Char&rdquo; redefines eveningwear for the modern icon. Their shared global perspective and well-travelled eye for beauty converge in every gown. Each silhouette is an exclusive design, created entirely in-house: rare silk satin, hand-embroidered tulle finished with Lun&eacute;ville beadwork, and velvet that drinks in the light, all crafted to embrace the body with precision and grace.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
-        imgAlt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
-        imageClassName="w-full md:flex-[1.44] overflow-hidden flex justify-center items-center scale-[1.38] -translate-x-[5%] md:translate-x-0 md:scale-100 mx-auto"
-        blendImage
+        text={<p>Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle with Lun&eacute;ville embroidery. We source our textiles from Europe&apos;s finest mills. Every embellishment is applied by hand. Every design is exclusively ours.</p>}
+        imgSrc="/images/luxury_detail.jpg"
+        imgAlt="Art Couture hand-embroidered lace detail close-up"
+        revealColor
       />
 
-      <div id="collections">
-        <EditorialCollection />
-      </div>
-
-      {/* Limited Edition Callout */}
-      <section className="py-20 md:py-28 px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2 }}
-          className="max-w-3xl mx-auto text-center"
-        >
-          <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--dada-red)] mb-6">Made by Hand, Made to Last</span>
-          <blockquote className="font-serif italic text-2xl md:text-4xl lg:text-[2.8rem] text-[var(--text-main)] leading-[1.3] mb-8">
-            &ldquo;Every piece is designed in our atelier with an artist&apos;s eye for detail. Because of the care and precision involved, our collections are produced in very limited quantities, often made to order. A small selection of ready-made pieces is available for those who prefer to take home a treasure immediately.&rdquo;
-          </blockquote>
-          <div className="flex items-center justify-center gap-4">
-            <div className="h-[1px] w-12 bg-[var(--dada-red)]/40" />
-            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--text-muted)]">Gabrielle &amp; Charmaigne</span>
-            <div className="h-[1px] w-12 bg-[var(--dada-red)]/40" />
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Fabric Showcase */}
+      {/* 7. FABRIC SHOWCASE */}
       <section className="pb-20 md:pb-28 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.span
@@ -374,37 +324,19 @@ export default function Home() {
         </div>
       </section>
 
-      <CatwalkVideo />
-
-      <div className="py-12" />
-
+      {/* 8. PHOTOGRAPHY & RENTALS */}
       <FeatureSection 
-        subtitle="The Detail"
+        subtitle="Beyond the Gown"
         title={
           <span className="flex flex-col">
-            <span className="font-sans font-black text-[4.7rem] md:text-8xl uppercase tracking-tighter leading-[0.85]">Luxury</span>
-            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">is in the details</span>
-            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">You can feel.</span>
-          </span>
-        }
-        text={<p>From hand-cut French Chantilly lace appliqu&eacute; and delicate Guipure lacework to sheer silk tulle adorned with Lun&eacute;ville embroidery, each collection explores fabric as both canvas and form. Every textile is sourced from the most prestigious European mills. Every embellishment is applied by hand. Every design is exclusively ours.</p>}
-        imgSrc="/images/luxury_detail.jpg"
-        imgAlt="Art Couture hand-embroidered lace detail close-up"
-        revealColor
-      />
-
-      <FeatureSection 
-        subtitle="The Experience"
-        title={
-          <span className="flex flex-col">
-            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Turning</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">into Masterpieces.</span>
+            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Wear it.</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">Be photographed in it.</span>
           </span>
         }
         text={
           <>
-            <p className="mb-4">We offer bespoke photography sessions that capture you in couture elegance, styled with the precision of a fashion editorial. Our creative team directs every pose and curates the lighting to flatter perfectly.</p>
-            <p className="text-[var(--dada-red)] font-bold">Each image can be transformed into a one-of-a-kind fine art piece, ensuring your moment lives on as both a photograph and a masterpiece.</p>
+            <p className="mb-4">We offer editorial-style photography sessions where our creative team styles and directs every detail. The result? Images that feel like a fashion editorial, starring you.</p>
+            <p>Select couture pieces are also available for rental for red carpets, galas, and special occasions. And every photograph can become a one-of-a-kind fine art piece for your wall.</p>
           </>
         }
         imgSrc="/images/masterpieces.jpg"
@@ -412,51 +344,47 @@ export default function Home() {
         reverse
       />
 
-      <FeatureSection 
-        subtitle="The Services"
-        title={
-          <span className="flex flex-col">
-            <span className="font-sans font-light text-5xl md:text-6xl lg:text-7xl tracking-tighter">Photography</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[6rem] lg:text-[7rem] text-[var(--text-main)] -mt-2 leading-[0.8]">and Rentals.</span>
-          </span>
-        }
-        text={<p>Select Gabi et Char couture creations are available for exclusive rental. We also arrange bespoke photography sessions, giving photographers, stylists, and creative teams access to haute couture for editorial shoots, red carpet events, and private occasions.</p>}
-        imgSrc="/images/rentals.jpg"
-        imgAlt="Art Couture couture rental and photography services"
-        imageClassName="flex-[3] w-full"
-        textClassName="flex-1 space-y-6"
-      />
+      {/* Limited Edition Callout */}
+      <section className="py-20 md:py-28 px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2 }}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--dada-red)] mb-6">Made by Hand, Made to Last</span>
+          <blockquote className="font-serif italic text-2xl md:text-4xl lg:text-[2.8rem] text-[var(--text-main)] leading-[1.3] mb-8">
+            &ldquo;We make most pieces to order, because that&apos;s how couture should work. A few ready-made treasures are available for those who want to take something home right away.&rdquo;
+          </blockquote>
+          <div className="flex items-center justify-center gap-4">
+            <div className="h-[1px] w-12 bg-[var(--dada-red)]/40" />
+            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--text-muted)]">Gabi &amp; Char</span>
+            <div className="h-[1px] w-12 bg-[var(--dada-red)]/40" />
+          </div>
+        </motion.div>
+      </section>
 
-      <FeatureSection 
-        subtitle="The Legacy"
-        title={<span className="text-[var(--dada-red)] block text-4xl md:text-5xl lg:text-[5rem] leading-[1.1]">Because extraordinary moments deserve extraordinary attire.</span>}
-        text={<p>At Art Couture, we create gowns for the event and custom Art to preserve its memory. Let us be part of your most treasured celebrations, immortalizing your style through our dedicated artistic lens.</p>}
-        imgSrc="/images/legacy.jpg"
-        imgAlt="Art Couture bespoke gown for special occasions"
-        reverse
-      />
-
-      <FeatureSection 
-        subtitle="The Vision"
-        title={<span className="block text-4xl md:text-5xl lg:text-[5rem] leading-[1.1]">At Art Couture, we create more than couture.</span>}
-        text={<p>We create experiences that linger beyond the moment - gowns and art woven with memory, photography styled like cinema, each detail crafted to make you the heroine of your own story. What begins in beauty lives on as art, treasured forever.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7970ca9b-c546-4231-9c1b-836113ca438a.jpg"
-        imgAlt="Art Couture private atelier evening experience"
-      />
-
+      {/* 9. NEWS & EVENTS */}
       <div id="news">
         <NewsEvents />
       </div>
 
+      {/* 10. TESTIMONIALS */}
       <div id="testimonials">
         <TestimonialSlider />
       </div>
+
+      {/* 11. OUR STORY - Deeper dive for those who want it */}
       <div id="story">
         <StorySection />
       </div>
+
+      {/* 12. FAQ */}
       <div id="faq">
         <FAQAccordion />
       </div>
+
       <TheEdgeCampaign />
       <NewsletterCTA />
 
