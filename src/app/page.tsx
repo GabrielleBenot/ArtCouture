@@ -192,7 +192,6 @@ export default function Home() {
         imgAlt="Art Couture original watercolor painting by Gabrielle Benot"
         imageClassName="flex-[1.44] w-full -ml-4 md:ml-0"
         textClassName="flex-1 space-y-4 md:space-y-6"
-        blendImage
       />
 
       {/* Visual Breaker */}
