@@ -57,7 +57,7 @@ export function IntroLoader() {
   return (
     <>
       {/* Main intro content */}
-      <section className={`fixed inset-0 z-[9999] w-full h-screen overflow-hidden bg-[#fafaf8] transition-all duration-700 ${phase === "done" ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+      <section className={`fixed inset-0 z-[9999] w-full h-screen overflow-hidden bg-[#fafaf8] transition-all duration-300 ${phase === "idle" ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         
         {/* Mobile: Cinematic centered layout */}
         <div className="absolute inset-0 flex flex-col lg:hidden">

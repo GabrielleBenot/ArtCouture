@@ -30,6 +30,9 @@ export function CinematicHero() {
       
       {/* Subtle gradient overlay to ensure text legibility */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent pointer-events-none z-[2]" />
+      
+      {/* Bottom vignette for smooth transition to next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-[30%] bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none z-[2]" />
 
         {/* Text Content overlaying the video */}
         <div className="absolute inset-0 z-10 flex flex-col justify-center p-8 md:p-16 lg:p-24 text-left">
