@@ -60,10 +60,6 @@ const jsonLd = {
     "Bespoke haute couture born from original paintings. Art Couture fuses fine art and fashion.",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "1010 Pearl St, Ste A",
-    addressLocality: "La Jolla",
-    addressRegion: "CA",
-    postalCode: "92037",
     addressCountry: "US",
   },
   sameAs: [

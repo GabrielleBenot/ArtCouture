@@ -24,7 +24,7 @@ export function StorySection() {
               Art Couture was born when European mixed-media painter Gabrielle Benot and South African-born haute couture designer Charmaigne Menn realized they shared the same obsession: what happens when a painting becomes a dress?
             </p>
             <p className="text-xs md:text-sm text-white/50 font-mono uppercase tracking-[0.15em] leading-[1.8]">
-              Together as &ldquo;Gabi et Char,&rdquo; they built a luxury atelier in La Jolla where original artworks and one-of-a-kind garments are created side by side, each one informing the other. Gabrielle brings a refined European eye for color and composition. Charmaigne brings decades of couture precision shaped by a life spanning continents. The result is fashion that carries the soul of fine art, and art that moves like couture.
+              Together as &ldquo;Gabi et Char,&rdquo; they built a luxury atelier where original artworks and one-of-a-kind garments are created side by side, each one informing the other. Gabrielle brings a refined European eye for color and composition. Charmaigne brings decades of couture precision shaped by a life spanning continents. The result is fashion that carries the soul of fine art, and art that moves like couture.
             </p>
           </div>
           <div className="flex-1 flex justify-center md:justify-end">
@@ -32,7 +32,7 @@ export function StorySection() {
               <div className="absolute inset-0 bg-[var(--dada-red-glow)] mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 pointer-events-none" />
               <img 
                 src="https://storage.googleapis.com/mixo-sites/images/file-79d83dc3-308d-4dd6-9173-8dc2170520f7.jpeg" 
-                alt="Gabrielle Benot and Charmaigne Menn founders of Art Couture atelier La Jolla" 
+                alt="Gabrielle Benot and Charmaigne Menn founders of Art Couture atelier" 
                 loading="lazy"
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[1.5s]"
               />

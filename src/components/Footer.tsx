@@ -29,7 +29,7 @@ export function Footer() {
               Where every thread begins as a brushstroke.
             </p>
             <address className="font-mono text-xs text-white/40 not-italic tracking-wide">
-              1010 Pearl St, Ste A, La Jolla, CA 92037
+              By Appointment Only
             </address>
           </div>
 

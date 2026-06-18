@@ -305,7 +305,7 @@ export function Header() {
                 </a>
               </div>
               <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40">
-                1010 Pearl St, Ste A, La Jolla, CA 92037
+                By Appointment Only
               </p>
             </motion.div>
           </motion.div>

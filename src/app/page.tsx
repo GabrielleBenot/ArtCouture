@@ -211,7 +211,7 @@ export default function Home() {
             <span className="font-sans font-black text-[3rem] md:text-9xl lg:text-[11rem] uppercase tracking-tighter mt-2 text-[var(--dada-red)] leading-[0.8]">Art we create.</span>
           </span>
         }
-        text={<p>Behind every couture dress lies a canvas. We design our own exclusive patterns, born from the paintings we create in our La Jolla studio. Each yard of luxury fabric is meticulously engineered so the brushstrokes of the original artwork follow the curves of the body. This is wearable fine art.</p>}
+        text={<p>Behind every couture dress lies a canvas. We design our own exclusive patterns, born from the paintings we create in our studio. Each yard of luxury fabric is meticulously engineered so the brushstrokes of the original artwork follow the curves of the body. This is wearable fine art.</p>}
         imgSrc="/images/patterns_fabric.jpg"
         imgAlt="Hand-painted silk fabric pattern by Art Couture atelier"
         imageClassName="flex-1 w-full scale-110 md:scale-100 flex justify-center"
@@ -250,7 +250,7 @@ export default function Home() {
         }
         text={<p>The atelier is a sanctuary of imagination. Surrounded by canvases, watercolors, drafting tables, and bolts of silk, Gabrielle and Charmaigne blend two distinct disciplines into a singular vision. Here, an idea can start as a charcoal sketch and finish as a breathtaking gala gown.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-4b000517-aa66-445e-8e2e-89c2d295dc73.png"
-        imgAlt="Art Couture La Jolla atelier studio watercolor painting"
+        imgAlt="Art Couture atelier studio watercolor painting"
         reverse
       />
 
