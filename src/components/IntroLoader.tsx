@@ -106,7 +106,7 @@ export function IntroLoader() {
           </div>
 
           {/* Right Side: Image - larger on mobile */}
-          <div className="w-full lg:w-[55%] flex-1 lg:h-full relative flex items-center justify-center p-4 lg:p-8">
+          <div className="w-full lg:w-[55%] flex-1 lg:h-full relative flex items-center justify-center p-1 lg:p-8">
             <motion.img 
               initial={{ scale: 1.1, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -122,14 +122,14 @@ export function IntroLoader() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.7 }}
-            className="lg:hidden absolute bottom-8 left-0 right-0 flex justify-center z-20"
+            className="lg:hidden absolute bottom-10 left-0 right-0 flex justify-center z-20"
           >
             <MagneticButton>
               <button 
                 onClick={handleEnter}
-                className="bg-black text-white px-10 py-5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-[var(--dada-red)] transition-colors duration-300"
+                className="relative overflow-hidden border border-black/80 text-black px-12 py-4 rounded-full font-mono text-[10px] uppercase tracking-[0.35em] backdrop-blur-sm bg-white/60 hover:bg-black hover:text-white transition-all duration-500 shadow-lg"
               >
-                Click to enter
+                <span className="relative z-10">Enter the Atelier</span>
               </button>
             </MagneticButton>
           </motion.div>
