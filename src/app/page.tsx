@@ -49,7 +49,7 @@ function ParallaxImage({ src, alt, blend, className }: { src: string, alt: strin
           src={src} 
           alt={alt} 
           loading="lazy"
-          className={`max-w-[90%] md:max-w-[85%] max-h-[85vh] w-auto h-auto object-contain rounded-sm mix-blend-multiply ${className || ''}`}
+          className={`max-w-full md:max-w-[85%] max-h-[85vh] w-auto h-auto object-contain rounded-sm mix-blend-multiply mx-auto ${className || ''}`}
         />
       )}
     </div>
