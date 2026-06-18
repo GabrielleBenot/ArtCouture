@@ -239,8 +239,10 @@ export default function Home() {
         subtitle="The Studio"
         title={
           <span className="flex flex-col">
-            <span className="font-serif font-light text-4xl md:text-6xl">This is where design and art<br/>breathes the</span>
-            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-4 leading-[0.75]">same air.</span>
+            <span className="font-serif font-light text-4xl md:text-6xl">This is where design and</span>
+            <span className="font-serif font-light text-[2.8rem] md:text-6xl -mt-1 md:mt-0">art</span>
+            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">breathes the</span>
+            <span className="font-serif italic font-light text-[4.2rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-3 md:-mt-4 leading-[0.75]">same air.</span>
           </span>
         }
         text={<p>The atelier is a sanctuary of imagination. Surrounded by canvases, watercolors, drafting tables, and bolts of silk, Gabrielle and Charmaigne blend two distinct disciplines into a singular vision. Here, an idea can start as a charcoal sketch and finish as a breathtaking gala gown.</p>}
