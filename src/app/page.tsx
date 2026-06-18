@@ -317,7 +317,7 @@ export default function Home() {
         >
           <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--dada-red)] mb-6">Made by Hand, Made to Last</span>
           <blockquote className="font-serif italic text-2xl md:text-4xl lg:text-[2.8rem] text-[var(--text-main)] leading-[1.3] mb-8">
-            &ldquo;Each piece is crafted entirely by hand in our atelier. Because of the meticulous work involved, our collections are produced in very limited quantities, often made to order. A small selection of ready-made pieces is available for those who prefer to take home a treasure immediately.&rdquo;
+            &ldquo;Every piece is designed in our atelier with an artist&apos;s eye for detail. Because of the care and precision involved, our collections are produced in very limited quantities, often made to order. A small selection of ready-made pieces is available for those who prefer to take home a treasure immediately.&rdquo;
           </blockquote>
           <div className="flex items-center justify-center gap-4">
             <div className="h-[1px] w-12 bg-[var(--dada-red)]/40" />
@@ -325,6 +325,49 @@ export default function Home() {
             <div className="h-[1px] w-12 bg-[var(--dada-red)]/40" />
           </div>
         </motion.div>
+      </section>
+
+      {/* Fabric Showcase */}
+      <section className="pb-20 md:pb-28 px-6">
+        <div className="max-w-6xl mx-auto">
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="block text-center font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-8"
+          >
+            The Fabrics We Work With
+          </motion.span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            {[
+              { src: "/images/fabric_silk.png", label: "Silk Satin" },
+              { src: "/images/fabric_velvet.png", label: "Velvet" },
+              { src: "/images/fabric_lace.png", label: "French Lace" },
+              { src: "/images/fabric_embroidery.png", label: "Embroidery" },
+            ].map((fabric, i) => (
+              <motion.div
+                key={fabric.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: i * 0.15 }}
+                className="group relative aspect-square overflow-hidden"
+              >
+                <img
+                  src={fabric.src}
+                  alt={`Art Couture ${fabric.label} fabric detail`}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <span className="absolute bottom-3 left-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/80">
+                  {fabric.label}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </section>
 
       <CatwalkVideo />
