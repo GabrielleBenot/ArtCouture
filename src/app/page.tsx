@@ -267,14 +267,10 @@ export default function Home() {
           className="flex flex-col md:flex-row items-center gap-12 md:gap-16"
         >
           <div className="flex-1 order-2 md:order-1">
-            <div className="relative inline-block">
-              <img
-                src="/images/paintings/faces_color_blind.jpg"
-                alt="Gabrielle Benot original mixed-media portrait painting"
-                loading="lazy"
-                className="w-full max-w-lg shadow-[4px_6px_20px_rgba(0,0,0,0.4),8px_12px_40px_rgba(0,0,0,0.2),inset_0_0_0_1px_rgba(255,255,255,0.05)]"
-              />
-            </div>
+            <ParallaxImage
+              src="/images/paintings/faces_color_blind.jpg"
+              alt="Gabrielle Benot original mixed-media portrait painting"
+            />
           </div>
           <div className="flex-1 order-1 md:order-2 space-y-4 md:space-y-6">
             <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)]">From the Studio</span>
