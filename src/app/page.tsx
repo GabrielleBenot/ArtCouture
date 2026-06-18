@@ -323,9 +323,72 @@ export default function Home() {
         reverse
       />
 
-      {/* 7. FABRIC SHOWCASE */}
-      <section className="pb-20 md:pb-28 px-6">
-        <div className="max-w-6xl mx-auto">
+
+      {/* OUR SERVICES */}
+      <ServicesGrid />
+
+      {/* PHOTOGRAPHY & RENTALS - Combined */}
+      <FeatureSection 
+        subtitle="Beyond the Gown"
+        title={
+          <span className="flex flex-col">
+            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Wear it.</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">Be photographed in it.</span>
+          </span>
+        }
+        text={
+          <>
+            <p className="mb-4">We offer editorial-style photography sessions where our creative team styles and directs every detail. The result? Images that feel like a fashion editorial, starring you.</p>
+            <p className="mb-4">Select couture creations are also available for exclusive rental for red carpet events, galas, and private occasions.</p>
+            <p className="text-[var(--dada-red)] font-bold">Every photograph can become a one-of-a-kind fine art piece for your wall.</p>
+          </>
+        }
+        imgSrc="/images/masterpieces.jpg"
+        imgAlt="Art Couture editorial photography session"
+        reverse
+      />
+
+      {/* THE PROMISE - Gown showcase + Fabric Materials */}
+      <section className="py-20 md:py-28">
+        {/* Gown Image */}
+        <div className="relative w-full max-w-5xl mx-auto mb-16 px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="relative overflow-hidden"
+          >
+            <img 
+              src="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
+              alt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
+              loading="lazy"
+              className="w-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-[1.5s]"
+            />
+          </motion.div>
+        </div>
+
+        {/* Title + Text */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="max-w-4xl mx-auto text-center px-6 mb-20"
+        >
+          <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">The Promise</span>
+          <h2 className="flex flex-col items-center mb-8">
+            <span className="font-sans font-black text-[3.75rem] md:text-7xl uppercase tracking-tighter leading-[0.85]">Gowns</span>
+            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">as rare as the</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">Women who wear them.</span>
+          </h2>
+          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mx-auto">
+            Each gown is an exclusive design, created entirely in-house: rare silk satin, hand-embroidered tulle with Lun&eacute;ville beadwork, and velvet that drinks in the light. Crafted to embrace the body with precision and grace.
+          </p>
+        </motion.div>
+
+        {/* Fabric Grid */}
+        <div className="max-w-6xl mx-auto px-6">
           <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -364,58 +427,14 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
 
-      {/* OUR SERVICES */}
-      <ServicesGrid />
-
-      {/* PHOTOGRAPHY & RENTALS - Combined */}
-      <FeatureSection 
-        subtitle="Beyond the Gown"
-        title={
-          <span className="flex flex-col">
-            <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Wear it.</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] mt-2 leading-[0.75]">Be photographed in it.</span>
-          </span>
-        }
-        text={
-          <>
-            <p className="mb-4">We offer editorial-style photography sessions where our creative team styles and directs every detail. The result? Images that feel like a fashion editorial, starring you.</p>
-            <p className="mb-4">Select couture creations are also available for exclusive rental for red carpet events, galas, and private occasions.</p>
-            <p className="text-[var(--dada-red)] font-bold">Every photograph can become a one-of-a-kind fine art piece for your wall.</p>
-          </>
-        }
-        imgSrc="/images/masterpieces.jpg"
-        imgAlt="Art Couture editorial photography session"
-        reverse
-      />
-
-      {/* THE PROMISE - Gown showcase */}
-      <FeatureSection 
-        subtitle="The Promise"
-        title={
-          <span className="flex flex-col">
-            <span className="font-sans font-black text-[3.75rem] md:text-7xl uppercase tracking-tighter leading-[0.85]">Gowns</span>
-            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">as rare as the</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">Women who wear them.</span>
-          </span>
-        }
-        text={<p>Each gown is an exclusive design, created entirely in-house: rare silk satin, hand-embroidered tulle with Lun&eacute;ville beadwork, and velvet that drinks in the light. Crafted to embrace the body with precision and grace.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
-        imgAlt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
-        imageClassName="w-full md:flex-[1.44] overflow-hidden flex justify-center items-center scale-[1.38] -translate-x-[5%] md:translate-x-0 md:scale-100 mx-auto"
-        blendImage
-        reverse
-      />
-
-      {/* Limited Edition Callout */}
-      <section className="py-20 md:py-28 px-6">
+        {/* Quote */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2 }}
-          className="max-w-3xl mx-auto text-center"
+          className="max-w-3xl mx-auto text-center px-6 mt-20"
         >
           <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--dada-red)] mb-6">Made by Hand, Made to Last</span>
           <blockquote className="font-serif italic text-2xl md:text-4xl lg:text-[2.8rem] text-[var(--text-main)] leading-[1.3] mb-8">
