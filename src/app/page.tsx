@@ -299,6 +299,7 @@ export default function Home() {
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
         imgAlt="Art Couture bespoke evening gown by Gabrielle Benot and Charmaigne Menn"
         imageClassName="w-full md:flex-[1.44] overflow-hidden flex justify-center items-center scale-[1.2] md:scale-100"
+        blendImage
       />
 
       <div id="collections">
