@@ -35,14 +35,14 @@ export function CinematicHero() {
       <div className="absolute bottom-0 left-0 right-0 h-[30%] bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none z-[2]" />
 
         {/* Text Content overlaying the video */}
-        <div className="absolute inset-0 z-10 flex flex-col justify-center p-8 md:p-16 lg:p-24 text-left">
+        <div className="absolute inset-0 z-10 flex flex-col justify-center items-center md:items-start p-8 md:p-16 lg:p-24 text-center md:text-left">
           <h1 className="text-[2.8rem] md:text-6xl lg:text-[5.5rem] font-sans font-black tracking-tighter text-white leading-[0.9] mb-8 uppercase mix-blend-difference">
             A canvas <br/>
             <span className="font-serif italic font-light text-white/70 lowercase">in motion.</span><br/>
             A masterpiece <br/>
             <span className="text-[var(--dada-red)]">worn.</span>
           </h1>
-          <p className="font-serif text-base md:text-xl text-white/80 leading-relaxed max-w-2xl mix-blend-difference mb-12">
+          <p className="font-serif text-[1.15rem] md:text-xl text-white/80 leading-relaxed max-w-2xl mix-blend-difference mb-12">
             Every gown begins as a painting. The colors, textures, and brushstrokes of Gabrielle Benot&apos;s original artworks are translated into the finest bespoke fabrics and sculpted into haute couture by Charmaigne Menn&apos;s masterful hand.
           </p>
 
@@ -50,7 +50,7 @@ export function CinematicHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 1 }}
-            className="flex flex-col items-center w-fit gap-3 mix-blend-difference mt-10 md:mt-4"
+            className="flex flex-col items-center w-fit gap-3 mix-blend-difference mt-14 md:mt-4"
           >
             <span className="font-serif italic text-[12px] md:text-[11px] tracking-[0.25em] text-white/70">Scroll to discover</span>
             <div className="w-[1px] h-12 bg-white/15 overflow-hidden relative">
