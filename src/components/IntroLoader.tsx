@@ -92,7 +92,7 @@ export function IntroLoader() {
           </motion.div>
 
           {/* Centered title */}
-          <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 -mt-40">
+          <div className="relative z-10 flex flex-col items-center justify-center h-[100dvh] px-6">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
