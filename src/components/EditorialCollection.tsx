@@ -680,7 +680,7 @@ export function ServicesGrid() {
 
   return (
     <section className="py-24 md:py-32 px-6 max-w-[90rem] mx-auto">
-      <div className="text-center mb-24">
+      <div className="text-center mb-16 md:mb-24">
         <h3 className="text-[4rem] md:text-[6rem] lg:text-[8rem] font-serif font-extralight text-[var(--text-main)] mb-8 tracking-tight leading-none">Our Services</h3>
         <p className="font-mono text-xs uppercase tracking-[0.4em] text-[var(--text-muted)]">Bespoke experiences from our atelier</p>
         <div className="w-16 h-[2px] bg-[var(--dada-red)] mx-auto mt-6" />
