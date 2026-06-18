@@ -492,6 +492,20 @@ export default function Home() {
                   draggable={false}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                {/* Swipe hint on first photo */}
+                {activePhoto === 0 && (
+                  <motion.div
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: [1, 0.4, 1] }}
+                    transition={{ duration: 2, repeat: 3 }}
+                    className="absolute top-1/2 right-6 -translate-y-1/2 flex items-center gap-2 z-20 pointer-events-none"
+                  >
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">Swipe</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/70">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </motion.div>
+                )}
                 {/* Tap left */}
                 {activePhoto > 0 && (
                   <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute left-0 top-0 w-1/3 h-full z-10 cursor-w-resize" aria-label="Previous photo" />
@@ -508,20 +522,23 @@ export default function Home() {
                 </span>
               </motion.div>
 
-              {/* Navigation Dots */}
-              <div className="flex items-center justify-center gap-3">
-                {photos.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActivePhoto(i)}
-                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                      i === activePhoto 
-                        ? 'bg-[var(--dada-red)] scale-125' 
-                        : 'bg-white/20 hover:bg-white/40'
-                    }`}
-                    aria-label={`View photo ${i + 1}`}
-                  />
-                ))}
+              {/* Navigation Dots + Label */}
+              <div className="flex flex-col items-center gap-3">
+                <div className="flex items-center gap-3">
+                  {photos.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActivePhoto(i)}
+                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                        i === activePhoto 
+                          ? 'bg-[var(--dada-red)] scale-125' 
+                          : 'bg-white/20 hover:bg-white/40'
+                      }`}
+                      aria-label={`View photo ${i + 1}`}
+                    />
+                  ))}
+                </div>
+                <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[var(--text-muted)]">Swipe or tap to explore</span>
               </div>
             </div>
           );
