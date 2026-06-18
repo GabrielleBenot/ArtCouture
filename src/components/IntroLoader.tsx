@@ -76,52 +76,59 @@ export function IntroLoader() {
             />
           </motion.div>
 
-          {/* Centered content */}
-          <div className="relative z-10 flex flex-col items-center justify-center h-full px-8">
-            <motion.span
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.1 }}
-              className="font-mono text-[10px] tracking-[0.4em] uppercase text-[var(--dada-red)] mb-8"
-              style={{ textShadow: '0 0 20px rgba(255,255,255,0.9), 0 0 40px rgba(255,255,255,0.7)' }}
+          {/* Art Couture Studio - pinned to top */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.1 }}
+            className="absolute top-14 left-0 right-0 flex justify-center z-10"
+          >
+            <span
+              className="font-mono text-xs tracking-[0.4em] uppercase text-[var(--dada-red)] font-bold"
+              style={{ textShadow: '0 0 12px rgba(255,255,255,1), 0 0 25px rgba(255,255,255,1), 0 0 50px rgba(255,255,255,0.8)' }}
             >
               Art Couture Studio
-            </motion.span>
+            </span>
+          </motion.div>
 
+          {/* Centered title */}
+          <div className="relative z-10 flex flex-col items-center justify-center h-full px-6">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.3 }}
-              className="text-[2.8rem] font-sans font-black tracking-tighter text-[#050505] leading-[1] text-center mb-6"
+              className="text-[3.8rem] font-sans font-black tracking-tighter text-[#050505] leading-[0.95] text-center"
               style={{ textShadow: '0 0 30px rgba(255,255,255,1), 0 0 60px rgba(255,255,255,0.8), 0 0 90px rgba(255,255,255,0.5)' }}
             >
-              Where vision<br/>becomes style<br/>and style becomes<br/><span className="font-serif italic font-normal text-[3.4rem]">art.</span>
+              Where vision<br/>becomes style<br/>and style becomes<br/><span className="font-serif italic font-normal text-[4.5rem]">art.</span>
             </motion.h1>
 
             {/* Orange accent line */}
             <motion.div
               initial={{ width: 0 }}
-              animate={{ width: 80 }}
+              animate={{ width: 100 }}
               transition={{ duration: 1, delay: 0.8 }}
-              className="h-[2px] bg-[var(--dada-red)] mb-10"
-              style={{ boxShadow: '0 0 15px rgba(255,255,255,0.8)' }}
+              className="h-[3px] bg-[var(--dada-red)] rounded-full mt-6"
+              style={{ boxShadow: '0 0 8px rgba(255,89,0,0.4), 0 0 20px rgba(255,255,255,0.9)' }}
             />
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1 }}
-            >
-              <MagneticButton>
-                <button 
-                  onClick={handleEnter}
-                  className="relative overflow-hidden border border-black/30 text-[#050505] px-12 py-4 rounded-full font-mono text-[10px] uppercase tracking-[0.35em] backdrop-blur-sm bg-white/40 hover:bg-black hover:text-white transition-all duration-500"
-                >
-                  Enter the Atelier
-                </button>
-              </MagneticButton>
-            </motion.div>
           </div>
+
+          {/* Enter button - pinned to bottom */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="absolute bottom-10 left-0 right-0 flex justify-center z-20"
+          >
+            <MagneticButton>
+              <button 
+                onClick={handleEnter}
+                className="relative overflow-hidden border border-black/30 text-[#050505] px-12 py-4 rounded-full font-mono text-[10px] uppercase tracking-[0.35em] backdrop-blur-sm bg-white/40 hover:bg-black hover:text-white transition-all duration-500"
+              >
+                Enter the Atelier
+              </button>
+            </MagneticButton>
+          </motion.div>
         </div>
 
         {/* Desktop: Original side-by-side layout (untouched) */}
