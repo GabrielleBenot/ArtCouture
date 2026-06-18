@@ -470,37 +470,57 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* Photo Gallery Grid */}
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            {[
-              { src: "/images/masterpieces.jpg", label: "Editorial Session" },
-              { src: "/images/rentals.jpg", label: "Couture Rental" },
-              { src: "/images/process/painting.jpg", label: "Coming Soon" },
-              { src: "/images/process/draping.jpg", label: "Coming Soon" },
-            ].map((photo, i) => (
+        {/* Full-Size Photo Carousel */}
+        {(() => {
+          const photos = [
+            { src: "/images/masterpieces.jpg", label: "Editorial Session" },
+            { src: "/images/rentals.jpg", label: "Couture Rental" },
+            { src: "/images/process/painting.jpg", label: "Coming Soon" },
+            { src: "/images/process/draping.jpg", label: "Coming Soon" },
+          ];
+          const [activePhoto, setActivePhoto] = React.useState(0);
+          return (
+            <div className="max-w-5xl mx-auto">
+              {/* Image */}
               <motion.div
-                key={photo.label + i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: i * 0.15 }}
-                className="group relative aspect-[3/4] overflow-hidden cursor-pointer"
+                key={activePhoto}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                className="relative w-full aspect-[3/4] md:aspect-[4/3] overflow-hidden mb-6"
               >
                 <img
-                  src={photo.src}
-                  alt={`Art Couture ${photo.label}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  src={photos[activePhoto].src}
+                  alt={`Art Couture ${photos[activePhoto].label}`}
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <span className="absolute bottom-3 left-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/80">
-                  {photo.label}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                <span className="absolute bottom-6 left-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/80">
+                  {photos[activePhoto].label}
+                </span>
+                <span className="absolute bottom-6 right-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
+                  {activePhoto + 1} / {photos.length}
                 </span>
               </motion.div>
-            ))}
-          </div>
-        </div>
+
+              {/* Navigation Dots */}
+              <div className="flex items-center justify-center gap-3">
+                {photos.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActivePhoto(i)}
+                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      i === activePhoto 
+                        ? 'bg-[var(--dada-red)] scale-125' 
+                        : 'bg-white/20 hover:bg-white/40'
+                    }`}
+                    aria-label={`View photo ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          );
+        })()}
       </section>
 
       {/* 9. NEWS & EVENTS */}
