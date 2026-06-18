@@ -220,10 +220,8 @@ export default function Home() {
       </section>
 
       {/* Elegant Separator */}
-      <div className="flex items-center justify-center gap-4 pt-4 pb-14">
-        <div className="w-16 md:w-24 h-[1px] bg-gradient-to-r from-transparent to-[var(--text-muted)]/30" />
-        <div className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]/40" />
-        <div className="w-16 md:w-24 h-[1px] bg-gradient-to-l from-transparent to-[var(--text-muted)]/30" />
+      <div className="max-w-xs mx-auto pt-4 pb-20">
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
       </div>
 
       {/* COLOR IS POWER - Visual section */}
