@@ -62,6 +62,16 @@ const newsItems: NewsItem[] = [
 export function NewsEvents() {
   const [activeEvent, setActiveEvent] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [colorCards, setColorCards] = useState<Set<number>>(new Set());
+  const colorTimers = React.useRef<Map<number, NodeJS.Timeout>>(new Map());
+
+  const handleCardTap = (index: number) => {
+    if (colorCards.has(index)) return;
+    const timer = setTimeout(() => {
+      setColorCards(prev => new Set(prev).add(index));
+    }, 2000);
+    colorTimers.current.set(index, timer);
+  };
 
   const activeItem = newsItems.find((item) => item.title === activeEvent);
 
@@ -119,6 +129,8 @@ export function NewsEvents() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.8, delay: i * 0.1 }}
               className="group flex-shrink-0 w-[75vw] snap-center"
+              onTouchStart={() => handleCardTap(i)}
+              onClick={() => handleCardTap(i)}
             >
               {/* Image */}
               <div className="relative aspect-[4/5] overflow-hidden">
@@ -126,7 +138,9 @@ export function NewsEvents() {
                   src={item.image}
                   alt={`Art Couture ${item.title} – ${item.tag}`}
                   loading="lazy"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
+                  className={`w-full h-full object-cover transition-all duration-1000 transform ${
+                    colorCards.has(i) ? 'grayscale-0 scale-105' : 'grayscale'
+                  }`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 {/* Tag */}
