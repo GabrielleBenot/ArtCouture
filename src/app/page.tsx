@@ -256,8 +256,8 @@ export default function Home() {
         title={
           <span className="flex flex-col">
             <span className="font-sans font-black text-4xl md:text-5xl uppercase tracking-tight">Explore the Art</span>
-            <span className="font-serif font-light text-4xl md:text-6xl mt-4">That Inspires</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-4 leading-[0.8]">Couture</span>
+            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">That Inspires</span>
+            <span className="font-serif italic font-light text-[4rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8]">Couture</span>
           </span>
         }
         text={<p>Gabrielle Benot&apos;s original paintings are not inspiration boards. They are the source material. The textures in her brushwork determine the weight and drape of the fine fabrics that Charmaigne Menn selects and sculpts. What you see on the gallery wall becomes what you wear on the floor.</p>}
