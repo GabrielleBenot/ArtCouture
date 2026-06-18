@@ -204,12 +204,12 @@ export default function Home() {
           {/* Names */}
           <span className="font-serif text-sm md:text-base tracking-[0.15em] text-white/50 mb-1">Charmaigne Menn &amp; Gabrielle Benot</span>
           <span className="font-serif italic text-lg md:text-xl tracking-[0.2em] text-white/70 mb-4">Gabi et Char</span>
-          <div className="w-12 h-[1px] bg-[var(--dada-red)] mb-8" />
+          <div className="w-12 h-[1px] bg-white/20 mb-8" />
 
           {/* Headline */}
           <h2 className="flex flex-col items-center mb-8">
             <span className="font-sans font-black text-[3rem] md:text-6xl uppercase tracking-tighter leading-[0.85]">She paints. She sews.</span>
-            <span className="font-serif italic font-light text-[3.5rem] md:text-[6rem] lg:text-[8rem] text-[var(--dada-red)] -mt-1 md:mt-0 leading-[0.8]">Together, magic.</span>
+            <span className="font-serif italic font-light text-[3.5rem] md:text-[6rem] lg:text-[8rem] text-white/90 -mt-1 md:mt-0 leading-[0.8]">Together, magic.</span>
           </h2>
 
           {/* Intro text */}
