@@ -118,7 +118,7 @@ export function IntroLoader() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1 }}
-            className="absolute bottom-10 left-0 right-0 flex justify-center z-20"
+            className="absolute bottom-16 left-0 right-0 flex justify-center z-20"
           >
             <MagneticButton>
               <button 
