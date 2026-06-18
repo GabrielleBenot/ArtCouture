@@ -388,6 +388,28 @@ function DressCard({
 function ServiceCard({ service, onEnquire }: { service: { title: string, description: string, img: string }, onEnquire: () => void }) {
   const cardRef = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: false, amount: 0.5 });
+  const [tapped, setTapped] = React.useState(false);
+
+  const handleClick = React.useCallback(() => {
+    if (window.matchMedia("(pointer: coarse)").matches && !tapped) {
+      setTapped(true);
+      return;
+    }
+    onEnquire();
+  }, [tapped, onEnquire]);
+
+  React.useEffect(() => {
+    if (!tapped) return;
+    const handleOutside = (e: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
+        setTapped(false);
+      }
+    };
+    document.addEventListener("click", handleOutside);
+    return () => document.removeEventListener("click", handleOutside);
+  }, [tapped]);
+
+  const showDesc = tapped || isInView;
 
   return (
     <motion.div
@@ -397,7 +419,7 @@ function ServiceCard({ service, onEnquire }: { service: { title: string, descrip
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.8 }}
       className="group relative overflow-hidden cursor-pointer aspect-[3/4]"
-      onClick={onEnquire}
+      onClick={handleClick}
     >
       <img 
         src={service.img} 
@@ -418,11 +440,11 @@ function ServiceCard({ service, onEnquire }: { service: { title: string, descrip
         <h4 className="text-base md:text-xl lg:text-2xl font-serif text-white tracking-[0.15em] font-light drop-shadow-lg">
           {service.title}
         </h4>
-        <p className={`hidden md:block font-mono text-[10px] text-white/60 uppercase tracking-widest mt-3 max-w-[200px] leading-relaxed transition-all duration-500 delay-100 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} group-hover:opacity-100 group-hover:translate-y-0`}>
+        <p className={`font-mono text-[9px] md:text-[10px] text-white/60 uppercase tracking-widest mt-2 md:mt-3 max-w-[200px] leading-relaxed transition-all duration-500 delay-100 overflow-hidden ${showDesc ? 'opacity-100 translate-y-0 max-h-40' : 'opacity-0 max-h-0 md:opacity-100 md:max-h-40'} group-hover:opacity-100 group-hover:translate-y-0 group-hover:max-h-40`}>
           {service.description}
         </p>
-        <p className={`font-mono text-[10px] md:text-xs text-white/70 uppercase tracking-widest mt-3 md:mt-4 flex items-center gap-3 transition-all duration-500 delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} group-hover:opacity-100 group-hover:translate-y-0`}>
-          <span>Enquire</span>
+        <p className={`font-mono text-[10px] md:text-xs text-white/70 uppercase tracking-widest mt-2 md:mt-4 flex items-center gap-3 transition-all duration-500 delay-200 ${showDesc ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 md:opacity-100 md:translate-y-0'} group-hover:opacity-100 group-hover:translate-y-0`}>
+          <span>{tapped ? 'Tap to Enquire' : 'Enquire'}</span>
           <span className="w-6 h-[1px] bg-white/70 inline-block"></span>
         </p>
       </div>
