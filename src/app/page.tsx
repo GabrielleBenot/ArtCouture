@@ -369,7 +369,7 @@ export default function Home() {
       {/* OUR SERVICES */}
       <ServicesGrid />
 
-      {/* PHOTOGRAPHY & RENTALS */}
+      {/* PHOTOGRAPHY & RENTALS - Combined */}
       <FeatureSection 
         subtitle="Beyond the Gown"
         title={
@@ -381,27 +381,13 @@ export default function Home() {
         text={
           <>
             <p className="mb-4">We offer editorial-style photography sessions where our creative team styles and directs every detail. The result? Images that feel like a fashion editorial, starring you.</p>
+            <p className="mb-4">Select couture creations are also available for exclusive rental for red carpet events, galas, and private occasions.</p>
             <p className="text-[var(--dada-red)] font-bold">Every photograph can become a one-of-a-kind fine art piece for your wall.</p>
           </>
         }
         imgSrc="/images/masterpieces.jpg"
         imgAlt="Art Couture editorial photography session"
         reverse
-      />
-
-      <FeatureSection 
-        subtitle="The Services"
-        title={
-          <span className="flex flex-col">
-            <span className="font-sans font-light text-5xl md:text-6xl lg:text-7xl tracking-tighter">Photography</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[6rem] lg:text-[7rem] text-[var(--text-main)] -mt-2 leading-[0.8]">and Rentals.</span>
-          </span>
-        }
-        text={<p>Select couture creations are available for exclusive rental. We also arrange bespoke photography sessions, giving photographers, stylists, and creative teams access to haute couture for editorial shoots, red carpet events, and private occasions.</p>}
-        imgSrc="/images/rentals.jpg"
-        imgAlt="Art Couture couture rental and photography services"
-        imageClassName="flex-[3] w-full"
-        textClassName="flex-1 space-y-6"
       />
 
       {/* THE PROMISE - Gown showcase */}
