@@ -117,7 +117,7 @@ export function IntroLoader() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1 }}
-              className="mt-4 flex justify-center z-20"
+              className="mt-1 flex justify-center z-20"
             >
               <MagneticButton>
                 <button 
