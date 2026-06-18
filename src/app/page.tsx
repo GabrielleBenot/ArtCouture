@@ -463,6 +463,10 @@ export default function Home() {
           ];
           const [activePhoto, setActivePhoto] = React.useState(0);
           const touchStart = React.useRef<number | null>(null);
+          const parallaxRef = React.useRef<HTMLDivElement>(null);
+          const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] });
+          const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+          const imgScale = useTransform(scrollYProgress, [0, 0.5], [1.15, 1]);
           const handleTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
           const handleTouchEnd = (e: React.TouchEvent) => {
             if (touchStart.current === null) return;
@@ -474,7 +478,7 @@ export default function Home() {
             touchStart.current = null;
           };
           return (
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-5xl mx-auto" ref={parallaxRef}>
               {/* Image with swipe + tap zones */}
               <motion.div
                 key={activePhoto}
@@ -485,10 +489,11 @@ export default function Home() {
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               >
-                <img
+                <motion.img
                   src={photos[activePhoto].src}
                   alt={`Art Couture ${photos[activePhoto].label}`}
                   className="w-full h-full object-cover pointer-events-none"
+                  style={{ y: imgY, scale: imgScale }}
                   draggable={false}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
