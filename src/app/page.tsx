@@ -32,8 +32,7 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
   const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
   const scale = useTransform(scrollYProgress, [0, 1], [1.15, 0.85]);
   const grayscale = useTransform(scrollYProgress, [0.1, 0.45], [1, 0]);
-
-  const imgStyle = revealColor ? { y, scale, filter: useTransform(grayscale, (v: number) => `grayscale(${v})`) } : { y, scale };
+  const filter = useTransform(grayscale, (v: number) => `grayscale(${v})`);
 
   return (
     <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
@@ -48,7 +47,7 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
         </motion.div>
       ) : (
         <motion.img 
-          style={imgStyle} 
+          style={revealColor ? { y, scale, filter } : { y, scale }} 
           src={src} 
           alt={alt} 
           loading="lazy"
