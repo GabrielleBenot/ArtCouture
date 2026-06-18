@@ -202,6 +202,7 @@ export default function Home() {
           </div>
 
           {/* Names */}
+          <span className="font-serif text-sm md:text-base tracking-[0.15em] text-white/50 mb-1">Charmaigne Menn &amp; Gabrielle Benot</span>
           <span className="font-serif italic text-lg md:text-xl tracking-[0.2em] text-white/70 mb-4">Gabi et Char</span>
           <div className="w-12 h-[1px] bg-[var(--dada-red)] mb-8" />
 
