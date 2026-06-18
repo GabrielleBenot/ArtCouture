@@ -92,7 +92,7 @@ export function IntroLoader() {
           </motion.div>
 
           {/* Centered title */}
-          <div className="relative z-10 flex flex-col items-center justify-center h-full px-6">
+          <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 -mt-24">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -108,7 +108,7 @@ export function IntroLoader() {
               initial={{ width: 0 }}
               animate={{ width: 100 }}
               transition={{ duration: 1, delay: 0.8 }}
-              className="h-[3px] bg-[var(--dada-red)] rounded-full mt-6"
+              className="h-[3px] bg-[var(--dada-red)] rounded-full mt-4"
               style={{ boxShadow: '0 0 8px rgba(255,89,0,0.4), 0 0 20px rgba(255,255,255,0.9)' }}
             />
 
@@ -117,7 +117,7 @@ export function IntroLoader() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1 }}
-              className="mt-8 flex justify-center z-20"
+              className="mt-4 flex justify-center z-20"
             >
               <MagneticButton>
                 <button 
