@@ -31,7 +31,7 @@ const newsItems: NewsItem[] = [
     description:
       "An intimate evening inside the Art Couture atelier. View new collections before they are released, meet Gabrielle and Charmaigne, and experience haute couture up close with champagne and live painting. Limited to 20 guests.",
     image:
-      "https://storage.googleapis.com/mixo-sites/images/file-7970ca9b-c546-4231-9c1b-836113ca438a.jpg",
+      "/images/atelier_evening.png",
     cta: "Request an Invitation",
     ctaHref: "#contact",
   },
@@ -128,10 +128,10 @@ export function NewsEvents() {
           {newsItems.map((item, i) => (
             <motion.article
               key={item.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.8, delay: i * 0.1 }}
+              initial={{ opacity: 0, scale: 0.92, y: 30 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.33, 1, 0.68, 1] }}
               className="group flex-shrink-0 w-[75vw] snap-center"
             >
               {/* Image */}
