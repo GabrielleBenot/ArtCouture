@@ -31,8 +31,8 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
   // Subtly move the image vertically while noticeably shrinking it to create depth
   const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
   const scale = useTransform(scrollYProgress, [0, 1], [1.15, 0.85]);
-  const grayscale = useTransform(scrollYProgress, [0.1, 0.45], [1, 0]);
-  const filter = useTransform(grayscale, (v: number) => `grayscale(${v})`);
+  const filterValue = useTransform(scrollYProgress, [0.35, 0.6], [1, 0]);
+  const filter = useTransform(filterValue, (v: number) => `grayscale(${v})`);
 
   return (
     <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
