@@ -31,7 +31,7 @@ export function StorySection() {
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border border-white/10 shadow-2xl group">
               <div className="absolute inset-0 bg-[var(--dada-red-glow)] mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 pointer-events-none" />
               <img 
-                src="/images/gabi_et_char.jpg" 
+                src="/images/gabi_et_char_cropped.jpg" 
                 alt="Gabrielle Benot and Charmaigne Menn founders of Art Couture atelier" 
                 loading="lazy"
                 className="w-full h-full object-cover object-bottom scale-125 grayscale group-hover:grayscale-0 transition-all duration-[1.5s]"
