@@ -577,18 +577,27 @@ export function EditorialCollection() {
         )}
 
         {/* Shop the Collection CTA */}
-        <div className="flex justify-center mt-16 mb-8 relative z-40">
+        <div className="flex justify-center mt-20 mb-12 relative z-40">
           <a
             href="https://shop.gabriellebenot.com/collections/art-couture"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-4 bg-[var(--dada-red)] px-10 py-5 hover:bg-[var(--dada-red)]/90 transition-all duration-300 cursor-pointer"
+            className="group relative px-14 py-6 border border-[var(--text-muted)]/30 hover:border-[var(--dada-red)] transition-all duration-700 cursor-pointer overflow-hidden"
           >
-            <span className="font-mono text-xs uppercase tracking-[0.3em] text-white">Shop the Collection</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform duration-300">
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
+            {/* Sliding background fill on hover */}
+            <div className="absolute inset-0 bg-[var(--dada-red)] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)]" />
+            
+            {/* Corner accents */}
+            <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-[var(--dada-red)]/50 group-hover:border-white/50 transition-colors duration-700" />
+            <div className="absolute top-2 right-2 w-3 h-3 border-t border-r border-[var(--dada-red)]/50 group-hover:border-white/50 transition-colors duration-700" />
+            <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-[var(--dada-red)]/50 group-hover:border-white/50 transition-colors duration-700" />
+            <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-[var(--dada-red)]/50 group-hover:border-white/50 transition-colors duration-700" />
+            
+            {/* Text */}
+            <span className="relative z-10 flex items-center gap-5">
+              <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--text-main)] group-hover:text-white transition-colors duration-700">Shop the Collection</span>
+              <span className="w-8 h-[0.5px] bg-[var(--dada-red)] group-hover:bg-white transition-colors duration-700" />
+            </span>
           </a>
         </div>
       </div>
