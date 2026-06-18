@@ -27,14 +27,14 @@ export function StorySection() {
               Together as &ldquo;Gabi et Char,&rdquo; they built a luxury atelier where original artworks and one-of-a-kind garments are created side by side, each one informing the other. Gabrielle brings a refined European eye for color and composition. Charmaigne brings decades of couture precision shaped by a life spanning continents. The result is fashion that carries the soul of fine art, and art that moves like couture.
             </p>
           </div>
-          <div className="flex-1 flex justify-center md:justify-end">
+          <div className="flex flex-col items-center">
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border border-white/10 shadow-2xl group">
               <div className="absolute inset-0 bg-[var(--dada-red-glow)] mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 pointer-events-none" />
               <img 
                 src="/images/gabi_et_char_cropped.jpg" 
                 alt="Gabrielle Benot and Charmaigne Menn founders of Art Couture atelier" 
                 loading="lazy"
-                className="w-full h-full object-cover object-bottom scale-125 grayscale group-hover:grayscale-0 transition-all duration-[1.5s]"
+                className="w-full h-full object-cover object-center scale-110 grayscale group-hover:grayscale-0 transition-all duration-[1.5s]"
               />
             </div>
             <span className="block text-center font-serif text-sm tracking-[0.15em] text-[var(--text-muted)] mt-4">Charmaigne Menn &amp; Gabrielle Benot</span>
