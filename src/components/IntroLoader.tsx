@@ -60,20 +60,20 @@ export function IntroLoader() {
       <section className={`fixed inset-0 z-[9999] w-full h-screen overflow-hidden bg-[#fafaf8] transition-all duration-700 ${phase === "done" ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <div className="absolute inset-0 flex flex-col lg:flex-row">
           {/* Left Side: Text */}
-          <div className="w-full lg:w-[45%] h-1/2 lg:h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 z-10 bg-[#fafaf8]">
+          <div className="w-full lg:w-[45%] h-auto lg:h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 z-10 bg-[#fafaf8] pt-12 lg:pt-0">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.1 }}
             >
-              <span className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--dada-red)] mb-6 block">Art Couture Studio</span>
+              <span className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--dada-red)] mb-4 lg:mb-6 block">Art Couture Studio</span>
             </motion.div>
 
             <motion.h1 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-sans font-black tracking-tighter text-[#050505] leading-[1.05] mb-8"
+              className="text-4xl md:text-6xl lg:text-7xl font-sans font-black tracking-tighter text-[#050505] leading-[1.05] mb-4 lg:mb-8"
             >
               Where vision becomes style<br/>and style becomes <span className="font-serif italic font-normal">art.</span>
             </motion.h1>
@@ -82,15 +82,17 @@ export function IntroLoader() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
-              className="text-lg md:text-xl font-serif text-[#050505]/70 leading-relaxed mb-12 max-w-md"
+              className="text-base md:text-xl font-serif text-[#050505]/70 leading-relaxed mb-6 lg:mb-12 max-w-md hidden lg:block"
             >
-              Step inside the atelier where original paintings become haute couture. Every color, every brushstroke, every bespoke gown, crafted entirely by hand in La Jolla.
+              Step inside the atelier where original paintings become haute couture. Every color, every brushstroke, every bespoke gown, crafted entirely by hand.
             </motion.p>
             
+            {/* Click to enter - desktop only (mobile version at bottom) */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.7 }}
+              className="hidden lg:block"
             >
               <MagneticButton>
                 <button 
@@ -103,17 +105,34 @@ export function IntroLoader() {
             </motion.div>
           </div>
 
-          {/* Right Side: Image */}
-          <div className="w-full lg:w-[55%] h-1/2 lg:h-full relative flex items-center justify-center p-8">
+          {/* Right Side: Image - larger on mobile */}
+          <div className="w-full lg:w-[55%] flex-1 lg:h-full relative flex items-center justify-center p-4 lg:p-8">
             <motion.img 
               initial={{ scale: 1.1, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 2, ease: "easeOut" }}
               src="https://storage.googleapis.com/mixo-sites/images/file-b2b2d022-3c50-445d-92df-17b797dfa179.png" 
-              alt="Art Couture by Gabrielle Benot and Charmaigne Menn – bespoke haute couture atelier La Jolla" 
+              alt="Art Couture by Gabrielle Benot and Charmaigne Menn, bespoke haute couture atelier" 
               className="w-full h-full object-contain mix-blend-multiply"
             />
           </div>
+
+          {/* Click to enter - mobile only, fixed at bottom center */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.7 }}
+            className="lg:hidden absolute bottom-8 left-0 right-0 flex justify-center z-20"
+          >
+            <MagneticButton>
+              <button 
+                onClick={handleEnter}
+                className="bg-black text-white px-10 py-5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-[var(--dada-red)] transition-colors duration-300"
+              >
+                Click to enter
+              </button>
+            </MagneticButton>
+          </motion.div>
         </div>
       </section>
 
