@@ -214,7 +214,7 @@ export default function Home() {
 
           {/* Intro text */}
           <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-xl">
-            Every gown starts as a painting. Gabi paints it, Char builds it. The colors on our canvases are the same ones you&apos;ll wear. No two pieces are ever alike.
+            An artist trained in the ateliers of Copenhagen. A couturi&egrave;re who has dressed prominent clients across three continents for over 25 years. Together, they create what neither could alone.
           </p>
         </motion.div>
       </section>
@@ -234,7 +234,7 @@ export default function Home() {
             <span className="font-mono text-xs uppercase tracking-[0.4em] mt-2 md:mt-8 text-white/70">Wear it without apology.</span>
           </span>
         }
-        text={<p>Our palettes begin on canvas before they ever touch fabric. Bold contemporary painting meets classical form. These pieces don&apos;t just enter a room. They own it.</p>}
+        text={<p>Gabrielle studied fashion design at the Copenhagen School of Design before turning to painting full-time. That trained eye for silhouette lives in every brushstroke. The palettes begin on canvas. The couture follows.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-0ae10f15-2ee8-43af-885e-16f4bbe10af4.png"
         imgAlt="Art Couture original watercolor painting by Gabrielle Benot"
         imageClassName="flex-[1.44] w-full -ml-4 md:ml-0"
@@ -250,7 +250,7 @@ export default function Home() {
             <span className="font-serif italic font-light text-[4rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8]">Couture</span>
           </span>
         }
-        text={<p>Gabrielle&apos;s paintings aren&apos;t mood boards. They&apos;re the source material. The textures in her brushwork determine the weight and drape of every fabric Char selects. What hangs on the gallery wall becomes what you wear on the floor.</p>}
+        text={<p>Gabrielle&apos;s paintings are never mood boards. They are the blueprint. The textures in her brushwork, the weight of her impasto, the way pigment catches light: all of it determines which fabrics Charmaigne will source, how they&apos;ll drape, how they&apos;ll move.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-7c7c79ac-f9d7-4fe7-bcd1-7d29e0eae366.png"
         imgAlt="Gabrielle Benot original abstract painting for couture collection"
         imageClassName="flex-[1.44] w-full"
@@ -279,7 +279,7 @@ export default function Home() {
               <span className="font-serif italic font-light text-[3rem] md:text-[5rem] text-[var(--dada-red)] leading-[0.8]">Meets Skin.</span>
             </h3>
             <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-md">
-              Every face Gabrielle paints carries the same philosophy as the gowns: color should live on the body, not just beside it. These are the studies that become silhouettes.
+              Gabrielle has always been drawn to texture. Layers of pigment, mixed media, raw canvas showing through. That same obsession shapes the couture: tactile fabrics, dimensional embroidery, surfaces you want to touch.
             </p>
           </div>
         </motion.div>
@@ -309,7 +309,7 @@ export default function Home() {
             <span className="font-sans font-black text-[3rem] md:text-9xl lg:text-[11rem] uppercase tracking-tighter mt-2 text-[var(--dada-red)] leading-[0.8]">from our art.</span>
           </span>
         }
-        text={<p>We don&apos;t source prints from a catalog. Gabi paints them, and Char engineers every yard of fabric so the brushstrokes follow the curves of your body. Bold geometry meets organic flow. What you see on the gallery wall becomes what you wear.</p>}
+        text={<p>We never source prints from a catalog. Gabrielle paints them by hand, and Charmaigne engineers every yard so the brushstrokes follow the curves of the body. Bold geometry meets organic flow. The fabric becomes an extension of the canvas.</p>}
         imgSrc="/images/patterns_fabric.jpg"
         imgAlt="Hand-painted silk fabric pattern by Art Couture atelier"
         imageClassName="flex-1 w-full scale-110 md:scale-100 flex justify-center"
@@ -324,7 +324,7 @@ export default function Home() {
             <span className="font-serif font-extralight text-4xl md:text-6xl mt-4">Striking Silhouettes.</span>
           </span>
         }
-        text={<p>These aren&apos;t decorations placed on fabric. They&apos;re built into it. Every line is deliberate, every color hand-mixed. The garments shift and reveal new details as you move. That&apos;s the whole point.</p>}
+        text={<p>Nothing is applied. Everything is built in. Every line is deliberate, every color hand-mixed from Gabrielle&apos;s original palette. The garments shift and reveal new details as you move, because that is what art should do.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
         imgAlt="Bespoke geometric couture fabric pattern by Art Couture"
         imageClassName="w-[calc(100%+3rem)] -ml-[calc(1.5rem+5%)] md:ml-0 md:w-full -mt-6 md:mt-0 md:flex-[1.44] overflow-hidden"
@@ -368,10 +368,10 @@ export default function Home() {
             <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">feel.</span>
           </h2>
           <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mb-4">
-            Lun&eacute;ville hook embroidery, hand-beading, sculptural draping. These are old-world techniques that take real time. We don&apos;t rush. You can feel the difference in the weight of the silk, the architecture of the corset, the finish of every hidden seam.
+            Gabrielle is obsessed with texture, and that obsession runs through everything we create. Lun&eacute;ville hook embroidery, hand-beading, sculptural draping: old-world techniques that take real time. We never rush. You can feel the difference in the weight of the silk, the architecture of the corset, the finish of every hidden seam.
           </p>
           <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl">
-            Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle layered with precision. We source our textiles from Europe&apos;s finest mills. No detail is overlooked, no shortcut taken.
+            Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle layered with precision. Charmaigne sources our textiles from Europe&apos;s finest mills, selecting each fabric for how it feels against the skin. No detail is overlooked, no shortcut taken.
           </p>
         </motion.div>
 
