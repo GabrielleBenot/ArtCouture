@@ -397,20 +397,49 @@ export default function Home() {
             <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">The Studio</span>
             <div className="w-12 h-[1px] bg-[var(--dada-red)] mb-10" />
             
-            <div className="relative overflow-hidden aspect-[9/16] w-[70%] md:w-[35%] max-h-[65vh] rounded-sm mx-auto">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                className="w-full h-full object-cover"
-              >
-                <source src="/videos/painting_process.mp4" type="video/mp4" />
-              </video>
-              {/* Corner accents */}
-              <div className="absolute top-3 left-3 w-8 h-8 border-t-[0.5px] border-l-[0.5px] border-white/40 pointer-events-none" />
-              <div className="absolute bottom-3 right-3 w-8 h-8 border-b-[0.5px] border-r-[0.5px] border-white/40 pointer-events-none" />
+            {/* Video with flanking design */}
+            <div className="relative w-full flex items-center justify-center gap-6 md:gap-10">
+              
+              {/* Left decorative column */}
+              <div className="hidden md:flex flex-col items-end gap-6 flex-1">
+                <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-[var(--dada-red)]/30 to-transparent" />
+                <span className="font-mono text-[8px] uppercase tracking-[0.5em] text-[var(--text-muted)]/40 [writing-mode:vertical-lr] rotate-180">Mixed Media on Canvas</span>
+                <div className="w-[1px] h-20 bg-gradient-to-b from-[var(--dada-red)]/20 to-transparent" />
+                <div className="flex flex-col gap-2 items-end">
+                  <div className="w-1 h-1 rounded-full bg-[var(--dada-red)]/30" />
+                  <div className="w-1 h-1 rounded-full bg-[var(--dada-red)]/20" />
+                  <div className="w-1 h-1 rounded-full bg-[var(--dada-red)]/10" />
+                </div>
+              </div>
+
+              {/* Center video */}
+              <div className="relative overflow-hidden aspect-[9/16] w-[70%] md:w-[35%] max-h-[65vh] rounded-sm shrink-0">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-full object-cover"
+                >
+                  <source src="/videos/painting_process.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute top-3 left-3 w-8 h-8 border-t-[0.5px] border-l-[0.5px] border-white/40 pointer-events-none" />
+                <div className="absolute bottom-3 right-3 w-8 h-8 border-b-[0.5px] border-r-[0.5px] border-white/40 pointer-events-none" />
+              </div>
+
+              {/* Right decorative column */}
+              <div className="hidden md:flex flex-col items-start gap-6 flex-1">
+                <div className="flex flex-col gap-2 items-start">
+                  <div className="w-1 h-1 rounded-full bg-[var(--dada-red)]/10" />
+                  <div className="w-1 h-1 rounded-full bg-[var(--dada-red)]/20" />
+                  <div className="w-1 h-1 rounded-full bg-[var(--dada-red)]/30" />
+                </div>
+                <div className="w-[1px] h-20 bg-gradient-to-b from-transparent to-[var(--dada-red)]/20" />
+                <span className="font-mono text-[8px] uppercase tracking-[0.5em] text-[var(--text-muted)]/40 [writing-mode:vertical-lr]">Gabrielle Benot Studio</span>
+                <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-[var(--dada-red)]/30 to-transparent" />
+              </div>
+
             </div>
 
             <p className="font-serif italic text-lg md:text-xl text-[var(--text-main)] mt-8 max-w-md">
