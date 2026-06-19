@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { DressModal } from "@/components/DressModal";
 import { MagneticButton } from "./MagneticButton";
@@ -508,12 +508,40 @@ function ServiceCard({ service, onEnquire }: { service: { title: string, descrip
 }
 
 function ShopCTA({ onClick }: { onClick: () => void }) {
+  const [pulsed, setPulsed] = useState(false);
+  const shopRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = shopRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !pulsed) {
+          setPulsed(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [pulsed]);
+
   return (
     <div className="flex flex-col items-center mt-20 mb-12 relative z-40 gap-6">
       <div
+        ref={shopRef}
         onClick={onClick}
         className="group relative w-32 h-32 md:w-36 md:h-36 rounded-full border border-[var(--text-muted)]/30 hover:border-[var(--dada-red)] transition-all duration-700 cursor-pointer flex items-center justify-center overflow-hidden"
       >
+        {/* Auto-pulse fill on first view */}
+        {pulsed && (
+          <div
+            className="absolute inset-0 rounded-full bg-[var(--dada-red)] pointer-events-none"
+            style={{
+              animation: 'shopPulse 2.5s ease-in-out forwards',
+            }}
+          />
+        )}
         {/* Fill circle on hover */}
         <div className="absolute inset-0 rounded-full transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] bg-[var(--dada-red)] scale-0 group-hover:scale-100" />
         

@@ -96,15 +96,15 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage, p
             initial={{ x: "0%" }}
             animate={isInView ? { x: "-101%" } : { x: "0%" }}
             transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
-            className="absolute inset-y-0 left-0 w-1/2 bg-[#0c0c0a] z-10 flex flex-col items-end justify-center pr-3"
+            className="absolute inset-y-0 left-0 w-1/2 bg-white/40 backdrop-blur-2xl z-10 flex flex-col items-end justify-center pr-3 border-r border-white/20"
           >
             {/* Editorial accent line */}
-            <div className="absolute top-6 right-4 w-[1px] h-12 bg-[var(--dada-red)]/40" />
-            <span className="font-mono text-[7px] uppercase tracking-[0.5em] text-white/15 writing-mode-vertical rotate-180" style={{ writingMode: 'vertical-rl' }}>
+            <div className="absolute top-6 right-4 w-[1px] h-12 bg-[var(--dada-red)]/50" />
+            <span className="font-mono text-[7px] uppercase tracking-[0.5em] text-black/20 writing-mode-vertical rotate-180" style={{ writingMode: 'vertical-rl' }}>
               Art Couture
             </span>
             {/* Corner bracket */}
-            <div className="absolute bottom-6 right-4 w-8 h-8 border-b-[0.5px] border-r-[0.5px] border-white/10" />
+            <div className="absolute bottom-6 right-4 w-8 h-8 border-b-[0.5px] border-r-[0.5px] border-black/10" />
           </motion.div>
 
           {/* Right curtain panel */}
@@ -112,15 +112,15 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage, p
             initial={{ x: "0%" }}
             animate={isInView ? { x: "101%" } : { x: "0%" }}
             transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
-            className="absolute inset-y-0 right-0 w-1/2 bg-[#0c0c0a] z-10 flex flex-col items-start justify-center pl-3"
+            className="absolute inset-y-0 right-0 w-1/2 bg-white/40 backdrop-blur-2xl z-10 flex flex-col items-start justify-center pl-3 border-l border-white/20"
           >
             {/* Editorial accent line */}
-            <div className="absolute top-6 left-4 w-[1px] h-12 bg-[var(--dada-red)]/40" />
-            <span className="font-mono text-[7px] uppercase tracking-[0.5em] text-white/15" style={{ writingMode: 'vertical-rl' }}>
+            <div className="absolute top-6 left-4 w-[1px] h-12 bg-[var(--dada-red)]/50" />
+            <span className="font-mono text-[7px] uppercase tracking-[0.5em] text-black/20" style={{ writingMode: 'vertical-rl' }}>
               Atelier
             </span>
             {/* Corner bracket */}
-            <div className="absolute bottom-6 left-4 w-8 h-8 border-b-[0.5px] border-l-[0.5px] border-white/10" />
+            <div className="absolute bottom-6 left-4 w-8 h-8 border-b-[0.5px] border-l-[0.5px] border-black/10" />
           </motion.div>
 
           {/* Thin red reveal line at center seam */}
