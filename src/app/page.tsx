@@ -67,14 +67,14 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage, p
             alt={alt} 
             loading="eager"
             fetchPriority="high"
-            className={`max-w-full md:max-w-[85%] w-auto h-auto object-contain mx-auto ${className || ''}`}
+            className={`max-w-full md:max-w-[85%] w-auto h-auto object-contain mx-auto mix-blend-multiply ${className || ''}`}
           />
         </div>
 
         {/* Mobile: Split-panel curtain reveal */}
         <div 
           ref={curtainRef}
-          className="md:hidden w-full relative overflow-hidden"
+          className="md:hidden w-full relative overflow-hidden bg-[var(--background)]"
         >
           {/* The image behind the curtains */}
           <motion.div
@@ -87,7 +87,7 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage, p
               alt={alt} 
               loading="eager"
               fetchPriority="high"
-              className={`w-full h-auto object-contain ${className || ''}`}
+              className={`w-full h-auto object-contain mix-blend-multiply ${className || ''}`}
             />
           </motion.div>
 
@@ -96,7 +96,7 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage, p
             initial={{ x: "0%" }}
             animate={isInView ? { x: "-101%" } : { x: "0%" }}
             transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
-            className="absolute inset-y-0 left-0 w-1/2 bg-white/40 backdrop-blur-2xl z-10 flex flex-col items-end justify-center pr-3 border-r border-white/20"
+            className="absolute inset-y-0 left-0 w-1/2 bg-[var(--background)] backdrop-blur-2xl z-10 flex flex-col items-end justify-center pr-3 border-r border-white/20"
           >
             {/* Editorial accent line */}
             <div className="absolute top-6 right-4 w-[1px] h-12 bg-[var(--dada-red)]/50" />
@@ -112,7 +112,7 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage, p
             initial={{ x: "0%" }}
             animate={isInView ? { x: "101%" } : { x: "0%" }}
             transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
-            className="absolute inset-y-0 right-0 w-1/2 bg-white/40 backdrop-blur-2xl z-10 flex flex-col items-start justify-center pl-3 border-l border-white/20"
+            className="absolute inset-y-0 right-0 w-1/2 bg-[var(--background)] backdrop-blur-2xl z-10 flex flex-col items-start justify-center pl-3 border-l border-white/20"
           >
             {/* Editorial accent line */}
             <div className="absolute top-6 left-4 w-[1px] h-12 bg-[var(--dada-red)]/50" />
