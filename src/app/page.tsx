@@ -235,6 +235,178 @@ function FeatureSection({
   );
 }
 
+function BespokeCTA() {
+  const [bespokeOpen, setBespokeOpen] = React.useState(false);
+  return (
+    <>
+      <button
+        onClick={() => setBespokeOpen(true)}
+        className="group inline-flex items-center gap-5 animate-[subtlePulse_3s_ease-in-out_infinite]"
+      >
+        <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/30 group-hover:text-[var(--dada-red)] transition-colors duration-300">Share Your Vision</span>
+        <span className="relative w-12 h-[1px] bg-white/15 group-hover:bg-[var(--dada-red)] transition-all duration-500 overflow-hidden">
+          <span className="absolute inset-0 bg-[var(--dada-red)] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+        </span>
+      </button>
+      <p className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/20 mt-6">
+        Tell us your vision. We respond within 24 hours.
+      </p>
+      <BespokeForm isOpen={bespokeOpen} onClose={() => setBespokeOpen(false)} />
+    </>
+  );
+}
+
+function PhotoCarousel({ openLightbox }: { openLightbox: (src: string, gallery?: string[]) => void }) {
+  const photos = [
+    { src: "/images/masterpieces.jpg", label: "Editorial Session" },
+    { src: "/images/rentals.jpg", label: "Couture Rental" },
+    { src: "/images/process/painting.jpg", label: "Coming Soon" },
+    { src: "/images/process/draping.jpg", label: "Coming Soon" },
+  ];
+  const [activePhoto, setActivePhoto] = React.useState(0);
+  const touchStart = React.useRef<number | null>(null);
+  const mouseStart = React.useRef<number | null>(null);
+  const isDragging = React.useRef(false);
+  const parallaxRef = React.useRef<HTMLDivElement>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [isTouchDevice, setIsTouchDevice] = React.useState(false);
+  const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  const imgScale = useTransform(scrollYProgress, [0, 0.5], [1.15, 1]);
+
+  React.useEffect(() => {
+    setIsTouchDevice(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
+  // Touch events (mobile)
+  const handleTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStart.current === null) return;
+    const diff = touchStart.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && activePhoto < photos.length - 1) setActivePhoto(activePhoto + 1);
+      if (diff < 0 && activePhoto > 0) setActivePhoto(activePhoto - 1);
+    }
+    touchStart.current = null;
+  };
+
+  // Mouse events (desktop drag)
+  const handleMouseDown = (e: React.MouseEvent) => {
+    mouseStart.current = e.clientX;
+    isDragging.current = false;
+  };
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (mouseStart.current !== null && Math.abs(e.clientX - mouseStart.current) > 10) {
+      isDragging.current = true;
+    }
+  };
+  const handleMouseUp = (e: React.MouseEvent) => {
+    if (mouseStart.current === null) return;
+    const diff = mouseStart.current - e.clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && activePhoto < photos.length - 1) setActivePhoto(activePhoto + 1);
+      if (diff < 0 && activePhoto > 0) setActivePhoto(activePhoto - 1);
+    }
+    mouseStart.current = null;
+  };
+
+  // Keyboard navigation
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      if (!isVisible) return;
+      if (e.key === 'ArrowRight' && activePhoto < photos.length - 1) {
+        setActivePhoto(activePhoto + 1);
+      } else if (e.key === 'ArrowLeft' && activePhoto > 0) {
+        setActivePhoto(activePhoto - 1);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activePhoto, photos.length]);
+
+  return (
+    <div className="max-w-4xl mx-auto" ref={(el) => { parallaxRef.current = el; containerRef.current = el; }}>
+      <motion.div
+        key={activePhoto}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="relative w-full aspect-[4/5] md:aspect-[4/3] overflow-hidden rounded-sm mb-6 select-none md:max-h-[85vh] cursor-pointer group"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        <motion.img
+          src={photos[activePhoto].src}
+          alt={`Art Couture ${photos[activePhoto].label}`}
+          className="w-full h-full object-cover pointer-events-none"
+          style={{ y: imgY, scale: imgScale }}
+          draggable={false}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+        {/* Swipe hint on first photo (mobile only) */}
+        {activePhoto === 0 && isTouchDevice && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            animate={{ opacity: [1, 0.4, 1] }}
+            transition={{ duration: 2, repeat: 3 }}
+            className="absolute top-1/2 right-6 -translate-y-1/2 flex items-center gap-2 z-20 pointer-events-none"
+          >
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">Swipe</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/70">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </motion.div>
+        )}
+        {/* Full-coverage click zones */}
+        {activePhoto === 0 ? (
+          <button onClick={() => setActivePhoto(1)} className="absolute inset-0 z-10 cursor-e-resize" aria-label="Next photo" />
+        ) : activePhoto === photos.length - 1 ? (
+          <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute inset-0 z-10 cursor-w-resize" aria-label="Previous photo" />
+        ) : (
+          <>
+            <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute left-0 top-0 w-1/2 h-full z-10 cursor-w-resize" aria-label="Previous photo" />
+            <button onClick={() => setActivePhoto(activePhoto + 1)} className="absolute right-0 top-0 w-1/2 h-full z-10 cursor-e-resize" aria-label="Next photo" />
+          </>
+        )}
+        {/* Expand button - opens lightbox */}
+        <button 
+          onClick={() => openLightbox(photos[activePhoto].src, photos.map(p => p.src))}
+          className="absolute top-4 right-4 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/60"
+          aria-label="View full image"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
+            <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+          </svg>
+        </button>
+        <span className="absolute bottom-6 left-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/80 z-20 pointer-events-none">
+          {photos[activePhoto].label}
+        </span>
+        <span className="absolute bottom-6 right-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 z-20 pointer-events-none">
+          {activePhoto + 1} / {photos.length}
+        </span>
+      </motion.div>
+
+      {/* Navigation Dots + Label */}
+      <div className="flex flex-col items-center gap-3">
+        <div className="flex items-center gap-2">
+          {photos.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActivePhoto(i)}
+              className={`rounded-full transition-all duration-500 ${i === activePhoto ? 'w-3 h-3 bg-[var(--dada-red)]' : 'w-1.5 h-1.5 bg-[var(--text-muted)]/30 hover:bg-[var(--text-muted)]'}`}
+              aria-label={`Go to photo ${i + 1}`}
+            />
+          ))}
+        </div>
+        <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[var(--text-muted)]">{isTouchDevice ? 'Swipe to explore' : 'Click to explore'}</span>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [lightboxGallery, setLightboxGallery] = useState<string[]>([]);
@@ -503,22 +675,22 @@ export default function Home() {
               <div className="relative w-[64%] md:w-full">
                 {/* Viewfinder Elements */}
                 {/* Left/Right lines */}
-                <div className="absolute top-0 bottom-0 -left-4 w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none" />
-                <div className="absolute top-0 bottom-0 -right-4 w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none" />
+                <div className="absolute top-0 bottom-0 -left-4 w-[1px] bg-gradient-to-b from-transparent via-white/35 to-transparent pointer-events-none" />
+                <div className="absolute top-0 bottom-0 -right-4 w-[1px] bg-gradient-to-b from-transparent via-white/35 to-transparent pointer-events-none" />
                 
                 {/* Left/Right vertical text labels */}
-                <div className="absolute top-1/2 -translate-y-1/2 -left-6 [writing-mode:vertical-lr] font-mono text-[6px] tracking-[0.25em] text-white/20 select-none uppercase pointer-events-none">
+                <div className="absolute top-1/2 -translate-y-1/2 -left-6 [writing-mode:vertical-lr] font-mono text-[6px] tracking-[0.25em] text-white/50 select-none uppercase pointer-events-none">
                   PROCESS // 01
                 </div>
-                <div className="absolute top-1/2 -translate-y-1/2 -right-6 [writing-mode:vertical-lr] font-mono text-[6px] tracking-[0.25em] text-[var(--dada-red)]/35 select-none uppercase pointer-events-none">
+                <div className="absolute top-1/2 -translate-y-1/2 -right-6 [writing-mode:vertical-lr] font-mono text-[6px] tracking-[0.25em] text-[var(--dada-red)]/75 select-none uppercase pointer-events-none">
                   CANVAS // SILK
                 </div>
 
                 {/* Viewfinder Corner Brackets */}
-                <div className="absolute -top-1.5 -left-1.5 w-2 h-2 border-t border-l border-[var(--dada-red)]/40 pointer-events-none" />
-                <div className="absolute -top-1.5 -right-1.5 w-2 h-2 border-t border-r border-white/15 pointer-events-none" />
-                <div className="absolute -bottom-1.5 -left-1.5 w-2 h-2 border-b border-l border-white/15 pointer-events-none" />
-                <div className="absolute -bottom-1.5 -right-1.5 w-2 h-2 border-b border-r border-[var(--dada-red)]/40 pointer-events-none" />
+                <div className="absolute -top-1.5 -left-1.5 w-2 h-2 border-t border-l border-[var(--dada-red)]/75 pointer-events-none" />
+                <div className="absolute -top-1.5 -right-1.5 w-2 h-2 border-t border-r border-white/45 pointer-events-none" />
+                <div className="absolute -bottom-1.5 -left-1.5 w-2 h-2 border-b border-l border-white/45 pointer-events-none" />
+                <div className="absolute -bottom-1.5 -right-1.5 w-2 h-2 border-b border-r border-[var(--dada-red)]/75 pointer-events-none" />
 
                 {/* Video Frame */}
                 <div className="relative overflow-hidden aspect-[9/16] w-full rounded-sm shadow-2xl shadow-black/50">
@@ -552,22 +724,22 @@ export default function Home() {
               <div className="relative w-[64%] md:w-full">
                 {/* Viewfinder Elements */}
                 {/* Left/Right lines */}
-                <div className="absolute top-0 bottom-0 -left-4 w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none" />
-                <div className="absolute top-0 bottom-0 -right-4 w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none" />
+                <div className="absolute top-0 bottom-0 -left-4 w-[1px] bg-gradient-to-b from-transparent via-white/35 to-transparent pointer-events-none" />
+                <div className="absolute top-0 bottom-0 -right-4 w-[1px] bg-gradient-to-b from-transparent via-white/35 to-transparent pointer-events-none" />
                 
                 {/* Left/Right vertical text labels */}
-                <div className="absolute top-1/2 -translate-y-1/2 -left-6 [writing-mode:vertical-lr] font-mono text-[6px] tracking-[0.25em] text-[var(--dada-red)]/35 select-none uppercase pointer-events-none">
+                <div className="absolute top-1/2 -translate-y-1/2 -left-6 [writing-mode:vertical-lr] font-mono text-[6px] tracking-[0.25em] text-[var(--dada-red)]/75 select-none uppercase pointer-events-none">
                   COUTURE // 02
                 </div>
-                <div className="absolute top-1/2 -translate-y-1/2 -right-6 [writing-mode:vertical-lr] font-mono text-[6px] tracking-[0.25em] text-white/20 select-none uppercase pointer-events-none">
+                <div className="absolute top-1/2 -translate-y-1/2 -right-6 [writing-mode:vertical-lr] font-mono text-[6px] tracking-[0.25em] text-white/50 select-none uppercase pointer-events-none">
                   DESIGN // DRAPE
                 </div>
 
                 {/* Viewfinder Corner Brackets */}
-                <div className="absolute -top-1.5 -left-1.5 w-2 h-2 border-t border-l border-white/15 pointer-events-none" />
-                <div className="absolute -top-1.5 -right-1.5 w-2 h-2 border-t border-r border-[var(--dada-red)]/40 pointer-events-none" />
-                <div className="absolute -bottom-1.5 -left-1.5 w-2 h-2 border-b border-l border-[var(--dada-red)]/40 pointer-events-none" />
-                <div className="absolute -bottom-1.5 -right-1.5 w-2 h-2 border-b border-r border-white/15 pointer-events-none" />
+                <div className="absolute -top-1.5 -left-1.5 w-2 h-2 border-t border-l border-white/45 pointer-events-none" />
+                <div className="absolute -top-1.5 -right-1.5 w-2 h-2 border-t border-r border-[var(--dada-red)]/75 pointer-events-none" />
+                <div className="absolute -bottom-1.5 -left-1.5 w-2 h-2 border-b border-l border-[var(--dada-red)]/75 pointer-events-none" />
+                <div className="absolute -bottom-1.5 -right-1.5 w-2 h-2 border-b border-r border-white/45 pointer-events-none" />
 
                 {/* Video Frame */}
                 <div className="relative overflow-hidden aspect-[9/16] w-full rounded-sm shadow-2xl shadow-black/50">
@@ -850,26 +1022,7 @@ export default function Home() {
                 <p className="font-serif italic text-lg md:text-xl text-white/40 leading-relaxed mb-10">
                   &ldquo;Your inspiration becomes your gown. Every brushstroke, every shade of light, every detail, reimagined in silk and thread.&rdquo;
                 </p>
-                {(() => {
-                  const [bespokeOpen, setBespokeOpen] = React.useState(false);
-                  return (
-                    <>
-                      <button
-                        onClick={() => setBespokeOpen(true)}
-                        className="group inline-flex items-center gap-5 animate-[subtlePulse_3s_ease-in-out_infinite]"
-                      >
-                        <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/30 group-hover:text-[var(--dada-red)] transition-colors duration-300">Share Your Vision</span>
-                        <span className="relative w-12 h-[1px] bg-white/15 group-hover:bg-[var(--dada-red)] transition-all duration-500 overflow-hidden">
-                          <span className="absolute inset-0 bg-[var(--dada-red)] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-                        </span>
-                      </button>
-                      <p className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/20 mt-6">
-                        Tell us your vision. We respond within 24 hours.
-                      </p>
-                      <BespokeForm isOpen={bespokeOpen} onClose={() => setBespokeOpen(false)} />
-                    </>
-                  );
-                })()}
+                <BespokeCTA />
               </div>
             </motion.div>
           </div>
@@ -955,155 +1108,7 @@ export default function Home() {
         </motion.div>
 
         {/* Full-Size Photo Carousel */}
-        {(() => {
-          const photos = [
-            { src: "/images/masterpieces.jpg", label: "Editorial Session" },
-            { src: "/images/rentals.jpg", label: "Couture Rental" },
-            { src: "/images/process/painting.jpg", label: "Coming Soon" },
-            { src: "/images/process/draping.jpg", label: "Coming Soon" },
-          ];
-          const [activePhoto, setActivePhoto] = React.useState(0);
-          const touchStart = React.useRef<number | null>(null);
-          const mouseStart = React.useRef<number | null>(null);
-          const isDragging = React.useRef(false);
-          const parallaxRef = React.useRef<HTMLDivElement>(null);
-          const containerRef = React.useRef<HTMLDivElement>(null);
-          const [isTouchDevice, setIsTouchDevice] = React.useState(false);
-          const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] });
-          const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
-          const imgScale = useTransform(scrollYProgress, [0, 0.5], [1.15, 1]);
-
-          React.useEffect(() => {
-            setIsTouchDevice(window.matchMedia("(pointer: coarse)").matches);
-          }, []);
-
-          // Touch events (mobile)
-          const handleTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
-          const handleTouchEnd = (e: React.TouchEvent) => {
-            if (touchStart.current === null) return;
-            const diff = touchStart.current - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 50) {
-              if (diff > 0 && activePhoto < photos.length - 1) setActivePhoto(activePhoto + 1);
-              if (diff < 0 && activePhoto > 0) setActivePhoto(activePhoto - 1);
-            }
-            touchStart.current = null;
-          };
-
-          // Mouse events (desktop drag)
-          const handleMouseDown = (e: React.MouseEvent) => {
-            mouseStart.current = e.clientX;
-            isDragging.current = false;
-          };
-          const handleMouseMove = (e: React.MouseEvent) => {
-            if (mouseStart.current !== null && Math.abs(e.clientX - mouseStart.current) > 10) {
-              isDragging.current = true;
-            }
-          };
-          const handleMouseUp = (e: React.MouseEvent) => {
-            if (mouseStart.current === null) return;
-            const diff = mouseStart.current - e.clientX;
-            if (Math.abs(diff) > 50) {
-              if (diff > 0 && activePhoto < photos.length - 1) setActivePhoto(activePhoto + 1);
-              if (diff < 0 && activePhoto > 0) setActivePhoto(activePhoto - 1);
-            }
-            mouseStart.current = null;
-          };
-
-          // Keyboard navigation
-          React.useEffect(() => {
-            const handleKeyDown = (e: KeyboardEvent) => {
-              if (!containerRef.current) return;
-              const rect = containerRef.current.getBoundingClientRect();
-              const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-              if (!isVisible) return;
-              if (e.key === 'ArrowRight' && activePhoto < photos.length - 1) {
-                setActivePhoto(activePhoto + 1);
-              } else if (e.key === 'ArrowLeft' && activePhoto > 0) {
-                setActivePhoto(activePhoto - 1);
-              }
-            };
-            window.addEventListener('keydown', handleKeyDown);
-            return () => window.removeEventListener('keydown', handleKeyDown);
-          }, [activePhoto, photos.length]);
-          return (
-            <div className="max-w-4xl mx-auto" ref={(el) => { parallaxRef.current = el; containerRef.current = el; }}>
-              <motion.div
-                key={activePhoto}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
-                className="relative w-full aspect-[4/5] md:aspect-[4/3] overflow-hidden rounded-sm mb-6 select-none md:max-h-[85vh] cursor-pointer group"
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
-              >
-                <motion.img
-                  src={photos[activePhoto].src}
-                  alt={`Art Couture ${photos[activePhoto].label}`}
-                  className="w-full h-full object-cover pointer-events-none"
-                  style={{ y: imgY, scale: imgScale }}
-                  draggable={false}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                {/* Swipe hint on first photo (mobile only) */}
-                {activePhoto === 0 && isTouchDevice && (
-                  <motion.div
-                    initial={{ opacity: 1 }}
-                    animate={{ opacity: [1, 0.4, 1] }}
-                    transition={{ duration: 2, repeat: 3 }}
-                    className="absolute top-1/2 right-6 -translate-y-1/2 flex items-center gap-2 z-20 pointer-events-none"
-                  >
-                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">Swipe</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/70">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </motion.div>
-                )}
-                {/* Full-coverage click zones */}
-                {activePhoto === 0 ? (
-                  <button onClick={() => setActivePhoto(1)} className="absolute inset-0 z-10 cursor-e-resize" aria-label="Next photo" />
-                ) : activePhoto === photos.length - 1 ? (
-                  <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute inset-0 z-10 cursor-w-resize" aria-label="Previous photo" />
-                ) : (
-                  <>
-                    <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute left-0 top-0 w-1/2 h-full z-10 cursor-w-resize" aria-label="Previous photo" />
-                    <button onClick={() => setActivePhoto(activePhoto + 1)} className="absolute right-0 top-0 w-1/2 h-full z-10 cursor-e-resize" aria-label="Next photo" />
-                  </>
-                )}
-                {/* Expand button - opens lightbox */}
-                <button 
-                  onClick={() => openLightbox(photos[activePhoto].src, photos.map(p => p.src))}
-                  className="absolute top-4 right-4 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/60"
-                  aria-label="View full image"
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
-                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-                  </svg>
-                </button>
-                <span className="absolute bottom-6 left-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/80 z-20 pointer-events-none">
-                  {photos[activePhoto].label}
-                </span>
-                <span className="absolute bottom-6 right-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 z-20 pointer-events-none">
-                  {activePhoto + 1} / {photos.length}
-                </span>
-              </motion.div>
-
-              {/* Navigation Dots + Label */}
-              <div className="flex flex-col items-center gap-3">
-                <div className="flex items-center gap-2">
-                  {photos.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setActivePhoto(i)}
-                      className={`rounded-full transition-all duration-500 ${i === activePhoto ? 'w-3 h-3 bg-[var(--dada-red)]' : 'w-1.5 h-1.5 bg-[var(--text-muted)]/30 hover:bg-[var(--text-muted)]'}`}
-                      aria-label={`Go to photo ${i + 1}`}
-                    />
-                  ))}
-                </div>
-                <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[var(--text-muted)]">{isTouchDevice ? 'Swipe to explore' : 'Click to explore'}</span>
-              </div>
-            </div>
-          );
-        })()}
+        <PhotoCarousel openLightbox={openLightbox} />
       </section>
 
       {/* 9. NEWS & EVENTS */}
