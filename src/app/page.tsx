@@ -39,8 +39,8 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
     <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
       {blend ? (
         <div className="w-full flex justify-center">
-          {/* Fully static cropped semicircle, no parallax to prevent reveal */}
-          <div className="md:h-[45vh] md:overflow-hidden w-full flex justify-center">
+          {/* Hard clip-path semicircle, impossible to reveal on scroll */}
+          <div className="w-full flex justify-center" style={{ clipPath: 'inset(0 0 50% 0)' }}>
             <div className="max-w-full md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden bg-[var(--background)] mx-auto" style={{ filter: 'drop-shadow(0 25px 40px rgba(0,0,0,0.12)) drop-shadow(0 8px 16px rgba(0,0,0,0.08))' }}>
               <img 
                 src={src} 
@@ -71,7 +71,7 @@ function ScrollRevealImage() {
     target: imgRef,
     offset: ["start end", "end start"]
   });
-  const grayscaleValue = useTransform(scrollYProgress, [0, 0.65, 0.75], [1, 1, 0]);
+  const grayscaleValue = useTransform(scrollYProgress, [0, 0.55, 0.75], [1, 1, 0]);
   const grayscale = useTransform(grayscaleValue, (v: number) => `grayscale(${v})`);
 
   return (
