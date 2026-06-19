@@ -533,9 +533,10 @@ export default function Home() {
           <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.3)] mb-8 group">
             <div className="absolute inset-0 bg-[var(--dada-red-glow)] mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 pointer-events-none" />
             <img 
-              src="https://storage.googleapis.com/mixo-sites/images/file-79d83dc3-308d-4dd6-9173-8dc2170520f7.jpeg" 
+              src="/images/gabi_char.jpg" 
               alt="Gabrielle Benot and Charmaigne Menn, founders of Art Couture" 
-              loading="lazy"
+              loading="eager"
+              fetchPriority="high"
               className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[1.5s]"
             />
           </div>

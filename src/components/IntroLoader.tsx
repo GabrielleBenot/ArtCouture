@@ -42,6 +42,7 @@ export function IntroLoader() {
 
     // Preload key below-the-fold images during the curtain animation
     const preloadImages = [
+      '/images/gabi_char.jpg',
       '/images/color_is_power.jpg',
       '/images/patterns_fabric.jpg',
       '/images/luxury_detail.jpg',

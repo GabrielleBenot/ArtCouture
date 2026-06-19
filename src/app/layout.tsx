@@ -83,6 +83,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Preload key images so they're ready before user scrolls */}
+        <link rel="preload" href="/images/gabi_char.jpg" as="image" type="image/jpeg" />
         <link rel="preload" href="/images/color_is_power.jpg" as="image" type="image/jpeg" />
         <link rel="preload" href="/images/patterns_fabric.jpg" as="image" type="image/jpeg" />
       </head>
