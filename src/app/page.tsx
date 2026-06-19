@@ -744,10 +744,10 @@ export default function Home() {
                     <>
                       <button
                         onClick={() => setBespokeOpen(true)}
-                        className="group inline-flex items-center gap-5"
+                        className="group inline-flex items-center gap-5 animate-[subtlePulse_3s_ease-in-out_infinite]"
                       >
-                        <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/70 group-hover:text-[var(--dada-red)] transition-colors duration-300">Share Your Vision</span>
-                        <span className="relative w-12 h-[1px] bg-white/20 group-hover:bg-[var(--dada-red)] transition-all duration-500 overflow-hidden">
+                        <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/30 group-hover:text-[var(--dada-red)] transition-colors duration-300">Share Your Vision</span>
+                        <span className="relative w-12 h-[1px] bg-white/15 group-hover:bg-[var(--dada-red)] transition-all duration-500 overflow-hidden">
                           <span className="absolute inset-0 bg-[var(--dada-red)] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
                         </span>
                       </button>
@@ -946,13 +946,16 @@ export default function Home() {
                     </svg>
                   </motion.div>
                 )}
-                {/* Click left half to go back */}
-                {activePhoto > 0 && (
-                  <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute left-0 top-0 w-[40%] h-full z-10 cursor-w-resize" aria-label="Previous photo" />
-                )}
-                {/* Click right half to go forward */}
-                {activePhoto < photos.length - 1 && (
-                  <button onClick={() => setActivePhoto(activePhoto + 1)} className="absolute right-0 top-0 w-[40%] h-full z-10 cursor-e-resize" aria-label="Next photo" />
+                {/* Full-coverage click zones */}
+                {activePhoto === 0 ? (
+                  <button onClick={() => setActivePhoto(1)} className="absolute inset-0 z-10 cursor-e-resize" aria-label="Next photo" />
+                ) : activePhoto === photos.length - 1 ? (
+                  <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute inset-0 z-10 cursor-w-resize" aria-label="Previous photo" />
+                ) : (
+                  <>
+                    <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute left-0 top-0 w-1/2 h-full z-10 cursor-w-resize" aria-label="Previous photo" />
+                    <button onClick={() => setActivePhoto(activePhoto + 1)} className="absolute right-0 top-0 w-1/2 h-full z-10 cursor-e-resize" aria-label="Next photo" />
+                  </>
                 )}
                 {/* Expand button - opens lightbox */}
                 <button 

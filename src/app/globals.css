@@ -50,3 +50,8 @@ body {
   background: var(--dada-red);
   border-radius: 2px;
 }
+
+@keyframes subtlePulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; filter: drop-shadow(0 0 6px var(--dada-red)); }
+}
