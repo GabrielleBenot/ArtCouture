@@ -83,9 +83,11 @@ export function IntroLoader() {
             className="absolute inset-0 z-0"
           >
             <img 
-              src="https://storage.googleapis.com/mixo-sites/images/file-b2b2d022-3c50-445d-92df-17b797dfa179.png" 
+              src="/images/intro_bg.jpg" 
               alt="" 
               role="presentation"
+              loading="eager"
+              fetchPriority="high"
               className="w-full h-full object-cover"
             />
           </motion.div>
@@ -157,8 +159,10 @@ export function IntroLoader() {
             className="absolute inset-0 z-0"
           >
             <img 
-              src="https://storage.googleapis.com/mixo-sites/images/file-b2b2d022-3c50-445d-92df-17b797dfa179.png" 
+              src="/images/intro_bg.jpg" 
               alt="Art Couture by Gabrielle Benot and Charmaigne Menn, bespoke haute couture atelier" 
+              loading="eager"
+              fetchPriority="high"
               className="w-full h-full object-cover"
             />
           </motion.div>
