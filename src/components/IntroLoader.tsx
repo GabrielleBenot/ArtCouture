@@ -170,15 +170,22 @@ export function IntroLoader() {
               <MagneticButton>
                 <button 
                   onClick={handleEnter}
-                  className="bg-black text-white px-10 py-5 font-mono text-xs uppercase tracking-[0.2em] hover:bg-[var(--dada-red)] transition-colors duration-300"
+                  className="group relative overflow-hidden border border-[#050505]/20 hover:border-[var(--dada-red)] px-12 py-5 transition-all duration-700 cursor-pointer"
                 >
-                  Click to enter
+                  {/* Hover fill */}
+                  <span className="absolute inset-0 bg-[var(--dada-red)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] origin-left" />
+                  
+                  {/* Button text */}
+                  <span className="relative z-10 flex items-center gap-4">
+                    <span className="font-serif italic text-base tracking-[0.15em] text-[#050505] group-hover:text-white transition-colors duration-500">Enter the Atelier</span>
+                    <span className="w-8 h-[1px] bg-[var(--dada-red)] group-hover:bg-white group-hover:w-12 transition-all duration-500" />
+                  </span>
                 </button>
               </MagneticButton>
             </motion.div>
           </div>
 
-          <div className="w-[55%] h-full relative flex items-center justify-center p-8">
+          <div className="w-[55%] h-full relative flex items-center justify-center p-8 bg-[#fafaf8]">
             <motion.img 
               initial={{ scale: 1.1, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}

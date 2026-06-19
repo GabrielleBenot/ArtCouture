@@ -403,7 +403,7 @@ export default function Home() {
               src="/images/luxury_detail.jpg"
               alt="Art Couture hand-embroidered lace detail close-up"
               loading="lazy"
-              className="w-full object-cover grayscale hover:grayscale-0 transition-all duration-[1.5s]"
+              className="w-full object-cover grayscale hover:grayscale-0 transition-all duration-[1.5s] md:max-h-[60vh]"
             />
           </motion.div>
         </div>
@@ -513,6 +513,98 @@ export default function Home() {
 
       </section>
 
+      {/* YOUR VISION, OUR CRAFT - Bespoke Inspiration */}
+      <section className="py-24 md:py-36 relative overflow-hidden">
+        {/* Subtle background accent */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
+        </div>
+
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-center mb-16"
+          >
+            <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--dada-red)] mb-8">Bespoke Inspiration</span>
+            <h2 className="flex flex-col items-center mb-8">
+              <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Your Vision,</span>
+              <span className="font-sans font-black text-[3.5rem] md:text-8xl lg:text-[10rem] uppercase tracking-tighter mt-1 text-[var(--dada-red)] leading-[0.8]">Our Craft.</span>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="max-w-3xl mx-auto text-center mb-20"
+          >
+            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] mb-6">
+              You have an image that moves you. A painting that takes your breath away. A photograph that captured a moment you want to wear forever. A color, a texture, a feeling you cannot put into words but can see in your mind.
+            </p>
+            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8]">
+              Bring it to us. We will study every detail, every brushstroke, every shade of light, and translate it into a one-of-a-kind couture creation made exclusively for you. Your inspiration becomes your gown.
+            </p>
+          </motion.div>
+
+          {/* Inspiration categories */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 max-w-4xl mx-auto mb-20"
+          >
+            {[
+              { label: "A Painting", icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" },
+              { label: "A Photograph", icon: "M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z" },
+              { label: "A Place", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" },
+              { label: "A Memory", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
+            ].map((item, i) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 * i }}
+                className="flex flex-col items-center gap-4 group"
+              >
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-[var(--border-light)] flex items-center justify-center group-hover:border-[var(--dada-red)] transition-colors duration-500">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--text-muted)] group-hover:text-[var(--dada-red)] transition-colors duration-500">
+                    <path d={item.icon} />
+                  </svg>
+                </div>
+                <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-[var(--text-muted)]">{item.label}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-center"
+          >
+            <a
+              href="mailto:artcouturestudio@gmail.com?subject=Bespoke%20Inspiration%20Enquiry"
+              className="group inline-flex items-center gap-4 border border-[var(--text-muted)]/30 px-10 py-5 hover:border-[var(--dada-red)] transition-all duration-500"
+            >
+              <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--text-main)] group-hover:text-[var(--dada-red)] transition-colors duration-300">Share Your Vision</span>
+              <span className="w-8 h-[1px] bg-[var(--text-muted)] group-hover:bg-[var(--dada-red)] group-hover:w-12 transition-all duration-500"></span>
+            </a>
+            <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--text-muted)] mt-6">
+              Send us an image. We will respond within 24 hours.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* OUR SERVICES */}
       <ServicesGrid />
 
@@ -551,10 +643,20 @@ export default function Home() {
           ];
           const [activePhoto, setActivePhoto] = React.useState(0);
           const touchStart = React.useRef<number | null>(null);
+          const mouseStart = React.useRef<number | null>(null);
+          const isDragging = React.useRef(false);
           const parallaxRef = React.useRef<HTMLDivElement>(null);
+          const containerRef = React.useRef<HTMLDivElement>(null);
+          const [isTouchDevice, setIsTouchDevice] = React.useState(false);
           const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] });
           const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
           const imgScale = useTransform(scrollYProgress, [0, 0.5], [1.15, 1]);
+
+          React.useEffect(() => {
+            setIsTouchDevice(window.matchMedia("(pointer: coarse)").matches);
+          }, []);
+
+          // Touch events (mobile)
           const handleTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
           const handleTouchEnd = (e: React.TouchEvent) => {
             if (touchStart.current === null) return;
@@ -565,17 +667,58 @@ export default function Home() {
             }
             touchStart.current = null;
           };
+
+          // Mouse events (desktop drag)
+          const handleMouseDown = (e: React.MouseEvent) => {
+            mouseStart.current = e.clientX;
+            isDragging.current = false;
+          };
+          const handleMouseMove = (e: React.MouseEvent) => {
+            if (mouseStart.current !== null && Math.abs(e.clientX - mouseStart.current) > 10) {
+              isDragging.current = true;
+            }
+          };
+          const handleMouseUp = (e: React.MouseEvent) => {
+            if (mouseStart.current === null) return;
+            const diff = mouseStart.current - e.clientX;
+            if (Math.abs(diff) > 50) {
+              if (diff > 0 && activePhoto < photos.length - 1) setActivePhoto(activePhoto + 1);
+              if (diff < 0 && activePhoto > 0) setActivePhoto(activePhoto - 1);
+            }
+            mouseStart.current = null;
+          };
+
+          // Keyboard navigation
+          React.useEffect(() => {
+            const handleKeyDown = (e: KeyboardEvent) => {
+              if (!containerRef.current) return;
+              const rect = containerRef.current.getBoundingClientRect();
+              const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+              if (!isVisible) return;
+              if (e.key === 'ArrowRight' && activePhoto < photos.length - 1) {
+                setActivePhoto(activePhoto + 1);
+              } else if (e.key === 'ArrowLeft' && activePhoto > 0) {
+                setActivePhoto(activePhoto - 1);
+              }
+            };
+            window.addEventListener('keydown', handleKeyDown);
+            return () => window.removeEventListener('keydown', handleKeyDown);
+          }, [activePhoto, photos.length]);
           return (
-            <div className="max-w-5xl mx-auto" ref={parallaxRef}>
-              {/* Image with swipe + tap zones */}
+            <div className="max-w-5xl mx-auto" ref={(el) => { parallaxRef.current = el; containerRef.current = el; }}>
+              {/* Image with swipe + tap zones + desktop drag */}
               <motion.div
                 key={activePhoto}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className="relative w-full aspect-[4/5] md:aspect-[4/3] overflow-hidden rounded-sm mb-6 select-none"
+                className="relative w-full aspect-[4/5] md:aspect-[4/3] overflow-hidden rounded-sm mb-6 select-none cursor-grab active:cursor-grabbing"
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={() => { mouseStart.current = null; }}
               >
                 <motion.img
                   src={photos[activePhoto].src}
@@ -631,7 +774,7 @@ export default function Home() {
                     />
                   ))}
                 </div>
-                <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[var(--text-muted)]">Swipe to explore</span>
+                <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[var(--text-muted)]">{isTouchDevice ? 'Swipe to explore' : 'Drag or click to explore'}</span>
               </div>
             </div>
           );
