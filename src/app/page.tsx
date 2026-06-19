@@ -798,6 +798,8 @@ export default function Home() {
                   alt="Elegant gown inspired by a Venetian palazzo, warm honey-gold silk with architectural draping"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
+                {/* Side vignettes to focus on the dress */}
+                <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 60px 0 80px -20px rgba(0,0,0,0.5), inset -60px 0 80px -20px rgba(0,0,0,0.5)' }} />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-5">
                   <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/60">The Gown</span>
                 </div>
