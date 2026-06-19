@@ -204,12 +204,12 @@ export function Header() {
             : "py-6 mix-blend-difference text-white"
         }`}
       >
-        <div className="flex-1 hidden md:block">
+        <div className="flex-1 hidden md:block relative z-[60]">
           <button
             onClick={() => {
               window.dispatchEvent(new CustomEvent('openShop'));
             }}
-            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white cursor-pointer bg-transparent border-none"
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white cursor-pointer bg-transparent border-none pointer-events-auto"
           >
             Shop Boutique
           </button>
