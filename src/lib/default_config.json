@@ -1,7 +1,7 @@
 {
   "Fuchsia Majesty": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$7,955",
       "stripeLink": ""
     },
@@ -19,7 +19,7 @@
   },
   "Blush Enchantress": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$8,700",
       "stripeLink": ""
     },
@@ -37,7 +37,7 @@
   },
   "Golden Whisper": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$9,200",
       "stripeLink": ""
     },
@@ -55,7 +55,7 @@
   },
   "Crimson Allure": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$7,980",
       "stripeLink": ""
     },
@@ -73,7 +73,7 @@
   },
   "Blush Couture": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$11,700",
       "stripeLink": ""
     },
@@ -181,7 +181,7 @@
   },
   "Midnight Elegance": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$8,850",
       "stripeLink": ""
     },

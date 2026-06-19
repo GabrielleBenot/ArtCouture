@@ -626,6 +626,13 @@ export function EditorialCollection() {
     };
   }, [selectedDress, shopOpen]);
 
+  // Listen for 'openShop' event from Header's Shop Boutique button
+  useEffect(() => {
+    const handleOpenShop = () => setShopOpen(true);
+    window.addEventListener('openShop', handleOpenShop);
+    return () => window.removeEventListener('openShop', handleOpenShop);
+  }, []);
+
   // Resolve offerings config: localStorage override or default. Re-read when shop opens.
   const [offeringsConfig, setOfferingsConfig] = useState<Record<string, { purchaseSample: { enabled: boolean; price: string; stripeLink: string } }>>(() => {
     if (typeof window === 'undefined') return defaultOfferingsConfig as Record<string, { purchaseSample: { enabled: boolean; price: string; stripeLink: string } }>;

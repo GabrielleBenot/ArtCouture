@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Logo } from "./Logo";
 
 const navLinks = [
-  { label: "Shop Boutique", href: "https://shop.gabriellebenot.com/collections/art-couture", external: true },
+  { label: "Shop Boutique", href: "#shop", isShop: true },
   { label: "Collections", href: "#collections" },
   { label: "News & Events", href: "#news" },
   { label: "Our Story", href: "#story" },
@@ -205,12 +205,14 @@ export function Header() {
         }`}
       >
         <div className="flex-1 hidden md:block">
-          <a
-            href="#boutique"
-            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white"
+          <button
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent('openShop'));
+            }}
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white cursor-pointer bg-transparent border-none"
           >
             Shop Boutique
-          </a>
+          </button>
         </div>
 
         <div className="flex-1 flex justify-start md:justify-center text-white">
@@ -310,7 +312,17 @@ export function Header() {
                     <motion.a
                       key={link.href}
                       href={link.href}
-                      onClick={link.href === "#contact" ? handleContactClick : handleLinkClick}
+                      onClick={(e) => {
+                        if ((link as any).isShop) {
+                          e.preventDefault();
+                          setMenuOpen(false);
+                          window.dispatchEvent(new CustomEvent('openShop'));
+                        } else if (link.href === "#contact") {
+                          handleContactClick(e);
+                        } else {
+                          handleLinkClick();
+                        }
+                      }}
                       className="font-serif font-thin text-2xl sm:text-3xl tracking-[0.15em] uppercase hover:text-[var(--dada-red)] transition-colors duration-300"
                       variants={linkItemVariants}
                     >
