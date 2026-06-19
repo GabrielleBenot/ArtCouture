@@ -1238,10 +1238,10 @@ export default function Home() {
 
             {/* Side-by-side pair view for 2-image galleries */}
             {isPairView ? (
-              <div className="flex flex-col items-center gap-6 max-w-6xl w-full my-auto" onClick={(e) => e.stopPropagation()}>
-                <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 w-full">
+              <div className="flex flex-col items-center gap-2 md:gap-6 max-w-6xl w-full my-auto" onClick={(e) => e.stopPropagation()}>
+                <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-8 w-full">
                   {/* The Painting */}
-                  <div className="flex flex-col items-center gap-3 flex-1 min-w-0">
+                  <div className="flex flex-col items-center gap-1 md:gap-3 flex-1 min-w-0">
                     <motion.img
                       initial={{ x: -30, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
@@ -1257,7 +1257,7 @@ export default function Home() {
                   </div>
 
                   {/* Arrow connector */}
-                  <div className="flex flex-row md:flex-col items-center gap-2 shrink-0 py-2 md:py-0">
+                  <div className="flex flex-row md:flex-col items-center gap-1 md:gap-2 shrink-0 py-0 md:py-0">
                     <div className="w-8 md:w-[1px] h-[1px] md:h-8 bg-gradient-to-r md:bg-gradient-to-b from-transparent via-[var(--dada-red)]/40 to-transparent" />
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--dada-red)]/60 rotate-90 md:rotate-0 shrink-0">
                       <path d="M5 12h14M12 5l7 7-7 7" />
@@ -1266,7 +1266,7 @@ export default function Home() {
                   </div>
 
                   {/* The Gown */}
-                  <div className="flex flex-col items-center gap-3 flex-1 min-w-0">
+                  <div className="flex flex-col items-center gap-1 md:gap-3 flex-1 min-w-0">
                     <motion.img
                       initial={{ x: 30, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
