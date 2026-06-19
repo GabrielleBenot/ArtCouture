@@ -927,7 +927,7 @@ export default function Home() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className="relative w-full aspect-[4/5] md:aspect-[4/3] overflow-hidden rounded-sm mb-6 select-none"
+                className="relative w-full aspect-[4/5] md:aspect-[21/9] overflow-hidden rounded-sm mb-6 select-none max-h-[60vh]"
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               >
