@@ -87,7 +87,7 @@ export function CustomCursor() {
             opacity: isVisible ? 1 : 0,
           }}
           transition={{ duration: 0.15 }}
-          className="w-[7px] h-[7px] -ml-[3.5px] -mt-[3.5px] rounded-full bg-[#0a0a0a] shadow-[0_0_0_1px_rgba(255,255,255,0.5)]"
+          className="w-[7px] h-[7px] -ml-[3.5px] -mt-[3.5px] rounded-full bg-white" style={{ boxShadow: '0 0 4px 1px rgba(0,0,0,0.6)' }}
         />
       </motion.div>
 
@@ -105,7 +105,7 @@ export function CustomCursor() {
             opacity: isVisible ? 1 : 0,
           }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="rounded-full border border-[#0a0a0a]/40 shadow-[0_0_0_1px_rgba(255,255,255,0.3)]"
+          className="rounded-full border border-white/60" style={{ boxShadow: '0 0 6px 1px rgba(0,0,0,0.4)' }}
         />
       </motion.div>
     </>

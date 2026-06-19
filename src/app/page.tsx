@@ -38,9 +38,9 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
   return (
     <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
       {blend ? (
-        <div className="w-full flex justify-center">
-          {/* Deliberate semicircle crop on desktop with drop shadow - parallax on outer container */}
-          <motion.div style={{ y, scale }} className="md:h-[45vh] md:overflow-hidden w-full flex justify-center">
+        <motion.div style={{ y }} className="w-full flex justify-center">
+          {/* Static clip container - never changes height */}
+          <div className="md:h-[45vh] md:overflow-hidden w-full flex justify-center">
             <div className="max-w-full md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden bg-[var(--background)] mx-auto" style={{ filter: 'drop-shadow(0 25px 40px rgba(0,0,0,0.12)) drop-shadow(0 8px 16px rgba(0,0,0,0.08))' }}>
               <img 
                 src={src} 
@@ -49,8 +49,8 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
                 className="w-full h-full object-contain scale-[0.94] mix-blend-multiply"
               />
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       ) : (
         <motion.img 
           style={revealColor ? { y, scale, filter } : { y, scale }} 
@@ -337,7 +337,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <div className="flex items-stretch gap-3">
-              <div className="relative group overflow-hidden aspect-square flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/brunette_yellow_painting.png')}>
+              <div className="relative group overflow-hidden aspect-square flex-1 cursor-pointer" onClick={() => openLightbox('/images/paintings/brunette_yellow_painting.png', ['/images/paintings/brunette_yellow_painting.png', '/images/paintings/dress_from_painting_hero.jpg', '/images/paintings/faces_color_blind.jpg', '/images/paintings/dress_from_colorful_face.png'])}>
                 <img src="/images/paintings/brunette_yellow_painting.png" alt="Original mixed-media painting by Gabrielle Benot" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
                   <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/70">The Painting</span>
@@ -348,7 +348,7 @@ export default function Home() {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--dada-red)] shrink-0 my-1"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                 <div className="flex-1 w-[1px] bg-[var(--dada-red)]/20" />
               </div>
-              <div className="relative group overflow-hidden aspect-[3/4] flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/dress_from_painting_hero.jpg')}>
+              <div className="relative group overflow-hidden aspect-[3/4] flex-1 cursor-pointer" onClick={() => openLightbox('/images/paintings/dress_from_painting_hero.jpg', ['/images/paintings/brunette_yellow_painting.png', '/images/paintings/dress_from_painting_hero.jpg', '/images/paintings/faces_color_blind.jpg', '/images/paintings/dress_from_colorful_face.png'])}>
                 <img src="/images/paintings/dress_from_painting_hero.jpg" alt="Couture gown inspired by the painting" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
                   <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/70">The Gown</span>
@@ -366,7 +366,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.15 }}
           >
             <div className="flex items-stretch gap-3">
-              <div className="relative group overflow-hidden aspect-square flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/faces_color_blind.jpg')}>
+              <div className="relative group overflow-hidden aspect-square flex-1 cursor-pointer" onClick={() => openLightbox('/images/paintings/faces_color_blind.jpg', ['/images/paintings/brunette_yellow_painting.png', '/images/paintings/dress_from_painting_hero.jpg', '/images/paintings/faces_color_blind.jpg', '/images/paintings/dress_from_colorful_face.png'])}>
                 <img src="/images/paintings/faces_color_blind.jpg" alt="Gabrielle Benot abstract portrait with vibrant colors" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
                   <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/70">The Painting</span>
@@ -377,7 +377,7 @@ export default function Home() {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--dada-red)] shrink-0 my-1"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                 <div className="flex-1 w-[1px] bg-[var(--dada-red)]/20" />
               </div>
-              <div className="relative group overflow-hidden aspect-[3/4] flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/dress_from_colorful_face.png')}>
+              <div className="relative group overflow-hidden aspect-[3/4] flex-1 cursor-pointer" onClick={() => openLightbox('/images/paintings/dress_from_colorful_face.png', ['/images/paintings/brunette_yellow_painting.png', '/images/paintings/dress_from_painting_hero.jpg', '/images/paintings/faces_color_blind.jpg', '/images/paintings/dress_from_colorful_face.png'])}>
                 <img src="/images/paintings/dress_from_colorful_face.png" alt="Flowing evening gown inspired by the abstract portrait" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
                   <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/70">The Gown</span>
@@ -820,8 +820,7 @@ export default function Home() {
                   alt="Elegant gown inspired by a Venetian palazzo, warm honey-gold silk with architectural draping"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                {/* Heavy vignette to darken edges and focus on dress */}
-                <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 80px 0 100px -10px rgba(0,0,0,0.6), inset -100px 0 120px -10px rgba(0,0,0,0.65), inset 0 60px 80px -20px rgba(0,0,0,0.3), inset 0 -40px 60px -10px rgba(0,0,0,0.4)' }} />
+
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-5">
                   <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/60">The Gown</span>
                 </div>
@@ -981,7 +980,7 @@ export default function Home() {
                 )}
                 {/* Expand button - opens lightbox */}
                 <button 
-                  onClick={() => setLightboxSrc(photos[activePhoto].src)}
+                  onClick={() => openLightbox(photos[activePhoto].src, photos.map(p => p.src))}
                   className="absolute top-4 right-4 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/60"
                   aria-label="View full image"
                 >
@@ -1041,7 +1040,7 @@ export default function Home() {
 
       <BackToTop />
       <Footer />
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal with Navigation */}
       <AnimatePresence>
         {lightboxSrc && (
           <motion.div
@@ -1049,11 +1048,19 @@ export default function Home() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center cursor-pointer p-8"
+            className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-8"
             onClick={() => setLightboxSrc(null)}
+            onTouchStart={(e) => { lightboxTouchStart.current = e.touches[0].clientX; }}
+            onTouchEnd={(e) => {
+              if (lightboxTouchStart.current === null) return;
+              const diff = e.changedTouches[0].clientX - lightboxTouchStart.current;
+              if (Math.abs(diff) > 50) { diff > 0 ? lightboxPrev() : lightboxNext(); }
+              lightboxTouchStart.current = null;
+            }}
           >
+            {/* Close button */}
             <button
-              className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-10"
+              className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-20"
               onClick={() => setLightboxSrc(null)}
               aria-label="Close lightbox"
             >
@@ -1062,7 +1069,42 @@ export default function Home() {
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
+
+            {/* Previous arrow */}
+            {lightboxGallery.length > 0 && lightboxIdx > 0 && (
+              <button
+                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center text-white/50 hover:text-white transition-colors"
+                onClick={(e) => { e.stopPropagation(); lightboxPrev(); }}
+                aria-label="Previous image"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                  <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+              </button>
+            )}
+
+            {/* Next arrow */}
+            {lightboxGallery.length > 0 && lightboxIdx < lightboxGallery.length - 1 && (
+              <button
+                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center text-white/50 hover:text-white transition-colors"
+                onClick={(e) => { e.stopPropagation(); lightboxNext(); }}
+                aria-label="Next image"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+            )}
+
+            {/* Counter */}
+            {lightboxGallery.length > 1 && (
+              <span className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 z-20">
+                {lightboxIdx + 1} / {lightboxGallery.length}
+              </span>
+            )}
+
             <motion.img
+              key={lightboxSrc}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
