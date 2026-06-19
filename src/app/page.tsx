@@ -74,7 +74,7 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage, p
         {/* Mobile: Split-panel curtain reveal */}
         <div 
           ref={curtainRef}
-          className="md:hidden w-full relative overflow-hidden"
+          className="md:hidden w-full relative overflow-hidden bg-[var(--background)]"
         >
           {/* The image behind the curtains */}
           <motion.div
@@ -87,7 +87,7 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage, p
               alt={alt} 
               loading="eager"
               fetchPriority="high"
-              className={`w-full h-auto object-contain ${className || ''}`}
+              className={`w-full h-auto object-contain mix-blend-multiply ${className || ''}`}
             />
           </motion.div>
 
