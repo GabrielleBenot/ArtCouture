@@ -386,10 +386,12 @@ function CheckoutAgreementForm({ type, dress, stripeLink, onBack }: CheckoutAgre
 
 export function DressModal({ 
   dress, 
-  onClose 
+  onClose,
+  fromShop = false
 }: { 
   dress: DressItem, 
-  onClose: () => void 
+  onClose: () => void,
+  fromShop?: boolean
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -674,7 +676,7 @@ export function DressModal({
                             {offerings ? (
                               <div className="space-y-3">
                                 {offerings.purchaseSample?.enabled && (
-                                  <div className="border border-black/5 rounded-sm p-4">
+                                  <div className={`border rounded-sm p-4 ${fromShop ? 'border-[var(--dada-red)]/40 bg-[var(--dada-red)]/[0.03]' : 'border-black/5'}`}>
                                     <span className="font-mono text-[10px] tracking-widest uppercase block">Purchase This Sample</span>
                                     <span className="font-serif italic text-xs text-[var(--text-muted)] block mt-1">This is the original piece as photographed</span>
                                     {offerings.purchaseSample.price && <span className="font-serif text-base text-[var(--text-main)] block mt-2">{offerings.purchaseSample.price}</span>}
@@ -824,7 +826,7 @@ export function DressModal({
                   <div className="space-y-3">
                     {/* Purchase Sample */}
                     {offerings.purchaseSample?.enabled && (
-                      <div className="border border-black/5 rounded-sm p-5 hover:border-[var(--dada-red)]/20 transition-colors duration-300">
+                      <div className={`border rounded-sm p-5 transition-colors duration-300 ${fromShop ? 'border-[var(--dada-red)]/40 bg-[var(--dada-red)]/[0.03] ring-1 ring-[var(--dada-red)]/10' : 'border-black/5 hover:border-[var(--dada-red)]/20'}`}>
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex items-center gap-3">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--dada-red)] shrink-0 mt-0.5">

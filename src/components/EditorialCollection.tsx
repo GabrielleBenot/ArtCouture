@@ -578,6 +578,7 @@ function ShopCTA({ onClick }: { onClick: () => void }) {
 
 export function EditorialCollection() {
   const [selectedDress, setSelectedDress] = useState<DressItem | null>(null);
+  const [dressFromShop, setDressFromShop] = useState(false);
   const [enquiryService, setEnquiryService] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("Dresses");
   const [showAllItems, setShowAllItems] = useState(false);
@@ -871,11 +872,11 @@ export function EditorialCollection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-[99998] flex flex-col"
+            className="fixed inset-0 z-[99998] overflow-y-auto"
             onClick={() => setShopOpen(false)}
           >
             {/* Frosted background */}
-            <div className="absolute inset-0 bg-[#fafaf8]/95 backdrop-blur-2xl" />
+            <div className="fixed inset-0 bg-[#fafaf8]/95 backdrop-blur-2xl pointer-events-none" />
 
             {/* Content container */}
             <motion.div
@@ -883,11 +884,11 @@ export function EditorialCollection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 30 }}
               transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-              className="relative z-10 flex flex-col h-full overflow-hidden"
+              className="relative z-10 min-h-full"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
-              <div className="flex-shrink-0 pt-10 pb-6 md:pt-16 md:pb-10 px-6 md:px-12 text-center relative">
+              <div className="pt-10 pb-6 md:pt-16 md:pb-10 px-6 md:px-12 text-center relative">
                 {/* Close button */}
                 <button
                   onClick={() => setShopOpen(false)}
@@ -905,8 +906,8 @@ export function EditorialCollection() {
                 <div className="w-12 h-[1.5px] bg-[var(--dada-red)] mx-auto mt-6" />
               </div>
 
-              {/* Scrollable grid */}
-              <div className="flex-1 overflow-y-auto px-6 md:px-12 lg:px-20 pb-12">
+              {/* Grid */}
+              <div className="px-6 md:px-12 lg:px-20 pb-16">
                 {shopItems.length > 0 ? (
                   <div className="max-w-6xl mx-auto">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
@@ -924,6 +925,7 @@ export function EditorialCollection() {
                                 ? { ...originalItem, img: imageOverrides[originalItem.title] }
                                 : originalItem;
                               setSelectedDress(displayItem);
+                              setDressFromShop(true);
                               setShopOpen(false);
                             }
                           }}
@@ -997,7 +999,8 @@ export function EditorialCollection() {
         {selectedDress && (
           <DressModal 
             dress={selectedDress} 
-            onClose={() => setSelectedDress(null)} 
+            onClose={() => { setSelectedDress(null); setDressFromShop(false); }}
+            fromShop={dressFromShop}
           />
         )}
       </AnimatePresence>
