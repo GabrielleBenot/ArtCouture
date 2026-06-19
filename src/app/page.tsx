@@ -280,175 +280,137 @@ export default function Home() {
         textClassName="flex-1 space-y-4 md:space-y-6"
       />
 
-      {/* Second painting - visual only with minimal text (offset left on desktop) */}
-      <div className="max-w-6xl mx-auto px-6 py-8 md:py-16 md:ml-[5%] md:mr-auto">
+      {/* FROM ART TO COUTURE - Consolidated Section */}
+      <section className="max-w-7xl mx-auto px-6 py-16 md:py-24">
+        
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="flex flex-col md:flex-row items-center gap-12 md:gap-16"
+          className="text-center mb-14 md:mb-20"
         >
-          <div className="flex-1 order-2 md:order-1">
-            <ParallaxImage
-              src="https://storage.googleapis.com/mixo-sites/images/file-7c7c79ac-f9d7-4fe7-bcd1-7d29e0eae366.png"
-              alt="Gabrielle Benot original abstract painting for couture collection"
-            />
-          </div>
-          <div className="flex-1 order-1 md:order-2 space-y-4 md:space-y-6">
-            <h3 className="flex flex-col">
-              <span className="font-sans font-black text-4xl md:text-5xl uppercase tracking-tight">Explore the Art</span>
-              <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">That Inspires</span>
-              <span className="font-serif italic font-light text-[4rem] md:text-[11rem] lg:text-[14rem] text-[var(--dada-red)] -mt-2 md:-mt-4 leading-[0.8]">Couture</span>
-            </h3>
-          </div>
+          <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-4">From Canvas to Couture</span>
+          <h3 className="flex flex-col items-center">
+            <span className="font-sans font-black text-3xl md:text-5xl uppercase tracking-tight">Explore the Art</span>
+            <span className="font-serif font-light text-3xl md:text-5xl">That Inspires</span>
+            <span className="font-serif italic font-light text-[3.5rem] md:text-[8rem] text-[var(--dada-red)] leading-[0.85]">Couture</span>
+          </h3>
         </motion.div>
-      </div>
 
-      {/* Art-to-Dress Showcases */}
-      <div className="max-w-7xl mx-auto px-6 py-12 md:py-24 space-y-20 md:space-y-32">
-
-          {/* Pair 1: Yellow Reverie painting + dress */}
+        {/* Compact Art-to-Dress Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 mb-16 md:mb-24">
+          
+          {/* Pair 1: Yellow Reverie */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.8 }}
           >
-            <div className="flex flex-col md:flex-row items-stretch gap-6 md:gap-10">
+            <div className="flex items-stretch gap-3">
               <div className="relative group overflow-hidden aspect-square flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/brunette_yellow_painting.png')}>
-                <img
-                  src="/images/paintings/brunette_yellow_painting.png"
-                  alt="Original mixed-media painting by Gabrielle Benot, brunette woman with bold yellow"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-5">
-                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/70">The Painting</span>
+                <img src="/images/paintings/brunette_yellow_painting.png" alt="Original mixed-media painting by Gabrielle Benot" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+                  <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/70">The Painting</span>
                 </div>
               </div>
-              <div className="flex md:flex-col items-center justify-center gap-3 py-2 md:py-0 md:px-2">
-                <div className="flex-1 h-[1px] md:h-auto md:w-[1px] bg-[var(--dada-red)]/20 md:flex-1" />
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--dada-red)] rotate-90 md:rotate-0 shrink-0">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-                <div className="flex-1 h-[1px] md:h-auto md:w-[1px] bg-[var(--dada-red)]/20 md:flex-1" />
+              <div className="flex flex-col items-center justify-center px-1">
+                <div className="flex-1 w-[1px] bg-[var(--dada-red)]/20" />
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--dada-red)] shrink-0 my-1"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                <div className="flex-1 w-[1px] bg-[var(--dada-red)]/20" />
               </div>
-              <div className="relative group overflow-hidden aspect-[3/4] md:aspect-square flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/dress_from_painting_hero.jpg')}>
-                <img
-                  src="/images/paintings/dress_from_painting_hero.jpg"
-                  alt="Haute couture gown inspired by the painting, saffron yellow silk with crimson accents"
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-5">
-                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/70">The Gown</span>
+              <div className="relative group overflow-hidden aspect-[3/4] flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/dress_from_painting_hero.jpg')}>
+                <img src="/images/paintings/dress_from_painting_hero.jpg" alt="Couture gown inspired by the painting" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+                  <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/70">The Gown</span>
                 </div>
               </div>
             </div>
-            <p className="font-serif italic text-sm text-[var(--text-muted)] mt-4">&ldquo;Yellow Reverie&rdquo;</p>
+            <p className="font-serif italic text-sm text-[var(--text-muted)] mt-3">&ldquo;Yellow Reverie&rdquo;</p>
           </motion.div>
 
-          {/* Pair 2: Colorful abstract face painting + dress */}
+          {/* Pair 2: Color Blind */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
           >
-            <div className="flex flex-col md:flex-row items-stretch gap-6 md:gap-10">
+            <div className="flex items-stretch gap-3">
               <div className="relative group overflow-hidden aspect-square flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/faces_color_blind.jpg')}>
-                <img
-                  src="/images/paintings/faces_color_blind.jpg"
-                  alt="Gabrielle Benot original mixed-media abstract portrait with vibrant colors"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-5">
-                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/70">The Painting</span>
+                <img src="/images/paintings/faces_color_blind.jpg" alt="Gabrielle Benot abstract portrait with vibrant colors" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+                  <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/70">The Painting</span>
                 </div>
               </div>
-              <div className="flex md:flex-col items-center justify-center gap-3 py-2 md:py-0 md:px-2">
-                <div className="flex-1 h-[1px] md:h-auto md:w-[1px] bg-[var(--dada-red)]/20 md:flex-1" />
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--dada-red)] rotate-90 md:rotate-0 shrink-0">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-                <div className="flex-1 h-[1px] md:h-auto md:w-[1px] bg-[var(--dada-red)]/20 md:flex-1" />
+              <div className="flex flex-col items-center justify-center px-1">
+                <div className="flex-1 w-[1px] bg-[var(--dada-red)]/20" />
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--dada-red)] shrink-0 my-1"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                <div className="flex-1 w-[1px] bg-[var(--dada-red)]/20" />
               </div>
-              <div className="relative group overflow-hidden aspect-[3/4] md:aspect-square flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/dress_from_colorful_face.png')}>
-                <img
-                  src="/images/paintings/dress_from_colorful_face.png"
-                  alt="Flowing evening gown inspired by the abstract portrait, vibrant watercolor silk"
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-5">
-                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/70">The Gown</span>
+              <div className="relative group overflow-hidden aspect-[3/4] flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/dress_from_colorful_face.png')}>
+                <img src="/images/paintings/dress_from_colorful_face.png" alt="Flowing evening gown inspired by the abstract portrait" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+                  <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/70">The Gown</span>
                 </div>
               </div>
             </div>
-            <p className="font-serif italic text-sm text-[var(--text-muted)] mt-4">&ldquo;Color Blind&rdquo;</p>
-          </motion.div>
-
-          {/* Behind the Scenes: Painting Process Video */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.1 }}
-            className="flex flex-col items-center text-center"
-          >
-            <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">The Studio</span>
-            <div className="w-12 h-[1px] bg-[var(--dada-red)] mb-10" />
-            
-            {/* Video with flanking design */}
-            <div className="relative w-full flex items-center justify-center gap-6 md:gap-10">
-              
-              {/* Left decorative column */}
-              <div className="hidden md:flex flex-col items-end gap-6 flex-1">
-                <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-[var(--dada-red)]/30 to-transparent" />
-                <span className="font-mono text-[8px] uppercase tracking-[0.5em] text-[var(--text-muted)]/40 [writing-mode:vertical-lr] rotate-180">Mixed Media on Canvas</span>
-                <div className="w-[1px] h-20 bg-gradient-to-b from-[var(--dada-red)]/20 to-transparent" />
-                <div className="flex flex-col gap-2 items-end">
-                  <div className="w-1 h-1 rounded-full bg-[var(--dada-red)]/30" />
-                  <div className="w-1 h-1 rounded-full bg-[var(--dada-red)]/20" />
-                  <div className="w-1 h-1 rounded-full bg-[var(--dada-red)]/10" />
-                </div>
-              </div>
-
-              {/* Center video */}
-              <div className="relative overflow-hidden aspect-[9/16] w-[70%] md:w-[35%] max-h-[65vh] rounded-sm shrink-0">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-full object-cover"
-                >
-                  <source src="/videos/painting_process.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute top-3 left-3 w-8 h-8 border-t-[0.5px] border-l-[0.5px] border-white/40 pointer-events-none" />
-                <div className="absolute bottom-3 right-3 w-8 h-8 border-b-[0.5px] border-r-[0.5px] border-white/40 pointer-events-none" />
-              </div>
-
-              {/* Right decorative column */}
-              <div className="hidden md:flex flex-col items-start gap-6 flex-1">
-                <div className="flex flex-col gap-2 items-start">
-                  <div className="w-1 h-1 rounded-full bg-[var(--dada-red)]/10" />
-                  <div className="w-1 h-1 rounded-full bg-[var(--dada-red)]/20" />
-                  <div className="w-1 h-1 rounded-full bg-[var(--dada-red)]/30" />
-                </div>
-                <div className="w-[1px] h-20 bg-gradient-to-b from-transparent to-[var(--dada-red)]/20" />
-                <span className="font-mono text-[8px] uppercase tracking-[0.5em] text-[var(--text-muted)]/40 [writing-mode:vertical-lr]">Gabrielle Benot Studio</span>
-                <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-[var(--dada-red)]/30 to-transparent" />
-              </div>
-
-            </div>
-
-            <p className="font-serif italic text-lg md:text-xl text-[var(--text-main)] mt-8 max-w-md">
-              &ldquo;I paint the way I feel. The canvas tells me where to go.&rdquo;
-            </p>
-            <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--text-muted)] mt-3">Gabrielle Benot</span>
+            <p className="font-serif italic text-sm text-[var(--text-muted)] mt-3">&ldquo;Color Blind&rdquo;</p>
           </motion.div>
 
         </div>
+
+        {/* Studio Videos */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="flex flex-col items-center text-center"
+        >
+          <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">The Studio</span>
+          <div className="w-12 h-[1px] bg-[var(--dada-red)] mb-10" />
+          
+          <div className="w-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-6">
+            <div className="flex flex-col items-center w-[65%] md:w-[25%]">
+              <div className="relative overflow-hidden aspect-[9/16] w-full max-h-[55vh] rounded-sm">
+                <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover">
+                  <source src="/videos/painting_process.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute top-3 left-3 w-6 h-6 border-t-[0.5px] border-l-[0.5px] border-white/40 pointer-events-none" />
+                <div className="absolute bottom-3 right-3 w-6 h-6 border-b-[0.5px] border-r-[0.5px] border-white/40 pointer-events-none" />
+              </div>
+              <span className="block font-mono text-[8px] uppercase tracking-[0.4em] text-[var(--text-muted)] mt-4">The Art</span>
+              <span className="font-serif italic text-sm text-[var(--text-main)] mt-1">Gabrielle</span>
+            </div>
+
+            <div className="hidden md:flex flex-col items-center gap-3 py-8">
+              <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-[var(--dada-red)]/30 to-transparent" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[var(--dada-red)]/30" />
+              <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-[var(--dada-red)]/30 to-transparent" />
+            </div>
+
+            <div className="flex flex-col items-center w-[65%] md:w-[25%]">
+              <div className="relative overflow-hidden aspect-[9/16] w-full max-h-[55vh] rounded-sm">
+                <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover">
+                  <source src="/videos/couture_process.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute top-3 left-3 w-6 h-6 border-t-[0.5px] border-l-[0.5px] border-white/40 pointer-events-none" />
+                <div className="absolute bottom-3 right-3 w-6 h-6 border-b-[0.5px] border-r-[0.5px] border-white/40 pointer-events-none" />
+              </div>
+              <span className="block font-mono text-[8px] uppercase tracking-[0.4em] text-[var(--text-muted)] mt-4">The Couture</span>
+              <span className="font-serif italic text-sm text-[var(--text-main)] mt-1">Charmaigne</span>
+            </div>
+          </div>
+
+          <p className="font-serif italic text-lg md:text-xl text-[var(--text-main)] mt-10 max-w-lg">
+            &ldquo;One paints the vision. The other brings it to life.&rdquo;
+          </p>
+        </motion.div>
+
+      </section>
 
       {/* CHARMAIGNE MENN - The Couturière */}
       <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 md:mr-[5%] md:ml-auto">
