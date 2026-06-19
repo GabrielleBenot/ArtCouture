@@ -596,7 +596,7 @@ export function DressModal({
         {/* Mobile: "Click for Details" Tab Button */}
         <button
           onClick={() => setMobileDrawerOpen(true)}
-          className="md:hidden fixed left-0 bottom-12 z-30 flex items-center gap-2 bg-[#fafaf8]/90 backdrop-blur-md border border-l-0 border-black/15 pl-4 pr-5 py-3 rounded-r-full text-black/70 hover:text-black transition-all duration-300 shadow-[4px_0_15px_rgba(0,0,0,0.1)] cursor-pointer"
+          className="md:hidden fixed left-0 bottom-16 z-30 flex items-center gap-2 bg-[#fafaf8]/90 backdrop-blur-md border border-l-0 border-black/15 pl-4 pr-5 py-3 rounded-r-full text-black/70 hover:text-black transition-all duration-300 shadow-[4px_0_15px_rgba(0,0,0,0.1)] cursor-pointer"
         >
           <span className="font-mono text-[9px] uppercase tracking-[0.25em]">Click for Details</span>
           <span className="relative flex h-2 w-2">
