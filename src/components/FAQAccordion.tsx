@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     question: "What makes Art Couture different?",
-    answer: "Every gown starts as a painting. Gabrielle Benot creates the original artwork, and Charmaigne Menn translates its colors, textures, and patterns directly into bespoke fabrics with the precision of a master couturière. No other couture house works this way. The art is not inspired by fashion. The fashion is the art."
+    answer: "Art and fashion inspire each other. Sometimes Gabrielle Benot creates a painting that becomes the blueprint for a gown; other times, a dress we design sparks an entirely new artwork. Charmaigne Menn translates those colors, textures, and patterns into bespoke fabrics with the precision of a master couturi\u00e8re. No other couture house works this way. The art drives the fashion, and the fashion drives new art."
   },
   {
     question: "How does the rental service work?",
