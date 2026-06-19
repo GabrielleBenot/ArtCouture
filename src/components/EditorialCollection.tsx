@@ -19,7 +19,9 @@ const collection = [
     detailImages: [
       "/details/new_fuchsia_bodice_1781676487560.png",
       "/details/new_fuchsia_texture_1781676497805.png",
-      "/details/new_fuchsia_drape_1781676508356.png"
+      "/details/new_fuchsia_drape_1781676508356.png",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
     ],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/beading.jpg"
@@ -37,7 +39,9 @@ const collection = [
     detailImages: [
       "/details/new_blushench_bodice_1781676653156.png",
       "/details/new_blushench_texture_1781676675527.png",
-      "/details/new_blushench_drape_1781676696150.png"
+      "/details/new_blushench_drape_1781676696150.png",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
     ],
     aspectClass: "aspect-[2/3]",
     processImg: "/images/process/draping.jpg"
@@ -55,7 +59,9 @@ const collection = [
     detailImages: [
       "/details/new_golden_bodice_1781676585562.png",
       "/details/new_golden_texture_1781676602641.png",
-      "/details/new_golden_drape_1781676619023.png"
+      "/details/new_golden_drape_1781676619023.png",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
     ],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/crystals.jpg"
@@ -73,7 +79,9 @@ const collection = [
     detailImages: [
       "/details/new_crimson_bodice_1781676541872.png",
       "/details/new_crimson_texture_1781676555017.png",
-      "/details/new_crimson_drape_1781676568248.png"
+      "/details/new_crimson_drape_1781676568248.png",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
     ],
     aspectClass: "aspect-[4/5]",
     processImg: "/images/process/sewing.jpg"
@@ -92,7 +100,9 @@ const collection = [
     detailImages: [
       "/details/new_blushcout_bodice_1781676712185.png",
       "/details/new_blushcout_texture_1781676722580.png",
-      "/details/new_blushcout_drape_1781676734418.png"
+      "/details/new_blushcout_drape_1781676734418.png",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
     ],
     aspectClass: "aspect-[2/3]",
     processImg: "/images/process/applique.jpg"
@@ -180,7 +190,9 @@ const collection = [
     detailImages: [
       "/details/new_midnight_bodice_1781676446002.png",
       "/details/new_midnight_texture_1781676459211.png",
-      "/details/new_midnight_drape_1781676475270.png"
+      "/details/new_midnight_drape_1781676475270.png",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
     ],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/cutting.jpg"
@@ -268,7 +280,9 @@ const collection = [
     detailImages: [
       "/details/new_blushcout_bodice_1781676712185.png",
       "/details/new_blushcout_texture_1781676722580.png",
-      "/details/new_blushcout_drape_1781676734418.png"
+      "/details/new_blushcout_drape_1781676734418.png",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
     ],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/sketching.jpg"

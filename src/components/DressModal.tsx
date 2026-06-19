@@ -513,7 +513,7 @@ export function DressModal({
             {images.length > 1 && (
               <div className="absolute top-1/3 -translate-y-1/2 left-4 md:left-6 z-50 py-5 md:py-8 px-4 md:px-6 rounded-xl bg-black/30 backdrop-blur-xl border border-white/10 shadow-2xl hidden md:flex flex-col gap-5 md:gap-8 items-start">
                 {images.map((img, idx) => {
-                  const labels = ["The Silhouette", "The Bodice", "Fabric Detail", "The Hem"];
+                  const labels = ["The Silhouette", "The Bodice", "Fabric Detail", "The Hem", "Back View", "Details"];
                   const label = labels[idx] || `Detail ${idx}`;
                   return (
                     <button
@@ -574,7 +574,7 @@ export function DressModal({
           {images.length > 1 && (
             <div className="flex md:hidden gap-2 justify-center py-2 absolute bottom-4 left-0 right-0 z-50">
               {images.map((img, idx) => {
-                const labels = ["Silhouette", "Bodice", "Fabric", "Hem"];
+                const labels = ["Silhouette", "Bodice", "Fabric", "Hem", "Back", "Details"];
                 return (
                   <button
                     key={idx}
