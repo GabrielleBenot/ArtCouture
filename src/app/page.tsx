@@ -21,17 +21,19 @@ import { BackToTop } from "@/components/BackToTop";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { useRef } from "react";
-import { useScroll, useTransform } from "framer-motion";
+import { useScroll, useTransform, useInView } from "framer-motion";
 
 // Parallax Image Component for sections
-function ParallaxImage({ src, alt, blend, className, revealColor, staticImage }: { src: string, alt: string, blend?: boolean, className?: string, revealColor?: boolean, staticImage?: boolean }) {
+function ParallaxImage({ src, alt, blend, className, revealColor, staticImage, priority }: { src: string, alt: string, blend?: boolean, className?: string, revealColor?: boolean, staticImage?: boolean, priority?: boolean }) {
+  // All hooks must be called unconditionally at top level
   const ref = useRef<HTMLDivElement>(null);
+  const curtainRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(curtainRef, { once: true, margin: "-15% 0px -15% 0px" });
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   });
   
-  // Subtly move the image vertically while noticeably shrinking it to create depth
   const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
   const scale = useTransform(scrollYProgress, [0, 1], [1.02, 0.98]);
   const filterValue = useTransform(scrollYProgress, [0.2, 0.45], [1, 0]);
@@ -57,14 +59,79 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage }:
 
   if (staticImage) {
     return (
-      <div className="w-full relative flex justify-center items-center">
-        <img 
-          src={src} 
-          alt={alt} 
-          loading="lazy"
-          className={`max-w-full md:max-w-[85%] w-auto h-auto object-contain rounded-sm mix-blend-multiply mx-auto ${className || ''}`}
-        />
-      </div>
+      <>
+        {/* Desktop: simple static image */}
+        <div className="hidden md:flex w-full relative justify-center items-center">
+          <img 
+            src={src} 
+            alt={alt} 
+            loading="eager"
+            fetchPriority="high"
+            className={`max-w-full md:max-w-[85%] w-auto h-auto object-contain rounded-sm mix-blend-multiply mx-auto ${className || ''}`}
+          />
+        </div>
+
+        {/* Mobile: Split-panel curtain reveal */}
+        <div 
+          ref={curtainRef}
+          className="md:hidden w-full relative overflow-hidden"
+        >
+          {/* The image behind the curtains */}
+          <motion.div
+            initial={{ scale: 1.08, opacity: 0 }}
+            animate={isInView ? { scale: 1, opacity: 1 } : { scale: 1.08, opacity: 0 }}
+            transition={{ duration: 1.4, delay: 0.3, ease: [0.33, 1, 0.68, 1] }}
+          >
+            <img 
+              src={src} 
+              alt={alt} 
+              loading="eager"
+              fetchPriority="high"
+              className={`w-full h-auto object-contain ${className || ''}`}
+            />
+          </motion.div>
+
+          {/* Left curtain panel */}
+          <motion.div
+            initial={{ x: "0%" }}
+            animate={isInView ? { x: "-101%" } : { x: "0%" }}
+            transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
+            className="absolute inset-y-0 left-0 w-1/2 bg-[#0c0c0a] z-10 flex flex-col items-end justify-center pr-3"
+          >
+            {/* Editorial accent line */}
+            <div className="absolute top-6 right-4 w-[1px] h-12 bg-[var(--dada-red)]/40" />
+            <span className="font-mono text-[7px] uppercase tracking-[0.5em] text-white/15 writing-mode-vertical rotate-180" style={{ writingMode: 'vertical-rl' }}>
+              Art Couture
+            </span>
+            {/* Corner bracket */}
+            <div className="absolute bottom-6 right-4 w-8 h-8 border-b-[0.5px] border-r-[0.5px] border-white/10" />
+          </motion.div>
+
+          {/* Right curtain panel */}
+          <motion.div
+            initial={{ x: "0%" }}
+            animate={isInView ? { x: "101%" } : { x: "0%" }}
+            transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
+            className="absolute inset-y-0 right-0 w-1/2 bg-[#0c0c0a] z-10 flex flex-col items-start justify-center pl-3"
+          >
+            {/* Editorial accent line */}
+            <div className="absolute top-6 left-4 w-[1px] h-12 bg-[var(--dada-red)]/40" />
+            <span className="font-mono text-[7px] uppercase tracking-[0.5em] text-white/15" style={{ writingMode: 'vertical-rl' }}>
+              Atelier
+            </span>
+            {/* Corner bracket */}
+            <div className="absolute bottom-6 left-4 w-8 h-8 border-b-[0.5px] border-l-[0.5px] border-white/10" />
+          </motion.div>
+
+          {/* Thin red reveal line at center seam */}
+          <motion.div
+            initial={{ scaleY: 1, opacity: 1 }}
+            animate={isInView ? { scaleY: 0, opacity: 0 } : { scaleY: 1, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+            className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1px] bg-[var(--dada-red)]/50 z-20 origin-center"
+          />
+        </div>
+      </>
     );
   }
 
@@ -74,7 +141,8 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage }:
         style={revealColor ? { y, scale, filter } : { y, scale }} 
         src={src} 
         alt={alt} 
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : undefined}
         className={`max-w-full md:max-w-[85%] w-auto h-auto object-contain rounded-sm mix-blend-multiply mx-auto ${className || ''}`}
       />
     </div>
@@ -130,7 +198,8 @@ function FeatureSection({
   imageClassName = "flex-[1.2] w-full",
   textClassName = "flex-1 space-y-6",
   revealColor = false,
-  imgClassName
+  imgClassName,
+  priority = false
 }: { 
   id?: string,
   title?: React.ReactNode, 
@@ -144,7 +213,8 @@ function FeatureSection({
   imageClassName?: string,
   textClassName?: string,
   revealColor?: boolean,
-  imgClassName?: string
+  imgClassName?: string,
+  priority?: boolean
 }) {
   return (
     <section id={id} className="py-16 md:py-24 px-6 max-w-[90rem] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
@@ -186,13 +256,13 @@ function FeatureSection({
             )}
           </div>
           <div className={imageClassName}>
-            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} staticImage={staticImage} revealColor={revealColor} className={imgClassName} />
+            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} staticImage={staticImage} revealColor={revealColor} className={imgClassName} priority={priority} />
           </div>
         </>
       ) : (
         <>
           <div className={`${imageClassName} order-2 md:order-1`}>
-            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} staticImage={staticImage} revealColor={revealColor} className={imgClassName} />
+            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} staticImage={staticImage} revealColor={revealColor} className={imgClassName} priority={priority} />
           </div>
           <div className={`${textClassName} lg:pl-12 order-1 md:order-2`}>
             {subtitle && (
@@ -508,6 +578,7 @@ export default function Home() {
         imgAlt="Art Couture original watercolor painting by Gabrielle Benot"
         imageClassName="flex-[1.44] w-full -ml-4 md:ml-0"
         textClassName="flex-1 space-y-4 md:space-y-6"
+        priority
       />
 
       {/* FROM ART TO COUTURE - Consolidated Section */}

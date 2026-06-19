@@ -1,8 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { DressModal } from "@/components/DressModal";
 import { MagneticButton } from "./MagneticButton";
+import defaultOfferingsConfig from '@/lib/default_config.json';
 
 const collection = [
   { 
@@ -506,36 +507,28 @@ function ServiceCard({ service, onEnquire }: { service: { title: string, descrip
   );
 }
 
-function ShopCTA() {
-  const [shopClicked, setShopClicked] = React.useState(false);
+function ShopCTA({ onClick }: { onClick: () => void }) {
   return (
     <div className="flex flex-col items-center mt-20 mb-12 relative z-40 gap-6">
       <div
-        onClick={() => {
-          if (shopClicked) return;
-          setShopClicked(true);
-          setTimeout(() => {
-            window.open('https://shop.gabriellebenot.com/collections/art-couture', '_blank');
-            setShopClicked(false);
-          }, 2000);
-        }}
-        className={`group relative w-32 h-32 md:w-36 md:h-36 rounded-full border transition-all duration-700 cursor-pointer flex items-center justify-center overflow-hidden ${shopClicked ? 'border-orange-500 scale-95' : 'border-[var(--text-muted)]/30 hover:border-[var(--dada-red)]'}`}
+        onClick={onClick}
+        className="group relative w-32 h-32 md:w-36 md:h-36 rounded-full border border-[var(--text-muted)]/30 hover:border-[var(--dada-red)] transition-all duration-700 cursor-pointer flex items-center justify-center overflow-hidden"
       >
-        {/* Fill circle on hover / orange on click */}
-        <div className={`absolute inset-0 rounded-full transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${shopClicked ? 'bg-orange-500 scale-100' : 'bg-[var(--dada-red)] scale-0 group-hover:scale-100'}`} />
+        {/* Fill circle on hover */}
+        <div className="absolute inset-0 rounded-full transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] bg-[var(--dada-red)] scale-0 group-hover:scale-100" />
         
         {/* Rotating ring text */}
-        <svg className={`absolute inset-0 w-full h-full animate-[spin_20s_linear_infinite] ${shopClicked ? 'animate-[spin_3s_linear_infinite]' : ''}`} viewBox="0 0 140 140">
+        <svg className="absolute inset-0 w-full h-full animate-[spin_20s_linear_infinite]" viewBox="0 0 140 140">
           <defs>
             <path id="circlePath" d="M 70,70 m -52,0 a 52,52 0 1,1 104,0 a 52,52 0 1,1 -104,0" />
           </defs>
-          <text className={`transition-colors duration-700 ${shopClicked ? 'fill-white/80' : 'fill-[var(--text-muted)]/60 group-hover:fill-white/60'}`} style={{ fontSize: '10px', letterSpacing: '6px', fontFamily: 'monospace', textTransform: 'uppercase' }}>
+          <text className="transition-colors duration-700 fill-[var(--text-muted)]/60 group-hover:fill-white/60" style={{ fontSize: '10px', letterSpacing: '6px', fontFamily: 'monospace', textTransform: 'uppercase' }}>
             <textPath href="#circlePath">SHOP THE COLLECTION · SHOP THE COLLECTION ·</textPath>
           </text>
         </svg>
         
         {/* Center text */}
-        <span className={`relative z-10 font-serif italic text-xl md:text-2xl tracking-wider transition-colors duration-500 ${shopClicked ? 'text-white' : 'text-[var(--text-main)] group-hover:text-white'}`}>{shopClicked ? '...' : 'Shop'}</span>
+        <span className="relative z-10 font-serif italic text-xl md:text-2xl tracking-wider transition-colors duration-500 text-[var(--text-main)] group-hover:text-white">Shop</span>
       </div>
     </div>
   );
@@ -547,6 +540,7 @@ export function EditorialCollection() {
   const [activeCategory, setActiveCategory] = useState<string>("Dresses");
   const [showAllItems, setShowAllItems] = useState(false);
   const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
+  const [shopOpen, setShopOpen] = useState(false);
 
   useEffect(() => {
     try {
@@ -580,7 +574,7 @@ export function EditorialCollection() {
   };
 
   useEffect(() => {
-    if (selectedDress) {
+    if (selectedDress || shopOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -588,7 +582,34 @@ export function EditorialCollection() {
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [selectedDress]);
+  }, [selectedDress, shopOpen]);
+
+  // Resolve offerings config: localStorage override or default
+  const offeringsConfig = useMemo(() => {
+    try {
+      const raw = localStorage.getItem('artcouture_offerings');
+      if (raw) return JSON.parse(raw) as Record<string, { purchaseSample: { enabled: boolean; price: string; stripeLink: string } }>;
+    } catch {
+      // ignore
+    }
+    return defaultOfferingsConfig as Record<string, { purchaseSample: { enabled: boolean; price: string; stripeLink: string } }>;
+  }, []);
+
+  const shopItems = useMemo(() => {
+    return collection.filter(item => {
+      const config = offeringsConfig[item.title];
+      return config?.purchaseSample?.enabled;
+    }).map(item => {
+      const config = offeringsConfig[item.title];
+      const displayItem = imageOverrides[item.title]
+        ? { ...item, img: imageOverrides[item.title] }
+        : item;
+      return {
+        ...displayItem,
+        shopPrice: config?.purchaseSample?.price || item.price,
+      };
+    });
+  }, [offeringsConfig, imageOverrides]);
 
   return (
     <section id="collection-start" className="bg-[var(--background)] py-32 md:py-48 relative min-h-[100vh]">
@@ -681,7 +702,7 @@ export function EditorialCollection() {
         )}
 
         {/* Shop the Collection CTA */}
-        <ShopCTA />
+        <ShopCTA onClick={() => setShopOpen(true)} />
       </div>
 
       {/* Enquiry Modal */}
@@ -780,6 +801,136 @@ export function EditorialCollection() {
         )}
       </AnimatePresence>
 
+      {/* Shop Overlay */}
+      <AnimatePresence>
+        {shopOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-[99998] flex flex-col"
+            onClick={() => setShopOpen(false)}
+          >
+            {/* Frosted background */}
+            <div className="absolute inset-0 bg-[#fafaf8]/95 backdrop-blur-2xl" />
+
+            {/* Content container */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 30 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+              className="relative z-10 flex flex-col h-full overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="flex-shrink-0 pt-10 pb-6 md:pt-16 md:pb-10 px-6 md:px-12 text-center relative">
+                {/* Close button */}
+                <button
+                  onClick={() => setShopOpen(false)}
+                  className="absolute top-6 right-6 md:top-10 md:right-12 w-10 h-10 flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--dada-red)] transition-colors duration-300 cursor-pointer"
+                  aria-label="Close shop"
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                </button>
+
+                <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--dada-red)] block mb-3">Art Couture</span>
+                <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif font-extralight text-[var(--text-main)] tracking-tight leading-none mb-4">Shop</h2>
+                <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] text-[var(--text-muted)]">Available to Purchase</p>
+                <div className="w-12 h-[1.5px] bg-[var(--dada-red)] mx-auto mt-6" />
+              </div>
+
+              {/* Scrollable grid */}
+              <div className="flex-1 overflow-y-auto px-6 md:px-12 lg:px-20 pb-12">
+                {shopItems.length > 0 ? (
+                  <div className="max-w-6xl mx-auto">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+                      {shopItems.map((item, idx) => (
+                        <motion.div
+                          key={item.title}
+                          initial={{ opacity: 0, y: 40 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.15 + idx * 0.08, ease: "easeOut" }}
+                          className="group cursor-pointer"
+                          onClick={() => {
+                            const originalItem = collection.find(c => c.title === item.title);
+                            if (originalItem) {
+                              const displayItem = imageOverrides[originalItem.title]
+                                ? { ...originalItem, img: imageOverrides[originalItem.title] }
+                                : originalItem;
+                              setSelectedDress(displayItem);
+                              setShopOpen(false);
+                            }
+                          }}
+                        >
+                          {/* Image */}
+                          <div className="relative aspect-[3/4] overflow-hidden mb-4 bg-[#f0ede8]">
+                            <img
+                              src={item.img}
+                              alt={item.title}
+                              loading="lazy"
+                              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                            />
+                            {/* Hover overlay */}
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+                            {/* Category tag */}
+                            <div className="absolute top-3 left-3 md:top-4 md:left-4">
+                              <span className="font-mono text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-white bg-black/50 backdrop-blur-sm px-2.5 py-1 md:px-3 md:py-1.5">
+                                {item.category}
+                              </span>
+                            </div>
+                            {/* View indicator on hover */}
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white bg-[var(--dada-red)] px-5 py-2.5 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                                View
+                              </span>
+                            </div>
+                          </div>
+                          {/* Info */}
+                          <div className="space-y-1.5">
+                            <h3 className="font-serif text-base md:text-lg lg:text-xl font-light text-[var(--text-main)] tracking-wide group-hover:text-[var(--dada-red)] transition-colors duration-300">
+                              {item.title}
+                            </h3>
+                            <p className="font-mono text-xs md:text-sm text-[var(--text-muted)] tracking-wider">
+                              {item.shopPrice}
+                            </p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  /* Coming Soon state */
+                  <div className="flex flex-col items-center justify-center h-full min-h-[40vh] text-center">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      className="space-y-6"
+                    >
+                      {/* Decorative diamond */}
+                      <div className="w-12 h-12 border border-[var(--text-muted)]/30 rotate-45 mx-auto flex items-center justify-center">
+                        <div className="w-2 h-2 bg-[var(--dada-red)] rotate-45" />
+                      </div>
+                      <h3 className="font-serif text-3xl md:text-4xl font-extralight text-[var(--text-main)] tracking-wide">
+                        Coming Soon
+                      </h3>
+                      <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--text-muted)] max-w-sm leading-relaxed">
+                        Our curated selection is being prepared.<br />Check back soon.
+                      </p>
+                      <div className="w-8 h-[1px] bg-[var(--dada-red)]/50 mx-auto" />
+                    </motion.div>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <AnimatePresence>
         {selectedDress && (
           <DressModal 
@@ -809,13 +960,13 @@ export function ServicesGrid() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1 }}
-        className="max-w-md mx-auto mb-20 overflow-hidden"
+        className="max-w-md mx-auto mb-20 overflow-hidden bg-[var(--background)]"
       >
         <img 
           src="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg"
           alt="Art Couture logo by Gabrielle Benot and Charmaigne Menn"
           loading="lazy"
-          className="w-full object-cover mix-blend-multiply hover:mix-blend-multiply transition-all duration-[1.5s]"
+          className="w-full object-cover mix-blend-multiply"
         />
       </motion.div>
 

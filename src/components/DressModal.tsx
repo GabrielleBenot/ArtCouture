@@ -489,7 +489,7 @@ export function DressModal({
         </button>
 
         {/* Left: Image */}
-        <div className="w-full md:w-[50%] h-full md:h-full shrink-0 relative p-2 md:p-6 lg:p-8">
+        <div className="w-full md:w-[50%] h-[85vh] md:h-full shrink-0 relative p-4 md:p-6 lg:p-8">
           <motion.div 
             initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
