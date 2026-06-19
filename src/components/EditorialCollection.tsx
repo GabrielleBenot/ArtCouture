@@ -619,11 +619,14 @@ export function EditorialCollection() {
   useEffect(() => {
     if (selectedDress || shopOpen) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
   }, [selectedDress, shopOpen]);
 
@@ -879,7 +882,8 @@ export function EditorialCollection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-[99998] overflow-y-auto"
+            className="fixed inset-0 z-[99998] overflow-y-auto overscroll-contain"
+            data-lenis-prevent
             onClick={() => setShopOpen(false)}
           >
             {/* Frosted background */}

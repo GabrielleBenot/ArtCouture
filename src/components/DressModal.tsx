@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MagneticButton } from "./MagneticButton";
 import type { DressItem } from "./EditorialCollection";
+import defaultOfferingsConfig from '@/lib/default_config.json';
 
 interface CheckoutAgreementFormProps {
   type: "rent" | "purchase" | "commission";
@@ -426,26 +427,39 @@ export function DressModal({
   const [offeringsLoaded, setOfferingsLoaded] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let itemConfig: any = null;
     try {
       const raw = localStorage.getItem('artcouture_offerings');
       if (raw) {
         const config = JSON.parse(raw);
         if (config[dress.title]) {
-          const itemConfig = config[dress.title];
-          setOfferings({
-            purchaseSample: itemConfig.purchaseSample,
-            commissionBespoke: itemConfig.commissionBespoke,
-            rentEditorial: itemConfig.rentPhotoshoot ? {
-              enabled: itemConfig.rentPhotoshoot.enabled,
-              dayRate: itemConfig.rentPhotoshoot.pricePer3Days || itemConfig.rentPhotoshoot.pricePerDay,
-              securityDeposit: itemConfig.rentPhotoshoot.securityDeposit,
-              stripeLink: itemConfig.rentPhotoshoot.stripeLink,
-            } : undefined
-          });
+          itemConfig = config[dress.title];
         }
       }
     } catch {
-      // localStorage unavailable or invalid JSON; fall back to default
+      // localStorage unavailable or invalid JSON
+    }
+
+    // Fall back to default config if no localStorage data
+    if (!itemConfig) {
+      const defaults = defaultOfferingsConfig as Record<string, any>;
+      if (defaults[dress.title]) {
+        itemConfig = defaults[dress.title];
+      }
+    }
+
+    if (itemConfig) {
+      setOfferings({
+        purchaseSample: itemConfig.purchaseSample,
+        commissionBespoke: itemConfig.commissionBespoke,
+        rentEditorial: itemConfig.rentPhotoshoot ? {
+          enabled: itemConfig.rentPhotoshoot.enabled,
+          dayRate: itemConfig.rentPhotoshoot.pricePer3Days || itemConfig.rentPhotoshoot.pricePerDay,
+          securityDeposit: itemConfig.rentPhotoshoot.securityDeposit,
+          stripeLink: itemConfig.rentPhotoshoot.stripeLink,
+        } : undefined
+      });
     }
     setOfferingsLoaded(true);
   }, [dress.title]);
