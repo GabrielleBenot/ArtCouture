@@ -576,15 +576,6 @@ export default function Home() {
                 </p>
               </motion.div>
 
-              {/* Logo watermark on the left */}
-              <div className="hidden md:flex absolute left-6 lg:left-12 top-1/2 -translate-y-1/2 w-[35%] max-w-[400px] opacity-[0.06] pointer-events-none">
-                <img 
-                  src="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg" 
-                  alt="" 
-                  className="w-full h-auto object-contain mix-blend-multiply"
-                  aria-hidden="true"
-                />
-              </div>
 
               {/* Divider */}
               <div className="max-w-xs mb-16 md:mb-24">
