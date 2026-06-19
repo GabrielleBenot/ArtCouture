@@ -30,6 +30,10 @@ const faqs = [
   {
     question: "What happens if a rented dress is damaged?",
     answer: "Standard wear and tear (such as dust at the hem or a minor loose bead) is fully covered by your rental. In the event of major, irreversible damage (like large tears, permanent stains, or cigarette burns) or loss of the garment, repair costs or the full retail value of the dress will be deducted from your security deposit or charged to your payment method."
+  },
+  {
+    question: "Can I commission a portrait by Gabrielle Benot?",
+    answer: "For select clients, Gabrielle offers the rare opportunity to create an original fine art portrait capturing you in your bespoke gown. Each painting is a one-of-a-kind work of art, an extension of the creative dialogue between artist and muse. This offering is available by invitation and private consultation only."
   }
 ];
 
