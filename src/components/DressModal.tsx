@@ -527,7 +527,7 @@ export function DressModal({
 
             {/* Glassmorphism Editorial Index */}
             {images.length > 1 && (
-              <div className="absolute top-1/3 -translate-y-1/2 left-4 md:left-6 z-50 py-5 md:py-8 px-4 md:px-6 rounded-xl bg-black/30 backdrop-blur-xl border border-white/10 shadow-2xl hidden md:flex flex-col gap-5 md:gap-8 items-start">
+              <div className="absolute top-1/3 -translate-y-1/2 left-3 md:left-4 z-50 py-3 md:py-4 px-3 md:px-4 rounded-lg bg-black/25 backdrop-blur-xl border border-white/10 shadow-2xl hidden md:flex flex-col gap-3 md:gap-4 items-start">
                 {images.map((img, idx) => {
                   const labels = ["The Silhouette", "The Bodice", "Fabric Detail", "The Hem", "Back View", "Details"];
                   const label = labels[idx] || `Detail ${idx}`;
@@ -535,7 +535,7 @@ export function DressModal({
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
-                      className={`relative text-left flex flex-col items-start transition-all duration-700 group pl-4 ${
+                      className={`relative text-left flex flex-col items-start transition-all duration-700 group pl-3 ${
                         activeImageIndex === idx 
                           ? 'opacity-100' 
                           : 'opacity-50 hover:opacity-100'
@@ -548,10 +548,10 @@ export function DressModal({
                           : 'w-[1px] bg-white/20 group-hover:bg-white/60'
                       }`} />
                       
-                      <span className="font-mono text-[8px] md:text-[9px] tracking-[0.4em] uppercase text-white/70 mb-1 leading-none">
+                      <span className="font-mono text-[7px] md:text-[8px] tracking-[0.4em] uppercase text-white/70 mb-0.5 leading-none">
                         0{idx + 1}
                       </span>
-                      <span className={`font-serif italic text-sm md:text-base tracking-widest text-white transition-all duration-500 drop-shadow-md leading-none`}>
+                      <span className={`font-serif italic text-xs md:text-sm tracking-wider text-white transition-all duration-500 drop-shadow-md leading-none`}>
                         {label}
                       </span>
                     </button>
