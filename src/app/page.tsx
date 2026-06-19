@@ -386,6 +386,41 @@ export default function Home() {
             <p className="font-serif italic text-sm text-[var(--text-muted)] mt-4">&ldquo;Color Blind&rdquo;</p>
           </motion.div>
 
+          {/* Behind the Scenes: Painting Process Video */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.1 }}
+            className="flex flex-col md:flex-row items-center gap-8 md:gap-14"
+          >
+            <div className="relative overflow-hidden aspect-[9/16] w-full md:w-[40%] max-h-[70vh] rounded-sm">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover"
+              >
+                <source src="/videos/painting_process.mp4" type="video/mp4" />
+              </video>
+              {/* Corner accents */}
+              <div className="absolute top-3 left-3 w-8 h-8 border-t-[0.5px] border-l-[0.5px] border-white/40 pointer-events-none" />
+              <div className="absolute bottom-3 right-3 w-8 h-8 border-b-[0.5px] border-r-[0.5px] border-white/40 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-5">
+                <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/70">Behind the Scenes</span>
+              </div>
+            </div>
+            <div className="md:w-[60%] space-y-4">
+              <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--dada-red)]">From the Studio</span>
+              <h3 className="font-serif italic text-2xl md:text-3xl text-[var(--text-main)]">Every brushstroke is real.</h3>
+              <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-md">
+                Watch Gabrielle at work in her studio, layering pigment and mixed media to create the original paintings that inspire every couture piece.
+              </p>
+            </div>
+          </motion.div>
+
         </div>
 
       {/* CHARMAIGNE MENN - The Couturière */}
