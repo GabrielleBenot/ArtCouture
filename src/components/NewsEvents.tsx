@@ -8,6 +8,7 @@ interface NewsItem {
   date: string;
   description: string;
   image: string;
+  video?: string;
   cta?: string;
   ctaHref?: string;
 }
@@ -21,6 +22,7 @@ const newsItems: NewsItem[] = [
       "Step into the world of pure artistry with our upcoming, invitation-only silk painting workshops. Guided by master techniques and infused with Art Couture's signature elegance, you will explore the centuries-old process of transforming silk into luminous works of wearable art. Spaces are strictly limited.",
     image:
       "https://storage.googleapis.com/mixo-sites/images/file-77426bbf-6aac-41f4-8c9f-16b8a9375343.PNG",
+    video: "/videos/silk_painting_workshop.mp4",
     cta: "Join the Waitlist",
     ctaHref: "#contact",
   },
@@ -136,15 +138,29 @@ export function NewsEvents() {
             >
               {/* Image */}
               <div className="relative aspect-[3/4] overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={`Art Couture ${item.title} – ${item.tag}`}
-                  loading="lazy"
-                  className={`w-full h-full object-cover transition-all duration-1000 transform ${
-                    colorCards.has(i) ? 'grayscale-0 scale-105' : 'grayscale'
-                  }`}
-                  onTouchStart={() => handleCardTap(i)}
-                />
+                {item.video ? (
+                  <video
+                    src={item.video}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className={`w-full h-full object-cover transition-all duration-1000 transform ${
+                      colorCards.has(i) ? 'grayscale-0 scale-105' : 'grayscale'
+                    }`}
+                    onTouchStart={() => handleCardTap(i)}
+                  />
+                ) : (
+                  <img
+                    src={item.image}
+                    alt={`Art Couture ${item.title} – ${item.tag}`}
+                    loading="lazy"
+                    className={`w-full h-full object-cover transition-all duration-1000 transform ${
+                      colorCards.has(i) ? 'grayscale-0 scale-105' : 'grayscale'
+                    }`}
+                    onTouchStart={() => handleCardTap(i)}
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 {/* Tag */}
                 <span className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.3em] text-white bg-[var(--dada-red)] px-3 py-1.5">

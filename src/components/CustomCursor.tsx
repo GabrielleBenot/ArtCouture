@@ -79,7 +79,7 @@ export function CustomCursor() {
       {/* Inner dot */}
       <motion.div
         style={{ x: cursorX, y: cursorY }}
-        className="fixed top-0 left-0 z-[10010] pointer-events-none mix-blend-difference"
+        className="fixed top-0 left-0 z-[10010] pointer-events-none"
       >
         <motion.div
           animate={{
@@ -87,14 +87,14 @@ export function CustomCursor() {
             opacity: isVisible ? 1 : 0,
           }}
           transition={{ duration: 0.15 }}
-          className="w-[7px] h-[7px] -ml-[3.5px] -mt-[3.5px] rounded-full bg-white"
+          className="w-[7px] h-[7px] -ml-[3.5px] -mt-[3.5px] rounded-full bg-[#0a0a0a] shadow-[0_0_0_1px_rgba(255,255,255,0.5)]"
         />
       </motion.div>
 
       {/* Outer ring */}
       <motion.div
         style={{ x: ringX, y: ringY }}
-        className="fixed top-0 left-0 z-[10009] pointer-events-none mix-blend-difference"
+        className="fixed top-0 left-0 z-[10009] pointer-events-none"
       >
         <motion.div
           animate={{
@@ -105,7 +105,7 @@ export function CustomCursor() {
             opacity: isVisible ? 1 : 0,
           }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="rounded-full border border-white/30"
+          className="rounded-full border border-[#0a0a0a]/40 shadow-[0_0_0_1px_rgba(255,255,255,0.3)]"
         />
       </motion.div>
     </>

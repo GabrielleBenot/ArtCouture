@@ -39,8 +39,8 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
     <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
       {blend ? (
         <div className="w-full flex justify-center">
-          {/* Deliberate semicircle crop on desktop with drop shadow */}
-          <div className="md:h-[45vh] md:overflow-hidden w-full flex justify-center">
+          {/* Deliberate semicircle crop on desktop with drop shadow - parallax on outer container */}
+          <motion.div style={{ y, scale }} className="md:h-[45vh] md:overflow-hidden w-full flex justify-center">
             <div className="max-w-full md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden bg-[var(--background)] mx-auto" style={{ filter: 'drop-shadow(0 25px 40px rgba(0,0,0,0.12)) drop-shadow(0 8px 16px rgba(0,0,0,0.08))' }}>
               <img 
                 src={src} 
@@ -49,7 +49,7 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
                 className="w-full h-full object-contain scale-[0.94] mix-blend-multiply"
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       ) : (
         <motion.img 
@@ -218,6 +218,28 @@ function FeatureSection({
 
 export default function Home() {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const [lightboxGallery, setLightboxGallery] = useState<string[]>([]);
+  const lightboxTouchStart = React.useRef<number | null>(null);
+
+  // Open lightbox with gallery context
+  const openLightbox = (src: string, gallery?: string[]) => {
+    setLightboxSrc(src);
+    setLightboxGallery(gallery || []);
+  };
+
+  // Navigate within lightbox
+  const lightboxNext = () => {
+    if (lightboxGallery.length === 0 || !lightboxSrc) return;
+    const idx = lightboxGallery.indexOf(lightboxSrc);
+    if (idx < lightboxGallery.length - 1) setLightboxSrc(lightboxGallery[idx + 1]);
+  };
+  const lightboxPrev = () => {
+    if (lightboxGallery.length === 0 || !lightboxSrc) return;
+    const idx = lightboxGallery.indexOf(lightboxSrc);
+    if (idx > 0) setLightboxSrc(lightboxGallery[idx - 1]);
+  };
+  const lightboxIdx = lightboxGallery.indexOf(lightboxSrc || '');
+
   return (
     <main className="min-h-screen bg-[var(--background)] selection:bg-[var(--dada-red)] selection:text-white overflow-x-hidden">
       <IntroLoader />
@@ -798,8 +820,8 @@ export default function Home() {
                   alt="Elegant gown inspired by a Venetian palazzo, warm honey-gold silk with architectural draping"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                {/* Side vignettes to focus on the dress */}
-                <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 60px 0 80px -20px rgba(0,0,0,0.5), inset -60px 0 80px -20px rgba(0,0,0,0.5)' }} />
+                {/* Heavy vignette to darken edges and focus on dress */}
+                <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 80px 0 100px -10px rgba(0,0,0,0.6), inset -100px 0 120px -10px rgba(0,0,0,0.65), inset 0 60px 80px -20px rgba(0,0,0,0.3), inset 0 -40px 60px -10px rgba(0,0,0,0.4)' }} />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-5">
                   <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/60">The Gown</span>
                 </div>
