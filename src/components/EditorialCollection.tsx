@@ -626,8 +626,9 @@ export function EditorialCollection() {
     };
   }, [selectedDress, shopOpen]);
 
-  // Resolve offerings config: localStorage override or default
-  const offeringsConfig = useMemo(() => {
+  // Resolve offerings config: localStorage override or default. Re-read when shop opens.
+  const [offeringsConfig, setOfferingsConfig] = useState<Record<string, { purchaseSample: { enabled: boolean; price: string; stripeLink: string } }>>(() => {
+    if (typeof window === 'undefined') return defaultOfferingsConfig as Record<string, { purchaseSample: { enabled: boolean; price: string; stripeLink: string } }>;
     try {
       const raw = localStorage.getItem('artcouture_offerings');
       if (raw) return JSON.parse(raw) as Record<string, { purchaseSample: { enabled: boolean; price: string; stripeLink: string } }>;
@@ -635,7 +636,19 @@ export function EditorialCollection() {
       // ignore
     }
     return defaultOfferingsConfig as Record<string, { purchaseSample: { enabled: boolean; price: string; stripeLink: string } }>;
-  }, []);
+  });
+
+  // Re-read config from localStorage every time shop opens to pick up admin changes
+  useEffect(() => {
+    if (shopOpen) {
+      try {
+        const raw = localStorage.getItem('artcouture_offerings');
+        if (raw) setOfferingsConfig(JSON.parse(raw));
+      } catch {
+        // ignore
+      }
+    }
+  }, [shopOpen]);
 
   const shopItems = useMemo(() => {
     return collection.filter(item => {

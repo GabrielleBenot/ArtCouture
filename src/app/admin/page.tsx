@@ -913,6 +913,12 @@ function AdminPanel() {
   const [activeTab, setActiveTab] = useState<'inventory' | 'vault'>('inventory');
   const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
   const [pickerTarget, setPickerTarget] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'warning' | 'info' } | null>(null);
+
+  const showToast = useCallback((message: string, type: 'success' | 'warning' | 'info' = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 2500);
+  }, []);
 
   useEffect(() => {
     setConfig(loadConfig());
@@ -961,7 +967,8 @@ function AdminPanel() {
   const saveAll = useCallback(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
     setLastSaved(new Date().toLocaleTimeString());
-  }, [config]);
+    showToast('All changes saved successfully', 'success');
+  }, [config, showToast]);
 
   const exportBackup = useCallback(() => {
     try {
@@ -979,10 +986,11 @@ function AdminPanel() {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      showToast('Backup exported successfully', 'success');
     } catch (err: any) {
-      alert('Failed to export backup: ' + err.message);
+      showToast('Failed to export: ' + err.message, 'warning');
     }
-  }, []);
+  }, [showToast]);
 
   const importBackup = useCallback(() => {
     const input = document.createElement('input');
@@ -1007,15 +1015,29 @@ function AdminPanel() {
           if (parsed.vault) {
             localStorage.setItem(VAULT_KEY, parsed.vault);
           }
-          alert('Database restored successfully! Reloading page...');
-          window.location.reload();
+          showToast('Backup imported successfully. Reloading...', 'success');
+          setTimeout(() => window.location.reload(), 1500);
         } catch (err: any) {
-          alert('Failed to import backup: ' + err.message);
+          showToast('Failed to import: ' + err.message, 'warning');
         }
       };
       reader.readAsText(file);
     };
     input.click();
+  }, [showToast]);
+
+  const resetAll = useCallback(() => {
+    if (!window.confirm('Are you sure you want to reset all settings to defaults? This cannot be undone.')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(IMAGE_OVERRIDES_KEY);
+    setConfig(loadConfig());
+    setImageOverrides({});
+    setLastSaved(null);
+    showToast('All settings reset to defaults', 'warning');
+  }, [showToast]);
+
+  const goBack = useCallback(() => {
+    window.location.href = '/';
   }, []);
 
   const enableCommissionAll = useCallback(() => {
@@ -1034,7 +1056,8 @@ function AdminPanel() {
       }
       return next;
     });
-  }, []);
+    showToast('Commission enabled for all garments', 'info');
+  }, [showToast]);
 
   const enabledCount = Object.values(config).reduce((acc, item) => {
     let count = 0;
@@ -1046,17 +1069,74 @@ function AdminPanel() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+            className={`
+              fixed top-6 left-1/2 -translate-x-1/2 z-[9999]
+              px-5 py-3 rounded-xl border backdrop-blur-md
+              flex items-center gap-2.5 shadow-2xl
+              font-mono text-xs uppercase tracking-wider
+              ${
+                toast.type === 'success'
+                  ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300'
+                  : toast.type === 'warning'
+                  ? 'bg-amber-500/15 border-amber-500/30 text-amber-300'
+                  : 'bg-violet-500/15 border-violet-500/30 text-violet-300'
+              }
+            `}
+          >
+            {toast.type === 'success' && (
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            )}
+            {toast.type === 'warning' && (
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+              </svg>
+            )}
+            {toast.type === 'info' && (
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+              </svg>
+            )}
+            {toast.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Top Bar */}
       <div className="sticky top-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <h1 className="text-sm font-mono uppercase tracking-[0.25em] text-white/80">
-                Art Couture Admin
-              </h1>
-              <p className="text-xs text-white/30 font-mono mt-1">
-                {GARMENTS.length} garments, {enabledCount} active offerings
-              </p>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={goBack}
+                className="
+                  w-8 h-8 rounded-lg bg-white/5 border border-white/10
+                  flex items-center justify-center
+                  hover:bg-white/10 transition-all cursor-pointer
+                "
+                title="Go back to site"
+              >
+                <svg className="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+              </button>
+              <div>
+                <h1 className="text-sm font-mono uppercase tracking-[0.25em] text-white/80">
+                  Art Couture Admin
+                </h1>
+                <p className="text-xs text-white/30 font-mono mt-1">
+                  {GARMENTS.length} garments, {enabledCount} active offerings
+                </p>
+              </div>
             </div>
             <div className="flex items-center gap-3 flex-wrap">
               {lastSaved && (
@@ -1071,6 +1151,7 @@ function AdminPanel() {
                   px-3 py-1.5 rounded-lg text-[11px] font-mono uppercase tracking-wider
                   bg-violet-500/10 text-violet-300 border border-violet-500/20
                   hover:bg-violet-500/20 transition-all cursor-pointer
+                  active:scale-95
                 "
               >
                 Enable Commission All
@@ -1081,6 +1162,7 @@ function AdminPanel() {
                   px-3 py-1.5 rounded-lg text-[11px] font-mono uppercase tracking-wider
                   bg-emerald-500/10 text-emerald-300 border border-emerald-500/20
                   hover:bg-emerald-500/20 transition-all cursor-pointer
+                  active:scale-95
                 "
               >
                 Save All
@@ -1091,6 +1173,7 @@ function AdminPanel() {
                   px-3 py-1.5 rounded-lg text-[11px] font-mono uppercase tracking-wider
                   bg-blue-500/10 text-blue-300 border border-blue-500/20
                   hover:bg-blue-500/20 transition-all cursor-pointer
+                  active:scale-95
                 "
               >
                 Export Backup
@@ -1101,9 +1184,21 @@ function AdminPanel() {
                   px-3 py-1.5 rounded-lg text-[11px] font-mono uppercase tracking-wider
                   bg-amber-500/10 text-amber-300 border border-amber-500/20
                   hover:bg-amber-500/20 transition-all cursor-pointer
+                  active:scale-95
                 "
               >
                 Import Backup
+              </button>
+              <button
+                onClick={resetAll}
+                className="
+                  px-3 py-1.5 rounded-lg text-[11px] font-mono uppercase tracking-wider
+                  bg-red-500/10 text-red-300 border border-red-500/20
+                  hover:bg-red-500/20 transition-all cursor-pointer
+                  active:scale-95
+                "
+              >
+                Reset All
               </button>
             </div>
           </div>
