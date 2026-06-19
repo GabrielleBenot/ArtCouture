@@ -39,6 +39,19 @@ export function IntroLoader() {
 
   const handleEnter = () => {
     window.scrollTo(0, 0);
+
+    // Preload key below-the-fold images during the curtain animation
+    const preloadImages = [
+      '/images/color_is_power.jpg',
+      '/images/patterns_fabric.jpg',
+      '/images/luxury_detail.jpg',
+      '/images/couture_mannequin.png',
+    ];
+    preloadImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+
     // Phase 1: Brief white flash
     setPhase("flash");
     setTimeout(() => {
