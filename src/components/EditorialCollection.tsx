@@ -941,36 +941,27 @@ export function EditorialCollection() {
                             }
                           }}
                         >
-                          {/* Framed Image */}
-                          <div className="relative p-[6px] md:p-2 bg-white shadow-[0_2px_20px_rgba(0,0,0,0.04)] group-hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] transition-shadow duration-500">
-                            {/* Thin decorative inner border */}
-                            <div className="relative overflow-hidden border border-black/[0.06]">
-                              <div className="aspect-[3/4]">
-                                <img
-                                  src={item.img}
-                                  alt={item.title}
-                                  loading="lazy"
-                                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.03]"
-                                />
-                              </div>
-                              {/* Subtle hover overlay */}
-                              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
-                              {/* Corner accents */}
-                              <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                              <div className="absolute top-2 right-2 w-3 h-3 border-t border-r border-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                              <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                              <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                          {/* Clean Image Card */}
+                          <div className="relative overflow-hidden rounded-lg shadow-[0_2px_16px_rgba(0,0,0,0.06)] group-hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-shadow duration-500">
+                            <div className="aspect-[3/4]">
+                              <img
+                                src={item.img}
+                                alt={item.title}
+                                loading="lazy"
+                                className="w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.03]"
+                              />
                             </div>
-                          </div>
-                          {/* Info */}
-                          <div className="mt-4 text-center space-y-1">
-                            <h3 className="font-serif text-sm md:text-base lg:text-lg font-light text-[var(--text-main)] tracking-wide group-hover:text-[var(--dada-red)] transition-colors duration-300">
-                              {item.title}
-                            </h3>
-                            <p className="font-mono text-[10px] md:text-xs text-[var(--text-muted)] tracking-[0.15em]">
-                              {item.shopPrice}
-                            </p>
-                            <div className="w-0 group-hover:w-8 h-[1px] bg-[var(--dada-red)] mx-auto transition-all duration-500" />
+                            {/* Bottom gradient for name overlay */}
+                            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 via-black/20 to-transparent pointer-events-none" />
+                            {/* Name and price on image */}
+                            <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+                              <h3 className="font-serif text-sm md:text-base font-light text-white tracking-wide leading-tight drop-shadow-md">
+                                {item.title}
+                              </h3>
+                              <p className="font-mono text-[9px] md:text-[10px] text-white/80 tracking-[0.15em] mt-1 drop-shadow-md">
+                                {item.shopPrice}
+                              </p>
+                            </div>
                           </div>
                         </motion.div>
                       ))}
