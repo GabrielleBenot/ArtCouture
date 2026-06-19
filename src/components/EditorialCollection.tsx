@@ -1006,7 +1006,13 @@ export function EditorialCollection() {
         {selectedDress && (
           <DressModal 
             dress={selectedDress} 
-            onClose={() => { setSelectedDress(null); setDressFromShop(false); }}
+            onClose={() => {
+              setSelectedDress(null);
+              if (dressFromShop) {
+                setShopOpen(true);
+              }
+              setDressFromShop(false);
+            }}
             fromShop={dressFromShop}
           />
         )}
