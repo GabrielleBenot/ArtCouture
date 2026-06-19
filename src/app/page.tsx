@@ -362,6 +362,56 @@ export default function Home() {
 
         </div>
 
+        {/* CHARMAIGNE MENN - The Couturière */}
+        <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 md:mr-[5%] md:ml-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="flex flex-col md:flex-row items-center gap-12 md:gap-16"
+          >
+            <div className="flex-1 order-1 md:order-1 space-y-4 md:space-y-6">
+              <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)]">The Couturi&egrave;re</span>
+              <h3 className="flex flex-col">
+                <span className="font-sans font-black text-3xl md:text-4xl uppercase tracking-tight">Before She Paints,</span>
+                <span className="font-serif italic font-light text-[3rem] md:text-[5rem] text-[var(--dada-red)] leading-[0.8]">She Sews.</span>
+              </h3>
+              <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-md">
+                Charmaigne Menn learned to cut fabric before she could read a pattern. Growing up in Durban, South Africa, with a mother and grandmother who were artists, she was sketching dresses by the age of eight. Four decades later, that instinct has only sharpened, from building factories in South Africa to fitting gowns on clients across the United States.
+              </p>
+              <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-md">
+                She thinks like an architect and works like a sculptor. Every seam has a reason. Every dart shapes the body the way light shapes a room. The women who wear her couture say the same thing: it feels like it was always yours.
+              </p>
+            </div>
+            <div className="flex-1 order-2 md:order-2">
+              <ParallaxImage
+                src="/images/couture_mannequin.png"
+                alt="Haute couture gown by Charmaigne Menn on atelier mannequin"
+              />
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Personal Quote */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5 }}
+          className="max-w-3xl mx-auto text-center px-8 py-16 md:py-24 mb-10"
+        >
+          <div className="w-8 h-[1px] bg-[var(--dada-red)]/40 mx-auto mb-10" />
+          <blockquote className="font-serif italic text-lg md:text-[1.7rem] lg:text-[2rem] text-[var(--text-main)] leading-[1.4] mb-8">
+            &ldquo;We create because we can&apos;t not create. The fabric, the color, the form, it all starts with this quiet need to make something beautiful.&rdquo;
+          </blockquote>
+          <div className="flex items-center justify-center gap-4">
+            <div className="h-[1px] w-8 bg-[var(--dada-red)]/40" />
+            <span className="font-serif italic text-sm tracking-[0.2em] text-[var(--text-muted)]">Gabi &amp; Char</span>
+            <div className="h-[1px] w-8 bg-[var(--dada-red)]/40" />
+          </div>
+        </motion.div>
+
         {/* Studio Videos - Dark Editorial Spread */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -440,56 +490,6 @@ export default function Home() {
         </motion.div>
 
       </section>
-
-      {/* CHARMAIGNE MENN - The Couturière */}
-      <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 md:mr-[5%] md:ml-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="flex flex-col md:flex-row items-center gap-12 md:gap-16"
-        >
-          <div className="flex-1 order-1 md:order-1 space-y-4 md:space-y-6">
-            <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)]">The Couturi&egrave;re</span>
-            <h3 className="flex flex-col">
-              <span className="font-sans font-black text-3xl md:text-4xl uppercase tracking-tight">Before She Paints,</span>
-              <span className="font-serif italic font-light text-[3rem] md:text-[5rem] text-[var(--dada-red)] leading-[0.8]">She Sews.</span>
-            </h3>
-            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-md">
-              Charmaigne Menn learned to cut fabric before she could read a pattern. Growing up in Durban, South Africa, with a mother and grandmother who were artists, she was sketching dresses by the age of eight. Four decades later, that instinct has only sharpened, from building factories in South Africa to fitting gowns on clients across the United States.
-            </p>
-            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-md">
-              She thinks like an architect and works like a sculptor. Every seam has a reason. Every dart shapes the body the way light shapes a room. The women who wear her couture say the same thing: it feels like it was always yours.
-            </p>
-          </div>
-          <div className="flex-1 order-2 md:order-2">
-            <ParallaxImage
-              src="/images/couture_mannequin.png"
-              alt="Haute couture gown by Charmaigne Menn on atelier mannequin"
-            />
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Personal Quote */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5 }}
-        className="max-w-3xl mx-auto text-center px-8 py-16 md:py-24 mb-10"
-      >
-        <div className="w-8 h-[1px] bg-[var(--dada-red)]/40 mx-auto mb-10" />
-        <blockquote className="font-serif italic text-lg md:text-[1.7rem] lg:text-[2rem] text-[var(--text-main)] leading-[1.4] mb-8">
-          &ldquo;We create because we can&apos;t not create. The fabric, the color, the form, it all starts with this quiet need to make something beautiful.&rdquo;
-        </blockquote>
-        <div className="flex items-center justify-center gap-4">
-          <div className="h-[1px] w-8 bg-[var(--dada-red)]/40" />
-          <span className="font-serif italic text-sm tracking-[0.2em] text-[var(--text-muted)]">Gabi &amp; Char</span>
-          <div className="h-[1px] w-8 bg-[var(--dada-red)]/40" />
-        </div>
-      </motion.div>
 
       {/* Visual Breaker */}
       <div className="max-w-xs mx-auto py-8">
