@@ -133,67 +133,69 @@ export function IntroLoader() {
           </div>
         </div>
 
-        {/* Desktop: Original side-by-side layout (untouched) */}
-        <div className="absolute inset-0 hidden lg:flex flex-row">
-          <div className="w-[45%] h-full flex flex-col justify-center px-24 z-10 bg-[#fafaf8]">
+        {/* Desktop: Cinematic fullscreen layout (matching mobile feel) */}
+        <div className="absolute inset-0 hidden lg:flex">
+          {/* Full-screen background image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 2.5, ease: "easeOut" }}
+            className="absolute inset-0 z-0"
+          >
+            <img 
+              src="https://storage.googleapis.com/mixo-sites/images/file-b2b2d022-3c50-445d-92df-17b797dfa179.png" 
+              alt="Art Couture by Gabrielle Benot and Charmaigne Menn, bespoke haute couture atelier" 
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+
+          {/* Gradient overlays for text legibility */}
+          <div className="absolute inset-0 z-[1]" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.05) 70%, rgba(0,0,0,0.15) 100%)' }} />
+          <div className="absolute bottom-0 left-0 right-0 h-[20%] bg-gradient-to-t from-black/30 to-transparent z-[1]" />
+
+          {/* Text content */}
+          <div className="relative z-10 flex flex-col justify-center px-24 max-w-[55%]">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.1 }}
             >
-              <span className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--dada-red)] mb-6 block">Art Couture Studio</span>
+              <span className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--dada-red)] mb-6 block"
+                style={{ textShadow: '0 1px 8px rgba(0,0,0,0.3)' }}
+              >Art Couture Studio</span>
             </motion.div>
 
             <motion.h1 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className="text-7xl font-sans font-black tracking-tighter text-[#050505] leading-[1.05] mb-8"
+              className="text-7xl xl:text-8xl font-sans font-black tracking-tighter text-white leading-[1.05] mb-8"
+              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.3)' }}
             >
-              Where vision becomes style<br/>and style becomes <span className="font-serif italic font-normal">art.</span>
+              Where vision<br/>becomes style<br/>and style becomes <span className="font-serif italic font-normal">art.</span>
             </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="text-xl font-serif text-[#050505]/70 leading-relaxed mb-12 max-w-md"
-            >
-              Step inside the atelier where original paintings become haute couture. Every color, every brushstroke, every bespoke gown, crafted entirely by hand.
-            </motion.p>
-            
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.7 }}
+              transition={{ duration: 1, delay: 0.5 }}
             >
               <MagneticButton>
                 <button 
                   onClick={handleEnter}
-                  className="group relative overflow-hidden border border-[#050505]/20 hover:border-[var(--dada-red)] px-12 py-5 transition-all duration-700 cursor-pointer"
+                  className="group relative overflow-hidden border border-white/30 hover:border-[var(--dada-red)] px-12 py-5 transition-all duration-700 cursor-pointer"
                 >
                   {/* Hover fill */}
                   <span className="absolute inset-0 bg-[var(--dada-red)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] origin-left" />
                   
                   {/* Button text */}
                   <span className="relative z-10 flex items-center gap-4">
-                    <span className="font-serif italic text-base tracking-[0.15em] text-[#050505] group-hover:text-white transition-colors duration-500">Enter the Atelier</span>
+                    <span className="font-serif italic text-base tracking-[0.15em] text-white group-hover:text-white transition-colors duration-500">Enter the Atelier</span>
                     <span className="w-8 h-[1px] bg-[var(--dada-red)] group-hover:bg-white group-hover:w-12 transition-all duration-500" />
                   </span>
                 </button>
               </MagneticButton>
             </motion.div>
-          </div>
-
-          <div className="w-[55%] h-full relative flex items-center justify-center p-8 bg-[#fafaf8]">
-            <motion.img 
-              initial={{ scale: 1.1, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 2, ease: "easeOut" }}
-              src="https://storage.googleapis.com/mixo-sites/images/file-b2b2d022-3c50-445d-92df-17b797dfa179.png" 
-              alt="Art Couture by Gabrielle Benot and Charmaigne Menn, bespoke haute couture atelier" 
-              className="w-full h-full object-contain mix-blend-multiply"
-            />
           </div>
         </div>
       </section>

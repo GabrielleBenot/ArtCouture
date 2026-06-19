@@ -16,7 +16,7 @@ export function CatwalkVideo() {
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
   return (
-    <section ref={containerRef} className="relative h-[156vh] w-full overflow-hidden bg-[var(--background)] flex flex-col items-center justify-center py-20 gap-8">
+    <section ref={containerRef} className="relative h-screen w-full overflow-hidden bg-[var(--background)] flex flex-col items-center justify-center py-12 gap-6">
       {/* Section label above video */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -31,7 +31,7 @@ export function CatwalkVideo() {
 
       <motion.div 
         style={{ scale }}
-        className="relative w-full md:w-[70%] h-[104vh] overflow-hidden rounded-sm"
+        className="relative w-full md:w-[70%] h-[70vh] overflow-hidden rounded-sm"
       >
         {/* Corner accents */}
         <div className="absolute top-0 left-0 w-10 h-10 border-t-2 border-l-2 border-[var(--dada-red)] z-20 pointer-events-none" />

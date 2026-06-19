@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Header } from "@/components/Header";
 import { IntroLoader } from "@/components/IntroLoader";
 import { CinematicHero } from "@/components/CinematicHero";
@@ -14,8 +14,9 @@ import { NewsletterCTA } from "@/components/NewsletterCTA";
 import { TheEdgeCampaign } from "@/components/TheEdgeCampaign";
 import { NewsEvents } from "@/components/NewsEvents";
 import { Footer } from "@/components/Footer";
+import { BespokeForm } from "@/components/BespokeForm";
 import { BackToTop } from "@/components/BackToTop";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
@@ -30,7 +31,7 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
   
   // Subtly move the image vertically while noticeably shrinking it to create depth
   const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.15, 0.85]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.02, 0.98]);
   const filterValue = useTransform(scrollYProgress, [0.35, 0.6], [1, 0]);
   const filter = useTransform(filterValue, (v: number) => `grayscale(${v})`);
 
@@ -51,10 +52,45 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
           src={src} 
           alt={alt} 
           loading="lazy"
-          className={`max-w-full md:max-w-[85%] max-h-[85vh] w-auto h-auto object-contain rounded-sm mix-blend-multiply mx-auto ${className || ''}`}
+          className={`max-w-full md:max-w-[85%] w-auto h-auto object-contain rounded-sm mix-blend-multiply mx-auto ${className || ''}`}
         />
       )}
     </div>
+  );
+}
+
+// Scroll-driven grayscale to color reveal for the craft image
+function ScrollRevealImage() {
+  const imgRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: imgRef,
+    offset: ["start end", "end start"]
+  });
+  const grayscaleValue = useTransform(scrollYProgress, [0, 0.65, 0.75], [1, 1, 0]);
+  const grayscale = useTransform(grayscaleValue, (v: number) => `grayscale(${v})`);
+
+  return (
+    <motion.div
+      ref={imgRef}
+      initial={{ opacity: 0, x: -30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 1 }}
+      className="md:w-[45%] md:sticky md:top-24 md:self-start"
+    >
+      <div className="relative overflow-hidden aspect-square">
+        <motion.img 
+          style={{ filter: grayscale }}
+          src="/images/luxury_detail.jpg"
+          alt="Art Couture hand-embroidered lace detail close-up"
+          loading="lazy"
+          className="w-full h-full object-cover transition-colors duration-500"
+        />
+        <div className="absolute top-4 left-4 w-12 h-12 border-t-[0.5px] border-l-[0.5px] border-[var(--dada-red)]/50 pointer-events-none" />
+        <div className="absolute bottom-4 right-4 w-12 h-12 border-b-[0.5px] border-r-[0.5px] border-[var(--dada-red)]/50 pointer-events-none" />
+      </div>
+      <span className="block font-mono text-[8px] uppercase tracking-[0.4em] text-[var(--text-muted)] mt-4">Lun&eacute;ville embroidery by hand</span>
+    </motion.div>
   );
 }
 
@@ -70,7 +106,8 @@ function FeatureSection({
   blendImage = false,
   imageClassName = "flex-[1.2] w-full",
   textClassName = "flex-1 space-y-6",
-  revealColor = false
+  revealColor = false,
+  imgClassName
 }: { 
   id?: string,
   title?: React.ReactNode, 
@@ -82,7 +119,8 @@ function FeatureSection({
   blendImage?: boolean,
   imageClassName?: string,
   textClassName?: string,
-  revealColor?: boolean
+  revealColor?: boolean,
+  imgClassName?: string
 }) {
   return (
     <section id={id} className="py-16 md:py-24 px-6 max-w-[90rem] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
@@ -124,13 +162,13 @@ function FeatureSection({
             )}
           </div>
           <div className={imageClassName}>
-            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} revealColor={revealColor} />
+            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} revealColor={revealColor} className={imgClassName} />
           </div>
         </>
       ) : (
         <>
           <div className={`${imageClassName} order-2 md:order-1`}>
-            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} revealColor={revealColor} />
+            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} revealColor={revealColor} className={imgClassName} />
           </div>
           <div className={`${textClassName} lg:pl-12 order-1 md:order-2`}>
             {subtitle && (
@@ -174,6 +212,7 @@ function FeatureSection({
 }
 
 export default function Home() {
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   return (
     <main className="min-h-screen bg-[var(--background)] selection:bg-[var(--dada-red)] selection:text-white overflow-x-hidden">
       <IntroLoader />
@@ -241,8 +280,8 @@ export default function Home() {
         textClassName="flex-1 space-y-4 md:space-y-6"
       />
 
-      {/* Second painting - visual only with minimal text */}
-      <div className="max-w-6xl mx-auto px-6 py-8 md:py-16">
+      {/* Second painting - visual only with minimal text (offset left on desktop) */}
+      <div className="max-w-6xl mx-auto px-6 py-8 md:py-16 md:ml-[5%] md:mr-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -266,32 +305,91 @@ export default function Home() {
         </motion.div>
       </div>
 
-      {/* Third painting */}
-      <div className="max-w-6xl mx-auto px-6 py-8 md:py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="flex flex-col md:flex-row items-center gap-12 md:gap-16"
-        >
-          <div className="flex-1 order-1 md:order-1 space-y-4 md:space-y-6">
-            <h3 className="flex flex-col">
-              <span className="font-sans font-black text-3xl md:text-4xl uppercase tracking-tight">Where Color</span>
-              <span className="font-serif italic font-light text-[3rem] md:text-[5rem] text-[var(--dada-red)] leading-[0.8]">Meets Skin.</span>
-            </h3>
-          </div>
-          <div className="flex-1 order-2 md:order-2">
-            <ParallaxImage
-              src="/images/paintings/faces_color_blind.jpg"
-              alt="Gabrielle Benot original mixed-media portrait painting"
-            />
-          </div>
-        </motion.div>
-      </div>
+      {/* Art-to-Dress Showcases */}
+      <div className="max-w-7xl mx-auto px-6 py-12 md:py-24 space-y-20 md:space-y-32">
+
+          {/* Pair 1: Yellow Reverie painting + dress */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+          >
+            <div className="flex flex-col md:flex-row items-stretch gap-6 md:gap-10">
+              <div className="relative group overflow-hidden aspect-square flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/brunette_yellow_painting.png')}>
+                <img
+                  src="/images/paintings/brunette_yellow_painting.png"
+                  alt="Original mixed-media painting by Gabrielle Benot, brunette woman with bold yellow"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-5">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/70">The Painting</span>
+                </div>
+              </div>
+              <div className="flex md:flex-col items-center justify-center gap-3 py-2 md:py-0 md:px-2">
+                <div className="flex-1 h-[1px] md:h-auto md:w-[1px] bg-[var(--dada-red)]/20 md:flex-1" />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--dada-red)] rotate-90 md:rotate-0 shrink-0">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+                <div className="flex-1 h-[1px] md:h-auto md:w-[1px] bg-[var(--dada-red)]/20 md:flex-1" />
+              </div>
+              <div className="relative group overflow-hidden aspect-[3/4] md:aspect-square flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/dress_from_painting_hero.jpg')}>
+                <img
+                  src="/images/paintings/dress_from_painting_hero.jpg"
+                  alt="Haute couture gown inspired by the painting, saffron yellow silk with crimson accents"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-5">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/70">The Gown</span>
+                </div>
+              </div>
+            </div>
+            <p className="font-serif italic text-sm text-[var(--text-muted)] mt-4">&ldquo;Yellow Reverie&rdquo;</p>
+          </motion.div>
+
+          {/* Pair 2: Colorful abstract face painting + dress */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2 }}
+          >
+            <div className="flex flex-col md:flex-row items-stretch gap-6 md:gap-10">
+              <div className="relative group overflow-hidden aspect-square flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/faces_color_blind.jpg')}>
+                <img
+                  src="/images/paintings/faces_color_blind.jpg"
+                  alt="Gabrielle Benot original mixed-media abstract portrait with vibrant colors"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-5">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/70">The Painting</span>
+                </div>
+              </div>
+              <div className="flex md:flex-col items-center justify-center gap-3 py-2 md:py-0 md:px-2">
+                <div className="flex-1 h-[1px] md:h-auto md:w-[1px] bg-[var(--dada-red)]/20 md:flex-1" />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--dada-red)] rotate-90 md:rotate-0 shrink-0">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+                <div className="flex-1 h-[1px] md:h-auto md:w-[1px] bg-[var(--dada-red)]/20 md:flex-1" />
+              </div>
+              <div className="relative group overflow-hidden aspect-[3/4] md:aspect-square flex-1 cursor-pointer" onClick={() => setLightboxSrc('/images/paintings/dress_from_colorful_face.png')}>
+                <img
+                  src="/images/paintings/dress_from_colorful_face.png"
+                  alt="Flowing evening gown inspired by the abstract portrait, vibrant watercolor silk"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-5">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/70">The Gown</span>
+                </div>
+              </div>
+            </div>
+            <p className="font-serif italic text-sm text-[var(--text-muted)] mt-4">&ldquo;Color Blind&rdquo;</p>
+          </motion.div>
+
+        </div>
 
       {/* CHARMAIGNE MENN - The Couturière */}
-      <div className="max-w-6xl mx-auto px-6 py-16 md:py-24">
+      <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 md:mr-[5%] md:ml-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -383,73 +481,67 @@ export default function Home() {
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
         imgAlt="Bespoke geometric couture fabric pattern by Art Couture"
         imageClassName="w-[calc(100%+3rem)] -ml-[calc(1.5rem+5%)] md:ml-0 md:w-full -mt-6 md:mt-0 md:flex-[1.44] overflow-hidden"
+        imgClassName="max-h-[50vh]"
       />
 
       {/* 4. CATWALK VIDEO */}
       <CatwalkVideo />
 
-      {/* THE CRAFT & THE PROMISE - One Grand Section */}
+      {/* THE CRAFT & THE PROMISE - Editorial Spread */}
       <section className="py-20 md:py-28">
-        {/* Luxury Detail Image */}
-        <div className="relative w-full max-w-5xl mx-auto mb-16 px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="relative overflow-hidden"
-          >
-            <img 
-              src="/images/luxury_detail.jpg"
-              alt="Art Couture hand-embroidered lace detail close-up"
-              loading="lazy"
-              className="w-full object-cover grayscale hover:grayscale-0 transition-all duration-[1.5s] md:max-h-[60vh]"
-            />
-          </motion.div>
-        </div>
+        <div className="max-w-7xl mx-auto px-6 md:ml-[3%] md:mr-auto">
+          {/* Desktop: Side-by-side editorial layout */}
+          <div className="flex flex-col md:flex-row gap-12 md:gap-16 lg:gap-24">
+            
+            {/* Left: Sticky image with scroll-driven color reveal */}
+            <ScrollRevealImage />
 
-        {/* Combined Headline + All Text */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="max-w-6xl mx-auto px-6 mb-8"
-        >
-          <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">The Craft</span>
-          <h2 className="flex flex-col mb-8">
-            <span className="font-sans font-black text-[4.7rem] md:text-8xl uppercase tracking-tighter leading-[0.85]">Luxury</span>
-            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">you can actually</span>
-            <span className="font-serif italic font-light text-[3.5rem] md:text-[9rem] lg:text-[11rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">feel.</span>
-          </h2>
-          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl mb-4">
-            Gabrielle is obsessed with texture, and that obsession runs through everything we create. Lun&eacute;ville hook embroidery, hand-beading, sculptural draping: old-world techniques that take real time. We never rush. You can feel the difference in the weight of the silk, the architecture of the corset, the finish of every hidden seam.
-          </p>
-          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl">
-            Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle layered with precision. Charmaigne sources our textiles from Europe&apos;s finest mills, selecting each fabric for how it feels against the skin. No detail is overlooked, no shortcut taken.
-          </p>
-        </motion.div>
+            {/* Right: Combined editorial text */}
+            <div className="md:w-[55%] flex flex-col justify-center">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1 }}
+                className="mb-16 md:mb-24"
+              >
+                <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">The Craft</span>
+                <h2 className="flex flex-col mb-10">
+                  <span className="font-sans font-black text-[4.7rem] md:text-7xl lg:text-8xl uppercase tracking-tighter leading-[0.85]">Luxury</span>
+                  <span className="font-serif font-light text-4xl md:text-5xl lg:text-6xl -mt-1 md:mt-0">you can actually</span>
+                  <span className="font-serif italic font-light text-[3.5rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] -mt-2 md:mt-1 leading-[0.75]">feel.</span>
+                </h2>
+                <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-lg mb-4">
+                  Gabrielle is obsessed with texture, and that obsession runs through everything we create. Lun&eacute;ville hook embroidery, hand-beading, sculptural draping: old-world techniques that take real time. We never rush.
+                </p>
+                <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-lg">
+                  Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle layered with precision. Charmaigne sources our textiles from Europe&apos;s finest mills, selecting each fabric for how it feels against the skin.
+                </p>
+              </motion.div>
 
-        {/* Gowns as Rare subheading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="max-w-6xl mx-auto px-6 mb-20"
-        >
-          <div className="max-w-xs my-10">
-            <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--dada-red)]/30 to-transparent" />
+              {/* Divider */}
+              <div className="max-w-xs mb-16 md:mb-24">
+                <div className="h-[1px] bg-gradient-to-r from-[var(--dada-red)]/30 via-[var(--dada-red)]/30 to-transparent" />
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1 }}
+              >
+                <h3 className="flex flex-col mb-10">
+                  <span className="font-sans font-black text-[3.75rem] md:text-6xl lg:text-7xl uppercase tracking-tighter leading-[0.85]">Gowns</span>
+                  <span className="font-serif font-light text-3xl md:text-4xl lg:text-5xl -mt-1 md:mt-0">as rare as the</span>
+                  <span className="font-serif italic font-light text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] text-[var(--dada-red)] -mt-2 md:mt-1 leading-[0.8]">Women who wear them.</span>
+                </h3>
+                <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-lg">
+                  Each gown is an exclusive design, created entirely in-house: rare satin, beaded tulle, and velvet that drinks in the light. Crafted to embrace the body with precision and grace. One client. One vision. One piece.
+                </p>
+              </motion.div>
+            </div>
           </div>
-          <h3 className="flex flex-col mb-8">
-            <span className="font-sans font-black text-[3.75rem] md:text-7xl uppercase tracking-tighter leading-[0.85]">Gowns</span>
-            <span className="font-serif font-light text-4xl md:text-6xl -mt-1 md:mt-0">as rare as the</span>
-            <span className="font-serif italic font-light text-[4rem] md:text-[7rem] lg:text-[9rem] text-[var(--dada-red)] -mt-2 md:mt-2 leading-[0.75]">Women who wear them.</span>
-          </h3>
-          <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-2xl">
-            Each gown is an exclusive design, created entirely in-house: rare satin, beaded tulle, and velvet that drinks in the light. Crafted to embrace the body with precision and grace. One client. One vision. One piece.
-          </p>
-        </motion.div>
+        </div>
 
         {/* Fabric Grid */}
         <div className="max-w-6xl mx-auto px-6">
@@ -514,95 +606,152 @@ export default function Home() {
       </section>
 
       {/* YOUR VISION, OUR CRAFT - Bespoke Inspiration */}
-      <section className="py-24 md:py-36 relative overflow-hidden">
-        {/* Subtle background accent */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
+      <section className="relative py-32 md:py-44 bg-[#0a0a0a] overflow-hidden">
+        {/* Oversized background watermark */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+          <span className="font-sans font-black text-[18vw] md:text-[14vw] uppercase tracking-tighter text-white/[0.02] leading-none select-none whitespace-nowrap">BESPOKE</span>
         </div>
 
-        <div className="max-w-6xl mx-auto px-6">
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="text-center mb-16"
+            className="mb-16 md:mb-24"
           >
-            <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--dada-red)] mb-8">Bespoke Inspiration</span>
-            <h2 className="flex flex-col items-center mb-8">
-              <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl">Your Vision,</span>
+            <span className="block font-mono text-[9px] uppercase tracking-[0.5em] text-[var(--dada-red)] mb-8">Bespoke Inspiration</span>
+            <h2 className="flex flex-col">
+              <span className="font-serif font-light text-5xl md:text-7xl lg:text-8xl text-white/90">Your Vision,</span>
               <span className="font-sans font-black text-[3.5rem] md:text-8xl lg:text-[10rem] uppercase tracking-tighter mt-1 text-[var(--dada-red)] leading-[0.8]">Our Craft.</span>
             </h2>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="max-w-3xl mx-auto text-center mb-20"
-          >
-            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] mb-6">
-              You have an image that moves you. A painting that takes your breath away. A photograph that captured a moment you want to wear forever. A color, a texture, a feeling you cannot put into words but can see in your mind.
-            </p>
-            <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8]">
-              Bring it to us. We will study every detail, every brushstroke, every shade of light, and translate it into a one-of-a-kind couture creation made exclusively for you. Your inspiration becomes your gown.
-            </p>
-          </motion.div>
-
-          {/* Inspiration categories */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 max-w-4xl mx-auto mb-20"
-          >
-            {[
-              { label: "A Painting", icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" },
-              { label: "A Photograph", icon: "M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z" },
-              { label: "A Place", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" },
-              { label: "A Memory", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
-            ].map((item, i) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 * i }}
-                className="flex flex-col items-center gap-4 group"
-              >
-                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-[var(--border-light)] flex items-center justify-center group-hover:border-[var(--dada-red)] transition-colors duration-500">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--text-muted)] group-hover:text-[var(--dada-red)] transition-colors duration-500">
-                    <path d={item.icon} />
-                  </svg>
-                </div>
-                <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-[var(--text-muted)]">{item.label}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-center"
-          >
-            <a
-              href="mailto:artcouturestudio@gmail.com?subject=Bespoke%20Inspiration%20Enquiry"
-              className="group inline-flex items-center gap-4 border border-[var(--text-muted)]/30 px-10 py-5 hover:border-[var(--dada-red)] transition-all duration-500"
+          {/* Desktop: Asymmetric two-column layout */}
+          <div className="flex flex-col md:flex-row gap-16 md:gap-24">
+            
+            {/* Left: Copy + inspiration list */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="md:w-[55%]"
             >
-              <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--text-main)] group-hover:text-[var(--dada-red)] transition-colors duration-300">Share Your Vision</span>
-              <span className="w-8 h-[1px] bg-[var(--text-muted)] group-hover:bg-[var(--dada-red)] group-hover:w-12 transition-all duration-500"></span>
-            </a>
-            <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--text-muted)] mt-6">
-              Send us an image. We will respond within 24 hours.
-            </p>
+              <p className="text-sm md:text-base text-white/50 font-serif leading-[1.8] mb-12 max-w-lg">
+                You have an image that moves you. A painting that takes your breath away. A photograph that captured a moment you want to wear forever. Bring it to us. We will translate it into a one-of-a-kind couture creation made exclusively for you.
+              </p>
+
+              {/* Inspiration categories as dramatic list */}
+              <div className="space-y-0">
+                {[
+                  { label: "A Painting", num: "01" },
+                  { label: "A Photograph", num: "02" },
+                  { label: "A Place", num: "03" },
+                  { label: "A Memory", num: "04" },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1 * i }}
+                    className="group flex items-center gap-6 py-5 border-b border-white/5 hover:border-[var(--dada-red)]/30 transition-all duration-500 cursor-default"
+                  >
+                    <span className="font-mono text-[10px] text-[var(--dada-red)]/60 tracking-wider">{item.num}</span>
+                    <span className="font-sans font-black text-2xl md:text-4xl uppercase tracking-tight text-white/20 group-hover:text-white/80 transition-colors duration-500">{item.label}</span>
+                    <span className="flex-1 h-[1px] bg-transparent group-hover:bg-[var(--dada-red)]/30 transition-all duration-700 origin-left scale-x-0 group-hover:scale-x-100" />
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Right: CTA block */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.4 }}
+              className="md:w-[45%] flex flex-col justify-end"
+            >
+              <div className="border-l border-[var(--dada-red)]/30 pl-8 md:pl-12">
+                <p className="font-serif italic text-lg md:text-xl text-white/40 leading-relaxed mb-10">
+                  &ldquo;Your inspiration becomes your gown. Every brushstroke, every shade of light, every detail, reimagined in silk and thread.&rdquo;
+                </p>
+                {(() => {
+                  const [bespokeOpen, setBespokeOpen] = React.useState(false);
+                  return (
+                    <>
+                      <button
+                        onClick={() => setBespokeOpen(true)}
+                        className="group inline-flex items-center gap-5"
+                      >
+                        <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/70 group-hover:text-[var(--dada-red)] transition-colors duration-300">Share Your Vision</span>
+                        <span className="relative w-12 h-[1px] bg-white/20 group-hover:bg-[var(--dada-red)] transition-all duration-500 overflow-hidden">
+                          <span className="absolute inset-0 bg-[var(--dada-red)] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+                        </span>
+                      </button>
+                      <p className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/20 mt-6">
+                        Tell us your vision. We respond within 24 hours.
+                      </p>
+                      <BespokeForm isOpen={bespokeOpen} onClose={() => setBespokeOpen(false)} />
+                    </>
+                  );
+                })()}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Art-to-Dress Showcase */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="mt-24 md:mt-36"
+          >
+            <span className="block font-mono text-[9px] uppercase tracking-[0.5em] text-[var(--dada-red)] mb-10">From Inspiration to Couture</span>
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
+              {/* The inspiration */}
+              <div className="md:w-[42%] relative group overflow-hidden">
+                <img
+                  src="/images/paintings/italian_palazzo.png"
+                  alt="A grand Italian palazzo in Venice at golden hour"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-5">
+                  <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/60">The Inspiration</span>
+                </div>
+              </div>
+
+              {/* Arrow connector */}
+              <div className="flex items-center justify-center py-2 md:py-0">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-[var(--dada-red)]/50 rotate-90 md:rotate-0">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+
+              {/* The dress */}
+              <div className="md:w-[55%] relative group overflow-hidden">
+                <img
+                  src="/images/paintings/palazzo_inspired_dress.png"
+                  alt="Elegant gown inspired by a Venetian palazzo, warm honey-gold silk with architectural draping"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-5">
+                  <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/60">The Gown</span>
+                </div>
+              </div>
+            </div>
+            <p className="font-serif italic text-sm text-white/30 mt-6">Inspired by the light of a Venetian palazzo</p>
           </motion.div>
+
         </div>
+
+        {/* Bottom edge gradient */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[var(--bg-primary)] to-transparent pointer-events-none" />
       </section>
 
       {/* OUR SERVICES */}
@@ -706,19 +855,14 @@ export default function Home() {
           }, [activePhoto, photos.length]);
           return (
             <div className="max-w-5xl mx-auto" ref={(el) => { parallaxRef.current = el; containerRef.current = el; }}>
-              {/* Image with swipe + tap zones + desktop drag */}
               <motion.div
                 key={activePhoto}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className="relative w-full aspect-[4/5] md:aspect-[4/3] overflow-hidden rounded-sm mb-6 select-none cursor-grab active:cursor-grabbing"
+                className="relative w-full aspect-[4/5] md:aspect-[4/3] overflow-hidden rounded-sm mb-6 select-none"
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
-                onMouseDown={handleMouseDown}
-                onMouseMove={handleMouseMove}
-                onMouseUp={handleMouseUp}
-                onMouseLeave={() => { mouseStart.current = null; }}
               >
                 <motion.img
                   src={photos[activePhoto].src}
@@ -728,8 +872,8 @@ export default function Home() {
                   draggable={false}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                {/* Swipe hint on first photo */}
-                {activePhoto === 0 && (
+                {/* Swipe hint on first photo (mobile only) */}
+                {activePhoto === 0 && isTouchDevice && (
                   <motion.div
                     initial={{ opacity: 1 }}
                     animate={{ opacity: [1, 0.4, 1] }}
@@ -742,39 +886,35 @@ export default function Home() {
                     </svg>
                   </motion.div>
                 )}
-                {/* Tap left */}
+                {/* Click left half */}
                 {activePhoto > 0 && (
-                  <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute left-0 top-0 w-1/3 h-full z-10 cursor-w-resize" aria-label="Previous photo" />
+                  <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute left-0 top-0 w-1/2 h-full z-10 cursor-w-resize" aria-label="Previous photo" />
                 )}
-                {/* Tap right */}
+                {/* Click right half */}
                 {activePhoto < photos.length - 1 && (
-                  <button onClick={() => setActivePhoto(activePhoto + 1)} className="absolute right-0 top-0 w-1/3 h-full z-10 cursor-e-resize" aria-label="Next photo" />
+                  <button onClick={() => setActivePhoto(activePhoto + 1)} className="absolute right-0 top-0 w-1/2 h-full z-10 cursor-e-resize" aria-label="Next photo" />
                 )}
-                <span className="absolute bottom-6 left-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/80">
+                <span className="absolute bottom-6 left-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/80 z-20 pointer-events-none">
                   {photos[activePhoto].label}
                 </span>
-                <span className="absolute bottom-6 right-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
+                <span className="absolute bottom-6 right-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 z-20 pointer-events-none">
                   {activePhoto + 1} / {photos.length}
                 </span>
               </motion.div>
 
               {/* Navigation Dots + Label */}
               <div className="flex flex-col items-center gap-3">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   {photos.map((_, i) => (
                     <button
                       key={i}
                       onClick={() => setActivePhoto(i)}
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                        i === activePhoto 
-                          ? 'bg-[var(--dada-red)] scale-125' 
-                          : 'bg-white/20 hover:bg-white/40'
-                      }`}
-                      aria-label={`View photo ${i + 1}`}
+                      className={`rounded-full transition-all duration-500 ${i === activePhoto ? 'w-3 h-3 bg-[var(--dada-red)]' : 'w-1.5 h-1.5 bg-[var(--text-muted)]/30 hover:bg-[var(--text-muted)]'}`}
+                      aria-label={`Go to photo ${i + 1}`}
                     />
                   ))}
                 </div>
-                <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[var(--text-muted)]">{isTouchDevice ? 'Swipe to explore' : 'Drag or click to explore'}</span>
+                <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[var(--text-muted)]">{isTouchDevice ? 'Swipe to explore' : 'Click to explore'}</span>
               </div>
             </div>
           );
@@ -806,6 +946,40 @@ export default function Home() {
 
       <BackToTop />
       <Footer />
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {lightboxSrc && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center cursor-pointer p-8"
+            onClick={() => setLightboxSrc(null)}
+          >
+            <button
+              className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-10"
+              onClick={() => setLightboxSrc(null)}
+              aria-label="Close lightbox"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              src={lightboxSrc}
+              alt="Full view"
+              className="max-w-full max-h-full object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

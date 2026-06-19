@@ -225,8 +225,14 @@ export function Header() {
             Collections
           </a>
           <a
+            href="#news"
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white hidden lg:block"
+          >
+            News &amp; Events
+          </a>
+          <a
             href="#story"
-            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white hidden md:block"
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white"
           >
             Our Story
           </a>
@@ -236,12 +242,16 @@ export function Header() {
           >
             FAQ
           </a>
-          <a
-            href="#contact"
-            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white"
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setMenuOpen(true);
+              setShowContactForm(true);
+            }}
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white cursor-pointer bg-transparent border-none"
           >
             Contact
-          </a>
+          </button>
         </div>
 
         <div className="flex-1 flex justify-end md:hidden">

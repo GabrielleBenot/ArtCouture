@@ -53,13 +53,12 @@ export function TheEdgeCampaign() {
             style={{ y: y1, x: x1 }}
             className="absolute left-0 top-0 w-[80%] md:w-[45%] h-[70%] md:h-[80%] z-10"
           >
-            <div className="absolute inset-0 bg-[#f4f3ef]" />
             <motion.img 
               style={{ filter }}
               src="/campaign/atelier_sketch.png" 
               alt="Art Couture atelier fashion sketch by Charmaigne Menn"
               loading="lazy"
-              className="relative z-10 w-full h-full object-cover object-center mix-blend-multiply shadow-2xl"
+              className="relative z-10 w-full h-full object-cover object-center shadow-2xl"
             />
             <div className="absolute bottom-6 left-6 z-20 mix-blend-difference">
               <p className="font-mono text-xs uppercase tracking-widest text-white">01. The Atelier</p>
@@ -69,14 +68,14 @@ export function TheEdgeCampaign() {
           {/* Right - The Edge Image (Sliding In) */}
           <motion.div 
             style={{ y: y2, x: x2 }}
-            className="absolute right-0 bottom-0 w-full md:w-[65%] aspect-[4/3] md:aspect-video z-20 shadow-2xl"
+            className="absolute right-0 bottom-0 w-full md:w-[65%] aspect-[4/3] md:aspect-video z-20 shadow-2xl overflow-hidden"
           >
             <motion.img 
               style={{ filter }}
               src="/campaign/create_the_edge.jpg" 
               alt="Art Couture Create The Edge campaign haute couture"
               loading="lazy"
-              className="w-full h-full object-contain scale-75"
+              className="w-full h-full object-cover mix-blend-multiply"
             />
           </motion.div>
 
