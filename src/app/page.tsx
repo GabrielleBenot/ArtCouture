@@ -1073,12 +1073,12 @@ export default function Home() {
             {/* Previous arrow */}
             {lightboxGallery.length > 0 && lightboxIdx > 0 && (
               <button
-                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center text-white/50 hover:text-white transition-colors"
+                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center text-white/40 hover:text-white/70 transition-colors"
                 onClick={(e) => { e.stopPropagation(); lightboxPrev(); }}
                 aria-label="Previous image"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                  <path d="M19 12H5M12 19l-7-7 7-7" />
+                <svg width="12" height="24" viewBox="0 0 12 24" fill="none">
+                  <path d="M10 2L2 12L10 22" stroke="white" strokeOpacity="0.5" strokeWidth="0.75" />
                 </svg>
               </button>
             )}
@@ -1086,12 +1086,12 @@ export default function Home() {
             {/* Next arrow */}
             {lightboxGallery.length > 0 && lightboxIdx < lightboxGallery.length - 1 && (
               <button
-                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center text-white/50 hover:text-white transition-colors"
+                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center text-white/40 hover:text-white/70 transition-colors"
                 onClick={(e) => { e.stopPropagation(); lightboxNext(); }}
                 aria-label="Next image"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
+                <svg width="12" height="24" viewBox="0 0 12 24" fill="none">
+                  <path d="M2 2L10 12L2 22" stroke="white" strokeOpacity="0.5" strokeWidth="0.75" />
                 </svg>
               </button>
             )}
