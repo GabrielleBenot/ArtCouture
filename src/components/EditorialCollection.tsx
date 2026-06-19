@@ -117,7 +117,13 @@ const collection = [
     fabric: "18k white gold filigree meticulously interwoven with lustrous South Sea pearls of exceptional nacre quality, accented by VS-clarity diamond pavé set by our master jeweler over sixty painstaking hours.",
     customization: "Available in rose gold, yellow gold, and platinum finishes. Pearl size graduation, strand length, and diamond accent placement are tailored to your personal aesthetic through private fitting.",
     img: "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/luneville.jpg"
   },
@@ -131,7 +137,13 @@ const collection = [
     fabric: "Hand-selected matte Niloticus crocodile leather in deep obsidian, paired with mirror-polished platinum hardware and an interior of hand-dyed midnight silk charmeuse.",
     customization: "Monogramming available on the interior silk lining in gold or platinum thread. Exotic leather colorways, hardware finishes, and clasp gemstone inlays are available through our bespoke program.",
     img: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[4/5]",
     processImg: "/images/process/buttons.jpg"
   },
@@ -145,7 +157,13 @@ const collection = [
     fabric: "Optically pure Italian Lucite heel sculpted to architectural precision, paired with straps encrusted in over three hundred individually hand-set Swarovski crystals with aurora borealis finish.",
     customization: "Heel height adjustable between 85mm and 110mm. Strap crystal colorway, sole personalization, and custom sizing ensure a perfect bespoke fit for your most important evening.",
     img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/handstitch.jpg"
   },
@@ -159,7 +177,13 @@ const collection = [
     fabric: "Solid brass foundation with 24k gold plating applied in three meticulous layers for enduring luster, adorned with hand-set smoked topaz crystals sourced from master gem cutters in Idar-Oberstein.",
     customization: "Available in sterling silver, 24k gold, and rose gold vermeil finishes. Crystal colorway, chain length, and clasp style are fully customizable through our bespoke accessories atelier.",
     img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[2/3]",
     processImg: "/images/process/ribbon.jpg"
   },
@@ -173,7 +197,13 @@ const collection = [
     fabric: "Sumptuous silk velvet band in deep noir, paired with hand-woven French illusion netting featuring delicate picot edging and scattered micro-crystal accents that catch the light like captured stars.",
     customization: "Hand-embroidered motifs, from celestial constellations to monogram initials, can adorn the netting. Veil length, velvet band width, and crystal density are tailored to your vision.",
     img: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[4/5]",
     processImg: "/images/process/dyeing.jpg"
   },
@@ -207,7 +237,13 @@ const collection = [
     fabric: "Heavy Italian virgin wool crepe in deep noir, contrasted with lustrous silk duchesse satin peaked lapels and a hand-finished interior of silk twill with branded jacquard weave.",
     customization: "Shoulder pad architecture, button materials (mother-of-pearl, horn, or gold), lapel width, and overall silhouette are fully bespoke. Sleeve lining monogramming included.",
     img: "/collections/jacket_two.png",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[2/3]",
     processImg: "/images/process/corset.jpg"
   },
@@ -221,7 +257,13 @@ const collection = [
     fabric: "Exquisite cashmere-wool blend woven by heritage mills in the Scottish Borders, brushed to a cloud-soft hand with natural ivory depth that deepens with each wear.",
     customization: "Interior lining features bespoke hand-painted silk motifs commissioned from our in-house artist. Button finish, belt closure, and shoulder line are tailored through private fitting.",
     img: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/measuring.jpg"
   },
@@ -235,7 +277,13 @@ const collection = [
     fabric: "Italian water-resistant silk gabardine in deep crimson, with a matte finish that captures movement like poured wine. Fully lined in contrasting silk twill with storm flap detailing.",
     customization: "Belt thickness, buckle material (brushed gold, silver, or horn), collar height, and hem length are all bespoke. Available in twelve exclusive colorways through private consultation.",
     img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[4/5]",
     processImg: "/images/process/steaming.jpg"
   },
@@ -249,7 +297,13 @@ const collection = [
     fabric: "Heavy Italian wool melton in deep onyx with a dense, sculptural hand, contrasted by silk duchesse satin collar facings and interior panel detailing for hidden opulence.",
     customization: "Hidden interior pockets, silk lining monogramming in metallic thread, collar height, and button concealment are fully bespoke. Dramatic back vent and sleeve length tailored to your frame.",
     img: "https://images.unsplash.com/photo-1544441893-675973e31985?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/painting.jpg"
   },
@@ -263,7 +317,13 @@ const collection = [
     fabric: "Hand-woven French bouclé with interlaced metallic gold and silver threads, creating a subtly shimmering surface that shifts between matte and lustrous depending on the light.",
     customization: "Trim details, from silk ribbon edging to hand-braided cord, and button choices (vintage crystal, enameled gold, or hand-carved mother-of-pearl) are fully bespoke through our atelier.",
     img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[2/3]",
     processImg: "/images/process/swatches.jpg"
   },
@@ -297,7 +357,13 @@ const collection = [
     fabric: "Gossamer French silk chiffon from Lyon with hand-rolled edges, trimmed in heirloom Chantilly lace with scalloped detailing. Each pleat is individually pressed and set by hand.",
     customization: "Cuff closures available in freshwater pearl or pavé diamond. Pleat density, sleeve length, and chiffon opacity can be adjusted through bespoke fitting consultation.",
     img: "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[2/3]",
     processImg: "/images/process/pleating.jpg"
   },
@@ -311,7 +377,13 @@ const collection = [
     fabric: "100-momme Italian silk satin with an extraordinary weight and luminous drape, featuring precision-cut bias panels and concealed internal shoulder architecture for sculptural definition.",
     customization: "Collar height, tie length, shoulder structure, and cuff detailing are fully bespoke. Available in twelve curated silk colorways, each dyed exclusively for our atelier.",
     img: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/pinning.jpg"
   },
@@ -325,7 +397,13 @@ const collection = [
     fabric: "Hand-dyed silk organza from heritage ateliers in Lyon, treated with a specialized finish that holds its voluminous shape while remaining featherlight. Each sleeve uses over two meters of fabric.",
     customization: "Sleeve volume, gathered cuff elasticity, and body fit are individually tailored. Available in custom-dyed colorways from whisper pastels to saturated jewel tones.",
     img: "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[4/5]",
     processImg: "/images/process/pressing.jpg"
   },
@@ -339,7 +417,13 @@ const collection = [
     fabric: "Sandwashed silk charmeuse with a buttery, lived-in softness achieved through a specialized enzyme wash process. The natural luster creates depth that synthetic fabrics cannot replicate.",
     customization: "Available in twelve exclusive custom-dye colorways developed by our in-house colorist. Collar shape, cuff style, and body length are tailored through bespoke fitting.",
     img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[3/4]",
     processImg: "/images/process/ironing.jpg"
   },
@@ -353,7 +437,13 @@ const collection = [
     fabric: "Heirloom-quality French Chantilly lace with floral and foliate motifs, delicately layered over whisper-weight silk organza. Each lace panel is hand-matched for seamless pattern continuity.",
     customization: "Lace pattern variations, from botanical to geometric, are available upon request. Organza underlayer color, sleeve length, and neckline shape are fully bespoke through atelier consultation.",
     img: "https://images.unsplash.com/photo-1574291814206-363acdf2aa79?w=800&q=80",
-    detailImages: [],
+    detailImages: [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg"
+    ],
     aspectClass: "aspect-[2/3]",
     processImg: "/images/process/embroidery.jpg"
   }
@@ -584,6 +674,7 @@ export function EditorialCollection() {
   const [showAllItems, setShowAllItems] = useState(false);
   const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
   const [shopOpen, setShopOpen] = useState(false);
+  const [shopCategory, setShopCategory] = useState<string>("All");
 
   useEffect(() => {
     try {
@@ -915,6 +1006,28 @@ export function EditorialCollection() {
                 <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif font-extralight text-[var(--text-main)] tracking-tight leading-none mb-4">Shop</h2>
                 <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] text-[var(--text-muted)]">Available to Purchase</p>
                 <div className="w-12 h-[1.5px] bg-[var(--dada-red)] mx-auto mt-6" />
+
+                {/* Category Filters */}
+                {(() => {
+                  const categories = ["All", ...Array.from(new Set(shopItems.map(i => i.category)))];
+                  return categories.length > 2 ? (
+                    <div className="flex items-center justify-center gap-2 md:gap-4 mt-8 flex-wrap">
+                      {categories.map(cat => (
+                        <button
+                          key={cat}
+                          onClick={() => setShopCategory(cat)}
+                          className={`font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] px-4 py-2 transition-all duration-300 cursor-pointer border ${
+                            shopCategory === cat
+                              ? 'border-[var(--dada-red)] text-[var(--dada-red)] bg-[var(--dada-red)]/5'
+                              : 'border-black/10 text-[var(--text-muted)] hover:border-black/30 hover:text-[var(--text-main)]'
+                          }`}
+                        >
+                          {cat}
+                        </button>
+                      ))}
+                    </div>
+                  ) : null;
+                })()}
               </div>
 
               {/* Grid */}
@@ -922,7 +1035,7 @@ export function EditorialCollection() {
                 {shopItems.length > 0 ? (
                   <div className="max-w-4xl mx-auto">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
-                      {shopItems.map((item, idx) => (
+                      {shopItems.filter(item => shopCategory === "All" || item.category === shopCategory).map((item, idx) => (
                         <motion.div
                           key={item.title}
                           initial={{ opacity: 0, y: 40 }}

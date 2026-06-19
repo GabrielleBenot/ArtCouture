@@ -529,7 +529,14 @@ export function DressModal({
             {images.length > 1 && (
               <div className="absolute top-1/3 -translate-y-1/2 left-3 md:left-4 z-50 py-3 md:py-4 px-3 md:px-4 rounded-lg bg-black/25 backdrop-blur-xl border border-white/10 shadow-2xl hidden md:flex flex-col gap-3 md:gap-4 items-start">
                 {images.map((img, idx) => {
-                  const labels = ["The Silhouette", "The Bodice", "Fabric Detail", "The Hem", "Back View", "Details"];
+                  const labelSets: Record<string, string[]> = {
+                    Dresses: ["The Silhouette", "The Bodice", "Fabric Detail", "The Hem", "Back View", "Details"],
+                    Accessories: ["The Piece", "The Detail", "Material", "Clasp", "Worn View", "Details"],
+                    Jackets: ["The Front", "The Back", "Lapel Detail", "Lining", "Sleeve", "Details"],
+                    Jewelry: ["The Piece", "The Setting", "Gemstone", "Profile", "Worn View", "Details"],
+                    Blouses: ["The Silhouette", "The Collar", "Fabric Detail", "The Cuff", "Back View", "Details"],
+                  };
+                  const labels = labelSets[dress.category] || labelSets.Dresses;
                   const label = labels[idx] || `Detail ${idx}`;
                   return (
                     <button
