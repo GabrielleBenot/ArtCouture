@@ -22,7 +22,6 @@ const newsItems: NewsItem[] = [
       "Step into the world of pure artistry with our upcoming, invitation-only silk painting workshops. Guided by master techniques and infused with Art Couture's signature elegance, you will explore the centuries-old process of transforming silk into luminous works of wearable art. Spaces are strictly limited.",
     image:
       "https://storage.googleapis.com/mixo-sites/images/file-77426bbf-6aac-41f4-8c9f-16b8a9375343.PNG",
-    video: "/videos/silk_painting_workshop.mp4",
     cta: "Join the Waitlist",
     ctaHref: "#contact",
   },

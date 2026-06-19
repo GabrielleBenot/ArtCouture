@@ -238,6 +238,7 @@ function FeatureSection({
 export default function Home() {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [lightboxGallery, setLightboxGallery] = useState<string[]>([]);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const lightboxTouchStart = React.useRef<number | null>(null);
 
   // Open lightbox with gallery context
@@ -499,13 +500,35 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="flex flex-col items-center w-full md:w-[32%] md:-mt-4"
             >
-              <div className="relative overflow-hidden aspect-[9/16] w-[64%] md:w-full rounded-sm shadow-2xl shadow-black/50">
-                <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover">
-                  <source src="/videos/painting_process.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 border border-white/10 rounded-sm pointer-events-none" />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-4">
-                  <span className="font-mono text-[8px] uppercase tracking-[0.5em] text-white/50">The Art</span>
+              <div className="relative w-[64%] md:w-full">
+                {/* Viewfinder Elements */}
+                {/* Left/Right lines */}
+                <div className="absolute top-0 bottom-0 -left-4 w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none" />
+                <div className="absolute top-0 bottom-0 -right-4 w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none" />
+                
+                {/* Left/Right vertical text labels */}
+                <div className="absolute top-1/2 -translate-y-1/2 -left-6 [writing-mode:vertical-lr] font-mono text-[6px] tracking-[0.25em] text-white/20 select-none uppercase pointer-events-none">
+                  PROCESS // 01
+                </div>
+                <div className="absolute top-1/2 -translate-y-1/2 -right-6 [writing-mode:vertical-lr] font-mono text-[6px] tracking-[0.25em] text-[var(--dada-red)]/35 select-none uppercase pointer-events-none">
+                  CANVAS // SILK
+                </div>
+
+                {/* Viewfinder Corner Brackets */}
+                <div className="absolute -top-1.5 -left-1.5 w-2 h-2 border-t border-l border-[var(--dada-red)]/40 pointer-events-none" />
+                <div className="absolute -top-1.5 -right-1.5 w-2 h-2 border-t border-r border-white/15 pointer-events-none" />
+                <div className="absolute -bottom-1.5 -left-1.5 w-2 h-2 border-b border-l border-white/15 pointer-events-none" />
+                <div className="absolute -bottom-1.5 -right-1.5 w-2 h-2 border-b border-r border-[var(--dada-red)]/40 pointer-events-none" />
+
+                {/* Video Frame */}
+                <div className="relative overflow-hidden aspect-[9/16] w-full rounded-sm shadow-2xl shadow-black/50">
+                  <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover">
+                    <source src="/videos/painting_process.mp4" type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 border border-white/10 rounded-sm pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-4">
+                    <span className="font-mono text-[8px] uppercase tracking-[0.5em] text-white/50">The Art</span>
+                  </div>
                 </div>
               </div>
               <span className="font-serif italic text-sm text-white/60 mt-4">Gabrielle</span>
@@ -526,13 +549,35 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="flex flex-col items-center w-full md:w-[32%] md:mt-16"
             >
-              <div className="relative overflow-hidden aspect-[9/16] w-[64%] md:w-full rounded-sm shadow-2xl shadow-black/50">
-                <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover">
-                  <source src="/videos/couture_process.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 border border-white/10 rounded-sm pointer-events-none" />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-4">
-                  <span className="font-mono text-[8px] uppercase tracking-[0.5em] text-white/50">The Couture</span>
+              <div className="relative w-[64%] md:w-full">
+                {/* Viewfinder Elements */}
+                {/* Left/Right lines */}
+                <div className="absolute top-0 bottom-0 -left-4 w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none" />
+                <div className="absolute top-0 bottom-0 -right-4 w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none" />
+                
+                {/* Left/Right vertical text labels */}
+                <div className="absolute top-1/2 -translate-y-1/2 -left-6 [writing-mode:vertical-lr] font-mono text-[6px] tracking-[0.25em] text-[var(--dada-red)]/35 select-none uppercase pointer-events-none">
+                  COUTURE // 02
+                </div>
+                <div className="absolute top-1/2 -translate-y-1/2 -right-6 [writing-mode:vertical-lr] font-mono text-[6px] tracking-[0.25em] text-white/20 select-none uppercase pointer-events-none">
+                  DESIGN // DRAPE
+                </div>
+
+                {/* Viewfinder Corner Brackets */}
+                <div className="absolute -top-1.5 -left-1.5 w-2 h-2 border-t border-l border-white/15 pointer-events-none" />
+                <div className="absolute -top-1.5 -right-1.5 w-2 h-2 border-t border-r border-[var(--dada-red)]/40 pointer-events-none" />
+                <div className="absolute -bottom-1.5 -left-1.5 w-2 h-2 border-b border-l border-[var(--dada-red)]/40 pointer-events-none" />
+                <div className="absolute -bottom-1.5 -right-1.5 w-2 h-2 border-b border-r border-white/15 pointer-events-none" />
+
+                {/* Video Frame */}
+                <div className="relative overflow-hidden aspect-[9/16] w-full rounded-sm shadow-2xl shadow-black/50">
+                  <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover">
+                    <source src="/videos/couture_process.mp4" type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 border border-white/10 rounded-sm pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-4">
+                    <span className="font-mono text-[8px] uppercase tracking-[0.5em] text-white/50">The Couture</span>
+                  </div>
                 </div>
               </div>
               <span className="font-serif italic text-sm text-white/60 mt-4">Charmaigne</span>
@@ -592,7 +637,7 @@ export default function Home() {
         text={<p>Nothing is accidental. Every line is deliberate, every color drawn from Gabrielle&apos;s original artwork. The art inspires the fashion, and the fashion inspires new art. The garments shift and reveal new details as you move, because that is what wearable art should do.</p>}
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
         imgAlt="Bespoke geometric couture fabric pattern by Art Couture"
-        imageClassName="w-[calc(100%+3rem)] -ml-[calc(1.5rem+5%)] md:ml-0 md:w-full -mt-6 md:mt-0 md:flex-[1.44] overflow-hidden max-h-[50vh]"
+        imageClassName="w-[calc(100%+3rem)] -ml-[calc(1.5rem+5%)] md:ml-0 md:w-full -mt-6 md:mt-0 md:flex-[1.44] overflow-hidden md:max-h-[50vh]"
         staticImage
       />
 
@@ -1086,16 +1131,15 @@ export default function Home() {
 
       <BackToTop />
       <Footer />
-      {/* Lightbox Modal with Navigation */}
-      <AnimatePresence>
+      {/* Lightbox Modal with Navigation */}      <AnimatePresence>
         {lightboxSrc && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-black flex items-center justify-center p-4 md:p-8"
-            onClick={() => setLightboxSrc(null)}
+            className="fixed inset-0 z-[100] bg-black flex items-start md:items-center justify-center overflow-y-auto p-6 md:p-8"
+            onClick={() => { setLightboxSrc(null); setIsDrawerOpen(false); }}
             onTouchStart={(e) => { lightboxTouchStart.current = e.touches[0].clientX; }}
             onTouchEnd={(e) => {
               if (lightboxTouchStart.current === null) return;
@@ -1106,8 +1150,8 @@ export default function Home() {
           >
             {/* Close button */}
             <button
-              className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-20"
-              onClick={() => setLightboxSrc(null)}
+              className="fixed top-6 right-6 text-white/70 hover:text-white transition-colors z-50"
+              onClick={() => { setLightboxSrc(null); setIsDrawerOpen(false); }}
               aria-label="Close lightbox"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -1118,7 +1162,7 @@ export default function Home() {
 
             {/* Side-by-side pair view for 2-image galleries */}
             {isPairView ? (
-              <div className="flex flex-col items-center justify-center gap-4 md:gap-6 max-w-6xl w-full max-h-full" onClick={(e) => e.stopPropagation()}>
+              <div className="flex flex-col items-center gap-6 max-w-6xl w-full my-auto" onClick={(e) => e.stopPropagation()}>
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 w-full">
                   {/* The Painting */}
                   <div className="flex flex-col items-center gap-3 flex-1 min-w-0">
@@ -1128,7 +1172,7 @@ export default function Home() {
                       transition={{ duration: 0.5 }}
                       src={lightboxGallery[0]}
                       alt="The Painting"
-                      className="max-h-[30vh] md:max-h-[65vh] w-auto object-contain rounded-sm"
+                      className="max-h-[38vh] md:max-h-[65vh] w-auto object-contain rounded-sm"
                     />
                     <div className="text-center">
                       <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/40">The Painting</span>
@@ -1153,7 +1197,7 @@ export default function Home() {
                       transition={{ duration: 0.5, delay: 0.15 }}
                       src={lightboxGallery[1]}
                       alt="The Gown"
-                      className="max-h-[30vh] md:max-h-[65vh] w-auto object-contain rounded-sm"
+                      className="max-h-[38vh] md:max-h-[65vh] w-auto object-contain rounded-sm"
                     />
                     <div className="text-center">
                       <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/40">The Gown</span>
@@ -1162,17 +1206,80 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Description placard - compact bottom bar */}
+                {/* Desktop Description placard - compact bottom bar */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="absolute bottom-5 left-1/2 -translate-x-1/2 text-center z-20 max-w-3xl w-full px-6"
+                  className="hidden md:block absolute bottom-5 left-1/2 -translate-x-1/2 text-center z-20 max-w-3xl w-full px-6"
                 >
                   <p className="font-serif italic text-xl text-white/50 leading-tight">{pairTitle}</p>
                   <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-white/30 mt-1 leading-tight">by Gabrielle Benot / Art Couture</p>
                   <p className="font-mono text-[11px] tracking-[0.12em] text-white/25 mt-1.5 leading-snug">{pairDescription}</p>
                 </motion.div>
+
+                {/* Mobile Drawer Tab Button */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsDrawerOpen(true);
+                  }}
+                  className="md:hidden fixed left-0 bottom-12 z-30 flex items-center gap-2 bg-[#0c0c0a]/90 backdrop-blur-md border border-l-0 border-white/20 pl-4 pr-5 py-3 rounded-r-full text-white/80 hover:text-white transition-all duration-300 shadow-[4px_0_15px_rgba(0,0,0,0.5)] cursor-pointer"
+                >
+                  <span className="font-mono text-[9px] uppercase tracking-[0.25em]">Click for Details</span>
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--dada-red)] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--dada-red)]"></span>
+                  </span>
+                </button>
+
+                {/* Mobile Details Drawer (Left-Side sliding panel) */}
+                <AnimatePresence>
+                  {isDrawerOpen && (
+                    <>
+                      {/* Backdrop for mobile drawer */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.6 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsDrawerOpen(false)}
+                        className="md:hidden fixed inset-0 bg-black/60 z-30"
+                      />
+                      <motion.div
+                        initial={{ x: "-100%" }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "-100%" }}
+                        transition={{ type: "spring", damping: 30, stiffness: 220 }}
+                        className="md:hidden fixed top-0 bottom-0 left-0 w-[85%] max-w-[360px] bg-[#0c0c0a]/95 border-r border-white/10 p-6 z-40 flex flex-col shadow-[10px_0_30px_rgba(0,0,0,0.8)] overflow-y-auto"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {/* Close button for drawer */}
+                        <div className="flex justify-end mb-4">
+                          <button
+                            onClick={() => setIsDrawerOpen(false)}
+                            className="text-white/40 hover:text-white/80 transition-colors p-1"
+                            aria-label="Close details"
+                          >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                              <line x1="18" y1="6" x2="6" y2="18" />
+                              <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                          </button>
+                        </div>
+
+                        {/* Content */}
+                        <div className="space-y-4">
+                          <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--dada-red)]">{pairCategory}</span>
+                          <h4 className="font-serif italic text-2xl text-white font-light leading-tight">{pairTitle}</h4>
+                          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 leading-tight">by Gabrielle Benot / Art Couture</p>
+                          <div className="h-[1px] bg-white/10 my-2" />
+                          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/25 leading-[1.8]">{pairMedium}</p>
+                          <p className="font-mono text-[11px] tracking-[0.08em] text-white/60 leading-[1.7]">{pairDescription}</p>
+                        </div>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
               </div>
             ) : (
               <>
