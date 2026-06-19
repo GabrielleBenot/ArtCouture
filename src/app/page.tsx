@@ -882,7 +882,7 @@ export default function Home() {
         text={<p>Nothing is accidental. Every line is deliberate, every color drawn from Gabrielle&apos;s original artwork. The art inspires the fashion, and the fashion inspires new art. The garments shift and reveal new details as you move, because that is what wearable art should do.</p>}
         imgSrc="/images/bold_design.jpg"
         imgAlt="Bespoke geometric couture fabric pattern by Art Couture"
-        imageClassName="w-[calc(100%+3rem)] -ml-[calc(1.5rem+5%)] md:ml-0 md:w-full -mt-6 md:mt-0 md:flex-[1.44] overflow-hidden md:max-h-[56vh]"
+        imageClassName="w-[calc(100%+3rem)] -ml-[calc(1.5rem+5%)] md:ml-0 md:w-full -mt-6 md:mt-0 md:flex-[1.44] overflow-hidden md:max-h-[54vh]"
         staticImage
       />
 
