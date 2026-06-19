@@ -918,7 +918,7 @@ export default function Home() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className="relative w-full aspect-[4/5] md:aspect-[21/9] overflow-hidden rounded-sm mb-6 select-none max-h-[60vh]"
+                className="relative w-full aspect-[4/5] md:aspect-[16/9] overflow-hidden rounded-sm mb-6 select-none max-h-[55vh] cursor-pointer group"
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               >
@@ -944,14 +944,24 @@ export default function Home() {
                     </svg>
                   </motion.div>
                 )}
-                {/* Click left half */}
+                {/* Click left half to go back */}
                 {activePhoto > 0 && (
-                  <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute left-0 top-0 w-1/2 h-full z-10 cursor-w-resize" aria-label="Previous photo" />
+                  <button onClick={() => setActivePhoto(activePhoto - 1)} className="absolute left-0 top-0 w-[40%] h-full z-10 cursor-w-resize" aria-label="Previous photo" />
                 )}
-                {/* Click right half */}
+                {/* Click right half to go forward */}
                 {activePhoto < photos.length - 1 && (
-                  <button onClick={() => setActivePhoto(activePhoto + 1)} className="absolute right-0 top-0 w-1/2 h-full z-10 cursor-e-resize" aria-label="Next photo" />
+                  <button onClick={() => setActivePhoto(activePhoto + 1)} className="absolute right-0 top-0 w-[40%] h-full z-10 cursor-e-resize" aria-label="Next photo" />
                 )}
+                {/* Expand button - opens lightbox */}
+                <button 
+                  onClick={() => setLightboxSrc(photos[activePhoto].src)}
+                  className="absolute top-4 right-4 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/60"
+                  aria-label="View full image"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
+                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                  </svg>
+                </button>
                 <span className="absolute bottom-6 left-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/80 z-20 pointer-events-none">
                   {photos[activePhoto].label}
                 </span>
