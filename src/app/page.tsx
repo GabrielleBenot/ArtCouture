@@ -362,50 +362,79 @@ export default function Home() {
 
         </div>
 
-        {/* Studio Videos */}
+        {/* Studio Videos - Dark Editorial Spread */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="flex flex-col items-center text-center"
+          transition={{ duration: 1.2 }}
+          className="relative bg-[#0a0a0a] -mx-6 px-6 py-16 md:py-24 overflow-hidden rounded-sm"
         >
-          <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">The Studio</span>
-          <div className="w-12 h-[1px] bg-[var(--dada-red)] mb-10" />
-          
-          <div className="w-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-6">
-            <div className="flex flex-col items-center w-[65%] md:w-[25%]">
-              <div className="relative overflow-hidden aspect-[9/16] w-full max-h-[55vh] rounded-sm">
+          {/* Oversized background watermark */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+            <span className="font-sans font-black text-[20vw] md:text-[12vw] uppercase tracking-tighter text-white/[0.02] leading-none select-none whitespace-nowrap">STUDIO</span>
+          </div>
+
+          {/* Header */}
+          <div className="text-center mb-12 md:mb-16 relative z-10">
+            <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-white/40 mb-4">Behind the Scenes</span>
+            <div className="w-8 h-[1px] bg-[var(--dada-red)]/60 mx-auto" />
+          </div>
+
+          {/* Staggered video layout */}
+          <div className="relative z-10 flex flex-col md:flex-row items-start justify-center gap-8 md:gap-16 max-w-5xl mx-auto">
+            
+            {/* Gabrielle - offset up */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col items-center w-full md:w-[38%] md:-mt-4"
+            >
+              <div className="relative overflow-hidden aspect-[9/16] w-[75%] md:w-full rounded-sm shadow-2xl shadow-black/50">
                 <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover">
                   <source src="/videos/painting_process.mp4" type="video/mp4" />
                 </video>
-                <div className="absolute top-3 left-3 w-6 h-6 border-t-[0.5px] border-l-[0.5px] border-white/40 pointer-events-none" />
-                <div className="absolute bottom-3 right-3 w-6 h-6 border-b-[0.5px] border-r-[0.5px] border-white/40 pointer-events-none" />
+                <div className="absolute inset-0 border border-white/10 rounded-sm pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-4">
+                  <span className="font-mono text-[8px] uppercase tracking-[0.5em] text-white/50">The Art</span>
+                </div>
               </div>
-              <span className="block font-mono text-[8px] uppercase tracking-[0.4em] text-[var(--text-muted)] mt-4">The Art</span>
-              <span className="font-serif italic text-sm text-[var(--text-main)] mt-1">Gabrielle</span>
+              <span className="font-serif italic text-sm text-white/60 mt-4">Gabrielle</span>
+            </motion.div>
+
+            {/* Center quote - vertical on desktop */}
+            <div className="hidden md:flex flex-col items-center justify-center py-12 gap-4">
+              <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-[var(--dada-red)]/40 to-transparent" />
+              <span className="font-mono text-[7px] uppercase tracking-[0.5em] text-white/25 [writing-mode:vertical-lr]">One paints. One sews.</span>
+              <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-[var(--dada-red)]/40 to-transparent" />
             </div>
 
-            <div className="hidden md:flex flex-col items-center gap-3 py-8">
-              <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-[var(--dada-red)]/30 to-transparent" />
-              <div className="w-1.5 h-1.5 rounded-full bg-[var(--dada-red)]/30" />
-              <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-[var(--dada-red)]/30 to-transparent" />
-            </div>
-
-            <div className="flex flex-col items-center w-[65%] md:w-[25%]">
-              <div className="relative overflow-hidden aspect-[9/16] w-full max-h-[55vh] rounded-sm">
+            {/* Charmaigne - offset down */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex flex-col items-center w-full md:w-[38%] md:mt-16"
+            >
+              <div className="relative overflow-hidden aspect-[9/16] w-[75%] md:w-full rounded-sm shadow-2xl shadow-black/50">
                 <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover">
                   <source src="/videos/couture_process.mp4" type="video/mp4" />
                 </video>
-                <div className="absolute top-3 left-3 w-6 h-6 border-t-[0.5px] border-l-[0.5px] border-white/40 pointer-events-none" />
-                <div className="absolute bottom-3 right-3 w-6 h-6 border-b-[0.5px] border-r-[0.5px] border-white/40 pointer-events-none" />
+                <div className="absolute inset-0 border border-white/10 rounded-sm pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-4">
+                  <span className="font-mono text-[8px] uppercase tracking-[0.5em] text-white/50">The Couture</span>
+                </div>
               </div>
-              <span className="block font-mono text-[8px] uppercase tracking-[0.4em] text-[var(--text-muted)] mt-4">The Couture</span>
-              <span className="font-serif italic text-sm text-[var(--text-main)] mt-1">Charmaigne</span>
-            </div>
+              <span className="font-serif italic text-sm text-white/60 mt-4">Charmaigne</span>
+            </motion.div>
+
           </div>
 
-          <p className="font-serif italic text-lg md:text-xl text-[var(--text-main)] mt-10 max-w-lg">
+          {/* Bottom quote */}
+          <p className="font-serif italic text-lg md:text-xl text-white/50 text-center mt-12 md:mt-16 max-w-lg mx-auto relative z-10">
             &ldquo;One paints the vision. The other brings it to life.&rdquo;
           </p>
         </motion.div>
