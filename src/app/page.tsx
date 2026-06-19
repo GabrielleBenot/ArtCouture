@@ -38,14 +38,19 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
   return (
     <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
       {blend ? (
-        <motion.div style={{ y, scale }} className="max-w-full md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden bg-[var(--background)] mx-auto">
-          <img 
-            src={src} 
-            alt={alt} 
-            loading="lazy"
-            className="w-full h-full object-contain scale-[0.94] mix-blend-multiply"
-          />
-        </motion.div>
+        <div className="w-full flex justify-center">
+          {/* Deliberate semicircle crop on desktop */}
+          <div className="md:h-[45vh] md:overflow-hidden w-full flex justify-center">
+            <motion.div style={{ y, scale }} className="max-w-full md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden bg-[var(--background)] mx-auto md:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)]">
+              <img 
+                src={src} 
+                alt={alt} 
+                loading="lazy"
+                className="w-full h-full object-contain scale-[0.94] mix-blend-multiply"
+              />
+            </motion.div>
+          </div>
+        </div>
       ) : (
         <motion.img 
           style={revealColor ? { y, scale, filter } : { y, scale }} 
@@ -540,7 +545,7 @@ export default function Home() {
       <CatwalkVideo />
 
       {/* THE CRAFT & THE PROMISE - Editorial Spread */}
-      <section className="py-20 md:py-28">
+      <section className="relative py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:ml-[3%] md:mr-auto">
           {/* Desktop: Side-by-side editorial layout */}
           <div className="flex flex-col md:flex-row gap-12 md:gap-16 lg:gap-24">
@@ -570,6 +575,16 @@ export default function Home() {
                   Hand-cut French Chantilly lace. Delicate Guipure lacework. Silk tulle layered with precision. Charmaigne sources our textiles from Europe&apos;s finest mills, selecting each fabric for how it feels against the skin.
                 </p>
               </motion.div>
+
+              {/* Logo watermark on the left */}
+              <div className="hidden md:flex absolute left-6 lg:left-12 top-1/2 -translate-y-1/2 w-[35%] max-w-[400px] opacity-[0.06] pointer-events-none">
+                <img 
+                  src="https://storage.googleapis.com/mixo-sites/images/file-1f3f0688-6519-43dd-b5ad-a14a0457a21b.jpg" 
+                  alt="" 
+                  className="w-full h-auto object-contain mix-blend-multiply"
+                  aria-hidden="true"
+                />
+              </div>
 
               {/* Divider */}
               <div className="max-w-xs mb-16 md:mb-24">
