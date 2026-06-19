@@ -67,14 +67,14 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage, p
             alt={alt} 
             loading="eager"
             fetchPriority="high"
-            className={`max-w-full md:max-w-[85%] w-auto h-auto object-contain rounded-sm mix-blend-multiply mx-auto ${className || ''}`}
+            className={`max-w-full md:max-w-[85%] w-auto h-auto object-contain mx-auto ${className || ''}`}
           />
         </div>
 
         {/* Mobile: Split-panel curtain reveal */}
         <div 
           ref={curtainRef}
-          className="md:hidden w-full relative overflow-hidden bg-[var(--background)]"
+          className="md:hidden w-full relative overflow-hidden"
         >
           {/* The image behind the curtains */}
           <motion.div
@@ -87,7 +87,7 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage, p
               alt={alt} 
               loading="eager"
               fetchPriority="high"
-              className={`w-full h-auto object-contain mix-blend-multiply ${className || ''}`}
+              className={`w-full h-auto object-contain ${className || ''}`}
             />
           </motion.div>
 
@@ -880,7 +880,7 @@ export default function Home() {
           </span>
         }
         text={<p>Nothing is accidental. Every line is deliberate, every color drawn from Gabrielle&apos;s original artwork. The art inspires the fashion, and the fashion inspires new art. The garments shift and reveal new details as you move, because that is what wearable art should do.</p>}
-        imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
+        imgSrc="/images/bold_design.jpg"
         imgAlt="Bespoke geometric couture fabric pattern by Art Couture"
         imageClassName="w-[calc(100%+3rem)] -ml-[calc(1.5rem+5%)] md:ml-0 md:w-full -mt-6 md:mt-0 md:flex-[1.44] overflow-hidden md:max-h-[50vh]"
         staticImage
