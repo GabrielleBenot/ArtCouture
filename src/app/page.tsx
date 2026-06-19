@@ -1151,7 +1151,7 @@ export default function Home() {
                     src="/images/paintings/palazzo_inspired_dress.png"
                     alt="Close-up of intricate crystal beadwork detail"
                     className="w-[400%] h-[400%] object-cover"
-                    style={{ objectPosition: '50% 78%' }}
+                    style={{ objectPosition: '50% 92%' }}
                   />
                   {/* Loupe label */}
                   <div className="absolute inset-0 rounded-full border border-white/10" />
