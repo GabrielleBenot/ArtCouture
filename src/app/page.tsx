@@ -1136,6 +1136,30 @@ export default function Home() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 
+                {/* Embroidery Detail Loupe */}
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, delay: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+                  className="absolute bottom-14 right-4 md:bottom-16 md:right-6 w-20 h-20 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-white/40 shadow-[0_4px_20px_rgba(0,0,0,0.4)] z-20"
+                >
+                  {/* Zoomed crop of the beadwork area */}
+                  <img
+                    src="/images/paintings/palazzo_inspired_dress.png"
+                    alt="Close-up of intricate crystal beadwork detail"
+                    className="w-[400%] h-[400%] object-cover"
+                    style={{ objectPosition: '45% 35%' }}
+                  />
+                  {/* Loupe label */}
+                  <div className="absolute inset-0 rounded-full border border-white/10" />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent pt-4 pb-1.5 flex justify-center">
+                    <span className="font-mono text-[6px] md:text-[7px] uppercase tracking-[0.35em] text-white/70">Detail</span>
+                  </div>
+                  {/* Subtle pulsing ring */}
+                  <div className="absolute inset-0 rounded-full border border-[var(--dada-red)]/30 animate-[subtlePulse_3s_ease-in-out_infinite]" />
+                </motion.div>
+
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-5">
                   <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/60">The Gown</span>
                 </div>
