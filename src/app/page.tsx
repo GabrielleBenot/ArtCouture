@@ -1146,12 +1146,12 @@ export default function Home() {
                   onClick={() => setLoupeOpen(true)}
                   className="absolute bottom-14 right-4 md:bottom-16 md:right-6 w-20 h-20 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-white/40 shadow-[0_4px_20px_rgba(0,0,0,0.4)] z-20 cursor-pointer active:scale-95 transition-transform"
                 >
-                  {/* Zoomed crop of the beadwork area */}
+                  {/* Zoomed crop of the embroidery/beadwork area on the dress */}
                   <img
                     src="/images/paintings/palazzo_inspired_dress.png"
                     alt="Close-up of intricate crystal beadwork detail"
                     className="w-[400%] h-[400%] object-cover"
-                    style={{ objectPosition: '45% 35%' }}
+                    style={{ objectPosition: '50% 60%' }}
                   />
                   {/* Loupe label */}
                   <div className="absolute inset-0 rounded-full border border-white/10" />
@@ -1195,32 +1195,36 @@ export default function Home() {
                         <span className="font-mono text-[9px] uppercase tracking-[0.5em] text-[var(--dada-red)]">Embroidery Detail</span>
                       </motion.div>
 
-                      {/* Zoomed image */}
+                      {/* Zoomed image - showing dress embroidery area */}
                       <motion.div
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.8, opacity: 0 }}
                         transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
                         className="w-[85vw] h-[60vh] md:w-[50vw] md:h-[70vh] rounded-lg overflow-hidden border border-white/10 shadow-2xl"
-                        onClick={(e) => e.stopPropagation()}
                       >
                         <img
                           src="/images/paintings/palazzo_inspired_dress.png"
                           alt="Detailed view of intricate crystal beadwork on haute couture gown"
                           className="w-[250%] h-[250%] object-cover"
-                          style={{ objectPosition: '42% 30%' }}
+                          style={{ objectPosition: '50% 55%' }}
                         />
                       </motion.div>
 
-                      {/* Caption */}
-                      <motion.p
+                      {/* Caption + close hint */}
+                      <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
-                        className="font-serif italic text-sm text-white/40 mt-6 text-center max-w-md"
+                        className="text-center mt-6"
                       >
-                        Hand-set crystal beadwork inspired by Gothic palazzo architecture
-                      </motion.p>
+                        <p className="font-serif italic text-sm text-white/40 max-w-md">
+                          Hand-set crystal beadwork inspired by Gothic palazzo architecture
+                        </p>
+                        <p className="font-mono text-[8px] uppercase tracking-[0.3em] text-white/25 mt-4">
+                          Tap anywhere to close
+                        </p>
+                      </motion.div>
                     </motion.div>
                   )}
                 </AnimatePresence>
