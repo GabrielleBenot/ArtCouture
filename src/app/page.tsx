@@ -38,8 +38,8 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
   return (
     <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
       {blend ? (
-        <motion.div style={{ y }} className="w-full flex justify-center">
-          {/* Static clip container - never changes height */}
+        <div className="w-full flex justify-center">
+          {/* Fully static cropped semicircle, no parallax to prevent reveal */}
           <div className="md:h-[45vh] md:overflow-hidden w-full flex justify-center">
             <div className="max-w-full md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden bg-[var(--background)] mx-auto" style={{ filter: 'drop-shadow(0 25px 40px rgba(0,0,0,0.12)) drop-shadow(0 8px 16px rgba(0,0,0,0.08))' }}>
               <img 
@@ -50,7 +50,7 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
               />
             </div>
           </div>
-        </motion.div>
+        </div>
       ) : (
         <motion.img 
           style={revealColor ? { y, scale, filter } : { y, scale }} 
