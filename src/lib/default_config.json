@@ -91,7 +91,7 @@
   },
   "Pearl Symphony": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$4,200",
       "stripeLink": ""
     },
@@ -109,7 +109,7 @@
   },
   "Obsidian Clutch": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$5,500",
       "stripeLink": ""
     },
@@ -127,7 +127,7 @@
   },
   "Crystal Steps": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$2,800",
       "stripeLink": ""
     },
@@ -145,7 +145,7 @@
   },
   "Golden Hour": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$3,100",
       "stripeLink": ""
     },
@@ -163,7 +163,7 @@
   },
   "Velvet Veil": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$1,500",
       "stripeLink": ""
     },
@@ -199,7 +199,7 @@
   },
   "Noir Power": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$7,200",
       "stripeLink": ""
     },
@@ -217,7 +217,7 @@
   },
   "Ivory Architecture": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$9,100",
       "stripeLink": ""
     },
@@ -235,7 +235,7 @@
   },
   "Crimson Drape": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$6,500",
       "stripeLink": ""
     },
@@ -253,7 +253,7 @@
   },
   "Onyx Edge": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$8,200",
       "stripeLink": ""
     },
@@ -271,7 +271,7 @@
   },
   "Tweed Illusion": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$7,800",
       "stripeLink": ""
     },
@@ -289,7 +289,7 @@
   },
   "Ivory Cascade": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$3,400",
       "stripeLink": ""
     },
@@ -307,7 +307,7 @@
   },
   "Chiffon Whisper": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$2,900",
       "stripeLink": ""
     },
@@ -325,7 +325,7 @@
   },
   "Satin Armor": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$3,800",
       "stripeLink": ""
     },
@@ -343,7 +343,7 @@
   },
   "Organza Cloud": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$4,100",
       "stripeLink": ""
     },
@@ -361,7 +361,7 @@
   },
   "Silk Essential": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$2,200",
       "stripeLink": ""
     },
@@ -379,7 +379,7 @@
   },
   "Lace Romance": {
     "purchaseSample": {
-      "enabled": false,
+      "enabled": true,
       "price": "$4,500",
       "stripeLink": ""
     },
