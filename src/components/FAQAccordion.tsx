@@ -14,6 +14,22 @@ const faqs = [
   {
     question: "What makes Art Couture different?",
     answer: "Every gown starts as a painting. Gabrielle Benot creates the original artwork, and Charmaigne Menn translates its colors, textures, and patterns directly into bespoke fabrics with the precision of a master couturière. No other couture house works this way. The art is not inspired by fashion. The fashion is the art."
+  },
+  {
+    question: "How does the rental service work?",
+    answer: "Select runway pieces are available for 3-day rentals for event, photoshoot, or editorial use. Rentals include professional dry cleaning and require a refundable security deposit to protect the garment. Once the piece is returned to our atelier and inspected, the security deposit is fully refunded within 3 to 5 business days."
+  },
+  {
+    question: "What is your return policy for purchased samples?",
+    answer: "Because our sample pieces are delicate, one-of-a-kind runway garments, all purchases are final. However, if a manufacturing defect or structural flaw is identified, we accept returns for a full refund or complimentary alteration within 7 days of delivery, provided the garment is returned unworn, unaltered, and with all security tags attached."
+  },
+  {
+    question: "What is the deposit policy for bespoke commissions?",
+    answer: "Commissioning a bespoke piece requires a 25% deposit to reserve your place in our atelier and begin fabric curation. This deposit is non-refundable once design patterns or fabric production begins. The remaining balance is due upon the final fitting and approval of the completed garment."
+  },
+  {
+    question: "What happens if a rented dress is damaged?",
+    answer: "Standard wear and tear (such as dust at the hem or a minor loose bead) is fully covered by your rental. In the event of major, irreversible damage (like large tears, permanent stains, or cigarette burns) or loss of the garment, repair costs or the full retail value of the dress will be deducted from your security deposit or charged to your payment method."
   }
 ];
 

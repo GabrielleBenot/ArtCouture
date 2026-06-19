@@ -8,7 +8,9 @@ const collection = [
   { 
     title: "Fuchsia Majesty", 
     category: "Dresses",
-    price: "$7,955", 
+    price: "$7,955",
+    depositAmount: "$2,000",
+    depositLink: "https://buy.stripe.com/3cI14nd5q0301L3fH6b3q00", 
     description: "A bespoke silk evening gown of unapologetic glamour, featuring a dramatic high slit and exquisite Swarovski crystal embroidery along the thigh. This handcrafted couture dress commands every entrance with the confidence of luxury fashion at its most fearless.",
     fabric: "Lustrous silk in vivid fuchsia, sculpted to the body with a daring slit and adorned with hand-applied Swarovski crystal embroidery cascading along the thigh, each stone individually set by our atelier's master beaders.",
     customization: "Custom-tailored to your exact silhouette with bespoke slit lengths and corsetry adjustments. Available in an exclusive palette of jewel tones, from deep amethyst to midnight ruby.",
@@ -25,6 +27,8 @@ const collection = [
     title: "Blush Enchantress", 
     category: "Dresses",
     price: "$8,700", 
+    depositAmount: "$2,200",
+    depositLink: "https://buy.stripe.com/5kQdR9e9uaHE1L37aAb3q04",
     description: "An enchanting handcrafted couture dress that layers silk organza and delicate petal appliqués into a vision of modern femininity. Perfect as a custom wedding dress or red carpet gown, this designer dress embodies the romance of haute couture.",
     fabric: "Hand-dyed rosewater silk organza floating weightlessly over cascading French Chantilly lace, adorned with 3D silk-chiffon floral appliqués, each petal individually shaped and stitched by hand.",
     customization: "Bodice structure, petal density, and train length are sculpted to your preference. Available in ivory, blush, champagne, or custom-dyed shades to complement your bridal or evening vision.",
@@ -41,6 +45,8 @@ const collection = [
     title: "Golden Whisper", 
     category: "Dresses",
     price: "$9,200", 
+    depositAmount: "$2,300",
+    depositLink: "https://buy.stripe.com/cNi00jaXi3fc0GZ9iIb3q01",
     description: "A luminous gala gown of champagne mesh drenched in hand-set Swarovski crystals, alive with every shift of light. This bespoke evening gown is richly embroidered and luxuriously heavy, with a captivating transparency that is radiant and utterly unforgettable on the red carpet.",
     fabric: "Transparent mesh meticulously encrusted with gold-leaf threading and thousands of Swarovski champagne crystals, the dense embroidery lending a substantial, luxurious weight that drapes beautifully against the body.",
     customization: "Train length, crystal density, and silhouette are entirely bespoke. Internal corsetry is precision-engineered for unparalleled structural support tailored to your body.",
@@ -57,6 +63,8 @@ const collection = [
     title: "Crimson Allure", 
     category: "Dresses",
     price: "$7,980", 
+    depositAmount: "$2,000",
+    depositLink: "https://buy.stripe.com/eVq3cv0iE7vs89rdyYb3q02",
     description: "Confidence, cut in silk couture. This sleek red carpet gown pairs sumptuous silk crepe with shimmering side panels for unapologetic drama. A designer dress born for galas, premieres, and every moment that demands luxury fashion with edge.",
     fabric: "Heavy-weight double-faced silk crepe de chine that cascades like liquid fire, featuring hand-embroidered ruby micro-sequin side panelling with gradient intensity.",
     customization: "Neckline plunge depth and sequin gradient density are flawlessly tailored to your preference. Hardware finishes available in 24k gold or platinum, with optional monogrammed interior.",
@@ -74,6 +82,8 @@ const collection = [
     title: "Blush Couture", 
     category: "Dresses",
     price: "$11,700", 
+    depositAmount: "$3,000",
+    depositLink: "https://buy.stripe.com/14AaEXaXig1YgFX8eEb3q03",
     description: "The ultimate expression of our atelier's bespoke accessories craft: layers of silk organza and hand-sculpted petal appliqués converge in a breathtaking statement piece. This haute couture creation elevates luxury fashion beyond adornment into wearable architecture.",
     fabric: "Ethereal ivory silk tulle intricately paired with hand-cut French Guipure lace, each petal individually sculpted and secured with invisible micro-stitching, falling into a voluminous architectural skirt.",
     customization: "Skirt volume is completely adjustable via a masterful detachable crinoline system. Available in ivory, blush, champagne, or custom-dyed hues, perfect for brides, galas, or editorial moments.",
@@ -90,6 +100,8 @@ const collection = [
     title: "Pearl Symphony", 
     category: "Accessories",
     price: "$4,200", 
+    depositAmount: "$1,000",
+    depositLink: "",
     description: "A symphony of hand-strung freshwater pearls and brilliant diamond accents, this bespoke accessories masterpiece embodies the quiet grandeur of haute couture jewelry. Exquisite as a bridal accent, mother of the bride treasure, or red carpet finishing touch.",
     fabric: "18k white gold filigree meticulously interwoven with lustrous South Sea pearls of exceptional nacre quality, accented by VS-clarity diamond pavé set by our master jeweler over sixty painstaking hours.",
     customization: "Available in rose gold, yellow gold, and platinum finishes. Pearl size graduation, strand length, and diamond accent placement are tailored to your personal aesthetic through private fitting.",
@@ -102,6 +114,8 @@ const collection = [
     title: "Obsidian Clutch", 
     category: "Accessories",
     price: "$5,500", 
+    depositAmount: "$1,500",
+    depositLink: "",
     description: "A structured evening clutch crafted from the world's rarest materials, the essential bespoke accessories companion for any red carpet gown or gala gown moment. This luxury fashion statement piece transforms the art of arrival into a ritual of quiet power.",
     fabric: "Hand-selected matte Niloticus crocodile leather in deep obsidian, paired with mirror-polished platinum hardware and an interior of hand-dyed midnight silk charmeuse.",
     customization: "Monogramming available on the interior silk lining in gold or platinum thread. Exotic leather colorways, hardware finishes, and clasp gemstone inlays are available through our bespoke program.",
@@ -114,6 +128,8 @@ const collection = [
     title: "Crystal Steps", 
     category: "Accessories",
     price: "$2,800", 
+    depositAmount: "$700",
+    depositLink: "",
     description: "The glass slipper reimagined for the modern muse: a dazzling fusion of transparency and sparkle that elevates any bespoke evening gown or custom wedding dress. These bespoke accessories are luxury fashion's answer to Cinderella, designed for real-world red carpets.",
     fabric: "Optically pure Italian Lucite heel sculpted to architectural precision, paired with straps encrusted in over three hundred individually hand-set Swarovski crystals with aurora borealis finish.",
     customization: "Heel height adjustable between 85mm and 110mm. Strap crystal colorway, sole personalization, and custom sizing ensure a perfect bespoke fit for your most important evening.",
@@ -126,6 +142,8 @@ const collection = [
     title: "Golden Hour", 
     category: "Accessories",
     price: "$3,100", 
+    depositAmount: "$800",
+    depositLink: "",
     description: "A breathtaking bespoke accessories statement piece that catches and refracts every ray of light into prismatic splendor. Worn alone or layered with haute couture, this handcrafted treasure defines luxury fashion's golden hour: luminous, warm, and impossibly radiant.",
     fabric: "Solid brass foundation with 24k gold plating applied in three meticulous layers for enduring luster, adorned with hand-set smoked topaz crystals sourced from master gem cutters in Idar-Oberstein.",
     customization: "Available in sterling silver, 24k gold, and rose gold vermeil finishes. Crystal colorway, chain length, and clasp style are fully customizable through our bespoke accessories atelier.",
@@ -138,6 +156,8 @@ const collection = [
     title: "Velvet Veil", 
     category: "Accessories",
     price: "$1,500", 
+    depositAmount: "$400",
+    depositLink: "",
     description: "A dramatic finishing touch that transforms any haute couture ensemble into a moment of cinematic mystery. This handcrafted veil is among our most coveted bespoke accessories, equally stunning for a custom wedding dress as for a red carpet gown editorial.",
     fabric: "Sumptuous silk velvet band in deep noir, paired with hand-woven French illusion netting featuring delicate picot edging and scattered micro-crystal accents that catch the light like captured stars.",
     customization: "Hand-embroidered motifs, from celestial constellations to monogram initials, can adorn the netting. Veil length, velvet band width, and crystal density are tailored to your vision.",
@@ -150,6 +170,8 @@ const collection = [
     title: "Midnight Elegance", 
     category: "Dresses",
     price: "$8,850", 
+    depositAmount: "$2,200",
+    depositLink: "https://buy.stripe.com/3cI14n9Te4jg75namMb3q05",
     description: "Where darkness whispers luxury fashion. This couture jacket in deep navy velvet is sculpted to perfection, draping with quiet power that rivals any red carpet gown. A designer dress alternative for those who command a room through understated haute couture mastery.",
     fabric: "Midnight blue silk-viscose pané velvet, extraordinarily soft and plush with a hand-brushed pile that catches the light like a starlit winter sky, fully lined in heavy silk charmeuse.",
     customization: "Backless plunge depth, sleeve length, and shoulder silhouette are bespoke. Interior lining available in contrasting jewel tones: emerald, ruby, or sapphire silk charmeuse.",
@@ -166,6 +188,8 @@ const collection = [
     title: "Noir Power", 
     category: "Jackets",
     price: "$7,200", 
+    depositAmount: "$1,800",
+    depositLink: "",
     description: "A commanding couture jacket with exaggerated lapels that redefine power dressing for the modern era. This designer dress alternative bridges the worlds of haute couture tailoring and luxury fashion's boldest silhouettes: fierce, sculpted, and undeniably authoritative.",
     fabric: "Heavy Italian virgin wool crepe in deep noir, contrasted with lustrous silk duchesse satin peaked lapels and a hand-finished interior of silk twill with branded jacquard weave.",
     customization: "Shoulder pad architecture, button materials (mother-of-pearl, horn, or gold), lapel width, and overall silhouette are fully bespoke. Sleeve lining monogramming included.",
@@ -178,6 +202,8 @@ const collection = [
     title: "Ivory Architecture", 
     category: "Jackets",
     price: "$9,100", 
+    depositAmount: "$2,300",
+    depositLink: "",
     description: "A structured double-breasted couture jacket that redefines shape with architectural precision and haute couture craftsmanship. This ivory masterpiece is luxury fashion's answer to modern sculpture, equally at home over a bespoke evening gown or commanding the street as a standalone designer dress.",
     fabric: "Exquisite cashmere-wool blend woven by heritage mills in the Scottish Borders, brushed to a cloud-soft hand with natural ivory depth that deepens with each wear.",
     customization: "Interior lining features bespoke hand-painted silk motifs commissioned from our in-house artist. Button finish, belt closure, and shoulder line are tailored through private fitting.",
@@ -190,6 +216,8 @@ const collection = [
     title: "Crimson Drape", 
     category: "Jackets",
     price: "$6,500", 
+    depositAmount: "$1,600",
+    depositLink: "",
     description: "A fluid couture jacket reimagined as a crimson trench that moves like liquid silk; drama distilled into luxury fashion's most wearable silhouette. Layer over a cocktail dress or bespoke evening gown for an entrance that lingers in memory long after you've arrived.",
     fabric: "Italian water-resistant silk gabardine in deep crimson, with a matte finish that captures movement like poured wine. Fully lined in contrasting silk twill with storm flap detailing.",
     customization: "Belt thickness, buckle material (brushed gold, silver, or horn), collar height, and hem length are all bespoke. Available in twelve exclusive colorways through private consultation.",
@@ -202,6 +230,8 @@ const collection = [
     title: "Onyx Edge", 
     category: "Jackets",
     price: "$8,200", 
+    depositAmount: "$2,000",
+    depositLink: "",
     description: "A sharp, minimalist couture jacket with a dramatic stand collar that cuts through convention with razor precision. This designer dress-level outerwear piece is luxury fashion distilled to its purest form, where every seam speaks of haute couture discipline and artistry.",
     fabric: "Heavy Italian wool melton in deep onyx with a dense, sculptural hand, contrasted by silk duchesse satin collar facings and interior panel detailing for hidden opulence.",
     customization: "Hidden interior pockets, silk lining monogramming in metallic thread, collar height, and button concealment are fully bespoke. Dramatic back vent and sleeve length tailored to your frame.",
@@ -214,6 +244,8 @@ const collection = [
     title: "Tweed Illusion", 
     category: "Jackets",
     price: "$7,800", 
+    depositAmount: "$2,000",
+    depositLink: "",
     description: "A modern couture jacket that reimagines the classic tailored tweed with hand-woven textures and unexpected metallic luminosity. This designer dress companion bridges heritage craft and avant-garde luxury fashion, the kind of haute couture piece that starts conversations and ends debates.",
     fabric: "Hand-woven French bouclé with interlaced metallic gold and silver threads, creating a subtly shimmering surface that shifts between matte and lustrous depending on the light.",
     customization: "Trim details, from silk ribbon edging to hand-braided cord, and button choices (vintage crystal, enameled gold, or hand-carved mother-of-pearl) are fully bespoke through our atelier.",
@@ -226,6 +258,8 @@ const collection = [
     title: "Ivory Cascade", 
     category: "Blouses",
     price: "$3,400", 
+    depositAmount: "$850",
+    depositLink: "",
     description: "A masterclass in modern draping and silk couture: this luxury blouse pairs pure silk crepe de chine with dramatic sweeping ties for effortless editorial elegance. A versatile designer dress companion that transitions from boardroom power to evening allure with a single adjustment.",
     fabric: "100% heavy silk crepe de chine sourced from heritage weavers in Como, Italy. Finished with luminous mother-of-pearl button closures and French-seamed construction throughout.",
     customization: "Tie length, sleeve volume, and collar structure can be adjusted to your preference. Available in Ivory, Obsidian, Blush, and seasonal exclusive colorways.",
@@ -242,6 +276,8 @@ const collection = [
     title: "Chiffon Whisper", 
     category: "Blouses",
     price: "$2,900", 
+    depositAmount: "$700",
+    depositLink: "",
     description: "A sheer luxury blouse of French silk chiffon with intricate hand-pleating that whispers against the skin like a secret. This hand-embroidered piece of silk couture is the perfect layering companion for any bespoke evening gown, cocktail dress, or couture jacket moment.",
     fabric: "Gossamer French silk chiffon from Lyon with hand-rolled edges, trimmed in heirloom Chantilly lace with scalloped detailing. Each pleat is individually pressed and set by hand.",
     customization: "Cuff closures available in freshwater pearl or pavé diamond. Pleat density, sleeve length, and chiffon opacity can be adjusted through bespoke fitting consultation.",
@@ -254,6 +290,8 @@ const collection = [
     title: "Satin Armor", 
     category: "Blouses",
     price: "$3,800", 
+    depositAmount: "$950",
+    depositLink: "",
     description: "A high-neck luxury blouse that marries silk couture softness with the architectural authority of strong, sculpted shoulders. This designer dress-level silk piece is as commanding beneath a couture jacket as it is striking worn alone. Haute couture power, reimagined for modern women.",
     fabric: "100-momme Italian silk satin with an extraordinary weight and luminous drape, featuring precision-cut bias panels and concealed internal shoulder architecture for sculptural definition.",
     customization: "Collar height, tie length, shoulder structure, and cuff detailing are fully bespoke. Available in twelve curated silk colorways, each dyed exclusively for our atelier.",
@@ -266,6 +304,8 @@ const collection = [
     title: "Organza Cloud", 
     category: "Blouses",
     price: "$4,100", 
+    depositAmount: "$1,000",
+    depositLink: "",
     description: "Voluminous sleeves that float around the arms like sculpted clouds; this luxury blouse transforms silk organza into wearable poetry. A hand-embroidered silk couture statement that pairs effortlessly with a cocktail dress skirt or adds ethereal drama beneath a couture jacket.",
     fabric: "Hand-dyed silk organza from heritage ateliers in Lyon, treated with a specialized finish that holds its voluminous shape while remaining featherlight. Each sleeve uses over two meters of fabric.",
     customization: "Sleeve volume, gathered cuff elasticity, and body fit are individually tailored. Available in custom-dyed colorways from whisper pastels to saturated jewel tones.",
@@ -278,6 +318,8 @@ const collection = [
     title: "Silk Essential", 
     category: "Blouses",
     price: "$2,200", 
+    depositAmount: "$550",
+    depositLink: "",
     description: "The perfect minimalist luxury blouse: pure silk couture reduced to its most essential, elegant form. This sandwashed silk charmeuse shirt is the foundation of any haute couture wardrobe, effortlessly pairing with everything from a bespoke evening gown skirt to tailored trousers.",
     fabric: "Sandwashed silk charmeuse with a buttery, lived-in softness achieved through a specialized enzyme wash process. The natural luster creates depth that synthetic fabrics cannot replicate.",
     customization: "Available in twelve exclusive custom-dye colorways developed by our in-house colorist. Collar shape, cuff style, and body length are tailored through bespoke fitting.",
@@ -290,6 +332,8 @@ const collection = [
     title: "Lace Romance", 
     category: "Blouses",
     price: "$4,500", 
+    depositAmount: "$1,100",
+    depositLink: "",
     description: "An intricate hand-embroidered luxury blouse where French Chantilly lace cascades over silk organza in a demure yet captivating silhouette. This silk couture piece is a mother of the bride favorite and a timeless addition to any haute couture collection. Romance rendered in thread and light.",
     fabric: "Heirloom-quality French Chantilly lace with floral and foliate motifs, delicately layered over whisper-weight silk organza. Each lace panel is hand-matched for seamless pattern continuity.",
     customization: "Lace pattern variations, from botanical to geometric, are available upon request. Organza underlayer color, sleeve length, and neckline shape are fully bespoke through atelier consultation.",
@@ -467,6 +511,16 @@ export function EditorialCollection() {
   const [enquiryService, setEnquiryService] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("Dresses");
   const [showAllItems, setShowAllItems] = useState(false);
+  const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('artcouture_image_overrides');
+      if (raw) setImageOverrides(JSON.parse(raw));
+    } catch {
+      // ignore
+    }
+  }, []);
 
   useEffect(() => {
     setShowAllItems(false);
@@ -543,23 +597,38 @@ export function EditorialCollection() {
           >
             {/* Column 1 */}
             <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
-              {col1.map((item, idx) => (
-                <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
-              ))}
+              {col1.map((item, idx) => {
+                const displayItem = imageOverrides[item.title]
+                  ? { ...item, img: imageOverrides[item.title] }
+                  : item;
+                return (
+                  <DressCard key={item.title + idx} item={displayItem} onClick={() => setSelectedDress(displayItem)} />
+                );
+              })}
             </div>
             
             {/* Column 2 - Offset visually */}
             <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3 md:pt-32">
-              {col2.map((item, idx) => (
-                <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
-              ))}
+              {col2.map((item, idx) => {
+                const displayItem = imageOverrides[item.title]
+                  ? { ...item, img: imageOverrides[item.title] }
+                  : item;
+                return (
+                  <DressCard key={item.title + idx} item={displayItem} onClick={() => setSelectedDress(displayItem)} />
+                );
+              })}
             </div>
 
             {/* Column 3 */}
             <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
-              {col3.map((item, idx) => (
-                <DressCard key={item.title + idx} item={item} onClick={() => setSelectedDress(item)} />
-              ))}
+              {col3.map((item, idx) => {
+                const displayItem = imageOverrides[item.title]
+                  ? { ...item, img: imageOverrides[item.title] }
+                  : item;
+                return (
+                  <DressCard key={item.title + idx} item={displayItem} onClick={() => setSelectedDress(displayItem)} />
+                );
+              })}
             </div>
           </motion.div>
         </div>

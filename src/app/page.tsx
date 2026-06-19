@@ -16,13 +16,15 @@ import { NewsEvents } from "@/components/NewsEvents";
 import { Footer } from "@/components/Footer";
 import { BespokeForm } from "@/components/BespokeForm";
 import { BackToTop } from "@/components/BackToTop";
+
+
 import { motion, AnimatePresence } from "framer-motion";
 
 import { useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
 
 // Parallax Image Component for sections
-function ParallaxImage({ src, alt, blend, className, revealColor }: { src: string, alt: string, blend?: boolean, className?: string, revealColor?: boolean }) {
+function ParallaxImage({ src, alt, blend, className, revealColor, staticImage }: { src: string, alt: string, blend?: boolean, className?: string, revealColor?: boolean, staticImage?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -32,34 +34,49 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
   // Subtly move the image vertically while noticeably shrinking it to create depth
   const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
   const scale = useTransform(scrollYProgress, [0, 1], [1.02, 0.98]);
-  const filterValue = useTransform(scrollYProgress, [0.35, 0.6], [1, 0]);
+  const filterValue = useTransform(scrollYProgress, [0.2, 0.45], [1, 0]);
   const filter = useTransform(filterValue, (v: number) => `grayscale(${v})`);
 
-  return (
-    <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
-      {blend ? (
-        <div className="w-full flex justify-center">
-          {/* Hard clip-path semicircle, impossible to reveal on scroll */}
-          <div className="w-full flex justify-center" style={{ clipPath: 'inset(0 0 50% 0)' }}>
-            <div className="max-w-full md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden bg-[var(--background)] mx-auto" style={{ filter: 'drop-shadow(0 25px 40px rgba(0,0,0,0.12)) drop-shadow(0 8px 16px rgba(0,0,0,0.08))' }}>
-              <img 
-                src={src} 
-                alt={alt} 
-                loading="lazy"
-                className="w-full h-full object-contain scale-[0.94] mix-blend-multiply"
-              />
-            </div>
+  if (blend) {
+    return (
+      <div className="w-full flex justify-center">
+        {/* Fully static cropped half-circle, no parallax, no perspective */}
+        <div className="w-full flex justify-center" style={{ clipPath: 'inset(0 0 50.5% 0)' }}>
+          <div className="max-w-full md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden bg-[var(--background)] mx-auto" style={{ filter: 'drop-shadow(0 30px 50px rgba(0,0,0,0.18)) drop-shadow(0 12px 24px rgba(0,0,0,0.12))' }}>
+            <img 
+              src={src} 
+              alt={alt} 
+              loading="lazy"
+              className="w-full h-full object-contain scale-[0.94] mix-blend-multiply"
+            />
           </div>
         </div>
-      ) : (
-        <motion.img 
-          style={revealColor ? { y, scale, filter } : { y, scale }} 
+      </div>
+    );
+  }
+
+  if (staticImage) {
+    return (
+      <div className="w-full relative flex justify-center items-center">
+        <img 
           src={src} 
           alt={alt} 
           loading="lazy"
           className={`max-w-full md:max-w-[85%] w-auto h-auto object-contain rounded-sm mix-blend-multiply mx-auto ${className || ''}`}
         />
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
+      <motion.img 
+        style={revealColor ? { y, scale, filter } : { y, scale }} 
+        src={src} 
+        alt={alt} 
+        loading="lazy"
+        className={`max-w-full md:max-w-[85%] w-auto h-auto object-contain rounded-sm mix-blend-multiply mx-auto ${className || ''}`}
+      />
     </div>
   );
 }
@@ -109,6 +126,7 @@ function FeatureSection({
   reverse = false,
   subtitle,
   blendImage = false,
+  staticImage = false,
   imageClassName = "flex-[1.2] w-full",
   textClassName = "flex-1 space-y-6",
   revealColor = false,
@@ -122,6 +140,7 @@ function FeatureSection({
   reverse?: boolean,
   subtitle?: string,
   blendImage?: boolean,
+  staticImage?: boolean,
   imageClassName?: string,
   textClassName?: string,
   revealColor?: boolean,
@@ -167,13 +186,13 @@ function FeatureSection({
             )}
           </div>
           <div className={imageClassName}>
-            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} revealColor={revealColor} className={imgClassName} />
+            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} staticImage={staticImage} revealColor={revealColor} className={imgClassName} />
           </div>
         </>
       ) : (
         <>
           <div className={`${imageClassName} order-2 md:order-1`}>
-            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} revealColor={revealColor} className={imgClassName} />
+            <ParallaxImage src={imgSrc} alt={imgAlt} blend={blendImage} staticImage={staticImage} revealColor={revealColor} className={imgClassName} />
           </div>
           <div className={`${textClassName} lg:pl-12 order-1 md:order-2`}>
             {subtitle && (
@@ -240,12 +259,23 @@ export default function Home() {
   };
   const lightboxIdx = lightboxGallery.indexOf(lightboxSrc || '');
 
+  // Pair metadata for painting-dress lightbox
+  const isPairView = lightboxGallery.length === 2;
+  const isYellowReverie = isPairView && lightboxGallery[0].includes('brunette_yellow');
+  const pairTitle = isYellowReverie ? '\u201cYellow Reverie\u201d' : '\u201cColor Blind\u201d';
+  const pairCategory = isYellowReverie ? 'Gala Evening Gown' : 'Cocktail Dress';
+  const pairDescription = isYellowReverie
+    ? 'Structured silk faille in golden saffron with a hand-embroidered obi sash in burgundy dupioni, jet beadwork, and brocade patchwork detailing.'
+    : 'Hand-dyed lurex fringe on sheer nude chiffon with polished gold chain hardware, crystal waist detailing, and Swarovski-threaded strands.';
+  const pairMedium = isYellowReverie ? 'Mixed media on canvas' : 'Oil and mixed media on canvas';
+
   return (
     <main className="min-h-screen bg-[var(--background)] selection:bg-[var(--dada-red)] selection:text-white overflow-x-hidden">
       <IntroLoader />
       <Header />
       <CinematicHero />
       <ScrollQuote />
+
 
       {/* 1. MEET GABI & CHAR - Photo + intro */}
       <section id="boutique" className="pt-40 md:pt-48 pb-36 md:pb-48 px-6">
@@ -337,7 +367,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <div className="flex items-stretch gap-3">
-              <div className="relative group overflow-hidden aspect-square flex-1 cursor-pointer" onClick={() => openLightbox('/images/paintings/brunette_yellow_painting.png', ['/images/paintings/brunette_yellow_painting.png', '/images/paintings/dress_from_painting_hero.jpg', '/images/paintings/faces_color_blind.jpg', '/images/paintings/dress_from_colorful_face.png'])}>
+              <div className="relative group overflow-hidden aspect-square flex-1 cursor-pointer" onClick={() => openLightbox('/images/paintings/brunette_yellow_painting.png', ['/images/paintings/brunette_yellow_painting.png', '/images/paintings/dress_from_painting_hero.jpg'])}>
                 <img src="/images/paintings/brunette_yellow_painting.png" alt="Original mixed-media painting by Gabrielle Benot" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
                   <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/70">The Painting</span>
@@ -348,7 +378,7 @@ export default function Home() {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--dada-red)] shrink-0 my-1"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                 <div className="flex-1 w-[1px] bg-[var(--dada-red)]/20" />
               </div>
-              <div className="relative group overflow-hidden aspect-[3/4] flex-1 cursor-pointer" onClick={() => openLightbox('/images/paintings/dress_from_painting_hero.jpg', ['/images/paintings/brunette_yellow_painting.png', '/images/paintings/dress_from_painting_hero.jpg', '/images/paintings/faces_color_blind.jpg', '/images/paintings/dress_from_colorful_face.png'])}>
+              <div className="relative group overflow-hidden aspect-[3/4] flex-1 cursor-pointer" onClick={() => openLightbox('/images/paintings/dress_from_painting_hero.jpg', ['/images/paintings/brunette_yellow_painting.png', '/images/paintings/dress_from_painting_hero.jpg'])}>
                 <img src="/images/paintings/dress_from_painting_hero.jpg" alt="Couture gown inspired by the painting" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
                   <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/70">The Gown</span>
@@ -366,7 +396,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.15 }}
           >
             <div className="flex items-stretch gap-3">
-              <div className="relative group overflow-hidden aspect-square flex-1 cursor-pointer" onClick={() => openLightbox('/images/paintings/faces_color_blind.jpg', ['/images/paintings/brunette_yellow_painting.png', '/images/paintings/dress_from_painting_hero.jpg', '/images/paintings/faces_color_blind.jpg', '/images/paintings/dress_from_colorful_face.png'])}>
+              <div className="relative group overflow-hidden aspect-square flex-1 cursor-pointer" onClick={() => openLightbox('/images/paintings/faces_color_blind.jpg', ['/images/paintings/faces_color_blind.jpg', '/images/paintings/dress_from_colorful_face.png'])}>
                 <img src="/images/paintings/faces_color_blind.jpg" alt="Gabrielle Benot abstract portrait with vibrant colors" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
                   <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/70">The Painting</span>
@@ -377,7 +407,7 @@ export default function Home() {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--dada-red)] shrink-0 my-1"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                 <div className="flex-1 w-[1px] bg-[var(--dada-red)]/20" />
               </div>
-              <div className="relative group overflow-hidden aspect-[3/4] flex-1 cursor-pointer" onClick={() => openLightbox('/images/paintings/dress_from_colorful_face.png', ['/images/paintings/brunette_yellow_painting.png', '/images/paintings/dress_from_painting_hero.jpg', '/images/paintings/faces_color_blind.jpg', '/images/paintings/dress_from_colorful_face.png'])}>
+              <div className="relative group overflow-hidden aspect-[3/4] flex-1 cursor-pointer" onClick={() => openLightbox('/images/paintings/dress_from_colorful_face.png', ['/images/paintings/faces_color_blind.jpg', '/images/paintings/dress_from_colorful_face.png'])}>
                 <img src="/images/paintings/dress_from_colorful_face.png" alt="Flowing evening gown inspired by the abstract portrait" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
                   <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/70">The Gown</span>
@@ -467,9 +497,9 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="flex flex-col items-center w-full md:w-[38%] md:-mt-4"
+              className="flex flex-col items-center w-full md:w-[32%] md:-mt-4"
             >
-              <div className="relative overflow-hidden aspect-[9/16] w-[75%] md:w-full rounded-sm shadow-2xl shadow-black/50">
+              <div className="relative overflow-hidden aspect-[9/16] w-[64%] md:w-full rounded-sm shadow-2xl shadow-black/50">
                 <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover">
                   <source src="/videos/painting_process.mp4" type="video/mp4" />
                 </video>
@@ -494,9 +524,9 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex flex-col items-center w-full md:w-[38%] md:mt-16"
+              className="flex flex-col items-center w-full md:w-[32%] md:mt-16"
             >
-              <div className="relative overflow-hidden aspect-[9/16] w-[75%] md:w-full rounded-sm shadow-2xl shadow-black/50">
+              <div className="relative overflow-hidden aspect-[9/16] w-[64%] md:w-full rounded-sm shadow-2xl shadow-black/50">
                 <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover">
                   <source src="/videos/couture_process.mp4" type="video/mp4" />
                 </video>
@@ -522,6 +552,8 @@ export default function Home() {
       <div className="max-w-xs mx-auto py-8">
         <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
       </div>
+
+
 
       {/* 2. COLLECTIONS - Show the work early */}
       <div id="collections">
@@ -561,16 +593,29 @@ export default function Home() {
         imgSrc="https://storage.googleapis.com/mixo-sites/images/file-afe1558e-67b6-483d-a49a-82317121d155.jpg"
         imgAlt="Bespoke geometric couture fabric pattern by Art Couture"
         imageClassName="w-[calc(100%+3rem)] -ml-[calc(1.5rem+5%)] md:ml-0 md:w-full -mt-6 md:mt-0 md:flex-[1.44] overflow-hidden max-h-[50vh]"
+        staticImage
       />
+
 
       {/* 4. CATWALK VIDEO */}
       <CatwalkVideo />
+
 
       {/* THE CRAFT & THE PROMISE - Editorial Spread */}
       <section className="relative py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:ml-[3%] md:mr-auto">
           {/* Desktop: Side-by-side editorial layout */}
-          <div className="flex flex-col md:flex-row gap-12 md:gap-16 lg:gap-24">
+          <div className="flex flex-col md:flex-row gap-12 md:gap-16 lg:gap-24 relative">
+            
+            {/* Faint AC monogram watermark in the left white space */}
+            <div className="hidden md:flex absolute left-0 top-[calc(60%+6cm)] -translate-y-1/2 w-[40%] items-center justify-center pointer-events-none select-none" aria-hidden="true">
+              <img
+                src="/images/ac_monogram.png"
+                alt=""
+                className="w-56 lg:w-72 opacity-[0.04]"
+                draggable={false}
+              />
+            </div>
             
             {/* Left: Sticky image with scroll-driven color reveal */}
             <ScrollRevealImage />
@@ -817,7 +862,7 @@ export default function Home() {
               <div className="md:w-[55%] relative group overflow-hidden">
                 <img
                   src="/images/paintings/palazzo_inspired_dress.png"
-                  alt="Elegant gown inspired by a Venetian palazzo, warm honey-gold silk with architectural draping"
+                  alt="Haute couture beaded gown in Venetian gold with intricate Gothic-inspired crystal beadwork, worn by an elegant woman in a Parisian atelier"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 
@@ -826,7 +871,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <p className="font-serif italic text-sm text-white/30 mt-6">Inspired by the light of a Venetian palazzo</p>
+            <p className="font-serif italic text-sm text-white/30 mt-6">Architecture becomes beadwork, palazzo becomes gown</p>
           </motion.div>
 
         </div>
@@ -834,6 +879,7 @@ export default function Home() {
         {/* Bottom edge gradient */}
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[var(--bg-primary)] to-transparent pointer-events-none" />
       </section>
+
 
       {/* OUR SERVICES */}
       <ServicesGrid />
@@ -935,13 +981,13 @@ export default function Home() {
             return () => window.removeEventListener('keydown', handleKeyDown);
           }, [activePhoto, photos.length]);
           return (
-            <div className="max-w-5xl mx-auto" ref={(el) => { parallaxRef.current = el; containerRef.current = el; }}>
+            <div className="max-w-4xl mx-auto" ref={(el) => { parallaxRef.current = el; containerRef.current = el; }}>
               <motion.div
                 key={activePhoto}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className="relative w-full aspect-[4/5] md:aspect-[16/9] overflow-hidden rounded-sm mb-6 select-none max-h-[55vh] cursor-pointer group"
+                className="relative w-full aspect-[4/5] md:aspect-[4/3] overflow-hidden rounded-sm mb-6 select-none md:max-h-[85vh] cursor-pointer group"
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               >
@@ -1048,7 +1094,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-8"
+            className="fixed inset-0 z-[100] bg-black flex items-center justify-center p-4 md:p-8"
             onClick={() => setLightboxSrc(null)}
             onTouchStart={(e) => { lightboxTouchStart.current = e.touches[0].clientX; }}
             onTouchEnd={(e) => {
@@ -1070,53 +1116,116 @@ export default function Home() {
               </svg>
             </button>
 
-            {/* Previous arrow */}
-            {lightboxGallery.length > 0 && lightboxIdx > 0 && (
-              <button
-                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center text-white/40 hover:text-white/70 transition-colors"
-                onClick={(e) => { e.stopPropagation(); lightboxPrev(); }}
-                aria-label="Previous image"
-              >
-                <svg width="12" height="24" viewBox="0 0 12 24" fill="none">
-                  <path d="M10 2L2 12L10 22" stroke="white" strokeOpacity="0.5" strokeWidth="0.75" />
-                </svg>
-              </button>
-            )}
+            {/* Side-by-side pair view for 2-image galleries */}
+            {isPairView ? (
+              <div className="flex flex-col items-center justify-center gap-4 md:gap-6 max-w-6xl w-full max-h-full" onClick={(e) => e.stopPropagation()}>
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 w-full">
+                  {/* The Painting */}
+                  <div className="flex flex-col items-center gap-3 flex-1 min-w-0">
+                    <motion.img
+                      initial={{ x: -30, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ duration: 0.5 }}
+                      src={lightboxGallery[0]}
+                      alt="The Painting"
+                      className="max-h-[30vh] md:max-h-[65vh] w-auto object-contain rounded-sm"
+                    />
+                    <div className="text-center">
+                      <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/40">The Painting</span>
+                      <p className="font-mono text-[7px] uppercase tracking-[0.2em] text-white/25 mt-1">{pairMedium}</p>
+                    </div>
+                  </div>
 
-            {/* Next arrow */}
-            {lightboxGallery.length > 0 && lightboxIdx < lightboxGallery.length - 1 && (
-              <button
-                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center text-white/40 hover:text-white/70 transition-colors"
-                onClick={(e) => { e.stopPropagation(); lightboxNext(); }}
-                aria-label="Next image"
-              >
-                <svg width="12" height="24" viewBox="0 0 12 24" fill="none">
-                  <path d="M2 2L10 12L2 22" stroke="white" strokeOpacity="0.5" strokeWidth="0.75" />
-                </svg>
-              </button>
-            )}
+                  {/* Arrow connector */}
+                  <div className="flex flex-row md:flex-col items-center gap-2 shrink-0 py-2 md:py-0">
+                    <div className="w-8 md:w-[1px] h-[1px] md:h-8 bg-gradient-to-r md:bg-gradient-to-b from-transparent via-[var(--dada-red)]/40 to-transparent" />
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--dada-red)]/60 rotate-90 md:rotate-0 shrink-0">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                    <div className="w-8 md:w-[1px] h-[1px] md:h-8 bg-gradient-to-r md:bg-gradient-to-b from-transparent via-[var(--dada-red)]/40 to-transparent" />
+                  </div>
 
-            {/* Counter */}
-            {lightboxGallery.length > 1 && (
-              <span className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 z-20">
-                {lightboxIdx + 1} / {lightboxGallery.length}
-              </span>
-            )}
+                  {/* The Gown */}
+                  <div className="flex flex-col items-center gap-3 flex-1 min-w-0">
+                    <motion.img
+                      initial={{ x: 30, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ duration: 0.5, delay: 0.15 }}
+                      src={lightboxGallery[1]}
+                      alt="The Gown"
+                      className="max-h-[30vh] md:max-h-[65vh] w-auto object-contain rounded-sm"
+                    />
+                    <div className="text-center">
+                      <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/40">The Gown</span>
+                      <p className="font-mono text-[7px] uppercase tracking-[0.2em] text-white/25 mt-1">{pairCategory}</p>
+                    </div>
+                  </div>
+                </div>
 
-            <motion.img
-              key={lightboxSrc}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              src={lightboxSrc}
-              alt="Full view"
-              className="max-w-full max-h-full object-contain"
-              onClick={(e) => e.stopPropagation()}
-            />
+                {/* Description placard - compact bottom bar */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="absolute bottom-5 left-1/2 -translate-x-1/2 text-center z-20 max-w-3xl w-full px-6"
+                >
+                  <p className="font-serif italic text-xl text-white/50 leading-tight">{pairTitle}</p>
+                  <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-white/30 mt-1 leading-tight">by Gabrielle Benot / Art Couture</p>
+                  <p className="font-mono text-[11px] tracking-[0.12em] text-white/25 mt-1.5 leading-snug">{pairDescription}</p>
+                </motion.div>
+              </div>
+            ) : (
+              <>
+                {/* Previous arrow */}
+                {lightboxGallery.length > 0 && lightboxIdx > 0 && (
+                  <button
+                    className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center text-white/40 hover:text-white/70 transition-colors"
+                    onClick={(e) => { e.stopPropagation(); lightboxPrev(); }}
+                    aria-label="Previous image"
+                  >
+                    <svg width="12" height="24" viewBox="0 0 12 24" fill="none">
+                      <path d="M10 2L2 12L10 22" stroke="white" strokeOpacity="0.5" strokeWidth="0.75" />
+                    </svg>
+                  </button>
+                )}
+
+                {/* Next arrow */}
+                {lightboxGallery.length > 0 && lightboxIdx < lightboxGallery.length - 1 && (
+                  <button
+                    className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center text-white/40 hover:text-white/70 transition-colors"
+                    onClick={(e) => { e.stopPropagation(); lightboxNext(); }}
+                    aria-label="Next image"
+                  >
+                    <svg width="12" height="24" viewBox="0 0 12 24" fill="none">
+                      <path d="M2 2L10 12L2 22" stroke="white" strokeOpacity="0.5" strokeWidth="0.75" />
+                    </svg>
+                  </button>
+                )}
+
+                {/* Counter */}
+                {lightboxGallery.length > 1 && (
+                  <span className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 z-20">
+                    {lightboxIdx + 1} / {lightboxGallery.length}
+                  </span>
+                )}
+
+                <motion.img
+                  key={lightboxSrc}
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  src={lightboxSrc}
+                  alt="Full view"
+                  className="max-w-full max-h-full object-contain"
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
+
     </main>
   );
 }

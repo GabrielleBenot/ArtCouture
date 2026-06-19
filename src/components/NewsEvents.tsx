@@ -126,6 +126,52 @@ export function NewsEvents() {
           </h2>
         </motion.div>
 
+        {/* Video Showcase: Silk Painting in Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="mb-20 md:mb-28"
+        >
+          <div className="relative max-w-2xl mx-auto">
+            {/* Decorative corner accents */}
+            <div className="absolute -top-3 -left-3 w-8 h-8 border-t border-l border-[var(--dada-red)]/40" />
+            <div className="absolute -top-3 -right-3 w-8 h-8 border-t border-r border-[var(--dada-red)]/40" />
+            <div className="absolute -bottom-3 -left-3 w-8 h-8 border-b border-l border-[var(--dada-red)]/40" />
+            <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b border-r border-[var(--dada-red)]/40" />
+
+            {/* Video container */}
+            <div className="relative aspect-video overflow-hidden bg-black/40">
+              <video
+                src="/videos/silk_painting2.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              />
+              {/* Bottom gradient overlay for caption */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10" />
+
+              {/* Caption overlay */}
+              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7 flex items-end justify-between">
+                <div>
+                  <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--dada-red)] mb-1.5">
+                    In the Atelier
+                  </span>
+                  <span className="block font-serif italic text-sm md:text-base text-white/90 font-light">
+                    The art of silk painting, by hand
+                  </span>
+                </div>
+                <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-white/30 hidden md:block">
+                  Art Couture Studio
+                </span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         <div className="flex md:hidden gap-6 overflow-x-auto snap-x snap-mandatory pb-8 -mx-6 px-6 scrollbar-hide">
           {newsItems.map((item, i) => (
             <motion.article
