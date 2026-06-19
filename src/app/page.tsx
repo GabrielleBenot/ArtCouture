@@ -78,9 +78,9 @@ function ParallaxImage({ src, alt, blend, className, revealColor, staticImage, p
         >
           {/* The image behind the curtains */}
           <motion.div
-            initial={{ scale: 1.08, opacity: 0 }}
-            animate={isInView ? { scale: 1, opacity: 1 } : { scale: 1.08, opacity: 0 }}
-            transition={{ duration: 1.4, delay: 0.3, ease: [0.33, 1, 0.68, 1] }}
+            initial={{ scale: 1.04 }}
+            animate={isInView ? { scale: 1 } : { scale: 1.04 }}
+            transition={{ duration: 1.4, ease: [0.33, 1, 0.68, 1] }}
           >
             <img 
               src={src} 
