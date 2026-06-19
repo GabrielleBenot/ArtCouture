@@ -428,26 +428,25 @@ export function DressModal({
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let itemConfig: any = null;
+    let localConfig: any = null;
     try {
       const raw = localStorage.getItem('artcouture_offerings');
       if (raw) {
         const config = JSON.parse(raw);
         if (config[dress.title]) {
-          itemConfig = config[dress.title];
+          localConfig = config[dress.title];
         }
       }
     } catch {
       // localStorage unavailable or invalid JSON
     }
 
-    // Fall back to default config if no localStorage data
-    if (!itemConfig) {
-      const defaults = defaultOfferingsConfig as Record<string, any>;
-      if (defaults[dress.title]) {
-        itemConfig = defaults[dress.title];
-      }
-    }
+    // Start with default config as the base
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const defaults = (defaultOfferingsConfig as Record<string, any>)[dress.title] || null;
+    
+    // Merge: localStorage overrides defaults
+    const itemConfig = defaults ? { ...defaults, ...(localConfig || {}) } : localConfig;
 
     if (itemConfig) {
       setOfferings({
