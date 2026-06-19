@@ -39,16 +39,16 @@ function ParallaxImage({ src, alt, blend, className, revealColor }: { src: strin
     <div ref={ref} className="w-full relative flex justify-center items-center perspective-1000">
       {blend ? (
         <div className="w-full flex justify-center">
-          {/* Deliberate semicircle crop on desktop */}
+          {/* Deliberate semicircle crop on desktop with drop shadow */}
           <div className="md:h-[45vh] md:overflow-hidden w-full flex justify-center">
-            <motion.div style={{ y, scale }} className="max-w-full md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden bg-[var(--background)] mx-auto md:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)]">
+            <div className="max-w-full md:max-w-[75%] max-h-[85vh] aspect-square rounded-full overflow-hidden bg-[var(--background)] mx-auto" style={{ filter: 'drop-shadow(0 25px 40px rgba(0,0,0,0.12)) drop-shadow(0 8px 16px rgba(0,0,0,0.08))' }}>
               <img 
                 src={src} 
                 alt={alt} 
                 loading="lazy"
                 className="w-full h-full object-contain scale-[0.94] mix-blend-multiply"
               />
-            </motion.div>
+            </div>
           </div>
         </div>
       ) : (
