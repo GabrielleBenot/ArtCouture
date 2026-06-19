@@ -920,8 +920,8 @@ export function EditorialCollection() {
               {/* Grid */}
               <div className="px-6 md:px-12 lg:px-20 pb-16">
                 {shopItems.length > 0 ? (
-                  <div className="max-w-6xl mx-auto">
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+                  <div className="max-w-4xl mx-auto">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
                       {shopItems.map((item, idx) => (
                         <motion.div
                           key={item.title}
@@ -941,37 +941,36 @@ export function EditorialCollection() {
                             }
                           }}
                         >
-                          {/* Image */}
-                          <div className="relative aspect-[3/4] overflow-hidden mb-4 bg-[#f0ede8]">
-                            <img
-                              src={item.img}
-                              alt={item.title}
-                              loading="lazy"
-                              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-                            />
-                            {/* Hover overlay */}
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
-                            {/* Category tag */}
-                            <div className="absolute top-3 left-3 md:top-4 md:left-4">
-                              <span className="font-mono text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-white bg-black/50 backdrop-blur-sm px-2.5 py-1 md:px-3 md:py-1.5">
-                                {item.category}
-                              </span>
-                            </div>
-                            {/* View indicator on hover */}
-                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white bg-[var(--dada-red)] px-5 py-2.5 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                                View
-                              </span>
+                          {/* Framed Image */}
+                          <div className="relative p-[6px] md:p-2 bg-white shadow-[0_2px_20px_rgba(0,0,0,0.04)] group-hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] transition-shadow duration-500">
+                            {/* Thin decorative inner border */}
+                            <div className="relative overflow-hidden border border-black/[0.06]">
+                              <div className="aspect-[3/4]">
+                                <img
+                                  src={item.img}
+                                  alt={item.title}
+                                  loading="lazy"
+                                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.03]"
+                                />
+                              </div>
+                              {/* Subtle hover overlay */}
+                              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+                              {/* Corner accents */}
+                              <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                              <div className="absolute top-2 right-2 w-3 h-3 border-t border-r border-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                              <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                              <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             </div>
                           </div>
                           {/* Info */}
-                          <div className="space-y-1.5">
-                            <h3 className="font-serif text-base md:text-lg lg:text-xl font-light text-[var(--text-main)] tracking-wide group-hover:text-[var(--dada-red)] transition-colors duration-300">
+                          <div className="mt-4 text-center space-y-1">
+                            <h3 className="font-serif text-sm md:text-base lg:text-lg font-light text-[var(--text-main)] tracking-wide group-hover:text-[var(--dada-red)] transition-colors duration-300">
                               {item.title}
                             </h3>
-                            <p className="font-mono text-xs md:text-sm text-[var(--text-muted)] tracking-wider">
+                            <p className="font-mono text-[10px] md:text-xs text-[var(--text-muted)] tracking-[0.15em]">
                               {item.shopPrice}
                             </p>
+                            <div className="w-0 group-hover:w-8 h-[1px] bg-[var(--dada-red)] mx-auto transition-all duration-500" />
                           </div>
                         </motion.div>
                       ))}
