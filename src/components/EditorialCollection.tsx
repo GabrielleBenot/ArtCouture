@@ -661,7 +661,12 @@ export function EditorialCollection() {
   const shopItems = useMemo(() => {
     return collection.filter(item => {
       const config = offeringsConfig[item.title];
-      return config?.purchaseSample?.enabled;
+      if (!config) return false;
+      return (
+        config.purchaseSample?.enabled ||
+        (config as any).commissionBespoke?.enabled ||
+        (config as any).rentPhotoshoot?.enabled
+      );
     }).map(item => {
       const config = offeringsConfig[item.title];
       const displayItem = imageOverrides[item.title]
@@ -669,7 +674,9 @@ export function EditorialCollection() {
         : item;
       return {
         ...displayItem,
-        shopPrice: config?.purchaseSample?.price || item.price,
+        shopPrice: config?.purchaseSample?.enabled
+          ? (config.purchaseSample.price || item.price)
+          : item.price,
       };
     });
   }, [offeringsConfig, imageOverrides]);
