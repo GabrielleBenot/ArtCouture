@@ -397,6 +397,7 @@ export function DressModal({
   const [showRentalTerms, setShowRentalTerms] = useState(false);
   const [showAgreementForm, setShowAgreementForm] = useState(false);
   const [agreementType, setAgreementType] = useState<'rent' | 'purchase' | 'commission'>('rent');
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [showPurchaseTerms, setShowPurchaseTerms] = useState(false);
   const [showCommissionTerms, setShowCommissionTerms] = useState(false);
 
@@ -488,7 +489,7 @@ export function DressModal({
         </button>
 
         {/* Left: Image */}
-        <div className="w-full md:w-[50%] h-[55vh] md:h-full shrink-0 relative p-2 md:p-6 lg:p-8">
+        <div className="w-full md:w-[50%] h-full md:h-full shrink-0 relative p-2 md:p-6 lg:p-8">
           <motion.div 
             initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -592,27 +593,204 @@ export function DressModal({
           )}
         </div>
 
-        {/* Mobile scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="flex md:hidden flex-col items-center py-3 shrink-0"
+        {/* Mobile: "Click for Details" Tab Button */}
+        <button
+          onClick={() => setMobileDrawerOpen(true)}
+          className="md:hidden fixed left-0 bottom-12 z-30 flex items-center gap-2 bg-[#fafaf8]/90 backdrop-blur-md border border-l-0 border-black/15 pl-4 pr-5 py-3 rounded-r-full text-black/70 hover:text-black transition-all duration-300 shadow-[4px_0_15px_rgba(0,0,0,0.1)] cursor-pointer"
         >
-          <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-black/40 mb-1">Scroll for details</span>
-          <motion.svg
-            animate={{ y: [0, 4, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            width="16" height="10" viewBox="0 0 16 10" fill="none" className="text-black/30"
-          >
-            <path d="M1 1L8 8L15 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </motion.svg>
-        </motion.div>
+          <span className="font-mono text-[9px] uppercase tracking-[0.25em]">Click for Details</span>
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--dada-red)] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--dada-red)]"></span>
+          </span>
+        </button>
 
-        {/* Right: Content & Form */}
+        {/* Mobile Details Drawer (Left-Side sliding panel) */}
+        <AnimatePresence>
+          {mobileDrawerOpen && (
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.5 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setMobileDrawerOpen(false)}
+                className="md:hidden fixed inset-0 bg-black/50 z-[100001]"
+              />
+              <motion.div
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ type: "spring", damping: 30, stiffness: 220 }}
+                className="md:hidden fixed top-0 bottom-0 left-0 w-[92%] max-w-[420px] bg-[#fafaf8] border-r border-black/10 z-[100002] flex flex-col shadow-[10px_0_30px_rgba(0,0,0,0.15)] overflow-y-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close button */}
+                <div className="flex justify-end p-4 shrink-0">
+                  <button
+                    onClick={() => setMobileDrawerOpen(false)}
+                    className="text-black/40 hover:text-black/80 transition-colors p-1"
+                    aria-label="Close details"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Drawer Content */}
+                <div className="px-6 pb-10 flex-1">
+                  <AnimatePresence mode="wait">
+                    {!showAgreementForm ? (
+                      <motion.div
+                        key="drawer-options"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-[var(--dada-red)] mb-2 block">Haute Couture Collection</span>
+                        <h2 className="text-2xl font-serif text-[var(--text-main)] mb-2 leading-none">{dress.title}</h2>
+                        <span className="font-mono text-xs tracking-widest text-[var(--text-muted)] block mb-3">{dress.price}</span>
+                        <p className="font-serif italic text-sm text-[var(--text-muted)] leading-relaxed mb-5">{dress.description}</p>
+
+                        {/* Fabric & Customization */}
+                        <div className="space-y-3 mb-6">
+                          <div>
+                            <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-black/40 mb-1 border-l-2 border-[var(--dada-red)] pl-2">The Fabric</span>
+                            <p className="font-serif text-xs text-[var(--text-muted)] leading-relaxed pl-3">{dress.fabric}</p>
+                          </div>
+                          <div>
+                            <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-black/40 mb-1 border-l-2 border-[var(--dada-red)] pl-2">Bespoke Customization</span>
+                            <p className="font-serif text-xs text-[var(--text-muted)] leading-relaxed pl-3">{dress.customization}</p>
+                          </div>
+                        </div>
+
+                        {/* Offerings */}
+                        {offeringsLoaded && (
+                          <div className="mb-6 pb-6 border-b border-black/10">
+                            <h3 className="text-xs font-mono tracking-[0.2em] uppercase pb-3 mb-3">Available Options</h3>
+                            {offerings ? (
+                              <div className="space-y-3">
+                                {offerings.purchaseSample?.enabled && (
+                                  <div className="border border-black/5 rounded-sm p-4">
+                                    <span className="font-mono text-[10px] tracking-widest uppercase block">Purchase This Sample</span>
+                                    <span className="font-serif italic text-xs text-[var(--text-muted)] block mt-1">This is the original piece as photographed</span>
+                                    {offerings.purchaseSample.price && <span className="font-serif text-base text-[var(--text-main)] block mt-2">{offerings.purchaseSample.price}</span>}
+                                    <button type="button" onClick={() => { setAgreementType('purchase'); setShowAgreementForm(true); }} className="mt-3 inline-flex items-center gap-2 bg-[var(--dada-red)] text-white px-6 py-2.5 font-mono text-[9px] tracking-widest uppercase hover:bg-black transition-colors duration-300 cursor-pointer">Purchase Now</button>
+                                  </div>
+                                )}
+                                {offerings.commissionBespoke?.enabled && (
+                                  <div className="border border-black/5 rounded-sm p-4">
+                                    <span className="font-mono text-[10px] tracking-widest uppercase block">Commission This Design</span>
+                                    <span className="font-serif italic text-xs text-[var(--text-muted)] block mt-1">Custom-crafted to your measurements</span>
+                                    {offerings.commissionBespoke.depositAmount && <span className="font-serif text-base text-[var(--text-main)] block mt-2">{offerings.commissionBespoke.depositAmount}</span>}
+                                    <button type="button" onClick={() => { setAgreementType('commission'); setShowAgreementForm(true); }} className="mt-3 inline-flex items-center gap-2 bg-[var(--dada-red)] text-white px-6 py-2.5 font-mono text-[9px] tracking-widest uppercase hover:bg-black transition-colors duration-300 cursor-pointer">Begin Commission</button>
+                                  </div>
+                                )}
+                                {offerings.rentEditorial?.enabled && (
+                                  <div className="border border-black/5 rounded-sm p-4">
+                                    <span className="font-mono text-[10px] tracking-widest uppercase block">Rent for Editorial</span>
+                                    <span className="font-serif italic text-xs text-[var(--text-muted)] block mt-1">3-day event or editorial shoot</span>
+                                    {offerings.rentEditorial.dayRate && <span className="font-serif text-base text-[var(--text-main)] block mt-2">{offerings.rentEditorial.dayRate} / 3-day rental</span>}
+                                    <button type="button" onClick={() => { setAgreementType('rent'); setShowAgreementForm(true); }} className="mt-3 inline-flex items-center gap-2 bg-[var(--dada-red)] text-white px-6 py-2.5 font-mono text-[9px] tracking-widest uppercase hover:bg-black transition-colors duration-300 cursor-pointer">Book Rental</button>
+                                  </div>
+                                )}
+                              </div>
+                            ) : dress.depositAmount ? (
+                              <div className="border border-black/5 rounded-sm p-4">
+                                <span className="font-mono text-[10px] tracking-widest uppercase block">Commission This Design</span>
+                                <span className="font-serif italic text-xs text-[var(--text-muted)] block mt-1">Custom-crafted to your measurements and vision</span>
+                                <button type="button" onClick={() => { setAgreementType('commission'); setShowAgreementForm(true); }} className="mt-3 inline-flex items-center gap-2 bg-[var(--dada-red)] text-white px-6 py-2.5 font-mono text-[9px] tracking-widest uppercase hover:bg-black transition-colors duration-300 cursor-pointer">Begin Commission with {dress.depositAmount} Deposit</button>
+                              </div>
+                            ) : null}
+                          </div>
+                        )}
+
+                        {/* Inquiry Form */}
+                        <div>
+                          <h3 className="text-xs font-mono tracking-[0.2em] uppercase border-b border-black/10 pb-3 mb-5">Inquire About This Piece</h3>
+                          {submitted ? (
+                            <div className="text-center py-8">
+                              <span className="text-3xl block mb-4">&#10003;</span>
+                              <h3 className="font-serif italic text-xl text-[var(--text-main)] mb-3">Thank you for your inquiry.</h3>
+                              <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">We will be in touch within 24 hours.</p>
+                            </div>
+                          ) : (
+                            <form className="space-y-5" onSubmit={async (e) => {
+                              e.preventDefault();
+                              setIsSubmitting(true);
+                              const form = e.currentTarget;
+                              const formData = new FormData(form);
+                              try {
+                                await fetch("https://formspree.io/f/mnjyyqan", {
+                                  method: "POST",
+                                  body: formData,
+                                  headers: { Accept: "application/json" },
+                                });
+                                setSubmitted(true);
+                              } catch {
+                                setIsSubmitting(false);
+                              }
+                            }}>
+                              <input type="hidden" name="_subject" value={`Inquiry: ${dress.title}`} />
+                              <div className="relative group">
+                                <input type="text" name="firstName" required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer" placeholder=" " />
+                                <label className="absolute left-0 top-0 text-sm font-sans text-black/50 pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--dada-red)] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs">First Name</label>
+                              </div>
+                              <div className="relative group">
+                                <input type="text" name="lastName" required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer" placeholder=" " />
+                                <label className="absolute left-0 top-0 text-sm font-sans text-black/50 pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--dada-red)] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs">Last Name</label>
+                              </div>
+                              <div className="relative group">
+                                <input type="email" name="email" required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer" placeholder=" " />
+                                <label className="absolute left-0 top-0 text-sm font-sans text-black/50 pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--dada-red)] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs">Email Address</label>
+                              </div>
+                              <div className="relative group">
+                                <textarea rows={2} name="message" required className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-sans focus:outline-none focus:border-[var(--dada-red)] transition-colors peer resize-none" placeholder=" "></textarea>
+                                <label className="absolute left-0 top-0 text-sm font-sans text-black/50 pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--dada-red)] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs">Your Message</label>
+                              </div>
+                              <button type="submit" disabled={isSubmitting} className="w-full bg-black text-white px-6 py-3 font-mono text-[10px] tracking-widest uppercase hover:bg-[var(--dada-red)] transition-colors duration-300 disabled:opacity-50">
+                                {isSubmitting ? "Sending..." : "Send Inquiry"}
+                              </button>
+                            </form>
+                          )}
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="drawer-checkout"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        <CheckoutAgreementForm
+                          type={agreementType}
+                          dress={dress}
+                          stripeLink={
+                            agreementType === 'rent'
+                              ? offerings?.rentEditorial?.stripeLink
+                              : agreementType === 'purchase'
+                              ? offerings?.purchaseSample?.stripeLink
+                              : offerings?.commissionBespoke?.stripeLink || dress.depositLink
+                          }
+                          onBack={() => setShowAgreementForm(false)}
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+
+        {/* Right: Content & Form (hidden on mobile, visible on desktop) */}
         <div 
           data-lenis-prevent
-          className="w-full md:w-[50%] flex-1 overflow-y-auto flex flex-col px-6 py-6 md:px-12 lg:px-16 md:py-8"
+          className="hidden md:flex w-full md:w-[50%] flex-1 overflow-y-auto flex-col px-6 py-6 md:px-12 lg:px-16 md:py-8"
         >
           <AnimatePresence mode="wait">
             {!showAgreementForm ? (
