@@ -1,0 +1,398 @@
+{
+  "Fuchsia Majesty": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$7,955",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$2,000",
+      "stripeLink": "https://buy.stripe.com/3cI14nd5q0301L3fH6b3q00"
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$500",
+      "securityDeposit": "$1,200",
+      "stripeLink": ""
+    }
+  },
+  "Blush Enchantress": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$8,700",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$2,200",
+      "stripeLink": "https://buy.stripe.com/5kQdR9e9uaHE1L37aAb3q04"
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$500",
+      "securityDeposit": "$1,300",
+      "stripeLink": ""
+    }
+  },
+  "Golden Whisper": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$9,200",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$2,300",
+      "stripeLink": "https://buy.stripe.com/cNi00jaXi3fc0GZ9iIb3q01"
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$550",
+      "securityDeposit": "$1,400",
+      "stripeLink": ""
+    }
+  },
+  "Crimson Allure": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$7,980",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$2,000",
+      "stripeLink": "https://buy.stripe.com/eVq3cv0iE7vs89rdyYb3q02"
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$500",
+      "securityDeposit": "$1,200",
+      "stripeLink": ""
+    }
+  },
+  "Blush Couture": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$11,700",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$3,000",
+      "stripeLink": "https://buy.stripe.com/14AaEXaXig1YgFX8eEb3q03"
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$700",
+      "securityDeposit": "$1,750",
+      "stripeLink": ""
+    }
+  },
+  "Pearl Symphony": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$4,200",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$1,000",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$250",
+      "securityDeposit": "$650",
+      "stripeLink": ""
+    }
+  },
+  "Obsidian Clutch": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$5,500",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$1,500",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$350",
+      "securityDeposit": "$850",
+      "stripeLink": ""
+    }
+  },
+  "Crystal Steps": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$2,800",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$700",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$150",
+      "securityDeposit": "$400",
+      "stripeLink": ""
+    }
+  },
+  "Golden Hour": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$3,100",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$800",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$200",
+      "securityDeposit": "$450",
+      "stripeLink": ""
+    }
+  },
+  "Velvet Veil": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$1,500",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$400",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$150",
+      "securityDeposit": "$250",
+      "stripeLink": ""
+    }
+  },
+  "Midnight Elegance": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$8,850",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$2,200",
+      "stripeLink": "https://buy.stripe.com/3cI14n9Te4jg75namMb3q05"
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$550",
+      "securityDeposit": "$1,350",
+      "stripeLink": ""
+    }
+  },
+  "Noir Power": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$7,200",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$1,800",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$450",
+      "securityDeposit": "$1,100",
+      "stripeLink": ""
+    }
+  },
+  "Ivory Architecture": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$9,100",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$2,300",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$550",
+      "securityDeposit": "$1,350",
+      "stripeLink": ""
+    }
+  },
+  "Crimson Drape": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$6,500",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$1,600",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$400",
+      "securityDeposit": "$1,000",
+      "stripeLink": ""
+    }
+  },
+  "Onyx Edge": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$8,200",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$2,000",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$500",
+      "securityDeposit": "$1,250",
+      "stripeLink": ""
+    }
+  },
+  "Tweed Illusion": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$7,800",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$2,000",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$450",
+      "securityDeposit": "$1,150",
+      "stripeLink": ""
+    }
+  },
+  "Ivory Cascade": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$3,400",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$850",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$200",
+      "securityDeposit": "$500",
+      "stripeLink": ""
+    }
+  },
+  "Chiffon Whisper": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$2,900",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$700",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$150",
+      "securityDeposit": "$450",
+      "stripeLink": ""
+    }
+  },
+  "Satin Armor": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$3,800",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$950",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$250",
+      "securityDeposit": "$550",
+      "stripeLink": ""
+    }
+  },
+  "Organza Cloud": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$4,100",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$1,000",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$250",
+      "securityDeposit": "$600",
+      "stripeLink": ""
+    }
+  },
+  "Silk Essential": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$2,200",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$550",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$150",
+      "securityDeposit": "$350",
+      "stripeLink": ""
+    }
+  },
+  "Lace Romance": {
+    "purchaseSample": {
+      "enabled": false,
+      "price": "$4,500",
+      "stripeLink": ""
+    },
+    "commissionBespoke": {
+      "enabled": true,
+      "depositAmount": "$1,100",
+      "stripeLink": ""
+    },
+    "rentPhotoshoot": {
+      "enabled": false,
+      "pricePer3Days": "$250",
+      "securityDeposit": "$700",
+      "stripeLink": ""
+    }
+  }
+}

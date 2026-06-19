@@ -39,11 +39,22 @@ function getStoredConfig(): OfferingConfig | null {
   }
 }
 
+import default_config from './default_config.json';
+
 export function useOfferings(itemTitle: string): ItemOfferings {
   const [offerings, setOfferings] = useState<ItemOfferings>(DEFAULT_OFFERINGS);
 
   useEffect(() => {
-    const config = getStoredConfig();
+    let config = getStoredConfig();
+    if (!config) {
+      config = default_config as OfferingConfig;
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+      } catch {
+        // ignore
+      }
+    }
+
     if (config && config[itemTitle]) {
       const stored = config[itemTitle];
       setOfferings({

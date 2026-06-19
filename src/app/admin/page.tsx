@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef, DragEvent, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { OfferingConfig, ItemOfferings } from '@/lib/useOfferings';
+import default_config from '@/lib/default_config.json';
 
 /* ─────────────────────────────────────────────
    Garment Data
@@ -93,17 +94,16 @@ function buildDefaults(): OfferingConfig {
 }
 
 function loadConfig(): OfferingConfig {
-  if (typeof window === 'undefined') return buildDefaults();
+  if (typeof window === 'undefined') return default_config as OfferingConfig;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
-      const defaults = buildDefaults();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults));
-      return defaults;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(default_config));
+      return default_config as OfferingConfig;
     }
     return JSON.parse(raw) as OfferingConfig;
   } catch {
-    return buildDefaults();
+    return default_config as OfferingConfig;
   }
 }
 
@@ -963,6 +963,61 @@ function AdminPanel() {
     setLastSaved(new Date().toLocaleTimeString());
   }, [config]);
 
+  const exportBackup = useCallback(() => {
+    try {
+      const data = {
+        offerings: localStorage.getItem(STORAGE_KEY),
+        imageOverrides: localStorage.getItem(IMAGE_OVERRIDES_KEY),
+        vault: localStorage.getItem(VAULT_KEY),
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `artcouture_backup_${new Date().toISOString().slice(0,10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err: any) {
+      alert('Failed to export backup: ' + err.message);
+    }
+  }, []);
+
+  const importBackup = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        try {
+          const raw = evt.target?.result as string;
+          const parsed = JSON.parse(raw);
+          if (parsed.offerings) {
+            localStorage.setItem(STORAGE_KEY, parsed.offerings);
+            setConfig(JSON.parse(parsed.offerings));
+          }
+          if (parsed.imageOverrides) {
+            localStorage.setItem(IMAGE_OVERRIDES_KEY, parsed.imageOverrides);
+            setImageOverrides(JSON.parse(parsed.imageOverrides));
+          }
+          if (parsed.vault) {
+            localStorage.setItem(VAULT_KEY, parsed.vault);
+          }
+          alert('Database restored successfully! Reloading page...');
+          window.location.reload();
+        } catch (err: any) {
+          alert('Failed to import backup: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }, []);
+
   const enableCommissionAll = useCallback(() => {
     setConfig((prev) => {
       const next = { ...prev };
@@ -1029,6 +1084,26 @@ function AdminPanel() {
                 "
               >
                 Save All
+              </button>
+              <button
+                onClick={exportBackup}
+                className="
+                  px-3 py-1.5 rounded-lg text-[11px] font-mono uppercase tracking-wider
+                  bg-blue-500/10 text-blue-300 border border-blue-500/20
+                  hover:bg-blue-500/20 transition-all cursor-pointer
+                "
+              >
+                Export Backup
+              </button>
+              <button
+                onClick={importBackup}
+                className="
+                  px-3 py-1.5 rounded-lg text-[11px] font-mono uppercase tracking-wider
+                  bg-amber-500/10 text-amber-300 border border-amber-500/20
+                  hover:bg-amber-500/20 transition-all cursor-pointer
+                "
+              >
+                Import Backup
               </button>
             </div>
           </div>
