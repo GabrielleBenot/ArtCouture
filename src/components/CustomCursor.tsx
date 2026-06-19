@@ -79,7 +79,7 @@ export function CustomCursor() {
       {/* Inner dot */}
       <motion.div
         style={{ x: cursorX, y: cursorY }}
-        className="fixed top-0 left-0 z-[10010] pointer-events-none"
+        className="fixed top-0 left-0 z-[999999] pointer-events-none"
       >
         <motion.div
           animate={{
@@ -94,7 +94,7 @@ export function CustomCursor() {
       {/* Outer ring */}
       <motion.div
         style={{ x: ringX, y: ringY }}
-        className="fixed top-0 left-0 z-[10009] pointer-events-none"
+        className="fixed top-0 left-0 z-[999998] pointer-events-none"
       >
         <motion.div
           animate={{
