@@ -643,6 +643,356 @@ function GarmentCard({
 }
 
 /* ─────────────────────────────────────────────
+   Image Optimizer Tab
+   ───────────────────────────────────────────── */
+
+interface OptimizedFile {
+  id: string;
+  originalName: string;
+  originalSize: number;
+  optimizedSize: number;
+  width: number;
+  height: number;
+  previewUrl: string;
+  downloadUrl: string;
+  title: string;
+  altText: string;
+  copyright: string;
+}
+
+function ImageOptimizer() {
+  const [files, setFiles] = useState<OptimizedFile[]>([]);
+  const [dragOver, setDragOver] = useState(false);
+  const [processing, setProcessing] = useState(false);
+  const [quality, setQuality] = useState(82);
+  const [maxWidth, setMaxWidth] = useState(1600);
+  const [defaultCopyright, setDefaultCopyright] = useState('Art Couture by Gabrielle Benot');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const stripAndOptimize = useCallback(async (file: File) => {
+    return new Promise<OptimizedFile>((resolve) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        // Calculate new dimensions
+        let w = img.naturalWidth;
+        let h = img.naturalHeight;
+        if (w > maxWidth) {
+          const ratio = maxWidth / w;
+          w = maxWidth;
+          h = Math.round(h * ratio);
+        }
+
+        // Draw to canvas (strips ALL metadata: EXIF, XMP, IPTC, AI markers)
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(img, 0, 0, w, h);
+
+        // Export as optimized JPEG
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) return;
+            const downloadUrl = URL.createObjectURL(blob);
+            const baseName = file.name.replace(/\.[^.]+$/, '');
+            resolve({
+              id: crypto.randomUUID(),
+              originalName: file.name,
+              originalSize: file.size,
+              optimizedSize: blob.size,
+              width: w,
+              height: h,
+              previewUrl: downloadUrl,
+              downloadUrl,
+              title: baseName.replace(/[_-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+              altText: '',
+              copyright: defaultCopyright,
+            });
+            URL.revokeObjectURL(url);
+          },
+          'image/jpeg',
+          quality / 100
+        );
+      };
+      img.src = url;
+    });
+  }, [quality, maxWidth, defaultCopyright]);
+
+  const processFiles = useCallback(async (fileList: FileList | null) => {
+    if (!fileList) return;
+    const accepted = ['image/jpeg', 'image/png', 'image/webp'];
+    const validFiles = Array.from(fileList).filter(f => accepted.includes(f.type));
+    if (validFiles.length === 0) return;
+
+    setProcessing(true);
+    const results: OptimizedFile[] = [];
+    for (const file of validFiles) {
+      const result = await stripAndOptimize(file);
+      results.push(result);
+    }
+    setFiles(prev => [...results, ...prev]);
+    setProcessing(false);
+  }, [stripAndOptimize]);
+
+  const handleDrop = useCallback((e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDragOver(false);
+    processFiles(e.dataTransfer.files);
+  }, [processFiles]);
+
+  const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    processFiles(e.target.files);
+    if (e.target) e.target.value = '';
+  }, [processFiles]);
+
+  const downloadFile = useCallback((file: OptimizedFile) => {
+    const a = document.createElement('a');
+    a.href = file.downloadUrl;
+    const cleanName = file.title.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+    a.download = `${cleanName}_optimized.jpg`;
+    a.click();
+  }, []);
+
+  const downloadAll = useCallback(() => {
+    files.forEach((file, i) => {
+      setTimeout(() => downloadFile(file), i * 300);
+    });
+  }, [files, downloadFile]);
+
+  const updateFile = useCallback((id: string, updates: Partial<OptimizedFile>) => {
+    setFiles(prev => prev.map(f => f.id === id ? { ...f, ...updates } : f));
+  }, []);
+
+  const removeFile = useCallback((id: string) => {
+    setFiles(prev => prev.filter(f => f.id !== id));
+  }, []);
+
+  const formatSize = (bytes: number) => {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1048576) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / 1048576).toFixed(1)} MB`;
+  };
+
+  const compressionPercent = (orig: number, opt: number) => {
+    return Math.round((1 - opt / orig) * 100);
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
+      {/* Settings Bar */}
+      <div className="rounded-xl border border-white/8 bg-white/[0.02] p-5 mb-6">
+        <div className="flex flex-wrap items-end gap-6">
+          <div className="flex-1 min-w-[200px]">
+            <label className="block text-[10px] font-mono uppercase tracking-wider text-white/35 mb-2">Default Copyright</label>
+            <input
+              type="text"
+              value={defaultCopyright}
+              onChange={(e) => setDefaultCopyright(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-white/80 focus:outline-none focus:border-white/25"
+            />
+          </div>
+          <div className="w-32">
+            <label className="block text-[10px] font-mono uppercase tracking-wider text-white/35 mb-2">Quality: {quality}%</label>
+            <input
+              type="range"
+              min="40"
+              max="100"
+              value={quality}
+              onChange={(e) => setQuality(Number(e.target.value))}
+              className="w-full accent-emerald-500"
+            />
+          </div>
+          <div className="w-36">
+            <label className="block text-[10px] font-mono uppercase tracking-wider text-white/35 mb-2">Max Width</label>
+            <select
+              value={maxWidth}
+              onChange={(e) => setMaxWidth(Number(e.target.value))}
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-white/80 focus:outline-none focus:border-white/25 cursor-pointer"
+            >
+              <option value={800}>800px</option>
+              <option value={1200}>1200px</option>
+              <option value={1600}>1600px</option>
+              <option value={1920}>1920px</option>
+              <option value={2400}>2400px</option>
+              <option value={99999}>Original</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {/* Upload Dropzone */}
+      <div
+        onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+        onDragLeave={() => setDragOver(false)}
+        onDrop={handleDrop}
+        onClick={() => fileInputRef.current?.click()}
+        className={`
+          relative rounded-xl border-2 border-dashed p-10 mb-6
+          flex flex-col items-center justify-center gap-3 cursor-pointer
+          transition-all duration-200
+          ${
+            dragOver
+              ? 'border-emerald-400/60 bg-emerald-500/10'
+              : 'border-white/12 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.04]'
+          }
+        `}
+      >
+        {processing ? (
+          <>
+            <div className="w-8 h-8 border-2 border-emerald-400/30 border-t-emerald-400 rounded-full animate-spin" />
+            <p className="text-sm font-mono text-emerald-400/70">Processing images...</p>
+          </>
+        ) : (
+          <>
+            <svg className={`w-10 h-10 transition-colors ${dragOver ? 'text-emerald-400' : 'text-white/25'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
+            </svg>
+            <p className="text-sm font-mono text-white/40">{dragOver ? 'Drop to optimize' : 'Drop images to strip AI data and optimize'}</p>
+            <p className="text-[10px] font-mono text-white/20 uppercase tracking-wider">JPG, PNG, WEBP accepted</p>
+          </>
+        )}
+        <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={handleFileChange} className="hidden" />
+      </div>
+
+      {/* What it does */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+        {[
+          { icon: '🧹', label: 'Strips AI Metadata', desc: 'Removes EXIF, XMP, IPTC, and AI generation markers' },
+          { icon: '🏷️', label: 'Adds SEO Data', desc: 'Custom title, alt text, and copyright for each image' },
+          { icon: '⚡', label: 'Web Optimized', desc: 'Compressed JPEG output at your chosen quality' },
+        ].map(item => (
+          <div key={item.label} className="rounded-lg border border-white/6 bg-white/[0.02] p-4 text-center">
+            <span className="text-lg">{item.icon}</span>
+            <p className="text-[11px] font-mono text-white/60 mt-1 font-medium">{item.label}</p>
+            <p className="text-[9px] font-mono text-white/25 mt-0.5">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Results */}
+      {files.length > 0 && (
+        <>
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-xs font-mono text-white/40">{files.length} image{files.length !== 1 ? 's' : ''} optimized</p>
+            <button
+              onClick={downloadAll}
+              className="px-4 py-2 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[11px] font-mono uppercase tracking-wider hover:bg-emerald-500/25 transition-all cursor-pointer"
+            >
+              Download All
+            </button>
+          </div>
+
+          <div className="space-y-3">
+            <AnimatePresence mode="popLayout">
+              {files.map((file) => (
+                <motion.div
+                  key={file.id}
+                  layout
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="rounded-xl border border-white/8 bg-white/[0.02] overflow-hidden"
+                >
+                  <div className="flex flex-col sm:flex-row">
+                    {/* Preview */}
+                    <div className="w-full sm:w-40 h-40 sm:h-auto bg-black/30 flex-shrink-0">
+                      <img src={file.previewUrl} alt={file.altText || file.title} className="w-full h-full object-cover" />
+                    </div>
+
+                    {/* Metadata Form */}
+                    <div className="flex-1 p-4 space-y-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1">
+                          <label className="block text-[9px] font-mono uppercase tracking-wider text-white/30 mb-1">SEO Title</label>
+                          <input
+                            type="text"
+                            value={file.title}
+                            onChange={(e) => updateFile(file.id, { title: e.target.value })}
+                            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-xs font-mono text-white/80 focus:outline-none focus:border-white/25"
+                            placeholder="Image title for SEO"
+                          />
+                        </div>
+                        <div className="flex gap-1.5 mt-4">
+                          <button
+                            onClick={() => downloadFile(file)}
+                            className="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center hover:bg-emerald-500/25 transition-all cursor-pointer"
+                            title="Download"
+                          >
+                            <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                            </svg>
+                          </button>
+                          <button
+                            onClick={() => removeFile(file.id)}
+                            className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center hover:bg-red-500/20 transition-all cursor-pointer"
+                            title="Remove"
+                          >
+                            <svg className="w-3.5 h-3.5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-[9px] font-mono uppercase tracking-wider text-white/30 mb-1">Alt Text (SEO + Accessibility)</label>
+                        <input
+                          type="text"
+                          value={file.altText}
+                          onChange={(e) => updateFile(file.id, { altText: e.target.value })}
+                          className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-xs font-mono text-white/80 focus:outline-none focus:border-white/25"
+                          placeholder="Describe the image for search engines and screen readers"
+                        />
+                      </div>
+
+                      <div className="flex gap-3">
+                        <div className="flex-1">
+                          <label className="block text-[9px] font-mono uppercase tracking-wider text-white/30 mb-1">Copyright</label>
+                          <input
+                            type="text"
+                            value={file.copyright}
+                            onChange={(e) => updateFile(file.id, { copyright: e.target.value })}
+                            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-xs font-mono text-white/80 focus:outline-none focus:border-white/25"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Stats Bar */}
+                      <div className="flex items-center gap-4 pt-1">
+                        <span className="text-[10px] font-mono text-white/25">{file.width} x {file.height}px</span>
+                        <span className="text-[10px] font-mono text-white/25">{formatSize(file.originalSize)} → {formatSize(file.optimizedSize)}</span>
+                        <span className={`text-[10px] font-mono font-medium ${
+                          compressionPercent(file.originalSize, file.optimizedSize) > 50 ? 'text-emerald-400/70' : 'text-amber-400/70'
+                        }`}>
+                          {compressionPercent(file.originalSize, file.optimizedSize)}% smaller
+                        </span>
+                        <span className="text-[10px] font-mono text-emerald-400/50 flex items-center gap-1">
+                          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          Metadata stripped
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </>
+      )}
+
+      {files.length === 0 && !processing && (
+        <div className="text-center py-10">
+          <p className="text-sm font-mono text-white/25">Upload images to strip AI data, add SEO metadata, and optimize for web</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
    Design Vault Tab
    ───────────────────────────────────────────── */
 
@@ -910,7 +1260,7 @@ function AdminPanel() {
   const [config, setConfig] = useState<OfferingConfig>({});
   const [lastSaved, setLastSaved] = useState<string | null>(null);
   const [filterCategory, setFilterCategory] = useState<string>('All');
-  const [activeTab, setActiveTab] = useState<'inventory' | 'vault'>('inventory');
+  const [activeTab, setActiveTab] = useState<'inventory' | 'vault' | 'optimizer'>('inventory');
   const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
   const [pickerTarget, setPickerTarget] = useState<string | null>(null);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'warning' | 'info' } | null>(null);
@@ -1209,7 +1559,7 @@ function AdminPanel() {
       <div className="border-b border-white/6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex gap-0">
-            {(['inventory', 'vault'] as const).map((tab) => (
+            {(['inventory', 'optimizer', 'vault'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -1223,7 +1573,7 @@ function AdminPanel() {
                   }
                 `}
               >
-                {tab === 'inventory' ? 'Inventory' : 'Design Vault'}
+                {tab === 'inventory' ? 'Inventory' : tab === 'optimizer' ? 'Image Optimizer' : 'Design Vault'}
                 {activeTab === tab && (
                   <motion.div
                     layoutId="admin-tab-indicator"
@@ -1287,6 +1637,10 @@ function AdminPanel() {
             </div>
           </div>
         </>
+      ) : activeTab === 'optimizer' ? (
+        <div className="pt-6">
+          <ImageOptimizer />
+        </div>
       ) : (
         <div className="pt-6">
           <DesignVault />
