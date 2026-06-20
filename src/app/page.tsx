@@ -1132,11 +1132,11 @@ export default function Home() {
               </div>
 
               {/* The dress - full on mobile, cropped (no face) on desktop */}
-              <div className="w-full md:w-[55%] relative group overflow-hidden rounded-sm h-[65vh] md:h-[600px] lg:h-[700px]">
+              <div className="w-full md:w-[55%] relative group overflow-hidden rounded-sm h-[50vh] md:h-[600px] lg:h-[700px]">
                 <img
                   src="/images/paintings/palazzo_inspired_dress.jpg"
                   alt="Haute couture beaded gown in Venetian gold with intricate Gothic-inspired crystal beadwork"
-                  className="w-full h-full object-cover object-[center_40%] transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover object-[center_60%] transition-transform duration-700 group-hover:scale-105"
                 />
 
                 {/* Embroidery Detail Loupe */}
