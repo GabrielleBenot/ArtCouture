@@ -673,6 +673,7 @@ export function EditorialCollection() {
   const [activeCategory, setActiveCategory] = useState<string>("Dresses");
   const [showAllItems, setShowAllItems] = useState(false);
   const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
+  const [hiddenItems, setHiddenItems] = useState<string[]>([]);
   const [shopOpen, setShopOpen] = useState(false);
   const [shopCategory, setShopCategory] = useState<string>("All");
 
@@ -683,16 +684,23 @@ export function EditorialCollection() {
     } catch {
       // ignore
     }
+    try {
+      const raw = localStorage.getItem('artcouture_hidden_items');
+      if (raw) setHiddenItems(JSON.parse(raw));
+    } catch {
+      // ignore
+    }
   }, []);
 
   useEffect(() => {
     setShowAllItems(false);
   }, [activeCategory]);
 
-  const categories = Array.from(new Set(collection.map(item => item.category)));
+  const visibleCollection = collection.filter(item => !hiddenItems.includes(item.title));
+  const categories = Array.from(new Set(visibleCollection.map(item => item.category)));
   const floatingCategories = categories.filter(c => c !== activeCategory);
 
-  const filteredCollection = collection.filter(item => item.category === activeCategory);
+  const filteredCollection = visibleCollection.filter(item => item.category === activeCategory);
 
   const displayedCollection = showAllItems 
     ? filteredCollection 
@@ -753,7 +761,7 @@ export function EditorialCollection() {
   }, [shopOpen]);
 
   const shopItems = useMemo(() => {
-    return collection.filter(item => {
+    return visibleCollection.filter(item => {
       const config = offeringsConfig[item.title];
       if (!config) return false;
       return (

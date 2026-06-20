@@ -445,8 +445,26 @@ export function DressModal({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const defaults = (defaultOfferingsConfig as Record<string, any>)[dress.title] || null;
     
-    // Merge: localStorage overrides defaults
-    const itemConfig = defaults ? { ...defaults, ...(localConfig || {}) } : localConfig;
+    // Deep merge: for each offering type, merge localStorage fields over defaults
+    // This ensures new default values (like rentPhotoshoot.enabled = true) take effect
+    // even when localStorage has old data for that offering
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const deepMerge = (base: any, override: any) => {
+      if (!base) return override;
+      if (!override) return base;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const result: any = {};
+      for (const key of new Set([...Object.keys(base), ...Object.keys(override)])) {
+        if (typeof base[key] === 'object' && base[key] !== null && typeof override[key] === 'object' && override[key] !== null) {
+          result[key] = { ...base[key], ...override[key] };
+        } else {
+          result[key] = override[key] !== undefined ? override[key] : base[key];
+        }
+      }
+      return result;
+    };
+
+    const itemConfig = deepMerge(defaults, localConfig);
 
     if (itemConfig) {
       setOfferings({
