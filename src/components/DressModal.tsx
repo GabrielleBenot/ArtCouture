@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MagneticButton } from "./MagneticButton";
 import type { DressItem } from "./EditorialCollection";
@@ -481,7 +481,23 @@ export function DressModal({
     setOfferingsLoaded(true);
   }, [dress.title]);
 
-  const images = [dress.img, ...(dress.detailImages || [])];
+  // Build images array with photo slot overrides from admin
+  const images = useMemo(() => {
+    const base = [dress.img, ...(dress.detailImages || [])];
+    try {
+      const raw = localStorage.getItem('artcouture_photo_slots');
+      if (raw) {
+        const slots: Record<string, string> = JSON.parse(raw);
+        return base.map((defaultImg, idx) => {
+          const slotKey = `${dress.title}__slot_${idx}`;
+          return slots[slotKey] || defaultImg;
+        });
+      }
+    } catch {
+      // ignore
+    }
+    return base;
+  }, [dress.title, dress.img, dress.detailImages]);
   const activeImage = images[activeImageIndex];
 
   // Lock body scroll when modal is open

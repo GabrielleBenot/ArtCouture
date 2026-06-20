@@ -60,6 +60,15 @@ const ADMIN_PASSWORD = 'artcouture2025';
 const VAULT_KEY = 'artcouture_vault';
 const IMAGE_OVERRIDES_KEY = 'artcouture_image_overrides';
 const HIDDEN_KEY = 'artcouture_hidden_items';
+const PHOTO_SLOTS_KEY = 'artcouture_photo_slots';
+
+const SLOT_LABELS: Record<string, string[]> = {
+  Dresses: ['The Silhouette', 'The Bodice', 'Fabric Detail', 'The Hem', 'Back View', 'Details'],
+  Accessories: ['The Piece', 'The Detail', 'Material', 'Clasp', 'Worn View', 'Details'],
+  Jackets: ['The Front', 'The Back', 'Lapel Detail', 'Lining', 'Sleeve', 'Details'],
+  Jewelry: ['The Piece', 'The Setting', 'Gemstone', 'Profile', 'Worn View', 'Details'],
+  Blouses: ['The Silhouette', 'The Collar', 'Fabric Detail', 'The Cuff', 'Back View', 'Details'],
+};
 
 /* ─────────────────────────────────────────────
    Helpers
@@ -444,6 +453,8 @@ function GarmentCard({
   onImageSwap,
   isHidden,
   onToggleVisibility,
+  photoSlots,
+  onPhotoSlotChange,
 }: {
   garment: GarmentData;
   offerings: ItemOfferings;
@@ -453,6 +464,8 @@ function GarmentCard({
   onImageSwap: (garmentTitle: string) => void;
   isHidden: boolean;
   onToggleVisibility: () => void;
+  photoSlots: Record<string, string>;
+  onPhotoSlotChange: (slotKey: string, imageUrl: string | null) => void;
 }) {
   const [saved, setSaved] = useState(false);
 
@@ -668,6 +681,67 @@ function GarmentCard({
           placeholder="https://buy.stripe.com/..."
         />
       </OfferingSection>
+
+      {/* Photo Slots */}
+      <div className="border-t border-white/6 pt-4 mt-1">
+        <p className="text-[10px] font-mono uppercase tracking-wider text-white/30 mb-3">Product Photos (6 Views)</p>
+        <div className="grid grid-cols-3 gap-2">
+          {(SLOT_LABELS[garment.category] || SLOT_LABELS.Dresses).map((label, idx) => {
+            const slotKey = `${garment.title}__slot_${idx}`;
+            const slotUrl = photoSlots[slotKey];
+            return (
+              <div key={idx} className="relative group">
+                <label
+                  className={`
+                    block aspect-square rounded-lg border cursor-pointer
+                    overflow-hidden transition-all
+                    ${slotUrl
+                      ? 'border-emerald-500/25 bg-black/30'
+                      : 'border-dashed border-white/10 bg-white/[0.02] hover:border-white/20'
+                    }
+                  `}
+                >
+                  {slotUrl ? (
+                    <img src={slotUrl} alt={label} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <svg className="w-5 h-5 text-white/15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                      </svg>
+                    </div>
+                  )}
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        onPhotoSlotChange(slotKey, reader.result as string);
+                      };
+                      reader.readAsDataURL(file);
+                      e.target.value = '';
+                    }}
+                  />
+                </label>
+                {slotUrl && (
+                  <button
+                    onClick={() => onPhotoSlotChange(slotKey, null)}
+                    className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/60 border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500/30 cursor-pointer"
+                  >
+                    <svg className="w-2.5 h-2.5 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
+                <p className="text-[8px] font-mono text-white/30 text-center mt-1 truncate">{idx === 0 ? 'Main' : label}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </motion.div>
   );
 }
@@ -1293,6 +1367,7 @@ function AdminPanel() {
   const [activeTab, setActiveTab] = useState<'inventory' | 'vault' | 'optimizer'>('inventory');
   const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
   const [hiddenItems, setHiddenItems] = useState<string[]>([]);
+  const [photoSlots, setPhotoSlots] = useState<Record<string, string>>({});
   const [pickerTarget, setPickerTarget] = useState<string | null>(null);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'warning' | 'info' } | null>(null);
 
@@ -1312,6 +1387,12 @@ function AdminPanel() {
     try {
       const raw = localStorage.getItem(HIDDEN_KEY);
       if (raw) setHiddenItems(JSON.parse(raw));
+    } catch {
+      // ignore
+    }
+    try {
+      const raw = localStorage.getItem(PHOTO_SLOTS_KEY);
+      if (raw) setPhotoSlots(JSON.parse(raw));
     } catch {
       // ignore
     }
@@ -1364,6 +1445,7 @@ function AdminPanel() {
         imageOverrides: localStorage.getItem(IMAGE_OVERRIDES_KEY),
         vault: localStorage.getItem(VAULT_KEY),
         hiddenItems: localStorage.getItem(HIDDEN_KEY),
+        photoSlots: localStorage.getItem(PHOTO_SLOTS_KEY),
       };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
@@ -1407,6 +1489,10 @@ function AdminPanel() {
             localStorage.setItem(HIDDEN_KEY, parsed.hiddenItems);
             setHiddenItems(JSON.parse(parsed.hiddenItems));
           }
+          if (parsed.photoSlots) {
+            localStorage.setItem(PHOTO_SLOTS_KEY, parsed.photoSlots);
+            setPhotoSlots(JSON.parse(parsed.photoSlots));
+          }
           showToast('Backup imported successfully. Reloading...', 'success');
           setTimeout(() => window.location.reload(), 1500);
         } catch (err: any) {
@@ -1423,9 +1509,11 @@ function AdminPanel() {
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(IMAGE_OVERRIDES_KEY);
     localStorage.removeItem(HIDDEN_KEY);
+    localStorage.removeItem(PHOTO_SLOTS_KEY);
     setConfig(loadConfig());
     setImageOverrides({});
     setHiddenItems([]);
+    setPhotoSlots({});
     setLastSaved(null);
     showToast('All settings reset to defaults', 'warning');
   }, [showToast]);
@@ -1682,6 +1770,19 @@ function AdminPanel() {
                           ? prev.filter(t => t !== garment.title)
                           : [...prev, garment.title];
                         localStorage.setItem(HIDDEN_KEY, JSON.stringify(next));
+                        return next;
+                      });
+                    }}
+                    photoSlots={photoSlots}
+                    onPhotoSlotChange={(slotKey, imageUrl) => {
+                      setPhotoSlots(prev => {
+                        const next = { ...prev };
+                        if (imageUrl === null) {
+                          delete next[slotKey];
+                        } else {
+                          next[slotKey] = imageUrl;
+                        }
+                        localStorage.setItem(PHOTO_SLOTS_KEY, JSON.stringify(next));
                         return next;
                       });
                     }}
