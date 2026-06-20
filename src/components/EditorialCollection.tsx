@@ -156,7 +156,7 @@ const collection = [
     description: "The glass slipper reimagined for the modern muse: a dazzling fusion of transparency and sparkle that elevates any bespoke evening gown or custom wedding dress. These bespoke accessories are luxury fashion's answer to Cinderella, designed for real-world red carpets.",
     fabric: "Optically pure Italian Lucite heel sculpted to architectural precision, paired with straps encrusted in over three hundred individually hand-set Swarovski crystals with aurora borealis finish.",
     customization: "Heel height adjustable between 85mm and 110mm. Strap crystal colorway, sole personalization, and custom sizing ensure a perfect bespoke fit for your most important evening.",
-    img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80",
+    img: "https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=800&q=80",
     detailImages: [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
