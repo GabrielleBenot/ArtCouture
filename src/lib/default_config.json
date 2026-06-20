@@ -11,7 +11,7 @@
       "stripeLink": "https://buy.stripe.com/3cI14nd5q0301L3fH6b3q00"
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$500",
       "securityDeposit": "$1,200",
       "stripeLink": ""
@@ -29,7 +29,7 @@
       "stripeLink": "https://buy.stripe.com/5kQdR9e9uaHE1L37aAb3q04"
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$500",
       "securityDeposit": "$1,300",
       "stripeLink": ""
@@ -47,7 +47,7 @@
       "stripeLink": "https://buy.stripe.com/cNi00jaXi3fc0GZ9iIb3q01"
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$550",
       "securityDeposit": "$1,400",
       "stripeLink": ""
@@ -65,7 +65,7 @@
       "stripeLink": "https://buy.stripe.com/eVq3cv0iE7vs89rdyYb3q02"
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$500",
       "securityDeposit": "$1,200",
       "stripeLink": ""
@@ -83,7 +83,7 @@
       "stripeLink": "https://buy.stripe.com/14AaEXaXig1YgFX8eEb3q03"
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$700",
       "securityDeposit": "$1,750",
       "stripeLink": ""
@@ -101,7 +101,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$250",
       "securityDeposit": "$650",
       "stripeLink": ""
@@ -119,7 +119,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$350",
       "securityDeposit": "$850",
       "stripeLink": ""
@@ -137,7 +137,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$150",
       "securityDeposit": "$400",
       "stripeLink": ""
@@ -155,7 +155,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$200",
       "securityDeposit": "$450",
       "stripeLink": ""
@@ -173,7 +173,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$150",
       "securityDeposit": "$250",
       "stripeLink": ""
@@ -191,7 +191,7 @@
       "stripeLink": "https://buy.stripe.com/3cI14n9Te4jg75namMb3q05"
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$550",
       "securityDeposit": "$1,350",
       "stripeLink": ""
@@ -209,7 +209,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$450",
       "securityDeposit": "$1,100",
       "stripeLink": ""
@@ -227,7 +227,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$550",
       "securityDeposit": "$1,350",
       "stripeLink": ""
@@ -245,7 +245,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$400",
       "securityDeposit": "$1,000",
       "stripeLink": ""
@@ -263,7 +263,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$500",
       "securityDeposit": "$1,250",
       "stripeLink": ""
@@ -281,7 +281,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$450",
       "securityDeposit": "$1,150",
       "stripeLink": ""
@@ -299,7 +299,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$200",
       "securityDeposit": "$500",
       "stripeLink": ""
@@ -317,7 +317,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$150",
       "securityDeposit": "$450",
       "stripeLink": ""
@@ -335,7 +335,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$250",
       "securityDeposit": "$550",
       "stripeLink": ""
@@ -353,7 +353,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$250",
       "securityDeposit": "$600",
       "stripeLink": ""
@@ -371,7 +371,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$150",
       "securityDeposit": "$350",
       "stripeLink": ""
@@ -389,7 +389,7 @@
       "stripeLink": ""
     },
     "rentPhotoshoot": {
-      "enabled": false,
+      "enabled": true,
       "pricePer3Days": "$250",
       "securityDeposit": "$700",
       "stripeLink": ""
