@@ -1109,7 +1109,7 @@ export default function Home() {
             className="mt-24 md:mt-36"
           >
             <span className="block font-mono text-[9px] uppercase tracking-[0.5em] text-[var(--dada-red)] mb-10">From Inspiration to Couture</span>
-            <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch max-h-[500px] md:max-h-[600px] lg:max-h-[700px]">
               {/* The inspiration */}
               <div className="md:w-[42%] relative group overflow-hidden">
                 <img
@@ -1132,7 +1132,7 @@ export default function Home() {
               {/* The dress */}
               <div className="md:w-[55%] relative group overflow-hidden">
                 <img
-                  src="/images/paintings/palazzo_inspired_dress.png"
+                  src="/images/paintings/palazzo_inspired_dress.jpg"
                   alt="Haute couture beaded gown in Venetian gold with intricate Gothic-inspired crystal beadwork, worn by an elegant woman in a Parisian atelier"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -1148,10 +1148,9 @@ export default function Home() {
                 >
                   {/* Zoomed crop of the embroidery/beadwork area on the dress */}
                   <img
-                    src="/images/paintings/palazzo_inspired_dress.png"
+                    src="/images/paintings/palazzo_detail.jpg"
                     alt="Close-up of intricate crystal beadwork detail"
-                    className="w-[400%] h-[400%] object-cover"
-                    style={{ objectPosition: '50% 92%' }}
+                    className="w-full h-full object-cover"
                   />
                   {/* Loupe label */}
                   <div className="absolute inset-0 rounded-full border border-white/10" />
@@ -1204,10 +1203,9 @@ export default function Home() {
                         className="w-[85vw] h-[60vh] md:w-[50vw] md:h-[70vh] rounded-lg overflow-hidden border border-white/10 shadow-2xl"
                       >
                         <img
-                          src="/images/paintings/palazzo_inspired_dress.png"
+                          src="/images/paintings/palazzo_detail.jpg"
                           alt="Detailed view of intricate crystal beadwork on haute couture gown"
-                          className="w-[250%] h-[250%] object-cover"
-                          style={{ objectPosition: '50% 55%' }}
+                          className="w-full h-full object-cover"
                         />
                       </motion.div>
 

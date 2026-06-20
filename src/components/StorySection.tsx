@@ -28,15 +28,21 @@ export function StorySection() {
             </p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.5)] group">
+            <div className="relative w-64 h-80 md:w-80 md:h-[26rem] overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.5)] group"
+              style={{ clipPath: 'polygon(15% 0%, 85% 0%, 100% 12%, 100% 88%, 85% 100%, 15% 100%, 0% 88%, 0% 12%)' }}
+            >
               <div className="absolute inset-0 bg-[var(--dada-red-glow)] mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 pointer-events-none" />
               <img 
                 src="/images/gabi_et_char_cropped.jpg" 
                 alt="Gabrielle Benot and Charmaigne Menn founders of Art Couture atelier" 
                 loading="lazy"
-                className="w-full h-full object-cover object-[center_30%] grayscale group-hover:grayscale-0 transition-all duration-[1.5s]"
+                className="w-full h-full object-cover object-[center_20%] grayscale group-hover:grayscale-0 transition-all duration-[1.5s]"
               />
             </div>
+            {/* Decorative emerald-cut border */}
+            <div className="absolute w-[17.5rem] h-[21.5rem] md:w-[22rem] md:h-[28rem] pointer-events-none border border-white/10"
+              style={{ clipPath: 'polygon(15% 0%, 85% 0%, 100% 12%, 100% 88%, 85% 100%, 15% 100%, 0% 88%, 0% 12%)', top: '50%', left: '50%', transform: 'translate(-50%, -52%)' }}
+            />
             <span className="block text-center font-serif italic text-sm tracking-[0.25em] text-white/70 mt-4">Gabi et Char</span>
           </div>
         </motion.div>
