@@ -1021,7 +1021,7 @@ export default function Home() {
       </section>
 
       {/* YOUR VISION, OUR CRAFT - Bespoke Inspiration */}
-      <section className="relative py-32 md:py-44 bg-[#0a0a0a] overflow-hidden">
+      <section className="relative py-32 md:py-44 bg-[#0a0a0a]">
         {/* Oversized background watermark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
           <span className="font-sans font-black text-[18vw] md:text-[14vw] uppercase tracking-tighter text-white/[0.02] leading-none select-none whitespace-nowrap">BESPOKE</span>
@@ -1109,16 +1109,18 @@ export default function Home() {
             className="mt-24 md:mt-36"
           >
             <span className="block font-mono text-[9px] uppercase tracking-[0.5em] text-[var(--dada-red)] mb-10">From Inspiration to Couture</span>
-            <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch max-h-[500px] md:max-h-[600px] lg:max-h-[700px]">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center">
               {/* The inspiration */}
-              <div className="md:w-[42%] relative group overflow-hidden">
+              <div className="w-full md:w-[42%] relative group rounded-sm">
                 <img
-                  src="/images/paintings/italian_palazzo.png"
-                  alt="A grand Italian palazzo in Venice at golden hour"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  src="/images/paintings/italian_palazzo.jpg"
+                  alt="Palazzo Vendramin Calergi on the Grand Canal in Venice at golden hour"
+                  className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-5">
-                  <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/60">The Inspiration</span>
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-5 pt-16">
+                  <span className="block font-mono text-[8px] uppercase tracking-[0.4em] text-[var(--dada-red)]/70 mb-2">The Inspiration</span>
+                  <span className="block font-serif italic text-sm md:text-base text-white/90 leading-snug">Palazzo Vendramin Calergi</span>
+                  <span className="block font-mono text-[7px] uppercase tracking-[0.3em] text-white/40 mt-1">Grand Canal, Venice</span>
                 </div>
               </div>
 
@@ -1129,12 +1131,12 @@ export default function Home() {
                 </svg>
               </div>
 
-              {/* The dress */}
-              <div className="md:w-[55%] relative group overflow-hidden">
+              {/* The dress - full on mobile, cropped (no face) on desktop */}
+              <div className="w-full md:w-[55%] relative group md:overflow-hidden rounded-sm md:h-[600px] lg:h-[700px]">
                 <img
                   src="/images/paintings/palazzo_inspired_dress.jpg"
-                  alt="Haute couture beaded gown in Venetian gold with intricate Gothic-inspired crystal beadwork, worn by an elegant woman in a Parisian atelier"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  alt="Haute couture beaded gown in Venetian gold with intricate Gothic-inspired crystal beadwork"
+                  className="w-full h-auto md:h-full md:object-cover md:object-[center_45%] transition-transform duration-700 group-hover:scale-105"
                 />
 
                 {/* Embroidery Detail Loupe */}
