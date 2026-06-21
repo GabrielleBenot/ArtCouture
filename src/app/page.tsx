@@ -999,17 +999,6 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 md:ml-[3%] md:mr-auto">
           {/* Desktop: Side-by-side editorial layout */}
           <div className="flex flex-col md:flex-row gap-12 md:gap-16 lg:gap-24 relative">
-            
-            {/* Faint AC monogram watermark in the left white space */}
-            <div className="hidden md:flex absolute left-0 top-[calc(60%+6cm)] -translate-y-1/2 w-[40%] items-center justify-center pointer-events-none select-none" aria-hidden="true">
-              <img
-                src="/images/ac_monogram.png"
-                alt=""
-                className="w-56 lg:w-72 opacity-[0.04]"
-                draggable={false}
-              />
-            </div>
-            
             {/* Left: Sticky image with scroll-driven color reveal */}
             <ScrollRevealImage />
 
