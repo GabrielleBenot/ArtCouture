@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Logo } from "./Logo";
 
 const navLinks = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: "/#boutique" },
   { label: "Shop Boutique", href: "/#shop", isShop: true },
   { label: "Collections", href: "/#collections" },
   { label: "Lookbook", href: "/lookbook" },
@@ -306,7 +306,7 @@ export function Header() {
             {/* Brand Logo inside overlay */}
             <div className="absolute top-6 left-6 z-[60]">
               <a
-                href="/"
+                href="/#boutique"
                 onClick={() => setMenuOpen(false)}
                 className="cursor-pointer text-white"
                 aria-label="Art Couture Home"
