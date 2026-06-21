@@ -403,6 +403,7 @@ export function DressModal({
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [showPurchaseTerms, setShowPurchaseTerms] = useState(false);
   const [showCommissionTerms, setShowCommissionTerms] = useState(false);
+  const [isFitMode, setIsFitMode] = useState(false);
 
   // Offerings config from localStorage
   interface OfferingConfig {
@@ -481,24 +482,67 @@ export function DressModal({
     setOfferingsLoaded(true);
   }, [dress.title]);
 
+  const [photoSlots, setPhotoSlots] = useState<Record<string, string>>(() => {
+    if (typeof window === 'undefined') return {};
+    try {
+      const raw = localStorage.getItem('artcouture_photo_slots');
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  const [vaultAlts, setVaultAlts] = useState<Record<string, string>>(() => {
+    if (typeof window === 'undefined') return {};
+    try {
+      const raw = localStorage.getItem('artcouture_vault_alts');
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  });
+
   // Build images array with photo slot overrides from admin
   const images = useMemo(() => {
     const base = [dress.img, ...(dress.detailImages || [])];
-    try {
-      const raw = localStorage.getItem('artcouture_photo_slots');
-      if (raw) {
-        const slots: Record<string, string> = JSON.parse(raw);
-        return base.map((defaultImg, idx) => {
-          const slotKey = `${dress.title}__slot_${idx}`;
-          return slots[slotKey] || defaultImg;
-        });
-      }
-    } catch {
-      // ignore
-    }
-    return base;
-  }, [dress.title, dress.img, dress.detailImages]);
+    return base.map((defaultImg, idx) => {
+      const slotKey = `${dress.title}__slot_${idx}`;
+      return photoSlots[slotKey] || defaultImg;
+    });
+  }, [dress.title, dress.img, dress.detailImages, photoSlots]);
   const activeImage = images[activeImageIndex];
+
+  useEffect(() => {
+    const syncPhotoSlots = async () => {
+      try {
+        const { doc, getDoc, collection: fsCollection, getDocs } = await import('firebase/firestore');
+        const { db } = await import('@/lib/firebase');
+        
+        const slotsRef = doc(db, 'config', 'photo_slots');
+        const slotsSnap = await getDoc(slotsRef);
+        if (slotsSnap.exists()) {
+          const data = slotsSnap.data() as Record<string, string>;
+          setPhotoSlots(data);
+          localStorage.setItem('artcouture_photo_slots', JSON.stringify(data));
+        }
+
+        // Sync vault alt texts for detail images SEO
+        const vaultSnap = await getDocs(fsCollection(db, 'vault'));
+        const altMapping: Record<string, string> = {};
+        vaultSnap.forEach((doc) => {
+          const data = doc.data();
+          if (data.url && data.altText) {
+            altMapping[data.url] = data.altText;
+          }
+        });
+        setVaultAlts(altMapping);
+        localStorage.setItem('artcouture_vault_alts', JSON.stringify(altMapping));
+      } catch (e) {
+        console.error("Firestore photo slots sync failed:", e);
+      }
+    };
+    syncPhotoSlots();
+  }, []);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -538,29 +582,68 @@ export function DressModal({
         </button>
 
         {/* Left: Image */}
-        <div className="w-full md:w-[50%] h-[85vh] md:h-full shrink-0 relative p-4 md:p-6 lg:p-8">
+        <div className={`transition-all duration-500 shrink-0 relative ${
+          isFitMode 
+            ? 'absolute inset-0 w-full h-full z-45 p-0 md:p-0 lg:p-0' 
+            : 'w-full md:w-[50%] h-[85vh] md:h-full p-4 md:p-6 lg:p-8'
+        }`}>
           <motion.div 
             initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.5, ease: "easeOut", delay: 0.4 }}
-            className="w-full h-full relative overflow-hidden shadow-2xl rounded-sm bg-black"
+            className={`w-full h-full relative overflow-hidden transition-all duration-500 ${
+              isFitMode ? 'bg-[#fafaf8] rounded-none' : 'shadow-2xl rounded-sm bg-black'
+            }`}
           >
+            {isFitMode && (
+              <div 
+                className="absolute inset-0 bg-cover bg-center filter blur-3xl opacity-20 scale-110 pointer-events-none transition-opacity duration-500"
+                style={{ backgroundImage: `url(${activeImage})` }}
+              />
+            )}
             <AnimatePresence mode="wait">
               <motion.img 
                 key={activeImageIndex}
                 src={activeImage} 
-                alt={dress.title} 
+                alt={vaultAlts[activeImage] || `${dress.title} detail view`} 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="w-full h-full object-cover absolute inset-0" 
+                className={`w-full h-full absolute inset-0 transition-all duration-300 ${
+                  isFitMode 
+                    ? 'object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.18)]' 
+                    : 'object-cover'
+                }`} 
               />
             </AnimatePresence>
 
+            {/* View Mode Toggle Button */}
+            <button
+              onClick={() => setIsFitMode(!isFitMode)}
+              className="absolute bottom-4 right-4 z-50 px-3 py-2 bg-black/50 hover:bg-black/80 backdrop-blur-xl border border-white/10 rounded-full flex items-center gap-1.5 transition-all duration-300 shadow-2xl cursor-pointer group hover:scale-[1.02]"
+              title={isFitMode ? "Crop image to fill layout" : "Show full uncropped image"}
+            >
+              {isFitMode ? (
+                <>
+                  <svg className="w-3.5 h-3.5 text-white/90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 9V4.5M9 9H4.5M9 9L3 3m12 6V4.5m0 4.5h4.5m-4.5 0l6-6M9 15v4.5M9 15H4.5m4.5 0l-6 6m6-6v4.5m0-4.5h4.5m-4.5 0l6 6" />
+                  </svg>
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-white/90 font-medium">Crop to Fill</span>
+                </>
+              ) : (
+                <>
+                  <svg className="w-3.5 h-3.5 text-white/90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75v4.5m0-4.5h-4.5m4.5 0L15 9m5.25 11.25v-4.5m0 4.5h-4.5m4.5 0l-5.25-5.25" />
+                  </svg>
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-white/90 font-medium">View Full Photo</span>
+                </>
+              )}
+            </button>
+
             {/* Glassmorphism Editorial Index */}
             {images.length > 1 && (
-              <div className="absolute top-1/3 -translate-y-1/2 left-3 md:left-4 z-50 py-3 md:py-4 px-3 md:px-4 rounded-lg bg-black/25 backdrop-blur-xl border border-white/10 shadow-2xl hidden md:flex flex-col gap-3 md:gap-4 items-start">
+              <div className={`absolute top-1/3 -translate-y-1/2 left-3 md:left-4 z-50 py-3 md:py-4 px-3 md:px-4 rounded-lg bg-black/25 backdrop-blur-xl border border-white/10 shadow-2xl hidden md:flex flex-col gap-3 md:gap-4 items-start transition-all duration-300 ${isFitMode ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
                 {images.map((img, idx) => {
                   const labelSets: Record<string, string[]> = {
                     Dresses: ["The Silhouette", "The Bodice", "Fabric Detail", "The Hem", "Back View", "Details"],
@@ -600,30 +683,7 @@ export function DressModal({
               </div>
             )}
             
-            {/* Elegant dark gradient overlay for text legibility - subtle on mobile */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent md:from-black/80 md:via-black/10 pointer-events-none" />
-            
-            {/* Floating Fabric and Customization Text */}
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1 }}
-              className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 md:right-8 text-white pr-4 hidden md:block"
-            >
-              <div className="mb-4 md:mb-6">
-                <span className="block font-mono font-thin text-[10px] uppercase tracking-[0.4em] text-white/60 mb-2 border-l border-[var(--dada-red)] pl-3">The Fabric</span>
-                <p className="font-serif font-light text-xs md:text-sm leading-relaxed tracking-wide opacity-95 pl-3 border-l border-transparent">
-                  {dress.fabric}
-                </p>
-              </div>
-              
-              <div>
-                <span className="block font-mono font-thin text-[10px] uppercase tracking-[0.4em] text-white/60 mb-2 border-l border-[var(--dada-red)] pl-3">Bespoke Customization</span>
-                <p className="font-serif font-light text-xs md:text-sm leading-relaxed tracking-wide opacity-95 pl-3 border-l border-transparent">
-                  {dress.customization}
-                </p>
-              </div>
-            </motion.div>
+
           </motion.div>
 
           {/* Mobile horizontal image tabs */}
@@ -868,6 +928,18 @@ export function DressModal({
             <p className="font-serif italic text-base md:text-lg text-[var(--text-muted)] leading-relaxed mb-8">
               {dress.description}
             </p>
+
+            {/* Fabric & Customization Details (Desktop) */}
+            <div className="grid grid-cols-2 gap-6 mb-8 pb-8 border-b border-black/10">
+              <div>
+                <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-black/40 mb-2 border-l-2 border-[var(--dada-red)] pl-3">The Fabric</span>
+                <p className="font-serif text-xs md:text-sm text-[var(--text-muted)] leading-relaxed pl-3">{dress.fabric}</p>
+              </div>
+              <div>
+                <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-black/40 mb-2 border-l-2 border-[var(--dada-red)] pl-3">Bespoke Customization</span>
+                <p className="font-serif text-xs md:text-sm text-[var(--text-muted)] leading-relaxed pl-3">{dress.customization}</p>
+              </div>
+            </div>
 
             {/* Offerings Section */}
             {offeringsLoaded && (

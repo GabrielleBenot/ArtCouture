@@ -4,6 +4,9 @@ import React, { useState, useEffect, useCallback, useRef, DragEvent, ChangeEvent
 import { motion, AnimatePresence } from 'framer-motion';
 import type { OfferingConfig, ItemOfferings } from '@/lib/useOfferings';
 import default_config from '@/lib/default_config.json';
+import { db, storage } from '@/lib/firebase';
+import { doc, getDoc, setDoc, collection, getDocs, deleteDoc } from 'firebase/firestore';
+import { ref, uploadString, getDownloadURL, deleteObject } from 'firebase/storage';
 
 /* ─────────────────────────────────────────────
    Garment Data
@@ -23,7 +26,61 @@ interface VaultImage {
   name: string;
   dataUrl: string;
   uploadedAt: string;
+  title?: string;
+  altText?: string;
 }
+
+function cleanFileNameToTitle(fileName: string): string {
+  // 1. Remove extension
+  let name = fileName.replace(/\.[^.]+$/, '');
+  
+  // 2. Strip standard UUIDs (8-4-4-4-12 hex chars)
+  name = name.replace(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/g, '');
+  
+  // 3. Strip leading/trailing dash/underscore/space
+  name = name.replace(/^[-_\s]+|[-_\s]+$/g, '');
+  
+  // 4. Replace underscores, dashes, and duplicate spaces with a single space
+  name = name.replace(/[_-]/g, ' ').replace(/\s+/g, ' ');
+  
+  // 5. Title Case
+  name = name.replace(/\b\w/g, c => c.toUpperCase());
+  
+  // 6. Fallback if empty or generic
+  if (!name || /^Unnamed|^Img|^Dsc|^File/i.test(name)) {
+    name = `Design Asset ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+  }
+  
+  return name;
+}
+
+function cleanFileNameToUrlFriendly(fileName: string): string {
+  // 1. Remove extension
+  let name = fileName.replace(/\.[^.]+$/, '');
+  
+  // 2. Strip standard UUIDs (8-4-4-4-12 hex chars)
+  name = name.replace(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/g, '');
+  
+  // 3. Convert to lowercase
+  name = name.toLowerCase();
+  
+  // 4. Replace underscores, spaces, or duplicate hyphens with a single hyphen
+  name = name.replace(/[_\s]+/g, '-');
+  
+  // 5. Remove any non-alphanumeric/non-hyphen characters
+  name = name.replace(/[^a-z0-9-]/g, '');
+  
+  // 6. Strip leading/trailing hyphens
+  name = name.replace(/^-+|-+$/g, '');
+  
+  // 7. Fallback if empty or generic
+  if (!name || /^unnamed|^img|^dsc|^file/i.test(name)) {
+    name = 'design-asset';
+  }
+  
+  return name;
+}
+
 
 const GARMENTS: GarmentData[] = [
   { title: 'Fuchsia Majesty', category: 'Dresses', price: '$7,955', depositAmount: '$2,000', depositLink: 'https://buy.stripe.com/3cI14nd5q0301L3fH6b3q00', img: 'https://storage.googleapis.com/mixo-sites/images/file-b1585176-4ab0-4441-9ca1-0979786596cd.jpg' },
@@ -74,12 +131,75 @@ const SLOT_LABELS: Record<string, string[]> = {
    Helpers
    ───────────────────────────────────────────── */
 
+function compressImage(file: File, maxDim = 800, quality = 0.7): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('Failed to load image'));
+      img.onload = () => {
+        let w = img.naturalWidth;
+        let h = img.naturalHeight;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) {
+            h = Math.round(h * (maxDim / w));
+            w = maxDim;
+          } else {
+            w = Math.round(w * (maxDim / h));
+            h = maxDim;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve(dataUrl);
+      };
+      img.src = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function safeLocalStorageSet(key: string, value: string): boolean {
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function addImageToVault(name: string, dataUrl: string): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const raw = localStorage.getItem(VAULT_KEY);
+    const current: VaultImage[] = raw ? JSON.parse(raw) : [];
+    // Check if this image data is already in the vault
+    if (current.some((img) => img.dataUrl === dataUrl)) return true;
+
+    const entry: VaultImage = {
+      id: crypto.randomUUID(),
+      name: name,
+      dataUrl: dataUrl,
+      uploadedAt: new Date().toISOString(),
+    };
+    const next = [entry, ...current];
+    return safeLocalStorageSet(VAULT_KEY, JSON.stringify(next));
+  } catch {
+    return false;
+  }
+}
+
 function calculateDefaultSecurityDeposit(priceStr: string): string {
   const num = parseInt(priceStr.replace(/[^0-9]/g, ''), 10);
   if (isNaN(num)) return '$1,250';
   const pct15 = num * 0.15;
   const rounded = Math.round(pct15 / 50) * 50;
-  return `$${rounded.toLocaleString('en-US')}`;
+  return `${rounded.toLocaleString('en-US')}`;
 }
 
 function calculateDefaultRentalPrice(priceStr: string): string {
@@ -88,7 +208,118 @@ function calculateDefaultRentalPrice(priceStr: string): string {
   const pct6 = num * 0.06;
   const rounded = Math.round(pct6 / 50) * 50;
   const finalVal = Math.max(150, rounded);
-  return `$${finalVal.toLocaleString('en-US')}`;
+  return `${finalVal.toLocaleString('en-US')}`;
+}
+
+async function uploadImageToCloud(file: File): Promise<VaultImage> {
+  const dataUrl = await compressImage(file, 2400, 0.90);
+  const imageId = crypto.randomUUID();
+  const urlFriendlyName = cleanFileNameToUrlFriendly(file.name);
+  const storageRef = ref(storage, `vault/${urlFriendlyName}-${imageId.substring(0, 8)}.jpg`);
+  await uploadString(storageRef, dataUrl, 'data_url');
+  const downloadUrl = await getDownloadURL(storageRef);
+
+  const cleanTitle = cleanFileNameToTitle(file.name);
+  const entry = {
+    name: file.name,
+    title: cleanTitle,
+    altText: `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
+    url: downloadUrl,
+    uploadedAt: new Date().toISOString(),
+  };
+  await setDoc(doc(db, 'vault', imageId), entry);
+
+  const vaultImage: VaultImage = {
+    id: imageId,
+    name: file.name,
+    title: cleanTitle,
+    altText: entry.altText,
+    dataUrl: downloadUrl,
+    uploadedAt: entry.uploadedAt,
+  };
+
+  // Sync to local storage vault cache for offline fallback
+  try {
+    const raw = localStorage.getItem(VAULT_KEY);
+    const vault = raw ? JSON.parse(raw) as VaultImage[] : [];
+    const updated = [vaultImage, ...vault];
+    localStorage.setItem(VAULT_KEY, JSON.stringify(updated));
+  } catch {}
+
+  return vaultImage;
+}
+
+async function deleteImageFromCloud(id: string, dataUrl: string) {
+  // 1. Delete from Firebase Storage
+  try {
+    const storageRef = ref(storage, dataUrl);
+    await deleteObject(storageRef);
+  } catch (e) {
+    console.error("Storage delete failed (might not exist):", e);
+  }
+
+  // 2. Delete from Firestore vault collection
+  try {
+    await deleteDoc(doc(db, 'vault', id));
+  } catch (e) {
+    console.error("Firestore vault delete failed:", e);
+  }
+
+  // 3. Remove from config/photo_slots in Firestore
+  try {
+    const slotsRef = doc(db, 'config', 'photo_slots');
+    const slotsSnap = await getDoc(slotsRef);
+    if (slotsSnap.exists()) {
+      const slots = slotsSnap.data() as Record<string, string>;
+      const nextSlots = { ...slots };
+      let changed = false;
+      Object.entries(nextSlots).forEach(([k, v]) => {
+        if (v === dataUrl || k === id) {
+          delete nextSlots[k];
+          changed = true;
+        }
+      });
+      if (changed) {
+        await setDoc(slotsRef, nextSlots);
+        localStorage.setItem(PHOTO_SLOTS_KEY, JSON.stringify(nextSlots));
+      }
+    }
+  } catch (e) {
+    console.error("Failed to clean photo_slots:", e);
+  }
+
+  // 4. Remove from config/image_overrides in Firestore
+  try {
+    const overridesRef = doc(db, 'config', 'image_overrides');
+    const overridesSnap = await getDoc(overridesRef);
+    if (overridesSnap.exists()) {
+      const overrides = overridesSnap.data() as Record<string, string>;
+      const nextOverrides = { ...overrides };
+      let changed = false;
+      Object.entries(nextOverrides).forEach(([k, v]) => {
+        if (v === dataUrl || k === id) {
+          delete nextOverrides[k];
+          changed = true;
+        }
+      });
+      if (changed) {
+        await setDoc(overridesRef, nextOverrides);
+        localStorage.setItem(IMAGE_OVERRIDES_KEY, JSON.stringify(nextOverrides));
+      }
+    }
+  } catch (e) {
+    console.error("Failed to clean image_overrides:", e);
+  }
+
+  // 5. Update local storage vault cache
+  try {
+    const raw = localStorage.getItem(VAULT_KEY);
+    if (raw) {
+      const vault = JSON.parse(raw) as VaultImage[];
+      const nextVault = vault.filter(img => img.id !== id && img.dataUrl !== dataUrl);
+      localStorage.setItem(VAULT_KEY, JSON.stringify(nextVault));
+    }
+  } catch {}
 }
 
 function buildDefaults(): OfferingConfig {
@@ -245,58 +476,368 @@ function OfferingSection({
 }
 
 /* ─────────────────────────────────────────────
+   Lightbox Component
+   ───────────────────────────────────────────── */
+
+interface LightboxProps {
+  imageUrl: string;
+  onClose: () => void;
+}
+
+function Lightbox({ imageUrl, onClose }: LightboxProps) {
+  const [zoom, setZoom] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // Close on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100000] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-8 cursor-zoom-out"
+      onClick={onClose}
+    >
+      {/* Top Controls Bar */}
+      <div className="absolute top-4 right-4 flex items-center gap-2 z-10" onClick={(e) => e.stopPropagation()}>
+        <button
+          onClick={() => setZoom(!zoom)}
+          className="
+            px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider
+            bg-white/5 border border-white/10 text-white/80
+            hover:bg-white/10 hover:text-white transition-all cursor-pointer
+          "
+          title={zoom ? "Zoom to Fit" : "Zoom 100%"}
+        >
+          {zoom ? "Fit Screen" : "100% Zoom"}
+        </button>
+        <button
+          onClick={onClose}
+          className="
+            w-8 h-8 rounded-lg bg-white/5 border border-white/10
+            flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer
+          "
+          title="Close (Esc)"
+        >
+          <svg className="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Main Image Container */}
+      <div 
+        className={`
+          relative max-w-full max-h-full transition-all duration-300 ease-out select-none
+          ${zoom ? 'overflow-auto w-full h-full flex items-start justify-center cursor-zoom-out' : 'flex items-center justify-center'}
+        `}
+        data-lenis-prevent
+      >
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+          </div>
+        )}
+        <motion.img
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: loading ? 0 : 1 }}
+          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+          src={imageUrl}
+          alt="Preview"
+          onLoad={() => setLoading(false)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setZoom(!zoom);
+          }}
+          className={`
+            transition-all duration-300 rounded-lg shadow-2xl
+            ${zoom ? 'max-w-none w-auto h-auto max-h-none object-contain my-auto cursor-zoom-out' : 'max-h-[90vh] max-w-[90vw] object-contain cursor-zoom-in'}
+          `}
+        />
+      </div>
+    </motion.div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   Edit Metadata Modal
+   ───────────────────────────────────────────── */
+
+interface EditMetadataModalProps {
+  image: VaultImage;
+  onSave: (id: string, title: string, altText: string) => Promise<void>;
+  onClose: () => void;
+}
+
+function EditMetadataModal({ image, onSave, onClose }: EditMetadataModalProps) {
+  const [title, setTitle] = useState(image.title || cleanFileNameToTitle(image.name));
+  const [altText, setAltText] = useState(image.altText || `${cleanFileNameToTitle(image.name)} bespoke haute couture by Gabrielle Benot`);
+  const [saving, setSaving] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    try {
+      await onSave(image.id, title, altText);
+      onClose();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100001] flex items-center justify-center p-4 cursor-default"
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        className="relative bg-[#0a0a0a] border border-white/10 rounded-xl w-full max-w-md p-6 overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h3 className="text-sm font-mono uppercase tracking-wider text-white/80 mb-4">
+          Edit Image SEO Metadata
+        </h3>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-[10px] font-mono uppercase tracking-wider text-white/35 mb-2">
+              SEO Title
+            </label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-white/80 focus:outline-none focus:border-white/25"
+              placeholder="Title for search engines"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-[10px] font-mono uppercase tracking-wider text-white/35 mb-2">
+              Alt Text (SEO + Screen Readers)
+            </label>
+            <textarea
+              value={altText}
+              onChange={(e) => setAltText(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-white/80 focus:outline-none focus:border-white/25 h-20 resize-none"
+              placeholder="Describe the image details for accessibility and SEO"
+              required
+            />
+          </div>
+          <div className="flex justify-end gap-2 pt-2 font-mono">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-3 py-1.5 rounded-lg text-[10px] uppercase bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={saving}
+              className="px-3 py-1.5 rounded-lg text-[10px] uppercase bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/35 cursor-pointer flex items-center gap-1.5"
+            >
+              {saving ? 'Saving...' : 'Save Changes'}
+            </button>
+          </div>
+        </form>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ─────────────────────────────────────────────
    Image Picker Modal
    ───────────────────────────────────────────── */
 
 function ImagePickerModal({
   garmentTitle,
+  slotLabel,
   currentImg,
   originalImg,
   onSelect,
   onClose,
+  onDeleteSuccess,
 }: {
   garmentTitle: string;
+  slotLabel?: string;
   currentImg: string;
   originalImg: string;
   onSelect: (imageUrl: string | null) => void;
   onClose: () => void;
+  onDeleteSuccess?: (dataUrl: string) => void;
 }) {
   const [vaultImages, setVaultImages] = useState<VaultImage[]>([]);
+  const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+  const [editingImage, setEditingImage] = useState<VaultImage | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    // 1. Initial load from local cache
+    const loadLocal = () => {
+      try {
+        const rawVault = localStorage.getItem(VAULT_KEY);
+        const vault: VaultImage[] = rawVault ? JSON.parse(rawVault) : [];
+        const vaultMapped = vault.map(img => {
+          const cleanTitle = img.title || cleanFileNameToTitle(img.name);
+          return {
+            ...img,
+            title: cleanTitle,
+            altText: img.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`
+          };
+        });
+
+        const rawSlots = localStorage.getItem(PHOTO_SLOTS_KEY);
+        const slots: Record<string, string> = rawSlots ? JSON.parse(rawSlots) : {};
+
+        const slotImages: VaultImage[] = Object.entries(slots).map(([key, dataUrl]) => {
+          const cleanName = key.replace('__slot_', '_slot_').toLowerCase().replace(/[^a-z0-9_]+/g, '_') + '.jpg';
+          const cleanTitle = cleanFileNameToTitle(cleanName);
+          return {
+            id: key,
+            name: cleanName,
+            title: cleanTitle,
+            altText: `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
+            dataUrl: dataUrl,
+            uploadedAt: new Date().toISOString(),
+          };
+        });
+
+        const combined: VaultImage[] = [...vaultMapped];
+        slotImages.forEach((img) => {
+          if (!combined.some((c) => c.dataUrl === img.dataUrl)) {
+            combined.push(img);
+          }
+        });
+
+        setVaultImages(combined);
+      } catch {}
+    };
+    loadLocal();
+
+    // 2. Fetch latest vault from Firestore in background
+    const syncFromFirestore = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'vault'));
+        const list: VaultImage[] = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const cleanTitle = data.title || cleanFileNameToTitle(data.name || '');
+          list.push({
+            id: doc.id,
+            name: data.name || '',
+            title: cleanTitle,
+            altText: data.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
+            dataUrl: data.url,
+            uploadedAt: data.uploadedAt,
+          });
+        });
+        // Sort by uploadedAt descending
+        list.sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime());
+        localStorage.setItem(VAULT_KEY, JSON.stringify(list));
+
+        // Re-read slots from local storage to combine
+        const rawSlots = localStorage.getItem(PHOTO_SLOTS_KEY);
+        const slots: Record<string, string> = rawSlots ? JSON.parse(rawSlots) : {};
+        const slotImages: VaultImage[] = Object.entries(slots).map(([key, dataUrl]) => {
+          const cleanName = key.replace('__slot_', '_slot_').toLowerCase().replace(/[^a-z0-9_]+/g, '_') + '.jpg';
+          const cleanTitle = cleanFileNameToTitle(cleanName);
+          return {
+            id: key,
+            name: cleanName,
+            title: cleanTitle,
+            altText: `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
+            dataUrl: dataUrl,
+            uploadedAt: new Date().toISOString(),
+          };
+        });
+
+        const combined = [...list];
+        slotImages.forEach((img) => {
+          if (!combined.some((c) => c.dataUrl === img.dataUrl)) {
+            combined.push(img);
+          }
+        });
+
+        setVaultImages(combined);
+      } catch (e) {
+        console.error("Firestore vault sync in modal failed:", e);
+      }
+    };
+    syncFromFirestore();
+  }, []);
+
+  const handleSaveMetadata = useCallback(async (id: string, title: string, altText: string) => {
     try {
+      await setDoc(doc(db, 'vault', id), { title, altText }, { merge: true });
+      setVaultImages(prev => prev.map(img => img.id === id ? { ...img, title, altText } : img));
+      
       const raw = localStorage.getItem(VAULT_KEY);
-      if (raw) setVaultImages(JSON.parse(raw) as VaultImage[]);
-    } catch {
-      // ignore
+      if (raw) {
+        const vault = JSON.parse(raw) as VaultImage[];
+        const updated = vault.map(img => img.id === id ? { ...img, title, altText } : img);
+        localStorage.setItem(VAULT_KEY, JSON.stringify(updated));
+      }
+    } catch (e) {
+      console.error("Failed to save metadata:", e);
     }
   }, []);
 
-  const handleUpload = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
+  const handleUpload = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.target;
+    const files = target.files;
     if (!files) return;
+    const filesArray = Array.from(files);
+    target.value = '';
     const accepted = ['image/jpeg', 'image/png', 'image/webp'];
-    Array.from(files).forEach((file) => {
-      if (!accepted.includes(file.type)) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        const entry: VaultImage = {
-          id: crypto.randomUUID(),
-          name: file.name,
-          dataUrl: reader.result as string,
-          uploadedAt: new Date().toISOString(),
-        };
-        setVaultImages((prev) => {
-          const next = [entry, ...prev];
-          localStorage.setItem(VAULT_KEY, JSON.stringify(next));
-          return next;
-        });
-      };
-      reader.readAsDataURL(file);
-    });
-    if (e.target) e.target.value = '';
-  }, []);
+    for (const file of filesArray) {
+      if (!accepted.includes(file.type)) continue;
+      try {
+        let uploadFile = file;
+        if (slotLabel) {
+          const cleanTitle = garmentTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+          const cleanSlot = slotLabel.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+          const newName = `${cleanTitle}-${cleanSlot}.jpg`;
+          uploadFile = new File([file], newName, { type: file.type });
+        }
+        const newImg = await uploadImageToCloud(uploadFile);
+        setVaultImages((prev) => [newImg, ...prev]);
+        onSelect(newImg.dataUrl); // Auto-select on upload
+      } catch (err) {
+        console.error("Cloud upload in modal failed:", err);
+      }
+    }
+  }, [garmentTitle, slotLabel, onSelect]);
+
+  const handleDeleteImage = useCallback(async (id: string, dataUrl: string) => {
+    if (!window.confirm('Delete this photo permanently from the vault and slots?')) return;
+    try {
+      await deleteImageFromCloud(id, dataUrl);
+      setVaultImages(prev => prev.filter(img => img.id !== id && img.dataUrl !== dataUrl));
+      if (onDeleteSuccess) {
+        onDeleteSuccess(dataUrl);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, [onDeleteSuccess]);
 
   const isOverridden = currentImg !== originalImg;
 
@@ -400,45 +941,118 @@ function ImagePickerModal({
               {vaultImages.map((img) => {
                 const isSelected = currentImg === img.dataUrl;
                 return (
-                  <button
+                  <div
                     key={img.id}
-                    onClick={() => onSelect(img.dataUrl)}
-                    className={`
-                      relative aspect-square rounded-lg overflow-hidden
-                      border-2 transition-all cursor-pointer group
-                      ${isSelected
-                        ? 'border-emerald-400 ring-2 ring-emerald-400/30'
-                        : 'border-white/8 hover:border-white/25'
-                      }
-                    `}
+                    className="relative aspect-square rounded-lg overflow-hidden border border-white/8 hover:border-white/25 group"
                   >
-                    <img
-                      src={img.dataUrl}
-                      alt={img.name}
-                      className="w-full h-full object-cover"
-                    />
-                    {isSelected && (
-                      <div className="absolute inset-0 bg-emerald-400/10 flex items-center justify-center">
-                        <div className="w-6 h-6 rounded-full bg-emerald-400 flex items-center justify-center">
-                          <svg className="w-3.5 h-3.5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                          </svg>
+                    <button
+                      onClick={() => onSelect(img.dataUrl)}
+                      className={`
+                        w-full h-full relative border-2 transition-all cursor-pointer
+                        ${isSelected
+                          ? 'border-emerald-400 ring-2 ring-emerald-400/30'
+                          : 'border-transparent'
+                        }
+                      `}
+                    >
+                      <img
+                        src={img.dataUrl}
+                        alt={img.name}
+                        className="w-full h-full object-cover"
+                      />
+                      {isSelected && (
+                        <div className="absolute inset-0 bg-emerald-400/10 flex items-center justify-center">
+                          <div className="w-6 h-6 rounded-full bg-emerald-400 flex items-center justify-center">
+                            <svg className="w-3.5 h-3.5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
                         </div>
+                      )}
+                      <div className="absolute bottom-0 inset-x-0 bg-black/60 px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <p className="text-[9px] font-mono text-white/70 truncate">{img.title || img.name}</p>
                       </div>
-                    )}
-                    <div className="absolute bottom-0 inset-x-0 bg-black/60 px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <p className="text-[9px] font-mono text-white/70 truncate">{img.name}</p>
-                    </div>
-                  </button>
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLightboxImg(img.dataUrl);
+                      }}
+                      className="
+                        absolute top-1.5 left-1.5 w-6 h-6 rounded-full
+                        bg-black/60 border border-white/10
+                        flex items-center justify-center
+                        opacity-0 group-hover:opacity-100 transition-opacity
+                        hover:bg-white/20 hover:border-white/30 cursor-pointer z-10
+                      "
+                      title="Preview full size"
+                    >
+                      <svg className="w-3 h-3 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setEditingImage(img);
+                      }}
+                      className="
+                        absolute top-1.5 left-[38px] w-6 h-6 rounded-full
+                        bg-black/60 border border-white/10
+                        flex items-center justify-center
+                        opacity-0 group-hover:opacity-100 transition-opacity
+                        hover:bg-violet-500/30 hover:border-violet-500/30 cursor-pointer z-10
+                      "
+                      title="Edit SEO Metadata"
+                    >
+                      <svg className="w-3.5 h-3.5 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteImage(img.id, img.dataUrl);
+                      }}
+                      className="
+                        absolute top-1.5 right-1.5 w-6 h-6 rounded-full
+                        bg-black/60 border border-white/10
+                        flex items-center justify-center
+                        opacity-0 group-hover:opacity-100 transition-opacity
+                        hover:bg-red-500/30 hover:border-red-500/30 cursor-pointer z-10
+                      "
+                      title="Delete permanently"
+                    >
+                      <svg className="w-3 h-3 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
                 );
               })}
             </div>
           )}
         </div>
       </motion.div>
+
+      {lightboxImg && (
+        <Lightbox imageUrl={lightboxImg} onClose={() => setLightboxImg(null)} />
+      )}
+
+      <AnimatePresence>
+        {editingImage && (
+          <EditMetadataModal
+            image={editingImage}
+            onSave={handleSaveMetadata}
+            onClose={() => setEditingImage(null)}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
+
 
 /* ─────────────────────────────────────────────
    Garment Card
@@ -455,6 +1069,7 @@ function GarmentCard({
   onToggleVisibility,
   photoSlots,
   onPhotoSlotChange,
+  onPhotoSlotClick,
 }: {
   garment: GarmentData;
   offerings: ItemOfferings;
@@ -466,13 +1081,46 @@ function GarmentCard({
   onToggleVisibility: () => void;
   photoSlots: Record<string, string>;
   onPhotoSlotChange: (slotKey: string, imageUrl: string | null) => void;
+  onPhotoSlotClick: (slotIndex: number, callback: (url: string | null) => void) => void;
 }) {
   const [saved, setSaved] = useState(false);
+  const [localSlots, setLocalSlots] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const slots: Record<string, string> = {};
+    for (let i = 0; i < 6; i++) {
+      const key = `${garment.title}__slot_${i}`;
+      if (photoSlots[key]) {
+        slots[key] = photoSlots[key];
+      }
+    }
+    setLocalSlots(slots);
+  }, [garment.title, photoSlots]);
 
   const handleSave = () => {
     onSave();
+    
+    // Persist all slot changes to local storage at once
+    let success = true;
+    for (let i = 0; i < 6; i++) {
+      const key = `${garment.title}__slot_${i}`;
+      onPhotoSlotChange(key, localSlots[key] || null);
+    }
+
     setSaved(true);
     setTimeout(() => setSaved(false), 1500);
+  };
+
+  const handleLocalSlotChange = (slotKey: string, imageUrl: string | null) => {
+    setLocalSlots((prev) => {
+      const next = { ...prev };
+      if (imageUrl === null) {
+        delete next[slotKey];
+      } else {
+        next[slotKey] = imageUrl;
+      }
+      return next;
+    });
   };
 
   const categoryColors: Record<string, string> = {
@@ -688,13 +1336,15 @@ function GarmentCard({
         <div className="grid grid-cols-3 gap-2">
           {(SLOT_LABELS[garment.category] || SLOT_LABELS.Dresses).map((label, idx) => {
             const slotKey = `${garment.title}__slot_${idx}`;
-            const slotUrl = photoSlots[slotKey];
+            const slotUrl = localSlots[slotKey];
             return (
               <div key={idx} className="relative group">
-                <label
+                <button
+                  type="button"
+                  onClick={() => onPhotoSlotClick(idx, (url) => handleLocalSlotChange(slotKey, url))}
                   className={`
-                    block aspect-square rounded-lg border cursor-pointer
-                    overflow-hidden transition-all
+                    block w-full aspect-square rounded-lg border cursor-pointer
+                    overflow-hidden transition-all text-left
                     ${slotUrl
                       ? 'border-emerald-500/25 bg-black/30'
                       : 'border-dashed border-white/10 bg-white/[0.02] hover:border-white/20'
@@ -710,25 +1360,11 @@ function GarmentCard({
                       </svg>
                     </div>
                   )}
-                  <input
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp"
-                    className="hidden"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (!file) return;
-                      const reader = new FileReader();
-                      reader.onload = () => {
-                        onPhotoSlotChange(slotKey, reader.result as string);
-                      };
-                      reader.readAsDataURL(file);
-                      e.target.value = '';
-                    }}
-                  />
-                </label>
+                </button>
                 {slotUrl && (
                   <button
-                    onClick={() => onPhotoSlotChange(slotKey, null)}
+                    type="button"
+                    onClick={() => handleLocalSlotChange(slotKey, null)}
                     className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/60 border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500/30 cursor-pointer"
                   >
                     <svg className="w-2.5 h-2.5 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -1100,46 +1736,87 @@ function ImageOptimizer() {
    Design Vault Tab
    ───────────────────────────────────────────── */
 
-function DesignVault() {
+function DesignVault({ onDeleteSuccess }: { onDeleteSuccess?: (dataUrl: string) => void }) {
   const [images, setImages] = useState<VaultImage[]>([]);
   const [dragOver, setDragOver] = useState(false);
+  const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+  const [editingImage, setEditingImage] = useState<VaultImage | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    // 1. Initial load from local cache
     try {
       const raw = localStorage.getItem(VAULT_KEY);
-      if (raw) setImages(JSON.parse(raw) as VaultImage[]);
-    } catch {
-      // ignore corrupt data
+      if (raw) {
+        const vault = JSON.parse(raw) as VaultImage[];
+        const mapped = vault.map(img => {
+          const cleanTitle = img.title || cleanFileNameToTitle(img.name);
+          return {
+            ...img,
+            title: cleanTitle,
+            altText: img.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`
+          };
+        });
+        setImages(mapped);
+      }
+    } catch {}
+
+    // 2. Fetch from Firestore
+    const loadFromCloud = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'vault'));
+        const list: VaultImage[] = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const cleanTitle = data.title || cleanFileNameToTitle(data.name || '');
+          list.push({
+            id: doc.id,
+            name: data.name || '',
+            title: cleanTitle,
+            altText: data.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
+            dataUrl: data.url,
+            uploadedAt: data.uploadedAt,
+          });
+        });
+        // Sort by uploadedAt descending
+        list.sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime());
+        setImages(list);
+        localStorage.setItem(VAULT_KEY, JSON.stringify(list));
+      } catch (e) {
+        console.error("Failed to load vault from Firestore:", e);
+      }
+    };
+    loadFromCloud();
+  }, []);
+
+  const handleSaveMetadata = useCallback(async (id: string, title: string, altText: string) => {
+    try {
+      await setDoc(doc(db, 'vault', id), { title, altText }, { merge: true });
+      setImages(prev => prev.map(img => img.id === id ? { ...img, title, altText } : img));
+      
+      const raw = localStorage.getItem(VAULT_KEY);
+      if (raw) {
+        const vault = JSON.parse(raw) as VaultImage[];
+        const updated = vault.map(img => img.id === id ? { ...img, title, altText } : img);
+        localStorage.setItem(VAULT_KEY, JSON.stringify(updated));
+      }
+    } catch (e) {
+      console.error("Failed to save metadata:", e);
     }
   }, []);
 
-  const persist = useCallback((updated: VaultImage[]) => {
-    setImages(updated);
-    localStorage.setItem(VAULT_KEY, JSON.stringify(updated));
-  }, []);
-
-  const processFiles = useCallback((files: FileList | null) => {
+  const processFiles = useCallback(async (files: FileList | null) => {
     if (!files) return;
     const accepted = ['image/jpeg', 'image/png', 'image/webp'];
-    Array.from(files).forEach((file) => {
-      if (!accepted.includes(file.type)) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        const entry: VaultImage = {
-          id: crypto.randomUUID(),
-          name: file.name,
-          dataUrl: reader.result as string,
-          uploadedAt: new Date().toISOString(),
-        };
-        setImages((prev) => {
-          const next = [entry, ...prev];
-          localStorage.setItem(VAULT_KEY, JSON.stringify(next));
-          return next;
-        });
-      };
-      reader.readAsDataURL(file);
-    });
+    for (const file of Array.from(files)) {
+      if (!accepted.includes(file.type)) continue;
+      try {
+        const newImg = await uploadImageToCloud(file);
+        setImages(prev => [newImg, ...prev]);
+      } catch (err) {
+        console.error("Failed to upload image via dropzone:", err);
+      }
+    }
   }, []);
 
   const handleDrop = useCallback(
@@ -1160,10 +1837,22 @@ function DesignVault() {
   );
 
   const deleteImage = useCallback(
-    (id: string) => {
-      persist(images.filter((img) => img.id !== id));
+    async (id: string) => {
+      if (!window.confirm('Delete this photo permanently from the vault and all slots?')) return;
+      
+      try {
+        const imgToDelete = images.find(img => img.id === id);
+        if (!imgToDelete) return;
+        await deleteImageFromCloud(id, imgToDelete.dataUrl);
+        setImages(prev => prev.filter(img => img.id !== id));
+        if (onDeleteSuccess) {
+          onDeleteSuccess(imgToDelete.dataUrl);
+        }
+      } catch (e) {
+        console.error("Failed to delete image:", e);
+      }
     },
-    [images, persist]
+    [images, onDeleteSuccess]
   );
 
   return (
@@ -1240,9 +1929,44 @@ function DesignVault() {
                 <div className="aspect-square relative bg-black/30">
                   <img
                     src={img.dataUrl}
-                    alt={img.name}
-                    className="w-full h-full object-cover"
+                    alt={img.altText || img.title || img.name}
+                    onClick={() => setLightboxImg(img.dataUrl)}
+                    className="w-full h-full object-cover cursor-zoom-in hover:brightness-90 transition-all"
                   />
+                  <button
+                    onClick={() => setLightboxImg(img.dataUrl)}
+                    className="
+                      absolute bottom-2 left-2 w-7 h-7 rounded-full
+                      bg-black/60 border border-white/10
+                      flex items-center justify-center
+                      opacity-0 group-hover:opacity-100 transition-opacity
+                      hover:bg-white/20 hover:border-white/30 cursor-pointer
+                    "
+                    title="Preview full size"
+                  >
+                    <svg className="w-3.5 h-3.5 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setEditingImage(img);
+                    }}
+                    className="
+                      absolute bottom-2 left-10 w-7 h-7 rounded-full
+                      bg-black/60 border border-white/10
+                      flex items-center justify-center
+                      opacity-0 group-hover:opacity-100 transition-opacity
+                      hover:bg-violet-500/30 hover:border-violet-500/30 cursor-pointer
+                    "
+                    title="Edit SEO Metadata"
+                  >
+                    <svg className="w-3.5 h-3.5 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                    </svg>
+                  </button>
                   <button
                     onClick={() => deleteImage(img.id)}
                     className="
@@ -1252,6 +1976,7 @@ function DesignVault() {
                       opacity-0 group-hover:opacity-100 transition-opacity
                       hover:bg-red-500/30 hover:border-red-500/30 cursor-pointer
                     "
+                    title="Delete permanently"
                   >
                     <svg className="w-3.5 h-3.5 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -1259,7 +1984,7 @@ function DesignVault() {
                   </button>
                 </div>
                 <div className="p-3">
-                  <p className="text-xs font-mono text-white/60 truncate">{img.name}</p>
+                  <p className="text-xs font-mono text-white/60 truncate" title={img.title || img.name}>{img.title || img.name}</p>
                   <p className="text-[10px] font-mono text-white/25 mt-1">
                     {new Date(img.uploadedAt).toLocaleDateString('en-US', {
                       month: 'short',
@@ -1273,6 +1998,22 @@ function DesignVault() {
           </AnimatePresence>
         </div>
       )}
+
+      <AnimatePresence>
+        {lightboxImg && (
+          <Lightbox imageUrl={lightboxImg} onClose={() => setLightboxImg(null)} />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {editingImage && (
+          <EditMetadataModal
+            image={editingImage}
+            onSave={handleSaveMetadata}
+            onClose={() => setEditingImage(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -1360,45 +2101,123 @@ function PasswordGate({ onAuthenticate }: { onAuthenticate: () => void }) {
    Admin Panel (main)
    ───────────────────────────────────────────── */
 
+interface PickerTarget {
+  garmentTitle: string;
+  slotIndex?: number;
+}
+
 function AdminPanel() {
   const [config, setConfig] = useState<OfferingConfig>({});
   const [lastSaved, setLastSaved] = useState<string | null>(null);
   const [filterCategory, setFilterCategory] = useState<string>('All');
-  const [activeTab, setActiveTab] = useState<'inventory' | 'vault' | 'optimizer'>('inventory');
+  const [activeTab, setActiveTab] = useState<'inventory' | 'vault'>('inventory');
   const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
   const [hiddenItems, setHiddenItems] = useState<string[]>([]);
   const [photoSlots, setPhotoSlots] = useState<Record<string, string>>({});
-  const [pickerTarget, setPickerTarget] = useState<string | null>(null);
+  const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
+  const pickerCallbackRef = useRef<((url: string | null) => void) | null>(null);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'warning' | 'info' } | null>(null);
+  const [storageUsage, setStorageUsage] = useState<number>(0);
 
   const showToast = useCallback((message: string, type: 'success' | 'warning' | 'info' = 'success') => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 2500);
   }, []);
 
-  useEffect(() => {
-    setConfig(loadConfig());
+  const updateStorageUsage = useCallback(() => {
+    if (typeof window === 'undefined') return;
     try {
-      const raw = localStorage.getItem(IMAGE_OVERRIDES_KEY);
-      if (raw) setImageOverrides(JSON.parse(raw));
-    } catch {
-      // ignore
-    }
-    try {
-      const raw = localStorage.getItem(HIDDEN_KEY);
-      if (raw) setHiddenItems(JSON.parse(raw));
-    } catch {
-      // ignore
-    }
-    try {
-      const raw = localStorage.getItem(PHOTO_SLOTS_KEY);
-      if (raw) setPhotoSlots(JSON.parse(raw));
+      let totalSize = 0;
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key) {
+          totalSize += (localStorage.getItem(key) || '').length;
+        }
+      }
+      const percent = Math.min(100, Math.round((totalSize / 5000000) * 100));
+      setStorageUsage(percent);
     } catch {
       // ignore
     }
   }, []);
 
-  const handleImageOverride = useCallback((garmentTitle: string, imageUrl: string | null) => {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('clear') === 'true') {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(IMAGE_OVERRIDES_KEY);
+        localStorage.removeItem(VAULT_KEY);
+        localStorage.removeItem(HIDDEN_KEY);
+        localStorage.removeItem(PHOTO_SLOTS_KEY);
+        window.location.href = window.location.pathname;
+        return;
+      }
+    }
+
+    // 1. Initial load from local storage
+    setConfig(loadConfig());
+    try {
+      const raw = localStorage.getItem(IMAGE_OVERRIDES_KEY);
+      if (raw) setImageOverrides(JSON.parse(raw));
+    } catch {}
+    try {
+      const raw = localStorage.getItem(HIDDEN_KEY);
+      if (raw) setHiddenItems(JSON.parse(raw));
+    } catch {}
+    try {
+      const raw = localStorage.getItem(PHOTO_SLOTS_KEY);
+      if (raw) setPhotoSlots(JSON.parse(raw));
+    } catch {}
+
+    // 2. Fetch from Firestore
+    const syncAllFromCloud = async () => {
+      try {
+        // Fetch offerings
+        const offeringsSnap = await getDoc(doc(db, 'config', 'offerings'));
+        if (offeringsSnap.exists()) {
+          const data = offeringsSnap.data() as OfferingConfig;
+          setConfig(data);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        // Fetch overrides
+        const overridesSnap = await getDoc(doc(db, 'config', 'image_overrides'));
+        if (overridesSnap.exists()) {
+          const data = overridesSnap.data() as Record<string, string>;
+          setImageOverrides(data);
+          localStorage.setItem(IMAGE_OVERRIDES_KEY, JSON.stringify(data));
+        }
+
+        // Fetch hidden items
+        const hiddenSnap = await getDoc(doc(db, 'config', 'hidden_items'));
+        if (hiddenSnap.exists()) {
+          const data = hiddenSnap.data();
+          const list = data.hiddenList || [];
+          setHiddenItems(list);
+          localStorage.setItem(HIDDEN_KEY, JSON.stringify(list));
+        }
+
+        // Fetch photo slots
+        const slotsSnap = await getDoc(doc(db, 'config', 'photo_slots'));
+        if (slotsSnap.exists()) {
+          const data = slotsSnap.data() as Record<string, string>;
+          setPhotoSlots(data);
+          localStorage.setItem(PHOTO_SLOTS_KEY, JSON.stringify(data));
+        }
+      } catch (e) {
+        console.error("Firestore AdminPanel sync failed:", e);
+      }
+    };
+    syncAllFromCloud();
+  }, []);
+
+  useEffect(() => {
+    updateStorageUsage();
+  }, [photoSlots, imageOverrides, activeTab, updateStorageUsage]);
+
+  const handleImageOverride = useCallback(async (garmentTitle: string, imageUrl: string | null) => {
+    let nextOverrides: Record<string, string> = {};
     setImageOverrides((prev) => {
       const next = { ...prev };
       if (imageUrl === null) {
@@ -1406,11 +2225,55 @@ function AdminPanel() {
       } else {
         next[garmentTitle] = imageUrl;
       }
-      localStorage.setItem(IMAGE_OVERRIDES_KEY, JSON.stringify(next));
+      nextOverrides = next;
+      safeLocalStorageSet(IMAGE_OVERRIDES_KEY, JSON.stringify(next));
       return next;
     });
     setPickerTarget(null);
+
+    // Sync to Firestore
+    try {
+      await setDoc(doc(db, 'config', 'image_overrides'), nextOverrides);
+    } catch (e) {
+      console.error("Failed to sync image_overrides to Firestore:", e);
+    }
   }, []);
+
+  const handleDeleteSuccess = useCallback((deletedUrl: string) => {
+    // 1. Remove from local imageOverrides
+    setImageOverrides((prev) => {
+      const next = { ...prev };
+      let changed = false;
+      Object.entries(next).forEach(([k, v]) => {
+        if (v === deletedUrl) {
+          delete next[k];
+          changed = true;
+        }
+      });
+      if (changed) {
+        safeLocalStorageSet(IMAGE_OVERRIDES_KEY, JSON.stringify(next));
+      }
+      return next;
+    });
+
+    // 2. Remove from local photoSlots
+    setPhotoSlots((prev) => {
+      const next = { ...prev };
+      let changed = false;
+      Object.entries(next).forEach(([k, v]) => {
+        if (v === deletedUrl) {
+          delete next[k];
+          changed = true;
+        }
+      });
+      if (changed) {
+        safeLocalStorageSet(PHOTO_SLOTS_KEY, JSON.stringify(next));
+      }
+      return next;
+    });
+
+    showToast('Image and affected slots updated in-place', 'success');
+  }, [showToast]);
 
   const categories = ['All', ...Array.from(new Set(GARMENTS.map((g) => g.category)))];
 
@@ -1424,18 +2287,38 @@ function AdminPanel() {
   }, []);
 
   const saveItem = useCallback(
-    (title: string) => {
+    async (title: string) => {
       const updated = { ...config };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      if (!safeLocalStorageSet(STORAGE_KEY, JSON.stringify(updated))) {
+        alert('Storage is full. Try removing some photos from the vault or slots first.');
+        return;
+      }
       setLastSaved(new Date().toLocaleTimeString());
+
+      // Sync to Firestore
+      try {
+        await setDoc(doc(db, 'config', 'offerings'), updated);
+      } catch (e) {
+        console.error("Failed to sync offerings to Firestore:", e);
+      }
     },
     [config]
   );
 
-  const saveAll = useCallback(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+  const saveAll = useCallback(async () => {
+    if (!safeLocalStorageSet(STORAGE_KEY, JSON.stringify(config))) {
+      alert('Storage is full. Try removing some photos from the vault or slots first.');
+      return;
+    }
     setLastSaved(new Date().toLocaleTimeString());
     showToast('All changes saved successfully', 'success');
+
+    // Sync to Firestore
+    try {
+      await setDoc(doc(db, 'config', 'offerings'), config);
+    } catch (e) {
+      console.error("Failed to sync offerings to Firestore:", e);
+    }
   }, [config, showToast]);
 
   const exportBackup = useCallback(() => {
@@ -1691,7 +2574,7 @@ function AdminPanel() {
       <div className="border-b border-white/6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex gap-0">
-            {(['inventory', 'optimizer', 'vault'] as const).map((tab) => (
+            {(['inventory', 'vault'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -1705,7 +2588,7 @@ function AdminPanel() {
                   }
                 `}
               >
-                {tab === 'inventory' ? 'Inventory' : tab === 'optimizer' ? 'Image Optimizer' : 'Design Vault'}
+                {tab === 'inventory' ? 'Inventory' : 'Design Vault'}
                 {activeTab === tab && (
                   <motion.div
                     layoutId="admin-tab-indicator"
@@ -1762,19 +2645,26 @@ function AdminPanel() {
                     onUpdate={(updated) => updateItem(garment.title, updated)}
                     onSave={() => saveItem(garment.title)}
                     imageOverrides={imageOverrides}
-                    onImageSwap={(title) => setPickerTarget(title)}
+                    onImageSwap={(title) => setPickerTarget({ garmentTitle: title })}
                     isHidden={hiddenItems.includes(garment.title)}
                     onToggleVisibility={() => {
+                      let nextHidden: string[] = [];
                       setHiddenItems(prev => {
                         const next = prev.includes(garment.title)
                           ? prev.filter(t => t !== garment.title)
                           : [...prev, garment.title];
-                        localStorage.setItem(HIDDEN_KEY, JSON.stringify(next));
+                        nextHidden = next;
+                        safeLocalStorageSet(HIDDEN_KEY, JSON.stringify(next));
                         return next;
                       });
+
+                      // Sync to Firestore
+                      setDoc(doc(db, 'config', 'hidden_items'), { hiddenList: nextHidden })
+                        .catch(e => console.error("Failed to sync hidden items:", e));
                     }}
                     photoSlots={photoSlots}
                     onPhotoSlotChange={(slotKey, imageUrl) => {
+                      let nextSlots: Record<string, string> = {};
                       setPhotoSlots(prev => {
                         const next = { ...prev };
                         if (imageUrl === null) {
@@ -1782,9 +2672,18 @@ function AdminPanel() {
                         } else {
                           next[slotKey] = imageUrl;
                         }
-                        localStorage.setItem(PHOTO_SLOTS_KEY, JSON.stringify(next));
+                        nextSlots = next;
+                        safeLocalStorageSet(PHOTO_SLOTS_KEY, JSON.stringify(next));
                         return next;
                       });
+
+                      // Sync to Firestore
+                      setDoc(doc(db, 'config', 'photo_slots'), nextSlots)
+                        .catch(e => console.error("Failed to sync photo slots:", e));
+                    }}
+                    onPhotoSlotClick={(slotIndex, callback) => {
+                      setPickerTarget({ garmentTitle: garment.title, slotIndex });
+                      pickerCallbackRef.current = callback;
                     }}
                   />
                 );
@@ -1792,13 +2691,9 @@ function AdminPanel() {
             </div>
           </div>
         </>
-      ) : activeTab === 'optimizer' ? (
-        <div className="pt-6">
-          <ImageOptimizer />
-        </div>
       ) : (
         <div className="pt-6">
-          <DesignVault />
+          <DesignVault onDeleteSuccess={handleDeleteSuccess} />
         </div>
       )}
 
@@ -1806,17 +2701,36 @@ function AdminPanel() {
       <AnimatePresence>
         {pickerTarget && (
           <ImagePickerModal
-            garmentTitle={pickerTarget}
+            garmentTitle={pickerTarget.garmentTitle}
+            slotLabel={
+              pickerTarget.slotIndex !== undefined
+                ? (SLOT_LABELS[GARMENTS.find(g => g.title === pickerTarget.garmentTitle)?.category || 'Dresses']?.[pickerTarget.slotIndex] || 'Detail')
+                : undefined
+            }
             currentImg={
-              imageOverrides[pickerTarget] ||
-              GARMENTS.find((g) => g.title === pickerTarget)?.img ||
-              ''
+              pickerTarget.slotIndex !== undefined
+                ? (photoSlots[`${pickerTarget.garmentTitle}__slot_${pickerTarget.slotIndex}`] || '')
+                : (imageOverrides[pickerTarget.garmentTitle] || GARMENTS.find((g) => g.title === pickerTarget.garmentTitle)?.img || '')
             }
             originalImg={
-              GARMENTS.find((g) => g.title === pickerTarget)?.img || ''
+              pickerTarget.slotIndex !== undefined
+                ? ''
+                : (GARMENTS.find((g) => g.title === pickerTarget.garmentTitle)?.img || '')
             }
-            onSelect={(url) => handleImageOverride(pickerTarget, url)}
-            onClose={() => setPickerTarget(null)}
+            onSelect={(url) => {
+              if (pickerCallbackRef.current) {
+                pickerCallbackRef.current(url);
+                pickerCallbackRef.current = null;
+              } else {
+                handleImageOverride(pickerTarget.garmentTitle, url);
+              }
+              setPickerTarget(null);
+            }}
+            onClose={() => {
+              setPickerTarget(null);
+              pickerCallbackRef.current = null;
+            }}
+            onDeleteSuccess={handleDeleteSuccess}
           />
         )}
       </AnimatePresence>
@@ -1833,6 +2747,36 @@ export default function AdminPage() {
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
+    // Auto self-healing: clear giant images if localStorage exceeds safety threshold (>3.5MB)
+    if (typeof window !== 'undefined') {
+      try {
+        let totalSize = 0;
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key) {
+            totalSize += (localStorage.getItem(key) || '').length;
+          }
+        }
+        if (totalSize > 3500000) {
+          localStorage.removeItem(PHOTO_SLOTS_KEY);
+          localStorage.removeItem(VAULT_KEY);
+        }
+      } catch {
+        // ignore
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('clear') === 'true') {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(IMAGE_OVERRIDES_KEY);
+        localStorage.removeItem(VAULT_KEY);
+        localStorage.removeItem(HIDDEN_KEY);
+        localStorage.removeItem(PHOTO_SLOTS_KEY);
+        window.location.href = window.location.pathname;
+        return;
+      }
+    }
+
     const stored = sessionStorage.getItem(SESSION_KEY);
     if (stored === 'true') {
       setAuthenticated(true);

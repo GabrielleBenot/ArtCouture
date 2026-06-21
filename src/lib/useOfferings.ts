@@ -45,37 +45,77 @@ export function useOfferings(itemTitle: string): ItemOfferings {
   const [offerings, setOfferings] = useState<ItemOfferings>(DEFAULT_OFFERINGS);
 
   useEffect(() => {
-    let config = getStoredConfig();
-    if (!config) {
-      config = default_config as OfferingConfig;
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
-      } catch {
-        // ignore
+    // 1. Initial load from local config
+    const resolveLocalConfig = () => {
+      let config = getStoredConfig();
+      if (!config) {
+        config = default_config as OfferingConfig;
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+        } catch {}
       }
-    }
+      if (config && config[itemTitle]) {
+        const stored = config[itemTitle];
+        setOfferings({
+          purchaseSample: {
+            enabled: stored.purchaseSample?.enabled ?? false,
+            price: stored.purchaseSample?.price ?? '',
+            stripeLink: stored.purchaseSample?.stripeLink ?? '',
+          },
+          commissionBespoke: {
+            enabled: stored.commissionBespoke?.enabled ?? false,
+            depositAmount: stored.commissionBespoke?.depositAmount ?? '',
+            stripeLink: stored.commissionBespoke?.stripeLink ?? '',
+          },
+          rentPhotoshoot: {
+            enabled: stored.rentPhotoshoot?.enabled ?? false,
+            pricePer3Days: stored.rentPhotoshoot?.pricePer3Days ?? (stored.rentPhotoshoot as any)?.pricePerDay ?? '$500',
+            securityDeposit: stored.rentPhotoshoot?.securityDeposit ?? '$1,250',
+            stripeLink: stored.rentPhotoshoot?.stripeLink ?? '',
+          },
+        });
+      }
+    };
 
-    if (config && config[itemTitle]) {
-      const stored = config[itemTitle];
-      setOfferings({
-        purchaseSample: {
-          enabled: stored.purchaseSample?.enabled ?? false,
-          price: stored.purchaseSample?.price ?? '',
-          stripeLink: stored.purchaseSample?.stripeLink ?? '',
-        },
-        commissionBespoke: {
-          enabled: stored.commissionBespoke?.enabled ?? false,
-          depositAmount: stored.commissionBespoke?.depositAmount ?? '',
-          stripeLink: stored.commissionBespoke?.stripeLink ?? '',
-        },
-        rentPhotoshoot: {
-          enabled: stored.rentPhotoshoot?.enabled ?? false,
-          pricePer3Days: stored.rentPhotoshoot?.pricePer3Days ?? (stored.rentPhotoshoot as any)?.pricePerDay ?? '$500',
-          securityDeposit: stored.rentPhotoshoot?.securityDeposit ?? '$1,250',
-          stripeLink: stored.rentPhotoshoot?.stripeLink ?? '',
-        },
-      });
-    }
+    resolveLocalConfig();
+
+    // 2. Fetch from Firestore in background
+    const syncOfferingsFromCloud = async () => {
+      try {
+        const { doc, getDoc } = await import('firebase/firestore');
+        const { db } = await import('./firebase');
+        const offeringsRef = doc(db, 'config', 'offerings');
+        const offeringsSnap = await getDoc(offeringsRef);
+        if (offeringsSnap.exists()) {
+          const cloudConfig = offeringsSnap.data() as OfferingConfig;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudConfig));
+          if (cloudConfig[itemTitle]) {
+            const stored = cloudConfig[itemTitle];
+            setOfferings({
+              purchaseSample: {
+                enabled: stored.purchaseSample?.enabled ?? false,
+                price: stored.purchaseSample?.price ?? '',
+                stripeLink: stored.purchaseSample?.stripeLink ?? '',
+              },
+              commissionBespoke: {
+                enabled: stored.commissionBespoke?.enabled ?? false,
+                depositAmount: stored.commissionBespoke?.depositAmount ?? '',
+                stripeLink: stored.commissionBespoke?.stripeLink ?? '',
+              },
+              rentPhotoshoot: {
+                enabled: stored.rentPhotoshoot?.enabled ?? false,
+                pricePer3Days: stored.rentPhotoshoot?.pricePer3Days ?? (stored.rentPhotoshoot as any)?.pricePerDay ?? '$500',
+                securityDeposit: stored.rentPhotoshoot?.securityDeposit ?? '$1,250',
+                stripeLink: stored.rentPhotoshoot?.stripeLink ?? '',
+              },
+            });
+          }
+        }
+      } catch (e) {
+        console.error("Firestore useOfferings sync failed:", e);
+      }
+    };
+    syncOfferingsFromCloud();
   }, [itemTitle]);
 
   return offerings;

@@ -455,12 +455,14 @@ function DressCard({
   item, 
   onClick,
   isPlaceholder = false,
-  isActiveCategory = false
+  isActiveCategory = false,
+  altText
 }: { 
   item: DressItem, 
   onClick: () => void,
   isPlaceholder?: boolean,
-  isActiveCategory?: boolean
+  isActiveCategory?: boolean,
+  altText?: string
 }) {
   const cardRef = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: false, margin: "0px 0px -75% 0px" });
@@ -490,7 +492,7 @@ function DressCard({
         {/* The Product Image - revealed on hover/scroll */}
         <motion.img 
           src={item.img} 
-          alt={`${item.title} – Art Couture bespoke haute couture`}
+          alt={altText || `${item.title} – Art Couture bespoke haute couture`}
           loading="lazy"
           className={`w-full h-full object-cover absolute inset-0 transition-all duration-[2s] ${isActiveCategory ? '' : 'group-hover:scale-110'} ${isInView ? 'scale-105' : ''}`}
         />
@@ -674,22 +676,79 @@ export function EditorialCollection() {
   const [showAllItems, setShowAllItems] = useState(false);
   const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
   const [hiddenItems, setHiddenItems] = useState<string[]>([]);
+  const [vaultAlts, setVaultAlts] = useState<Record<string, string>>({});
   const [shopOpen, setShopOpen] = useState(false);
   const [shopCategory, setShopCategory] = useState<string>("All");
 
   useEffect(() => {
+    // 1. Initial load from localStorage for instant preview
     try {
-      const raw = localStorage.getItem('artcouture_image_overrides');
-      if (raw) setImageOverrides(JSON.parse(raw));
-    } catch {
-      // ignore
-    }
+      const rawOverrides = localStorage.getItem('artcouture_image_overrides');
+      if (rawOverrides) setImageOverrides(JSON.parse(rawOverrides));
+    } catch {}
     try {
-      const raw = localStorage.getItem('artcouture_hidden_items');
-      if (raw) setHiddenItems(JSON.parse(raw));
-    } catch {
-      // ignore
-    }
+      const rawHidden = localStorage.getItem('artcouture_hidden_items');
+      if (rawHidden) setHiddenItems(JSON.parse(rawHidden));
+    } catch {}
+    try {
+      const rawVaultAlts = localStorage.getItem('artcouture_vault_alts');
+      if (rawVaultAlts) setVaultAlts(JSON.parse(rawVaultAlts));
+    } catch {}
+
+    // 2. Fetch from Firestore in the background
+    const fetchCloudConfigs = async () => {
+      try {
+        const { doc, getDoc, collection: fsCollection, getDocs } = await import('firebase/firestore');
+        const { db } = await import('@/lib/firebase');
+
+        // Fetch overrides
+        const overridesRef = doc(db, 'config', 'image_overrides');
+        const overridesSnap = await getDoc(overridesRef);
+        if (overridesSnap.exists()) {
+          const data = overridesSnap.data();
+          setImageOverrides(data);
+          localStorage.setItem('artcouture_image_overrides', JSON.stringify(data));
+        }
+
+        // Fetch hidden items
+        const hiddenRef = doc(db, 'config', 'hidden_items');
+        const hiddenSnap = await getDoc(hiddenRef);
+        if (hiddenSnap.exists()) {
+          const data = hiddenSnap.data();
+          const list = data.hiddenList || [];
+          setHiddenItems(list);
+          localStorage.setItem('artcouture_hidden_items', JSON.stringify(list));
+        }
+
+        // Fetch offerings
+        const offeringsRef = doc(db, 'config', 'offerings');
+        const offeringsSnap = await getDoc(offeringsRef);
+        if (offeringsSnap.exists()) {
+          const data = offeringsSnap.data();
+          setOfferingsConfig(data as any);
+          localStorage.setItem('artcouture_offerings', JSON.stringify(data));
+        }
+
+        // Fetch vault images for Alt SEO mapping
+        try {
+          const vaultSnap = await getDocs(fsCollection(db, 'vault'));
+          const altMapping: Record<string, string> = {};
+          vaultSnap.forEach((doc) => {
+            const data = doc.data();
+            if (data.url && data.altText) {
+              altMapping[data.url] = data.altText;
+            }
+          });
+          setVaultAlts(altMapping);
+          localStorage.setItem('artcouture_vault_alts', JSON.stringify(altMapping));
+        } catch (vaultErr) {
+          console.error("Failed to sync vault alts:", vaultErr);
+        }
+      } catch (e) {
+        console.error("Firestore config sync failed:", e);
+      }
+    };
+    fetchCloudConfigs();
   }, []);
 
   useEffect(() => {
@@ -748,15 +807,31 @@ export function EditorialCollection() {
     return defaultOfferingsConfig as Record<string, { purchaseSample: { enabled: boolean; price: string; stripeLink: string } }>;
   });
 
-  // Re-read config from localStorage every time shop opens to pick up admin changes
+  // Re-read config from localStorage & Firestore every time shop opens to pick up admin changes
   useEffect(() => {
     if (shopOpen) {
       try {
         const raw = localStorage.getItem('artcouture_offerings');
         if (raw) setOfferingsConfig(JSON.parse(raw));
-      } catch {
-        // ignore
-      }
+      } catch {}
+
+      // Background fetch from Firestore
+      const syncOfferings = async () => {
+        try {
+          const { doc, getDoc } = await import('firebase/firestore');
+          const { db } = await import('@/lib/firebase');
+          const offeringsRef = doc(db, 'config', 'offerings');
+          const offeringsSnap = await getDoc(offeringsRef);
+          if (offeringsSnap.exists()) {
+            const data = offeringsSnap.data();
+            setOfferingsConfig(data as any);
+            localStorage.setItem('artcouture_offerings', JSON.stringify(data));
+          }
+        } catch (e) {
+          console.error("Firestore offerings sync failed:", e);
+        }
+      };
+      syncOfferings();
     }
   }, [shopOpen]);
 
@@ -830,7 +905,12 @@ export function EditorialCollection() {
                   ? { ...item, img: imageOverrides[item.title] }
                   : item;
                 return (
-                  <DressCard key={item.title + idx} item={displayItem} onClick={() => setSelectedDress(displayItem)} />
+                  <DressCard 
+                    key={item.title + idx} 
+                    item={displayItem} 
+                    altText={vaultAlts[displayItem.img]} 
+                    onClick={() => setSelectedDress(displayItem)} 
+                  />
                 );
               })}
             </div>
@@ -842,7 +922,12 @@ export function EditorialCollection() {
                   ? { ...item, img: imageOverrides[item.title] }
                   : item;
                 return (
-                  <DressCard key={item.title + idx} item={displayItem} onClick={() => setSelectedDress(displayItem)} />
+                  <DressCard 
+                    key={item.title + idx} 
+                    item={displayItem} 
+                    altText={vaultAlts[displayItem.img]} 
+                    onClick={() => setSelectedDress(displayItem)} 
+                  />
                 );
               })}
             </div>
@@ -854,7 +939,12 @@ export function EditorialCollection() {
                   ? { ...item, img: imageOverrides[item.title] }
                   : item;
                 return (
-                  <DressCard key={item.title + idx} item={displayItem} onClick={() => setSelectedDress(displayItem)} />
+                  <DressCard 
+                    key={item.title + idx} 
+                    item={displayItem} 
+                    altText={vaultAlts[displayItem.img]} 
+                    onClick={() => setSelectedDress(displayItem)} 
+                  />
                 );
               })}
             </div>
