@@ -99,14 +99,54 @@ const swatches: SwatchItem[] = [
 
 export default function ArchivePage() {
   const [selectedSwatch, setSelectedSwatch] = useState<SwatchItem | null>(null);
+  const [backUrl, setBackUrl] = useState("/lookbook");
 
   useEffect(() => {
     document.title = "Atelier Archive | Art Couture";
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("ATELIER_ENTERED", "true");
+      
+      const params = new URLSearchParams(window.location.search);
+      const from = params.get("from");
+      const item = params.get("item");
+      if (from === "lookbook" && item) {
+        setBackUrl(`/lookbook#${item}`);
+      } else {
+        // Fallback: check sessionStorage
+        const storedTarget = sessionStorage.getItem("lookbook_back_target");
+        if (storedTarget) {
+          setBackUrl(storedTarget);
+        }
+      }
+    }
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-[var(--dada-red)] selection:text-white pb-24">
+    <div className="min-h-screen bg-black text-white selection:bg-[var(--dada-red)] selection:text-white pb-24 relative">
       <Header />
+
+      {/* Back button to Lookbook */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-32 -mb-24">
+        <a
+          href={backUrl}
+          className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors group cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="transform group-hover:-translate-x-1 transition-transform"
+          >
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          Back to Lookbook
+        </a>
+      </div>
 
       {/* Hero Section */}
       <section className="relative pt-36 pb-12 px-6 md:px-12 text-center max-w-3xl mx-auto">
@@ -222,7 +262,7 @@ export default function ArchivePage() {
                 transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
               }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-neutral-950 border border-white/10 rounded-2xl max-w-3xl w-full overflow-hidden flex flex-col md:flex-row relative shadow-[0_24px_50px_-12px_rgba(0,0,0,0.5)]"
+              className="bg-neutral-950 border border-white/10 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto md:overflow-visible flex flex-col md:flex-row relative shadow-[0_24px_50px_-12px_rgba(0,0,0,0.5)]"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
@@ -270,6 +310,15 @@ export default function ArchivePage() {
                   <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-8">
                     {selectedSwatch.story}
                   </p>
+                </div>
+
+                <div className="pt-4 border-t border-white/5 flex justify-end">
+                  <button
+                    onClick={() => setSelectedSwatch(null)}
+                    className="w-full md:w-auto font-mono text-[10px] uppercase tracking-[0.2em] bg-white/5 hover:bg-white/10 text-white/80 hover:text-white px-6 py-3 rounded-lg border border-white/10 transition-all duration-300 text-center cursor-pointer"
+                  >
+                    Back to Menu
+                  </button>
                 </div>
 
                 {/* Gowns Shortcuts - Hidden for now until more dresses are added */}

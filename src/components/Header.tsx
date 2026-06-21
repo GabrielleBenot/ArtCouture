@@ -169,6 +169,15 @@ export function Header() {
     return () => window.removeEventListener('openContactForm', openForm);
   }, []);
 
+  useEffect(() => {
+    const openMenu = () => {
+      setMenuOpen(true);
+      setShowContactForm(false);
+    };
+    window.addEventListener('openMobileMenu', openMenu);
+    return () => window.removeEventListener('openMobileMenu', openMenu);
+  }, []);
+
   const handleLinkClick = useCallback(() => {
     setMenuOpen(false);
   }, []);
@@ -318,7 +327,7 @@ export function Header() {
               {!showContactForm ? (
                 <motion.nav
                   key="nav-links"
-                  className="flex flex-col items-center gap-6"
+                  className="flex flex-col items-center gap-4"
                   variants={linkContainerVariants}
                   initial="hidden"
                   animate="visible"
@@ -339,7 +348,7 @@ export function Header() {
                           handleLinkClick();
                         }
                       }}
-                      className="font-serif font-thin text-2xl sm:text-3xl tracking-[0.15em] uppercase hover:text-[var(--dada-red)] transition-colors duration-300"
+                      className="font-serif font-thin text-xl sm:text-2xl tracking-[0.15em] uppercase hover:text-[var(--dada-red)] transition-colors duration-300"
                       variants={linkItemVariants}
                     >
                       {link.label}

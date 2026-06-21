@@ -25,6 +25,7 @@ export default function MeasurementVaultPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [backUrl, setBackUrl] = useState<string | null>(null);
 
   const [formData, setFormData] = useState<MeasurementData>({
     clientName: "",
@@ -40,8 +41,13 @@ export default function MeasurementVaultPage() {
     hollowToHem: "",
   });
 
+
+
   useEffect(() => {
     document.title = "Bespoke Measurement Vault | Art Couture";
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("ATELIER_ENTERED", "true");
+    }
     
     // Autofill dress ordered if passed via query params
     if (typeof window !== "undefined") {
@@ -49,6 +55,16 @@ export default function MeasurementVaultPage() {
       const dress = params.get("dress");
       if (dress) {
         setFormData(prev => ({ ...prev, dressTitle: dress }));
+      }
+
+      // Check if came from lookbook
+      const from = params.get("from");
+      const item = params.get("item");
+      if (from === "lookbook" && item) {
+        setBackUrl(`/lookbook#${item}`);
+      } else if (sessionStorage.getItem("came_from_lookbook") === "true") {
+        const storedItem = sessionStorage.getItem("last_lookbook_item");
+        setBackUrl(storedItem ? `/lookbook#${storedItem}` : "/lookbook");
       }
     }
   }, []);
@@ -127,10 +143,80 @@ export default function MeasurementVaultPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-[var(--dada-red)] selection:text-white pb-24">
+    <div className="min-h-screen bg-black text-white selection:bg-[var(--dada-red)] selection:text-white flex flex-col pb-24">
       <Header />
 
-      <div className="pt-32 px-6 md:px-12 max-w-6xl mx-auto">
+      {/* Mobile Only Message */}
+      <div className="flex-grow flex flex-col items-center justify-center px-8 text-center mt-20 md:hidden">
+        <div className="max-w-md border border-white/10 rounded-2xl p-8 bg-neutral-950/50 backdrop-blur-xl mx-auto">
+          <div className="w-12 h-12 rounded-full border border-[var(--dada-red)]/35 flex items-center justify-center mx-auto mb-6">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--dada-red)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+          </div>
+          <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--dada-red)] mb-4 block">
+            [ SIZING VAULT / DESKTOP ONLY ]
+          </span>
+          <h2 className="font-serif font-light text-2xl tracking-wide uppercase mb-4 text-white">
+            Desktop Interface Required
+          </h2>
+          <p className="font-serif italic text-xs text-white/50 leading-relaxed">
+            To guarantee the absolute structural precision of your custom fitting mannequin profile, the Sizing Vault is exclusively accessible on desktop. Please access this page from a laptop or desktop computer to record your measurements.
+          </p>
+          <div className="w-12 h-[1px] bg-white/20 mx-auto my-6" />
+          <button
+            type="button"
+            onClick={() => {
+              if (backUrl) {
+                window.location.href = backUrl;
+              } else {
+                window.dispatchEvent(new CustomEvent("openMobileMenu"));
+              }
+            }}
+            className="inline-block font-mono text-[9px] uppercase tracking-[0.3em] bg-white text-black hover:bg-[var(--dada-red)] hover:text-white py-3 px-8 rounded-full transition-all duration-300 cursor-pointer"
+          >
+            {backUrl ? "Back to Lookbook" : "Return"}
+          </button>
+        </div>
+      </div>
+
+      {/* Desktop Interface */}
+      <div className="hidden md:block pt-32 px-6 md:px-12 max-w-6xl mx-auto w-full">
+        {backUrl && (
+          <div className="mb-8">
+            <a
+              href={backUrl}
+              className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors group cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                className="transform group-hover:-translate-x-1 transition-transform"
+              >
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+              Back to Lookbook
+            </a>
+          </div>
+        )}
+
         {/* Title */}
         <div className="text-center mb-10">
           <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--dada-red)] mb-3 block">
@@ -156,10 +242,10 @@ export default function MeasurementVaultPage() {
               Thank you, {formData.clientName}. Your custom measurements have been encrypted and saved to your design file. Our atelier team will review them within 24 hours.
             </p>
             <a
-              href="/"
+              href={backUrl || "/"}
               className="inline-block font-mono text-[10px] uppercase tracking-[0.3em] border border-white/20 hover:border-[var(--dada-red)] text-white hover:text-white px-8 py-3 rounded-full transition-all duration-300"
             >
-              Return Home
+              {backUrl ? "Return to Lookbook" : "Return Home"}
             </a>
           </motion.div>
         ) : (

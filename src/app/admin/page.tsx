@@ -274,6 +274,7 @@ const VAULT_KEY = 'artcouture_vault';
 const IMAGE_OVERRIDES_KEY = 'artcouture_image_overrides';
 const HIDDEN_KEY = 'artcouture_hidden_items';
 const PHOTO_SLOTS_KEY = 'artcouture_photo_slots';
+const LOOKBOOK_CONFIG_KEY = 'artcouture_lookbook_config';
 
 const SLOT_LABELS: Record<string, string[]> = {
   Dresses: ['The Silhouette', 'The Bodice', 'Fabric Detail', 'The Hem', 'Back View', 'Details'],
@@ -1399,7 +1400,7 @@ function GarmentCard({
             <h3 className="text-base font-medium text-white tracking-tight">
               {garment.title}
             </h3>
-            <div className="flex items-center gap-2 mt-1.5">
+            <div className="flex items-center gap-2 mt-1.5 flex-wrap">
               <span
                 className={`text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-full ${
                   categoryColors[garment.category] || 'bg-white/10 text-white/60'
@@ -1408,6 +1409,16 @@ function GarmentCard({
                 {garment.category}
               </span>
               <span className="text-xs font-mono text-white/30">{garment.price}</span>
+              {offerings.rentPhotoshoot.enabled && (
+                <span className="text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/20">
+                  For Rent {offerings.rentPhotoshoot.sizes ? `(${offerings.rentPhotoshoot.sizes})` : ''}
+                </span>
+              )}
+              {offerings.purchaseSample.enabled && (
+                <span className="text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/20">
+                  Sample Sale
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -2806,19 +2817,51 @@ function PasswordGate({ onAuthenticate }: { onAuthenticate: () => void }) {
    Admin Panel (main)
    ───────────────────────────────────────────── */
 
+export interface LookbookSectionConfig {
+  id: string;
+  title: string;
+  visible: boolean;
+  images: {
+    main?: string;
+    front?: string;
+    back?: string;
+  };
+}
+
+const defaultLookbookSections: LookbookSectionConfig[] = [
+  { id: "manifesto", title: "From Canvas to Cloth", visible: true, images: {} },
+  { id: "poppy", title: "The Transformation of Form (Poppy)", visible: true, images: { main: "/images/process/applique.jpg" } },
+  { id: "luneville", title: "The Alchemy of Luneville", visible: true, images: { main: "/images/process/luneville.jpg" } },
+  { id: "stallion", title: "The Painted Steed (Stallion)", visible: true, images: { front: "/images/process/equine_dahlia_main.jpg", back: "/images/process/perfect_jacket.png" } },
+  { id: "hikihaku", title: "Kyoto's Golden Thread (Hikihaku)", visible: true, images: { main: "/images/process/threading.jpg" } },
+  { id: "mondrian", title: "Deconstructed Mondrian", visible: true, images: { front: "/images/process/mondrian_blazer_front.png", back: "/images/process/mondrian_blazer_back.png" } },
+  { id: "miro", title: "Constellation Miró", visible: true, images: { front: "/images/process/miro_inspiration.png", back: "/images/process/miro_top_back.png" } },
+  { id: "fuchsia-majesty", title: "Fuchsia Majesty (Gallery)", visible: true, images: { front: "/images/paintings/dress_from_colorful_face.jpg", back: "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Ff5720508-8148-4bd3-ab0f-2b8612f15cda?alt=media&token=7be40366-58e3-4eb1-91c8-f24d29299550" } },
+  { id: "blush-enchantress", title: "Blush Enchantress (Gallery)", visible: true, images: { front: "/images/paintings/brunette_yellow_painting.jpg", back: "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F2f7c3f0f-2025-4098-86e5-76e1b21fe5e4?alt=media&token=b174088f-754a-49ef-8d45-ffe114715f60" } },
+  { id: "golden-whisper", title: "Golden Whisper (Gallery)", visible: true, images: { front: "/images/paintings/dress_from_painting_2.jpg", back: "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fa233bbdb-25ac-47fe-b686-71493e2cc226?alt=media&token=447745e0-6fd4-4fe0-b328-63b25f3199e0" } },
+  { id: "crimson-allure", title: "Crimson Allure (Gallery)", visible: true, images: { front: "/images/paintings/palazzo_inspired_dress.jpg", back: "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F04669707-071a-432c-82e4-76b144da07e4?alt=media&token=87ed9797-099d-4c08-ad4e-bcac6cc65c4b" } },
+  { id: "midnight-elegance", title: "Midnight Elegance (Gallery)", visible: true, images: { front: "/images/paintings/italian_palazzo.jpg", back: "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Ff4c8fe02-afaa-458f-b217-bc5a3a57ea00?alt=media&token=697ddc89-dcdd-432d-9e94-a4c759b5027e" } }
+];
+
 interface PickerTarget {
   garmentTitle: string;
   slotIndex?: number;
+  isLookbook?: boolean;
+  lookbookSectionId?: string;
+  lookbookImageKey?: 'main' | 'front' | 'back';
 }
 
 function AdminPanel() {
   const [config, setConfig] = useState<OfferingConfig>({});
   const [lastSaved, setLastSaved] = useState<string | null>(null);
   const [filterCategory, setFilterCategory] = useState<string>('All');
-  const [activeTab, setActiveTab] = useState<'inventory' | 'vault'>('inventory');
+  const [showOnlyForRent, setShowOnlyForRent] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<'inventory' | 'vault' | 'lookbook'>('inventory');
   const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
   const [hiddenItems, setHiddenItems] = useState<string[]>([]);
   const [photoSlots, setPhotoSlots] = useState<Record<string, string>>({});
+  const [lookbookConfig, setLookbookConfig] = useState<LookbookSectionConfig[]>(defaultLookbookSections);
+  const [lookbookPageVisible, setLookbookPageVisible] = useState<boolean>(true);
   const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
   const pickerCallbackRef = useRef<((url: string | null) => void) | null>(null);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'warning' | 'info' } | null>(null);
@@ -2855,6 +2898,7 @@ function AdminPanel() {
         localStorage.removeItem(VAULT_KEY);
         localStorage.removeItem(HIDDEN_KEY);
         localStorage.removeItem(PHOTO_SLOTS_KEY);
+        localStorage.removeItem(LOOKBOOK_CONFIG_KEY);
         window.location.href = window.location.pathname;
         return;
       }
@@ -2873,6 +2917,28 @@ function AdminPanel() {
     try {
       const raw = localStorage.getItem(PHOTO_SLOTS_KEY);
       if (raw) setPhotoSlots(JSON.parse(raw));
+    } catch {}
+    try {
+      const raw = localStorage.getItem(LOOKBOOK_CONFIG_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          const merged = defaultLookbookSections.map(def => {
+            const match = parsed.find((s: any) => s.id === def.id);
+            if (!match) return def;
+            const images = { ...def.images, ...match.images };
+            if (def.id === "miro" && images.back === "/images/process/miro_top.png") {
+              images.back = "/images/process/miro_top_back.png";
+            }
+            return {
+              ...def,
+              visible: match.visible !== undefined ? match.visible : def.visible,
+              images
+            };
+          });
+          setLookbookConfig(merged);
+        }
+      }
     } catch {}
 
     // 2. Fetch from Firestore
@@ -2910,6 +2976,33 @@ function AdminPanel() {
           setPhotoSlots(data);
           localStorage.setItem(PHOTO_SLOTS_KEY, JSON.stringify(data));
         }
+
+        // Fetch lookbook config
+        const lookbookSnap = await getDoc(doc(db, 'config', 'lookbook'));
+        if (lookbookSnap.exists()) {
+          const data = lookbookSnap.data();
+          const rawSections = data.sections || [];
+          if (Array.isArray(rawSections) && rawSections.length > 0) {
+            const merged = defaultLookbookSections.map(def => {
+              const match = rawSections.find((s: any) => s.id === def.id);
+              if (!match) return def;
+              const images = { ...def.images, ...match.images };
+              if (def.id === "miro" && images.back === "/images/process/miro_top.png") {
+                images.back = "/images/process/miro_top_back.png";
+              }
+              return {
+                ...def,
+                visible: match.visible !== undefined ? match.visible : def.visible,
+                images
+              };
+            });
+            setLookbookConfig(merged);
+            localStorage.setItem(LOOKBOOK_CONFIG_KEY, JSON.stringify(merged));
+          }
+          if (data.visible !== undefined) {
+            setLookbookPageVisible(data.visible);
+          }
+        }
       } catch (e) {
         console.error("Firestore AdminPanel sync failed:", e);
       }
@@ -2919,7 +3012,7 @@ function AdminPanel() {
 
   useEffect(() => {
     updateStorageUsage();
-  }, [photoSlots, imageOverrides, activeTab, updateStorageUsage]);
+  }, [photoSlots, imageOverrides, activeTab, updateStorageUsage, lookbookConfig]);
 
   const handleImageOverride = useCallback(async (garmentTitle: string, imageUrl: string | null) => {
     setImageOverrides((prev) => {
@@ -2939,6 +3032,13 @@ function AdminPanel() {
     });
     setPickerTarget(null);
   }, []);
+
+  const handleUpdateLookbook = useCallback((updatedSections: LookbookSectionConfig[]) => {
+    setLookbookConfig(updatedSections);
+    safeLocalStorageSet(LOOKBOOK_CONFIG_KEY, JSON.stringify(updatedSections));
+    setDoc(doc(db, 'config', 'lookbook'), { sections: updatedSections, visible: lookbookPageVisible }, { merge: true })
+      .catch(e => console.error("Failed to sync lookbook to Firestore:", e));
+  }, [lookbookPageVisible]);
 
   const handleDeleteSuccess = useCallback((deletedUrl: string) => {
     // 1. Remove from local imageOverrides
@@ -2978,10 +3078,19 @@ function AdminPanel() {
 
   const categories = ['All', ...Array.from(new Set(GARMENTS.map((g) => g.category)))];
 
-  const filteredGarments =
-    filterCategory === 'All'
+  const filteredGarments = React.useMemo(() => {
+    let list = filterCategory === 'All'
       ? GARMENTS
       : GARMENTS.filter((g) => g.category === filterCategory);
+
+    if (showOnlyForRent) {
+      list = list.filter((g) => {
+        const itemConfig = config[g.title];
+        return itemConfig?.rentPhotoshoot?.enabled;
+      });
+    }
+    return list;
+  }, [filterCategory, showOnlyForRent, config]);
 
   const updateItem = useCallback((title: string, updated: ItemOfferings) => {
     setConfig((prev) => ({ ...prev, [title]: updated }));
@@ -3094,10 +3203,14 @@ function AdminPanel() {
     localStorage.removeItem(IMAGE_OVERRIDES_KEY);
     localStorage.removeItem(HIDDEN_KEY);
     localStorage.removeItem(PHOTO_SLOTS_KEY);
+    localStorage.removeItem(LOOKBOOK_CONFIG_KEY);
     setConfig(loadConfig());
     setImageOverrides({});
     setHiddenItems([]);
     setPhotoSlots({});
+    setLookbookConfig(defaultLookbookSections);
+    setDoc(doc(db, 'config', 'lookbook'), { sections: defaultLookbookSections })
+      .catch(e => console.error("Failed to reset lookbook doc:", e));
     setLastSaved(null);
     showToast('All settings reset to defaults', 'warning');
   }, [showToast]);
@@ -3275,7 +3388,7 @@ function AdminPanel() {
       <div className="border-b border-white/6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex gap-0">
-            {(['inventory', 'vault'] as const).map((tab) => (
+            {(['inventory', 'vault', 'lookbook'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -3289,7 +3402,7 @@ function AdminPanel() {
                   }
                 `}
               >
-                {tab === 'inventory' ? 'Inventory' : 'Design Vault'}
+                {tab === 'inventory' ? 'Inventory' : tab === 'vault' ? 'Design Vault' : 'Lookbook Editorial'}
                 {activeTab === tab && (
                   <motion.div
                     layoutId="admin-tab-indicator"
@@ -3325,6 +3438,22 @@ function AdminPanel() {
                   {cat}
                 </button>
               ))}
+              
+              <button
+                onClick={() => setShowOnlyForRent(prev => !prev)}
+                className={`
+                  px-3 py-1 rounded-full text-[11px] font-mono uppercase tracking-wider
+                  transition-all cursor-pointer border flex items-center gap-1.5
+                  ${
+                    showOnlyForRent
+                      ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/35'
+                      : 'bg-transparent text-white/35 border-white/6 hover:text-white/60 hover:border-white/12'
+                  }
+                `}
+              >
+                <span>For Rent Only</span>
+                {showOnlyForRent && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />}
+              </button>
             </div>
           </div>
 
@@ -3393,6 +3522,146 @@ function AdminPanel() {
             </div>
           </div>
         </>
+      ) : activeTab === 'lookbook' ? (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 pb-24">
+          <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-white/5">
+            <div>
+              <h2 className="text-xl font-serif font-light text-white tracking-wide uppercase">Lookbook Editorial Sections</h2>
+              <p className="text-xs text-white/40 mt-1 font-sans">Manage visibility and custom photography for each lookbook page section.</p>
+            </div>
+            
+            {/* Master Page Toggle */}
+            <div className="flex items-center gap-4 bg-white/[0.02] border border-white/6 rounded-xl px-5 py-3 shrink-0">
+              <div className="flex flex-col">
+                <span className="font-mono text-[9px] uppercase tracking-widest text-white/35">Master Page Visibility</span>
+                <span className="text-xs text-white mt-0.5 font-medium">
+                  {lookbookPageVisible ? "Lookbook is Online" : "Lookbook is Offline"}
+                </span>
+              </div>
+              <button
+                onClick={() => {
+                  const nextVisible = !lookbookPageVisible;
+                  setLookbookPageVisible(nextVisible);
+                  setDoc(doc(db, 'config', 'lookbook'), { sections: lookbookConfig, visible: nextVisible }, { merge: true })
+                    .then(() => showToast(`Lookbook page is now ${nextVisible ? 'online' : 'offline/hidden'}`))
+                    .catch(e => console.error("Failed to sync lookbook master visibility:", e));
+                }}
+                className={`font-mono text-[9.5px] uppercase tracking-widest px-4 py-2 rounded-full cursor-pointer transition-all duration-300 ${
+                  lookbookPageVisible 
+                    ? "bg-[var(--dada-red)] text-white hover:bg-white hover:text-black" 
+                    : "bg-white/10 text-white/70 hover:bg-white hover:text-black"
+                }`}
+              >
+                {lookbookPageVisible ? "Turn Off" : "Turn On"}
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6">
+            {lookbookConfig.map((section) => {
+              const imageKeys = Object.keys(section.images) as Array<'main' | 'front' | 'back'>;
+              return (
+                <div 
+                  key={section.id} 
+                  className="bg-white/[0.02] border border-white/6 rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all hover:border-white/12"
+                >
+                  <div className="flex-1">
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-white/35">Section ID: {section.id}</span>
+                    <h3 className="text-base font-serif font-light text-white mt-1">{section.title}</h3>
+                    
+                    {/* Image Previews */}
+                    {imageKeys.length > 0 ? (
+                      <div className="flex gap-4 mt-4 flex-wrap">
+                        {imageKeys.map((key) => {
+                          const currentUrl = section.images[key] || '';
+                          const isGalleryItem = ['fuchsia-majesty', 'blush-enchantress', 'golden-whisper', 'crimson-allure', 'midnight-elegance'].includes(section.id);
+                          const label = key === 'main' ? 'Main Image' : key === 'front' ? (isGalleryItem || section.id === 'stallion' || section.id === 'miro' ? 'Inspiration Painting' : 'Front View') : (isGalleryItem ? 'Gown Image' : 'Back View');
+                          return (
+                            <div key={key} className="flex flex-col gap-2">
+                              <span className="text-[10px] font-mono text-white/40">{label}</span>
+                              <div className="relative w-24 h-24 rounded bg-neutral-900 border border-white/6 overflow-hidden group">
+                                {currentUrl ? (
+                                  <>
+                                    <img 
+                                      src={currentUrl} 
+                                      alt={label} 
+                                      className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                      <button 
+                                        onClick={() => {
+                                          setPickerTarget({
+                                            garmentTitle: `Lookbook: ${section.title}`,
+                                            isLookbook: true,
+                                            lookbookSectionId: section.id,
+                                            lookbookImageKey: key
+                                          });
+                                        }}
+                                        className="text-[9px] font-mono uppercase bg-white text-black py-1 px-2 rounded hover:bg-[var(--dada-red)] hover:text-white transition-colors cursor-pointer"
+                                      >
+                                        Change
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className="w-full h-full flex flex-col items-center justify-center gap-1">
+                                    <span className="text-[8px] font-mono text-white/20">Empty</span>
+                                    <button 
+                                      onClick={() => {
+                                        setPickerTarget({
+                                          garmentTitle: `Lookbook: ${section.title}`,
+                                          isLookbook: true,
+                                          lookbookSectionId: section.id,
+                                          lookbookImageKey: key
+                                        });
+                                      }}
+                                      className="text-[9px] font-mono uppercase bg-white/10 text-white hover:bg-white/20 py-1 px-2 rounded transition-colors cursor-pointer"
+                                    >
+                                      Upload
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <p className="text-[10px] font-sans text-white/30 italic mt-3">This section is text-only. No custom images required.</p>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-6 border-t border-white/5 pt-4 md:pt-0 md:border-0">
+                    <div className="flex flex-col items-end gap-1.5">
+                      <span className="font-mono text-[9px] uppercase tracking-wider text-white/35">Visibility</span>
+                      <button
+                        onClick={() => {
+                          const nextSections = lookbookConfig.map(s => {
+                            if (s.id === section.id) {
+                              return { ...s, visible: !s.visible };
+                            }
+                            return s;
+                          });
+                          handleUpdateLookbook(nextSections);
+                        }}
+                        className={`
+                          px-4 py-1.5 rounded-full text-[10px] font-mono uppercase tracking-wider transition-all cursor-pointer border
+                          ${
+                            section.visible
+                              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20'
+                              : 'bg-red-500/10 text-red-400 border-red-500/20 hover:bg-red-500/20'
+                          }
+                        `}
+                      >
+                        {section.visible ? 'Visible' : 'Hidden'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       ) : (
         <div className="pt-6">
           <DesignVault onDeleteSuccess={handleDeleteSuccess} />
@@ -3405,22 +3674,44 @@ function AdminPanel() {
           <ImagePickerModal
             garmentTitle={pickerTarget.garmentTitle}
             slotLabel={
-              pickerTarget.slotIndex !== undefined
-                ? (SLOT_LABELS[GARMENTS.find(g => g.title === pickerTarget.garmentTitle)?.category || 'Dresses']?.[pickerTarget.slotIndex] || 'Detail')
-                : undefined
+              pickerTarget.isLookbook
+                ? (pickerTarget.lookbookImageKey === 'main' ? 'Main Image' : pickerTarget.lookbookImageKey === 'front' ? 'Front View' : 'Back View')
+                : (pickerTarget.slotIndex !== undefined
+                  ? (SLOT_LABELS[GARMENTS.find(g => g.title === pickerTarget.garmentTitle)?.category || 'Dresses']?.[pickerTarget.slotIndex] || 'Detail')
+                  : undefined)
             }
             currentImg={
-              pickerTarget.slotIndex !== undefined
-                ? (photoSlots[`${pickerTarget.garmentTitle}__slot_${pickerTarget.slotIndex}`] || '')
-                : (imageOverrides[pickerTarget.garmentTitle] || GARMENTS.find((g) => g.title === pickerTarget.garmentTitle)?.img || '')
+              pickerTarget.isLookbook
+                ? (lookbookConfig.find(s => s.id === pickerTarget.lookbookSectionId)?.images[pickerTarget.lookbookImageKey!] || '')
+                : (pickerTarget.slotIndex !== undefined
+                  ? (photoSlots[`${pickerTarget.garmentTitle}__slot_${pickerTarget.slotIndex}`] || '')
+                  : (imageOverrides[pickerTarget.garmentTitle] || GARMENTS.find((g) => g.title === pickerTarget.garmentTitle)?.img || ''))
             }
             originalImg={
-              pickerTarget.slotIndex !== undefined
-                ? ''
-                : (GARMENTS.find((g) => g.title === pickerTarget.garmentTitle)?.img || '')
+              pickerTarget.isLookbook
+                ? (defaultLookbookSections.find(s => s.id === pickerTarget.lookbookSectionId)?.images[pickerTarget.lookbookImageKey!] || '')
+                : (pickerTarget.slotIndex !== undefined
+                  ? ''
+                  : (GARMENTS.find((g) => g.title === pickerTarget.garmentTitle)?.img || ''))
             }
             onSelect={(url) => {
-              if (pickerCallbackRef.current) {
+              if (pickerTarget.isLookbook) {
+                const sectionId = pickerTarget.lookbookSectionId!;
+                const imgKey = pickerTarget.lookbookImageKey!;
+                const nextSections = lookbookConfig.map(s => {
+                  if (s.id === sectionId) {
+                    return {
+                      ...s,
+                      images: {
+                        ...s.images,
+                        [imgKey]: url || ''
+                      }
+                    };
+                  }
+                  return s;
+                });
+                handleUpdateLookbook(nextSections);
+              } else if (pickerCallbackRef.current) {
                 pickerCallbackRef.current(url);
                 pickerCallbackRef.current = null;
               } else {

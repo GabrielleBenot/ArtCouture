@@ -11,6 +11,23 @@ export function IntroLoader() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.history.scrollRestoration = 'manual';
+      
+      // If the page was reloaded/refreshed, clear the atelier entered status so the loader runs again
+      const navigationEntries = performance.getEntriesByType('navigation');
+      const isReload = (navigationEntries.length > 0 && (navigationEntries[0] as any).type === 'reload') ||
+                       (typeof performance.navigation !== 'undefined' && performance.navigation.type === 1);
+      if (isReload) {
+        sessionStorage.removeItem("ATELIER_ENTERED");
+      }
+
+      const alreadyEntered = sessionStorage.getItem("ATELIER_ENTERED") === "true";
+      if (alreadyEntered) {
+        setPhase("done");
+        setEntered(true);
+        setHasAnimatedOut(true);
+      } else {
+        document.documentElement.classList.remove("atelier-entered");
+      }
     }
     window.scrollTo(0, 0);
   }, []);
@@ -28,6 +45,11 @@ export function IntroLoader() {
       return () => clearTimeout(timer);
     }
 
+    // Only prevent scrolling if we haven't already entered
+    if (typeof window !== "undefined" && sessionStorage.getItem("ATELIER_ENTERED") === "true") {
+      return;
+    }
+
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
 
@@ -39,6 +61,10 @@ export function IntroLoader() {
 
   const handleEnter = () => {
     window.scrollTo(0, 0);
+
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("ATELIER_ENTERED", "true");
+    }
 
     // Preload key below-the-fold images during the curtain animation (only on desktop/tablet)
     if (window.innerWidth >= 768) {
@@ -72,8 +98,43 @@ export function IntroLoader() {
 
   return (
     <>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            if (typeof window !== 'undefined' && typeof performance !== 'undefined') {
+              var isReload = false;
+              var entries = performance.getEntriesByType('navigation');
+              if (entries.length > 0 && entries[0].type === 'reload') {
+                isReload = true;
+              } else if (performance.navigation && performance.navigation.type === 1) {
+                isReload = true;
+              }
+              if (isReload) {
+                sessionStorage.removeItem('ATELIER_ENTERED');
+              }
+            }
+            if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('ATELIER_ENTERED') === 'true') {
+              document.documentElement.classList.add('atelier-entered');
+            } else if (typeof document !== 'undefined') {
+              document.documentElement.classList.remove('atelier-entered');
+            }
+          `
+        }}
+      />
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            .atelier-entered #intro-loader-root {
+              display: none !important;
+            }
+          `
+        }}
+      />
       {/* Main intro content */}
-      <section className={`fixed inset-0 z-[9999] w-full h-screen overflow-hidden bg-[#fafaf8] transition-all duration-300 ${phase === "idle" ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      <section
+        id="intro-loader-root"
+        className={`fixed inset-0 z-[9999] w-full h-screen overflow-hidden bg-[#fafaf8] transition-all duration-300 ${phase === "idle" ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      >
         
         {/* Mobile: Cinematic centered layout */}
         <div className="absolute inset-0 flex flex-col lg:hidden">

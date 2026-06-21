@@ -4,8 +4,10 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import { DressModal } from "@/components/DressModal";
 import { MagneticButton } from "./MagneticButton";
 import defaultOfferingsConfig from '@/lib/default_config.json';
+import { db } from "@/lib/firebase";
+import { doc, onSnapshot, getDocs, collection as fsCollection } from "firebase/firestore";
 
-const collection = [
+export const collection = [
   {
     "title": "Fuchsia Majesty",
     "category": "Dresses",
@@ -744,6 +746,15 @@ export function EditorialCollection() {
   const [shopOpen, setShopOpen] = useState(false);
   const [shopCategory, setShopCategory] = useState<string>("All");
   const [isMobile, setIsMobile] = useState(false);
+  const [lookbookSections, setLookbookSections] = useState<any[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const raw = localStorage.getItem('artcouture_lookbook_sections');
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -793,68 +804,67 @@ export function EditorialCollection() {
     } catch {}
 
     // 2. Fetch/Sync from Firestore in real-time
-    let unsubHidden: (() => void) | undefined;
-    let unsubOverrides: (() => void) | undefined;
+    const unsubHidden = onSnapshot(doc(db, 'config', 'hidden_items'), (snap) => {
+      if (snap.exists()) {
+        const data = snap.data();
+        const list = data.hiddenList || [];
+        setHiddenItems(list);
+        localStorage.setItem('artcouture_hidden_items', JSON.stringify(list));
+      }
+    }, (err) => {
+      console.error("Real-time hidden items sync failed:", err);
+    });
 
-    const setupRealtimeConfigs = async () => {
+    const unsubOverrides = onSnapshot(doc(db, 'config', 'image_overrides'), (snap) => {
+      if (snap.exists()) {
+        const data = snap.data() as Record<string, string>;
+        setImageOverrides(data);
+        localStorage.setItem('artcouture_image_overrides', JSON.stringify(data));
+      }
+    }, (err) => {
+      console.error("Real-time image overrides sync failed:", err);
+    });
+
+    const unsubLookbook = onSnapshot(doc(db, 'config', 'lookbook'), (snap) => {
+      if (snap.exists()) {
+        const data = snap.data();
+        const sections = data.sections || [];
+        setLookbookSections(sections);
+        localStorage.setItem('artcouture_lookbook_sections', JSON.stringify(sections));
+      }
+    }, (err) => {
+      console.error("Real-time lookbook config sync failed:", err);
+    });
+
+    // Fetch vault images for Alt SEO & Thumbnail mapping
+    const syncVault = async () => {
       try {
-        const { doc, onSnapshot, collection: fsCollection, getDocs } = await import('firebase/firestore');
-        const { db } = await import('@/lib/firebase');
-
-        // Real-time hidden items listener
-        unsubHidden = onSnapshot(doc(db, 'config', 'hidden_items'), (snap) => {
-          if (snap.exists()) {
-            const data = snap.data();
-            const list = data.hiddenList || [];
-            setHiddenItems(list);
-            localStorage.setItem('artcouture_hidden_items', JSON.stringify(list));
-          }
-        }, (err) => {
-          console.error("Real-time hidden items sync failed:", err);
-        });
-
-        // Real-time image overrides listener
-        unsubOverrides = onSnapshot(doc(db, 'config', 'image_overrides'), (snap) => {
-          if (snap.exists()) {
-            const data = snap.data() as Record<string, string>;
-            setImageOverrides(data);
-            localStorage.setItem('artcouture_image_overrides', JSON.stringify(data));
-          }
-        }, (err) => {
-          console.error("Real-time image overrides sync failed:", err);
-        });
-
-        // Fetch vault images for Alt SEO & Thumbnail mapping
-        try {
-          const { getDocs } = await import('firebase/firestore');
-          const vaultSnap = await getDocs(fsCollection(db, 'vault'));
-          const altMapping: Record<string, string> = {};
-          const thumbMapping: Record<string, string> = {};
-          vaultSnap.forEach((doc) => {
-            const data = doc.data();
-            if (data.url) {
-              if (data.altText) altMapping[data.url] = data.altText;
-              if (data.thumbnailUrl) {
-                thumbMapping[data.url] = data.thumbnailUrl;
-              }
+        const vaultSnap = await getDocs(fsCollection(db, 'vault'));
+        const altMapping: Record<string, string> = {};
+        const thumbMapping: Record<string, string> = {};
+        vaultSnap.forEach((doc) => {
+          const data = doc.data();
+          if (data.url) {
+            if (data.altText) altMapping[data.url] = data.altText;
+            if (data.thumbnailUrl) {
+              thumbMapping[data.url] = data.thumbnailUrl;
             }
-          });
-          setVaultAlts(altMapping);
-          setVaultThumbnails(thumbMapping);
-          localStorage.setItem('artcouture_vault_alts', JSON.stringify(altMapping));
-          localStorage.setItem('artcouture_vault_thumbnails', JSON.stringify(thumbMapping));
-        } catch (vaultErr) {
-          console.error("Failed to sync vault configs:", vaultErr);
-        }
-      } catch (e) {
-        console.error("Firestore config sync failed:", e);
+          }
+        });
+        setVaultAlts(altMapping);
+        setVaultThumbnails(thumbMapping);
+        localStorage.setItem('artcouture_vault_alts', JSON.stringify(altMapping));
+        localStorage.setItem('artcouture_vault_thumbnails', JSON.stringify(thumbMapping));
+      } catch (vaultErr) {
+        console.error("Failed to sync vault configs:", vaultErr);
       }
     };
-    setupRealtimeConfigs();
+    syncVault();
 
     return () => {
-      if (unsubHidden) unsubHidden();
-      if (unsubOverrides) unsubOverrides();
+      unsubHidden();
+      unsubOverrides();
+      unsubLookbook();
     };
   }, []);
 
@@ -862,7 +872,17 @@ export function EditorialCollection() {
     setShowAllItems(false);
   }, [activeCategory]);
 
-  const visibleCollection = collection.filter(item => !hiddenItems.includes(item.title));
+  const visibleCollection = collection.filter(item => {
+    // 1. Check general inventory hidden list
+    if (hiddenItems.includes(item.title)) return false;
+
+    // 2. Check if corresponding lookbook section is hidden
+    const lookbookId = item.title.toLowerCase().replace(" ", "-");
+    const lookbookMatch = lookbookSections.find(s => s.id === lookbookId);
+    if (lookbookMatch && lookbookMatch.visible === false) return false;
+
+    return true;
+  });
   const categories = Array.from(new Set(visibleCollection.map(item => item.category)));
   const floatingCategories = categories.filter(c => c !== activeCategory);
 
@@ -988,12 +1008,12 @@ export function EditorialCollection() {
 
         {/* Category Tabs */}
         <div className="flex items-center justify-center mb-24 relative z-40">
-          <div className="grid grid-cols-2 md:flex md:items-center gap-y-6 gap-x-10 md:gap-10">
+          <div className="flex flex-wrap items-center justify-center gap-y-4 gap-x-8 md:gap-10">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className="relative font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] pb-3 transition-colors duration-300 whitespace-nowrap text-center"
+                className="relative font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] pb-3 transition-colors duration-300 whitespace-nowrap text-center cursor-pointer"
                 style={{ color: activeCategory === cat ? 'var(--text-main)' : 'var(--text-muted)' }}
               >
                 {cat}
@@ -1016,64 +1036,70 @@ export function EditorialCollection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-12 max-w-[85%] md:max-w-none mx-auto"
+            className="flex flex-col md:flex-row justify-center gap-6 md:gap-8 lg:gap-12 max-w-[85%] md:max-w-none mx-auto"
           >
             {/* Column 1 */}
-            <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
-              {col1.map((item, idx) => {
-                const displayItem = imageOverrides[item.title]
-                  ? { ...item, img: imageOverrides[item.title] }
-                  : item;
-                return (
-                  <DressCard 
-                    key={item.title + idx} 
-                    item={displayItem} 
-                    altText={vaultAlts[displayItem.img]} 
-                    priority={idx === 0}
-                    thumbnailUrl={vaultThumbnails[displayItem.img]}
-                    onClick={() => setSelectedDress(displayItem)} 
-                  />
-                );
-              })}
-            </div>
+            {col1.length > 0 && (
+              <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
+                {col1.map((item, idx) => {
+                  const displayItem = imageOverrides[item.title]
+                    ? { ...item, img: imageOverrides[item.title] }
+                    : item;
+                  return (
+                    <DressCard 
+                      key={item.title + idx} 
+                      item={displayItem} 
+                      altText={vaultAlts[displayItem.img]} 
+                      priority={idx === 0}
+                      thumbnailUrl={vaultThumbnails[displayItem.img]}
+                      onClick={() => setSelectedDress(displayItem)} 
+                    />
+                  );
+                })}
+              </div>
+            )}
             
             {/* Column 2 - Offset visually */}
-            <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3 md:pt-32">
-              {col2.map((item, idx) => {
-                const displayItem = imageOverrides[item.title]
-                  ? { ...item, img: imageOverrides[item.title] }
-                  : item;
-                return (
-                  <DressCard 
-                    key={item.title + idx} 
-                    item={displayItem} 
-                    altText={vaultAlts[displayItem.img]} 
-                    priority={idx === 0 && !isMobile}
-                    thumbnailUrl={vaultThumbnails[displayItem.img]}
-                    onClick={() => setSelectedDress(displayItem)} 
-                  />
-                );
-              })}
-            </div>
+            {col2.length > 0 && (
+              <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3 md:pt-32">
+                {col2.map((item, idx) => {
+                  const displayItem = imageOverrides[item.title]
+                    ? { ...item, img: imageOverrides[item.title] }
+                    : item;
+                  return (
+                    <DressCard 
+                      key={item.title + idx} 
+                      item={displayItem} 
+                      altText={vaultAlts[displayItem.img]} 
+                      priority={idx === 0 && !isMobile}
+                      thumbnailUrl={vaultThumbnails[displayItem.img]}
+                      onClick={() => setSelectedDress(displayItem)} 
+                    />
+                  );
+                })}
+              </div>
+            )}
 
             {/* Column 3 */}
-            <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
-              {col3.map((item, idx) => {
-                const displayItem = imageOverrides[item.title]
-                  ? { ...item, img: imageOverrides[item.title] }
-                  : item;
-                return (
-                  <DressCard 
-                    key={item.title + idx} 
-                    item={displayItem} 
-                    altText={vaultAlts[displayItem.img]} 
-                    priority={idx === 0 && !isMobile}
-                    thumbnailUrl={vaultThumbnails[displayItem.img]}
-                    onClick={() => setSelectedDress(displayItem)} 
-                  />
-                );
-              })}
-            </div>
+            {col3.length > 0 && (
+              <div className="flex flex-col gap-8 lg:gap-12 md:w-1/3">
+                {col3.map((item, idx) => {
+                  const displayItem = imageOverrides[item.title]
+                    ? { ...item, img: imageOverrides[item.title] }
+                    : item;
+                  return (
+                    <DressCard 
+                      key={item.title + idx} 
+                      item={displayItem} 
+                      altText={vaultAlts[displayItem.img]} 
+                      priority={idx === 0 && !isMobile}
+                      thumbnailUrl={vaultThumbnails[displayItem.img]}
+                      onClick={() => setSelectedDress(displayItem)} 
+                    />
+                  );
+                })}
+              </div>
+            )}
           </motion.div>
         </div>
 

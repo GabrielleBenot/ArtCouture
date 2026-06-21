@@ -484,6 +484,14 @@ export default function Home() {
   const [loupeOpen, setLoupeOpen] = useState(false);
   const lightboxTouchStart = React.useRef<number | null>(null);
 
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("came_from_lookbook");
+      sessionStorage.removeItem("last_lookbook_item");
+      sessionStorage.removeItem("lookbook_back_target");
+    }
+  }, []);
+
   // Open lightbox with gallery context
   const openLightbox = (src: string, gallery?: string[]) => {
     setLightboxSrc(src);

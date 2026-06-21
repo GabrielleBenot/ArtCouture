@@ -9,10 +9,13 @@ interface CheckoutAgreementFormProps {
   type: "rent" | "purchase" | "commission";
   dress: DressItem;
   stripeLink?: string;
+  availableSizes?: string;
   onBack: () => void;
+  fromPage?: string;
+  lookbookItemId?: string | null;
 }
 
-function CheckoutAgreementForm({ type, dress, stripeLink, onBack }: CheckoutAgreementFormProps) {
+function CheckoutAgreementForm({ type, dress, stripeLink, availableSizes, onBack, fromPage, lookbookItemId }: CheckoutAgreementFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [showSizingChart, setShowSizingChart] = useState(false);
@@ -44,7 +47,9 @@ function CheckoutAgreementForm({ type, dress, stripeLink, onBack }: CheckoutAgre
         {type === "commission" ? (
           <div className="flex flex-col gap-4 max-w-sm mx-auto">
             <a
-              href={`/measurements?dress=${encodeURIComponent(dress.title)}`}
+              href={`/measurements?dress=${encodeURIComponent(dress.title)}${
+                fromPage ? `&from=${fromPage}` : ""
+              }${lookbookItemId ? `&item=${lookbookItemId}` : ""}`}
               className="bg-[var(--dada-red)] text-white py-3.5 px-8 font-mono text-[10px] tracking-widest uppercase hover:bg-neutral-800 transition-colors duration-300 text-center rounded-full block cursor-pointer"
             >
               Enter Measurement Vault
@@ -267,6 +272,30 @@ function CheckoutAgreementForm({ type, dress, stripeLink, onBack }: CheckoutAgre
             )}
           </AnimatePresence>
 
+          {type === "rent" && availableSizes && (
+            <div className="relative group mb-6">
+              <select
+                name="selectedSize"
+                required
+                className="w-full bg-transparent border-b border-black/20 pb-2 text-sm font-mono focus:outline-none focus:border-[var(--dada-red)] transition-colors text-black/80 appearance-none cursor-pointer"
+                defaultValue=""
+              >
+                <option value="" disabled>Select Rental Size</option>
+                {availableSizes.split(',').map((sz) => {
+                  const trimmed = sz.trim();
+                  if (!trimmed) return null;
+                  return (
+                    <option key={trimmed} value={trimmed}>
+                      {trimmed}
+                    </option>
+                  );
+                })}
+              </select>
+              <div className="absolute right-2 top-0 pointer-events-none text-black/40">▼</div>
+              <label className="absolute left-0 -top-4 text-[9px] font-mono text-[var(--dada-red)] uppercase tracking-wider">Requested Size</label>
+            </div>
+          )}
+
           {type !== "purchase" && (
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="relative group">
@@ -413,11 +442,15 @@ function CheckoutAgreementForm({ type, dress, stripeLink, onBack }: CheckoutAgre
 export function DressModal({ 
   dress, 
   onClose,
-  fromShop = false
+  fromShop = false,
+  fromPage,
+  lookbookItemId
 }: { 
   dress: DressItem, 
   onClose: () => void,
-  fromShop?: boolean
+  fromShop?: boolean,
+  fromPage?: string,
+  lookbookItemId?: string | null
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -935,7 +968,10 @@ export function DressModal({
                               ? offerings?.purchaseSample?.stripeLink
                               : offerings?.commissionBespoke?.stripeLink || dress.depositLink
                           }
+                          availableSizes={offerings?.rentEditorial?.sizes}
                           onBack={() => setShowAgreementForm(false)}
+                          fromPage={fromPage}
+                          lookbookItemId={lookbookItemId}
                         />
                       </motion.div>
                     )}
@@ -1319,7 +1355,10 @@ export function DressModal({
                   ? offerings?.purchaseSample?.stripeLink
                   : offerings?.commissionBespoke?.stripeLink || dress.depositLink
               }
+              availableSizes={offerings?.rentEditorial?.sizes}
               onBack={() => setShowAgreementForm(false)}
+              fromPage={fromPage}
+              lookbookItemId={lookbookItemId}
             />
           </motion.div>
         )}
