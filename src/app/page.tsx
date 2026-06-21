@@ -843,7 +843,96 @@ export default function Home() {
         <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--border-light)] to-transparent" />
       </div>
 
+      {/* GOWNS / FABRICS INTRODUCTION */}
+      <section className="py-20 md:py-28 bg-[var(--background)]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row gap-12 md:gap-16 lg:gap-24 items-center">
+            {/* Left: Text intro */}
+            <div className="md:w-1/2">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1 }}
+              >
+                <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-6">Our Philosophy</span>
+                <h3 className="flex flex-col mb-8">
+                  <span className="font-sans font-black text-[3.75rem] md:text-6xl lg:text-7xl uppercase tracking-tighter leading-[0.85]">Gowns</span>
+                  <span className="font-serif font-light text-3xl md:text-4xl lg:text-5xl -mt-1 md:mt-0">as rare as the</span>
+                  <span className="font-serif italic font-light text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] text-[var(--dada-red)] -mt-2 md:mt-1 leading-[0.8]">Women who wear them.</span>
+                </h3>
+                <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-lg mb-6">
+                  Each gown is an exclusive design, created entirely in-house: rare satin, beaded tulle, and velvet that drinks in the light. Crafted to embrace the body with precision and grace. One client. One vision. One piece.
+                </p>
+              </motion.div>
+            </div>
+            
+            {/* Right: Quote / Atelier statement */}
+            <div className="md:w-1/2">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2 }}
+                className="border-l border-[var(--dada-red)]/20 pl-8 md:pl-12 py-2"
+              >
+                <blockquote className="font-serif italic text-lg md:text-xl lg:text-2xl text-[var(--text-main)] leading-[1.5] mb-6">
+                  &ldquo;We make most pieces to order, because that&apos;s how couture should work. A few ready-made treasures are available for those who want to take something home right away.&rdquo;
+                </blockquote>
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--text-muted)]">Gabrielle &amp; Charmaigne</span>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
 
+        {/* Fabric Grid */}
+        <div className="max-w-7xl mx-auto px-6 mt-16">
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="block text-left font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-8 border-b border-black/5 pb-4"
+          >
+            A Selection of Our Finest Materials
+          </motion.span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { src: "/images/fabric_silk.jpg", label: "Silk Satin" },
+              { src: "/images/fabric_velvet.jpg", label: "Velvet" },
+              { src: "/images/fabric_lace.jpg", label: "French Lace" },
+              { src: "/images/fabric_embroidery.jpg", label: "Embroidery" },
+            ].map((fabric, i) => (
+              <motion.div
+                key={fabric.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: i * 0.1 }}
+                className="group relative aspect-square overflow-hidden rounded-sm"
+              >
+                <img
+                  src={fabric.src}
+                  alt={`Art Couture ${fabric.label} fabric detail`}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <span className="absolute bottom-3 left-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/80">
+                  {fabric.label}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Visual Breaker */}
+      <div className="max-w-xs mx-auto py-8">
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--dada-red)]/30 to-transparent" />
+      </div>
 
       {/* 2. COLLECTIONS - Show the work early */}
       <div id="collections">
@@ -933,91 +1022,9 @@ export default function Home() {
                 </p>
               </motion.div>
 
-
-              {/* Divider */}
-              <div className="max-w-xs mb-16 md:mb-24">
-                <div className="h-[1px] bg-gradient-to-r from-[var(--dada-red)]/30 via-[var(--dada-red)]/30 to-transparent" />
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1 }}
-              >
-                <h3 className="flex flex-col mb-10">
-                  <span className="font-sans font-black text-[3.75rem] md:text-6xl lg:text-7xl uppercase tracking-tighter leading-[0.85]">Gowns</span>
-                  <span className="font-serif font-light text-3xl md:text-4xl lg:text-5xl -mt-1 md:mt-0">as rare as the</span>
-                  <span className="font-serif italic font-light text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] text-[var(--dada-red)] -mt-2 md:mt-1 leading-[0.8]">Women who wear them.</span>
-                </h3>
-                <p className="text-xs md:text-sm text-[var(--text-muted)] font-mono uppercase tracking-[0.15em] leading-[1.8] max-w-lg">
-                  Each gown is an exclusive design, created entirely in-house: rare satin, beaded tulle, and velvet that drinks in the light. Crafted to embrace the body with precision and grace. One client. One vision. One piece.
-                </p>
-              </motion.div>
             </div>
           </div>
         </div>
-
-        {/* Fabric Grid */}
-        <div className="max-w-6xl mx-auto px-6">
-          <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="block text-center font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--text-muted)] mb-8"
-          >
-            A Selection of Our Finest Materials
-          </motion.span>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            {[
-              { src: "/images/fabric_silk.jpg", label: "Silk Satin" },
-              { src: "/images/fabric_velvet.jpg", label: "Velvet" },
-              { src: "/images/fabric_lace.jpg", label: "French Lace" },
-              { src: "/images/fabric_embroidery.jpg", label: "Embroidery" },
-            ].map((fabric, i) => (
-              <motion.div
-                key={fabric.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: i * 0.15 }}
-                className="group relative aspect-square overflow-hidden"
-              >
-                <img
-                  src={fabric.src}
-                  alt={`Art Couture ${fabric.label} fabric detail`}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <span className="absolute bottom-3 left-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/80">
-                  {fabric.label}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Quote */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2 }}
-          className="max-w-3xl mx-auto text-center px-6 mt-20"
-        >
-          <span className="block font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--dada-red)] mb-6">Made by Hand, Made to Last</span>
-          <blockquote className="font-serif italic text-lg md:text-[1.7rem] lg:text-[2rem] text-[var(--text-main)] leading-[1.4] mb-8">
-            &ldquo;We make most pieces to order, because that&apos;s how couture should work. A few ready-made treasures are available for those who want to take something home right away.&rdquo;
-          </blockquote>
-          <div className="flex items-center justify-center gap-4">
-            <div className="h-[1px] w-12 bg-[var(--dada-red)]/40" />
-            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--text-muted)]">Gabi &amp; Char</span>
-            <div className="h-[1px] w-12 bg-[var(--dada-red)]/40" />
-          </div>
-        </motion.div>
-
       </section>
 
       {/* YOUR VISION, OUR CRAFT - Bespoke Inspiration */}
