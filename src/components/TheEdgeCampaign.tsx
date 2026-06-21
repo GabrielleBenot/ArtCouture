@@ -55,7 +55,7 @@ export function TheEdgeCampaign() {
           >
             <motion.img 
               style={{ filter }}
-              src="/campaign/atelier_sketch.png" 
+              src="/campaign/atelier_sketch.jpg" 
               alt="Art Couture atelier fashion sketch by Charmaigne Menn"
               loading="lazy"
               className="relative z-10 w-full h-full object-cover object-center shadow-2xl"

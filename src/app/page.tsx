@@ -689,7 +689,7 @@ export default function Home() {
             </div>
             <div className="flex-1 order-2 md:order-2">
               <ParallaxImage
-                src="/images/couture_mannequin.png"
+                src="/images/couture_mannequin.jpg"
                 alt="Haute couture gown by Charmaigne Menn on atelier mannequin"
               />
             </div>

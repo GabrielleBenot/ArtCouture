@@ -25,6 +25,7 @@ interface VaultImage {
   id: string;
   name: string;
   dataUrl: string;
+  thumbnailUrl?: string;
   uploadedAt: string;
   title?: string;
   altText?: string;
@@ -240,6 +241,7 @@ async function uploadImageToCloud(file: File): Promise<VaultImage> {
         title: cleanTitle,
         altText: data.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
         dataUrl: data.url,
+        thumbnailUrl: data.thumbnailUrl || data.url,
         uploadedAt: data.uploadedAt,
         hash: hash
       };
@@ -248,11 +250,31 @@ async function uploadImageToCloud(file: File): Promise<VaultImage> {
     console.error("Duplicate check failed:", e);
   }
 
+  // Generate mobile thumbnail (800px max dimension at 75% quality)
+  let thumbnailDataUrl = dataUrl;
+  try {
+    thumbnailDataUrl = await compressImage(file, 800, 0.75);
+  } catch (thumbErr) {
+    console.error("Failed to compress thumbnail, falling back to original", thumbErr);
+  }
+
   const imageId = crypto.randomUUID();
   const urlFriendlyName = cleanFileNameToUrlFriendly(file.name);
+  
+  // Upload original
   const storageRef = ref(storage, `vault/${urlFriendlyName}-${imageId.substring(0, 8)}.jpg`);
   await uploadString(storageRef, dataUrl, 'data_url');
   const downloadUrl = await getDownloadURL(storageRef);
+
+  // Upload thumbnail
+  let thumbnailUrl = downloadUrl;
+  try {
+    const thumbStorageRef = ref(storage, `vault/thumbnails/${urlFriendlyName}-thumb-${imageId.substring(0, 8)}.jpg`);
+    await uploadString(thumbStorageRef, thumbnailDataUrl, 'data_url');
+    thumbnailUrl = await getDownloadURL(thumbStorageRef);
+  } catch (uploadThumbErr) {
+    console.error("Failed to upload thumbnail to Storage, using original", uploadThumbErr);
+  }
 
   const cleanTitle = cleanFileNameToTitle(file.name);
   const entry = {
@@ -260,6 +282,7 @@ async function uploadImageToCloud(file: File): Promise<VaultImage> {
     title: cleanTitle,
     altText: `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
     url: downloadUrl,
+    thumbnailUrl: thumbnailUrl,
     uploadedAt: new Date().toISOString(),
     hash: hash
   };
@@ -271,6 +294,7 @@ async function uploadImageToCloud(file: File): Promise<VaultImage> {
     title: cleanTitle,
     altText: entry.altText,
     dataUrl: downloadUrl,
+    thumbnailUrl: thumbnailUrl,
     uploadedAt: entry.uploadedAt,
     hash: hash
   };
@@ -287,12 +311,33 @@ async function uploadImageToCloud(file: File): Promise<VaultImage> {
 }
 
 async function deleteImageFromCloud(id: string, dataUrl: string) {
-  // 1. Delete from Firebase Storage
+  // Try to fetch the document first to get thumbnailUrl
+  let thumbnailUrl: string | undefined;
+  try {
+    const docSnap = await getDoc(doc(db, 'vault', id));
+    if (docSnap.exists()) {
+      thumbnailUrl = docSnap.data().thumbnailUrl;
+    }
+  } catch (e) {
+    console.error("Failed to fetch image info for thumbnail delete:", e);
+  }
+
+  // 1. Delete from Firebase Storage (original)
   try {
     const storageRef = ref(storage, dataUrl);
     await deleteObject(storageRef);
   } catch (e) {
-    console.error("Storage delete failed (might not exist):", e);
+    console.error("Storage delete failed (original, might not exist):", e);
+  }
+
+  // Delete from Firebase Storage (thumbnail)
+  if (thumbnailUrl && thumbnailUrl !== dataUrl) {
+    try {
+      const thumbStorageRef = ref(storage, thumbnailUrl);
+      await deleteObject(thumbStorageRef);
+    } catch (e) {
+      console.error("Storage delete failed (thumbnail, might not exist):", e);
+    }
   }
 
   // 2. Delete from Firestore vault collection
@@ -783,6 +828,7 @@ function ImagePickerModal({
             title: cleanTitle,
             altText: data.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
             dataUrl: data.url,
+            thumbnailUrl: data.thumbnailUrl || data.url,
             uploadedAt: data.uploadedAt,
           });
         });
@@ -1941,6 +1987,123 @@ function DesignVault({ onDeleteSuccess }: { onDeleteSuccess?: (dataUrl: string) 
   const [isMerging, setIsMerging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const [hasScannedThumbs, setHasScannedThumbs] = useState(false);
+  const [missingThumbs, setMissingThumbs] = useState<VaultImage[]>([]);
+  const [isGeneratingThumbs, setIsGeneratingThumbs] = useState(false);
+  const [generatingProgress, setGeneratingProgress] = useState(0);
+
+  const handleScanOptimizations = useCallback(async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'vault'));
+      const missing: VaultImage[] = [];
+      querySnapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        if (!data.thumbnailUrl && data.url) {
+          const cleanTitle = data.title || cleanFileNameToTitle(data.name || '');
+          missing.push({
+            id: docSnap.id,
+            name: data.name || '',
+            title: cleanTitle,
+            altText: data.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
+            dataUrl: data.url,
+            uploadedAt: data.uploadedAt,
+            hash: data.hash
+          });
+        }
+      });
+      setMissingThumbs(missing);
+      setHasScannedThumbs(true);
+    } catch (e) {
+      console.error("Failed to scan for missing thumbnails:", e);
+      alert("Failed to scan vault images. Check console for details.");
+    }
+  }, []);
+
+  const handleBatchGenerateThumbnails = useCallback(async () => {
+    if (missingThumbs.length === 0) return;
+    setIsGeneratingThumbs(true);
+    setGeneratingProgress(0);
+
+    let count = 0;
+    for (const img of missingThumbs) {
+      try {
+        // 1. Download/load image from URL
+        const loadedImg = await new Promise<HTMLImageElement>((resolve, reject) => {
+          const tempImg = new Image();
+          tempImg.crossOrigin = "anonymous";
+          tempImg.onload = () => resolve(tempImg);
+          tempImg.onerror = (err) => reject(err);
+          tempImg.src = img.dataUrl;
+        });
+
+        // 2. Compress to 800px width/height canvas at 75% quality
+        let w = loadedImg.naturalWidth;
+        let h = loadedImg.naturalHeight;
+        const maxDim = 800;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) {
+            h = Math.round(h * (maxDim / w));
+            w = maxDim;
+          } else {
+            w = Math.round(w * (maxDim / h));
+            h = maxDim;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(loadedImg, 0, 0, w, h);
+        const thumbDataUrl = canvas.toDataURL('image/jpeg', 0.75);
+
+        // 3. Upload to storage
+        const urlFriendlyName = cleanFileNameToUrlFriendly(img.name);
+        const thumbStorageRef = ref(storage, `vault/thumbnails/${urlFriendlyName}-thumb-${img.id.substring(0, 8)}.jpg`);
+        await uploadString(thumbStorageRef, thumbDataUrl, 'data_url');
+        const thumbnailUrl = await getDownloadURL(thumbStorageRef);
+
+        // 4. Update Firestore
+        await setDoc(doc(db, 'vault', img.id), { thumbnailUrl }, { merge: true });
+
+        // Update local images state on-the-fly
+        setImages(prev => prev.map(item => item.id === img.id ? { ...item, thumbnailUrl } : item));
+
+        count++;
+        setGeneratingProgress(count);
+      } catch (err) {
+        console.error(`Failed to generate thumbnail for image ID ${img.id}:`, err);
+      }
+    }
+
+    // Sync to local storage vault cache
+    try {
+      const querySnapshot = await getDocs(collection(db, 'vault'));
+      const list: VaultImage[] = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const cleanTitle = data.title || cleanFileNameToTitle(data.name || '');
+        list.push({
+          id: doc.id,
+          name: data.name || '',
+          title: cleanTitle,
+          altText: data.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
+          dataUrl: data.url,
+          thumbnailUrl: data.thumbnailUrl || data.url,
+          uploadedAt: data.uploadedAt,
+          hash: data.hash
+        });
+      });
+      list.sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime());
+      localStorage.setItem(VAULT_KEY, JSON.stringify(list));
+    } catch {}
+
+    alert(`Successfully generated thumbnails for ${count} of ${missingThumbs.length} images.`);
+    setIsGeneratingThumbs(false);
+    setHasScannedThumbs(false);
+    setMissingThumbs([]);
+  }, [missingThumbs]);
+
   useEffect(() => {
     // 1. Initial load from local cache
     try {
@@ -1974,6 +2137,7 @@ function DesignVault({ onDeleteSuccess }: { onDeleteSuccess?: (dataUrl: string) 
             title: cleanTitle,
             altText: data.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
             dataUrl: data.url,
+            thumbnailUrl: data.thumbnailUrl || data.url,
             uploadedAt: data.uploadedAt,
             hash: data.hash
           });
@@ -2216,6 +2380,69 @@ function DesignVault({ onDeleteSuccess }: { onDeleteSuccess?: (dataUrl: string) 
                     </div>
                   );
                 })}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Performance Optimization Tool */}
+      <div className="mb-8 p-6 rounded-xl border border-white/8 bg-white/[0.02] flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h3 className="text-sm font-mono font-medium text-white/90">Vault Performance Optimizer</h3>
+          <p className="text-xs font-mono text-white/40 mt-1">Scan for large images missing optimized mobile thumbnails to accelerate mobile load times.</p>
+        </div>
+        <div className="flex items-center gap-3">
+          {hasScannedThumbs && (
+            <button
+              onClick={() => {
+                setHasScannedThumbs(false);
+                setMissingThumbs([]);
+              }}
+              className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-xs font-mono text-white/60 cursor-pointer"
+            >
+              Clear
+            </button>
+          )}
+          <button
+            onClick={handleScanOptimizations}
+            className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-xs font-mono text-white/90 cursor-pointer"
+          >
+            Scan Mobile Thumbnails
+          </button>
+        </div>
+      </div>
+
+      {hasScannedThumbs && (
+        <div className="mb-8 p-6 rounded-xl border border-violet-500/20 bg-violet-500/[0.02]">
+          {missingThumbs.length === 0 ? (
+            <div className="flex items-center gap-3">
+              <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p className="text-xs font-mono text-white/80">Scan complete: All images are fully optimized with mobile thumbnails!</p>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <div>
+                    <p className="text-xs font-mono font-medium text-white/90">
+                      Found {missingThumbs.length} image{missingThumbs.length > 1 ? 's' : ''} lacking mobile thumbnails.
+                    </p>
+                    <p className="text-[10px] font-mono text-white/40 mt-0.5">Optimizing will generate lightweight 800px thumbnails in Storage for grid views.</p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleBatchGenerateThumbnails}
+                  disabled={isGeneratingThumbs}
+                  className="px-4 py-2 rounded-lg bg-violet-500/20 border border-violet-500/30 hover:bg-violet-500/30 disabled:opacity-50 text-xs font-mono text-violet-300 cursor-pointer self-start md:self-auto"
+                >
+                  {isGeneratingThumbs ? `Optimizing (${generatingProgress}/${missingThumbs.length})...` : 'Generate Mobile Thumbnails'}
+                </button>
               </div>
             </div>
           )}

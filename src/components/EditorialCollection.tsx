@@ -457,14 +457,16 @@ function DressCard({
   isPlaceholder = false,
   isActiveCategory = false,
   altText,
-  priority = false
+  priority = false,
+  thumbnailUrl
 }: { 
   item: DressItem, 
   onClick: () => void,
   isPlaceholder?: boolean,
   isActiveCategory?: boolean,
   altText?: string,
-  priority?: boolean
+  priority?: boolean,
+  thumbnailUrl?: string
 }) {
   const cardRef = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: false, margin: "0px 0px -75% 0px" });
@@ -494,7 +496,7 @@ function DressCard({
 
         {/* The Product Image - revealed on hover/scroll */}
         <motion.img 
-          src={item.img} 
+          src={thumbnailUrl || item.img} 
           alt={altText || `${item.title} – Art Couture bespoke haute couture`}
           loading={priority ? "eager" : "lazy"}
           className={`w-full h-full object-cover absolute inset-0 transition-all duration-[2s] ${isActiveCategory ? '' : 'group-hover:scale-110'} ${isInView ? 'scale-105' : ''}`}
@@ -681,8 +683,17 @@ export function EditorialCollection() {
   const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
   const [hiddenItems, setHiddenItems] = useState<string[]>([]);
   const [vaultAlts, setVaultAlts] = useState<Record<string, string>>({});
+  const [vaultThumbnails, setVaultThumbnails] = useState<Record<string, string>>({});
   const [shopOpen, setShopOpen] = useState(false);
   const [shopCategory, setShopCategory] = useState<string>("All");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     // 1. Initial load from localStorage for instant preview
@@ -697,6 +708,10 @@ export function EditorialCollection() {
     try {
       const rawVaultAlts = localStorage.getItem('artcouture_vault_alts');
       if (rawVaultAlts) setVaultAlts(JSON.parse(rawVaultAlts));
+    } catch {}
+    try {
+      const rawVaultThumbs = localStorage.getItem('artcouture_vault_thumbnails');
+      if (rawVaultThumbs) setVaultThumbnails(JSON.parse(rawVaultThumbs));
     } catch {}
 
     // 2. Fetch from Firestore in the background
@@ -733,20 +748,26 @@ export function EditorialCollection() {
           localStorage.setItem('artcouture_offerings', JSON.stringify(data));
         }
 
-        // Fetch vault images for Alt SEO mapping
+        // Fetch vault images for Alt SEO & Thumbnail mapping
         try {
           const vaultSnap = await getDocs(fsCollection(db, 'vault'));
           const altMapping: Record<string, string> = {};
+          const thumbMapping: Record<string, string> = {};
           vaultSnap.forEach((doc) => {
             const data = doc.data();
-            if (data.url && data.altText) {
-              altMapping[data.url] = data.altText;
+            if (data.url) {
+              if (data.altText) altMapping[data.url] = data.altText;
+              if (data.thumbnailUrl) {
+                thumbMapping[data.url] = data.thumbnailUrl;
+              }
             }
           });
           setVaultAlts(altMapping);
+          setVaultThumbnails(thumbMapping);
           localStorage.setItem('artcouture_vault_alts', JSON.stringify(altMapping));
+          localStorage.setItem('artcouture_vault_thumbnails', JSON.stringify(thumbMapping));
         } catch (vaultErr) {
-          console.error("Failed to sync vault alts:", vaultErr);
+          console.error("Failed to sync vault configs:", vaultErr);
         }
       } catch (e) {
         console.error("Firestore config sync failed:", e);
@@ -914,6 +935,7 @@ export function EditorialCollection() {
                     item={displayItem} 
                     altText={vaultAlts[displayItem.img]} 
                     priority={idx === 0}
+                    thumbnailUrl={vaultThumbnails[displayItem.img]}
                     onClick={() => setSelectedDress(displayItem)} 
                   />
                 );
@@ -931,7 +953,8 @@ export function EditorialCollection() {
                     key={item.title + idx} 
                     item={displayItem} 
                     altText={vaultAlts[displayItem.img]} 
-                    priority={idx === 0}
+                    priority={idx === 0 && !isMobile}
+                    thumbnailUrl={vaultThumbnails[displayItem.img]}
                     onClick={() => setSelectedDress(displayItem)} 
                   />
                 );
@@ -949,7 +972,8 @@ export function EditorialCollection() {
                     key={item.title + idx} 
                     item={displayItem} 
                     altText={vaultAlts[displayItem.img]} 
-                    priority={idx === 0}
+                    priority={idx === 0 && !isMobile}
+                    thumbnailUrl={vaultThumbnails[displayItem.img]}
                     onClick={() => setSelectedDress(displayItem)} 
                   />
                 );

@@ -40,18 +40,20 @@ export function IntroLoader() {
   const handleEnter = () => {
     window.scrollTo(0, 0);
 
-    // Preload key below-the-fold images during the curtain animation
-    const preloadImages = [
-      '/images/gabi_char.jpg',
-      '/images/color_is_power.jpg',
-      '/images/patterns_fabric.jpg',
-      '/images/luxury_detail.jpg',
-      '/images/couture_mannequin.png',
-    ];
-    preloadImages.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
+    // Preload key below-the-fold images during the curtain animation (only on desktop/tablet)
+    if (window.innerWidth >= 768) {
+      const preloadImages = [
+        '/images/gabi_char.jpg',
+        '/images/color_is_power.jpg',
+        '/images/patterns_fabric.jpg',
+        '/images/luxury_detail.jpg',
+        '/images/couture_mannequin.jpg',
+      ];
+      preloadImages.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+      });
+    }
 
     // Phase 1: Brief white flash
     setPhase("flash");

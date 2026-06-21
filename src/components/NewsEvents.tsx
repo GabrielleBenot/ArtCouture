@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 
 interface NewsItem {
   tag: string;
@@ -32,7 +32,7 @@ const newsItems: NewsItem[] = [
     description:
       "An intimate evening inside the Art Couture atelier. View new collections before they are released, meet Gabrielle and Charmaigne, and experience haute couture up close with champagne and live painting. Limited to 20 guests.",
     image:
-      "/images/atelier_evening.png",
+      "/images/atelier_evening.jpg",
     cta: "Request an Invitation",
     ctaHref: "#contact",
   },
@@ -54,7 +54,7 @@ const newsItems: NewsItem[] = [
     description:
       "Discover the centuries-old French technique of Lunéville embroidery, where a fine crochet hook transforms tulle into shimmering works of art. Learn to set beads, sequins, and crystals with precision in this intimate, hands-on masterclass.",
     image:
-      "/images/luneville_embroidery.png",
+      "/images/luneville_embroidery.jpg",
     cta: "Join the Waitlist",
     ctaHref: "#contact",
   },
@@ -66,6 +66,9 @@ export function NewsEvents() {
   const [colorCards, setColorCards] = useState<Set<number>>(new Set());
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
   const colorTimers = React.useRef<Map<number, NodeJS.Timeout>>(new Map());
+  
+  const videoContainerRef = useRef<HTMLDivElement>(null);
+  const isVideoInView = useInView(videoContainerRef, { once: true, margin: "200px" });
 
   const handleCardTap = (index: number) => {
     // Toggle expanded state
@@ -141,17 +144,27 @@ export function NewsEvents() {
             <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b border-r border-[var(--dada-red)]/40" />
 
             {/* Video container */}
-            <div className="relative aspect-video overflow-hidden bg-black/40">
-              <video
-                src="/videos/silk_painting2.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
+            <div ref={videoContainerRef} className="relative aspect-video overflow-hidden bg-black/40">
+              {isVideoInView ? (
+                <video
+                  src="/videos/silk_painting_workshop.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  poster="/images/intro_bg.jpg"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <img 
+                  src="/images/intro_bg.jpg" 
+                  alt="In the Atelier workshop preview" 
+                  className="w-full h-full object-cover filter blur-[2px]"
+                />
+              )}
               {/* Bottom gradient overlay for caption */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 pointer-events-none" />
 
               {/* Caption overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7 flex items-end justify-between">

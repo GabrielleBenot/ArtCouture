@@ -502,6 +502,16 @@ export function DressModal({
     }
   });
 
+  const [vaultThumbnails, setVaultThumbnails] = useState<Record<string, string>>(() => {
+    if (typeof window === 'undefined') return {};
+    try {
+      const raw = localStorage.getItem('artcouture_vault_thumbnails');
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  });
+
   // Build images array with photo slot overrides from admin
   const images = useMemo(() => {
     const base = [dress.img, ...(dress.detailImages || [])];
@@ -526,17 +536,23 @@ export function DressModal({
           localStorage.setItem('artcouture_photo_slots', JSON.stringify(data));
         }
 
-        // Sync vault alt texts for detail images SEO
+        // Sync vault alt texts and thumbnails
         const vaultSnap = await getDocs(fsCollection(db, 'vault'));
         const altMapping: Record<string, string> = {};
+        const thumbMapping: Record<string, string> = {};
         vaultSnap.forEach((doc) => {
           const data = doc.data();
-          if (data.url && data.altText) {
-            altMapping[data.url] = data.altText;
+          if (data.url) {
+            if (data.altText) altMapping[data.url] = data.altText;
+            if (data.thumbnailUrl) {
+              thumbMapping[data.url] = data.thumbnailUrl;
+            }
           }
         });
         setVaultAlts(altMapping);
+        setVaultThumbnails(thumbMapping);
         localStorage.setItem('artcouture_vault_alts', JSON.stringify(altMapping));
+        localStorage.setItem('artcouture_vault_thumbnails', JSON.stringify(thumbMapping));
       } catch (e) {
         console.error("Firestore photo slots sync failed:", e);
       }
