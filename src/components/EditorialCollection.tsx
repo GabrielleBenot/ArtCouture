@@ -456,13 +456,15 @@ function DressCard({
   onClick,
   isPlaceholder = false,
   isActiveCategory = false,
-  altText
+  altText,
+  priority = false
 }: { 
   item: DressItem, 
   onClick: () => void,
   isPlaceholder?: boolean,
   isActiveCategory?: boolean,
-  altText?: string
+  altText?: string,
+  priority?: boolean
 }) {
   const cardRef = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: false, margin: "0px 0px -75% 0px" });
@@ -483,9 +485,10 @@ function DressCard({
           <img 
             src={item.processImg} 
             alt={`Art Couture ${item.title} bespoke couture craftsmanship`} 
-            loading="lazy"
+            loading={priority ? "eager" : "lazy"}
             className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-out group-hover:opacity-0 z-[1] ${isInView ? 'opacity-0' : 'opacity-100'}`}
             style={{ filter: 'grayscale(100%) sepia(40%) hue-rotate(330deg) brightness(0.75) contrast(0.85)' }}
+            {...({ fetchPriority: priority ? "high" : undefined } as any)}
           />
         )}
 
@@ -493,8 +496,9 @@ function DressCard({
         <motion.img 
           src={item.img} 
           alt={altText || `${item.title} – Art Couture bespoke haute couture`}
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
           className={`w-full h-full object-cover absolute inset-0 transition-all duration-[2s] ${isActiveCategory ? '' : 'group-hover:scale-110'} ${isInView ? 'scale-105' : ''}`}
+          {...({ fetchPriority: priority ? "high" : undefined } as any)}
         />
         
         {/* Grainy Film Overlay that fades out on hover/scroll */}
@@ -909,6 +913,7 @@ export function EditorialCollection() {
                     key={item.title + idx} 
                     item={displayItem} 
                     altText={vaultAlts[displayItem.img]} 
+                    priority={idx === 0}
                     onClick={() => setSelectedDress(displayItem)} 
                   />
                 );
@@ -926,6 +931,7 @@ export function EditorialCollection() {
                     key={item.title + idx} 
                     item={displayItem} 
                     altText={vaultAlts[displayItem.img]} 
+                    priority={idx === 0}
                     onClick={() => setSelectedDress(displayItem)} 
                   />
                 );
@@ -943,6 +949,7 @@ export function EditorialCollection() {
                     key={item.title + idx} 
                     item={displayItem} 
                     altText={vaultAlts[displayItem.img]} 
+                    priority={idx === 0}
                     onClick={() => setSelectedDress(displayItem)} 
                   />
                 );

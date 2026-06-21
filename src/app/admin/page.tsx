@@ -220,7 +220,7 @@ async function computeHash(dataUrl: string): Promise<string> {
 }
 
 async function uploadImageToCloud(file: File): Promise<VaultImage> {
-  const dataUrl = await compressImage(file, 2400, 0.90);
+  const dataUrl = await compressImage(file, 2000, 0.82);
   const hash = await computeHash(dataUrl);
 
   // Check if duplicate exists in Firestore by hash
