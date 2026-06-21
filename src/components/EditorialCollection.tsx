@@ -6,446 +6,445 @@ import { MagneticButton } from "./MagneticButton";
 import defaultOfferingsConfig from '@/lib/default_config.json';
 
 const collection = [
-  { 
-    title: "Fuchsia Majesty", 
-    category: "Dresses",
-    price: "$7,955",
-    depositAmount: "$2,000",
-    depositLink: "https://buy.stripe.com/3cI14nd5q0301L3fH6b3q00", 
-    description: "A bespoke silk evening gown of unapologetic glamour, featuring a dramatic high slit and exquisite Swarovski crystal embroidery along the thigh. This handcrafted couture dress commands every entrance with the confidence of luxury fashion at its most fearless.",
-    fabric: "Lustrous silk in vivid fuchsia, sculpted to the body with a daring slit and adorned with hand-applied Swarovski crystal embroidery cascading along the thigh, each stone individually set by our atelier's master beaders.",
-    customization: "Custom-tailored to your exact silhouette with bespoke slit lengths and corsetry adjustments. Available in an exclusive palette of jewel tones, from deep amethyst to midnight ruby.",
-    img: "https://storage.googleapis.com/mixo-sites/images/file-b1585176-4ab0-4441-9ca1-0979786596cd.jpg",
-    detailImages: [
-      "/details/new_fuchsia_bodice_1781676487560.png",
-      "/details/new_fuchsia_texture_1781676497805.png",
-      "/details/new_fuchsia_drape_1781676508356.png",
-      "/details/placeholder_coming_soon.svg",
-      "/details/placeholder_coming_soon.svg"
+  {
+    "title": "Fuchsia Majesty",
+    "category": "Dresses",
+    "price": "$7,955",
+    "depositAmount": "$2,000",
+    "depositLink": "https://buy.stripe.com/3cI14nd5q0301L3fH6b3q00",
+    "description": "A bespoke silk evening gown of unapologetic glamour, featuring a dramatic high slit and exquisite Swarovski crystal embroidery along the thigh. This handcrafted couture dress commands every entrance with the confidence of luxury fashion at its most fearless.",
+    "fabric": "Lustrous silk in vivid fuchsia, sculpted to the body with a daring slit and adorned with hand-applied Swarovski crystal embroidery cascading along the thigh, each stone individually set by our atelier's master beaders.",
+    "customization": "Custom-tailored to your exact silhouette with bespoke slit lengths and corsetry adjustments. Available in an exclusive palette of jewel tones, from deep amethyst to midnight ruby.",
+    "img": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Ff5720508-8148-4bd3-ab0f-2b8612f15cda?alt=media&token=7be40366-58e3-4eb1-91c8-f24d29299550",
+    "detailImages": [
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Ff5720508-8148-4bd3-ab0f-2b8612f15cda?alt=media&token=7be40366-58e3-4eb1-91c8-f24d29299550",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F4504c389-c3d2-46e1-8d74-b11a2f302c9d?alt=media&token=8e7651a6-f018-423a-af14-8732c17beba4",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F7d975395-bf40-4d57-8af5-6bcb59f284fc?alt=media&token=581decdc-8589-42f1-96af-607787375594",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F07b644bc-5481-47b5-90d9-f43b3f22ba8f?alt=media&token=7f16e428-9cb2-4b31-b6a7-97c981458238",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Ff4cc8934-b7a2-4a0d-b56f-daf7af727f53?alt=media&token=22543f6c-6f85-4c07-a0b0-e704177153e1"
     ],
-    aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/beading.jpg"
+    "aspectClass": "aspect-[3/4]",
+    "processImg": "/images/process/beading.jpg"
   },
-  { 
-    title: "Blush Enchantress", 
-    category: "Dresses",
-    price: "$8,700", 
-    depositAmount: "$2,200",
-    depositLink: "https://buy.stripe.com/5kQdR9e9uaHE1L37aAb3q04",
-    description: "An ethereal haute couture gown of timeless romance, featuring an intricately hand-appliquéd French lace bodice and elegant long sleeves. Perfect as a custom wedding dress or a majestic evening gown, this creation defines bridal elegance.",
-    fabric: "Ethereal ivory silk tulle paired with hand-cut French Chantilly and Guipure lace, fully lined with luxurious sandwashed silk charmeuse and draping into a delicate sweep train.",
-    customization: "Neckline height, sleeve coverage, and train length are fully tailored to your silhouette. Available in classic ivory, warm cream, alabaster, or custom-dyed bridal shades.",
-    img: "/images/blush_enchantress.jpg",
-    detailImages: [
-      "/details/new_blushench_bodice_1781676653156.png",
-      "/details/new_blushench_texture_1781676675527.png",
-      "/details/new_blushench_drape_1781676696150.png",
-      "/details/placeholder_coming_soon.svg",
-      "/details/placeholder_coming_soon.svg"
+  {
+    "title": "Blush Enchantress",
+    "category": "Dresses",
+    "price": "$8,700",
+    "depositAmount": "$2,200",
+    "depositLink": "https://buy.stripe.com/5kQdR9e9uaHE1L37aAb3q04",
+    "description": "An ethereal haute couture gown of timeless romance, featuring an intricately hand-appliquéd French lace bodice and elegant long sleeves. Perfect as a custom wedding dress or a majestic evening gown, this creation defines bridal elegance.",
+    "fabric": "Ethereal ivory silk tulle paired with hand-cut French Chantilly and Guipure lace, fully lined with luxurious sandwashed silk charmeuse and draping into a delicate sweep train.",
+    "customization": "Neckline height, sleeve coverage, and train length are fully tailored to your silhouette. Available in classic ivory, warm cream, alabaster, or custom-dyed bridal shades.",
+    "img": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F2f7c3f0f-2025-4098-86e5-76e1b21fe5e4?alt=media&token=b174088f-754a-49ef-8d45-ffe114715f60",
+    "detailImages": [
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F2f7c3f0f-2025-4098-86e5-76e1b21fe5e4?alt=media&token=b174088f-754a-49ef-8d45-ffe114715f60",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fbodice-82fdd8d6.jpg?alt=media&token=f7194a14-dafe-4377-92be-d26163974a57",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fdetails-ff7e9548.jpg?alt=media&token=26a32d77-467d-42c6-a01c-0c0f536a7cc6",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fhem-ab26a2cd.jpg?alt=media&token=096112cf-997d-43d0-a1ec-0dbad2b1ba12",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fback-view-aac32be5.jpg?alt=media&token=1917852d-d930-4a13-b86d-6f2431983f8c"
     ],
-    aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/draping.jpg"
+    "aspectClass": "aspect-[2/3]",
+    "processImg": "/images/process/draping.jpg"
   },
-  { 
-    title: "Golden Whisper", 
-    category: "Dresses",
-    price: "$9,200", 
-    depositAmount: "$2,300",
-    depositLink: "https://buy.stripe.com/cNi00jaXi3fc0GZ9iIb3q01",
-    description: "A luminous gala gown of champagne mesh drenched in hand-set Swarovski crystals, alive with every shift of light. This bespoke evening gown is richly embroidered and luxuriously heavy, with a captivating transparency that is radiant and utterly unforgettable on the red carpet.",
-    fabric: "Transparent mesh meticulously encrusted with gold-leaf threading and thousands of Swarovski champagne crystals, the dense embroidery lending a substantial, luxurious weight that drapes beautifully against the body.",
-    customization: "Train length, crystal density, and silhouette are entirely bespoke. Internal corsetry is precision-engineered for unparalleled structural support tailored to your body.",
-    img: "https://storage.googleapis.com/mixo-sites/images/file-fbdb7417-d98d-4d96-99ed-20eb22b057ae.jpg",
-    detailImages: [
-      "/details/new_golden_bodice_1781676585562.png",
-      "/details/new_golden_texture_1781676602641.png",
-      "/details/new_golden_drape_1781676619023.png",
-      "/details/placeholder_coming_soon.svg",
-      "/details/placeholder_coming_soon.svg"
+  {
+    "title": "Golden Whisper",
+    "category": "Dresses",
+    "price": "$9,200",
+    "depositAmount": "$2,300",
+    "depositLink": "https://buy.stripe.com/cNi00jaXi3fc0GZ9iIb3q01",
+    "description": "A luminous gala gown of champagne mesh drenched in hand-set Swarovski crystals, alive with every shift of light. This bespoke evening gown is richly embroidered and luxuriously heavy, with a captivating transparency that is radiant and utterly unforgettable on the red carpet.",
+    "fabric": "Transparent mesh meticulously encrusted with gold-leaf threading and thousands of Swarovski champagne crystals, the dense embroidery lending a substantial, luxurious weight that drapes beautifully against the body.",
+    "customization": "Train length, crystal density, and silhouette are entirely bespoke. Internal corsetry is precision-engineered for unparalleled structural support tailored to your body.",
+    "img": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fa233bbdb-25ac-47fe-b686-71493e2cc226?alt=media&token=447745e0-6fd4-4fe0-b328-63b25f3199e0",
+    "detailImages": [
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fa233bbdb-25ac-47fe-b686-71493e2cc226?alt=media&token=447745e0-6fd4-4fe0-b328-63b25f3199e0",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fb033a925-d5ff-46d1-ad2b-a269d7c2bf5f?alt=media&token=a49ae0be-bbcd-4988-8347-7d48424fedae",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F55e57967-dadc-4b3e-928e-5c6cf17fbc5b?alt=media&token=78574476-794c-4dee-9242-b902418b1dcb",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F0a8786cd-994b-40c2-bee5-693bdef9a372?alt=media&token=7f9b66dd-e32d-4284-abe3-70ddd501c45a",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fb301511d-73b5-4f1d-ad99-9ae0f0f1cbb0?alt=media&token=d73c8be2-ec6d-450c-80d4-d377d871bc65"
     ],
-    aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/crystals.jpg"
+    "aspectClass": "aspect-[3/4]",
+    "processImg": "/images/process/crystals.jpg"
   },
-  { 
-    title: "Crimson Allure", 
-    category: "Dresses",
-    price: "$7,980", 
-    depositAmount: "$2,000",
-    depositLink: "https://buy.stripe.com/eVq3cv0iE7vs89rdyYb3q02",
-    description: "Confidence, cut in silk couture. This sleek red carpet gown pairs sumptuous silk crepe with shimmering side panels for unapologetic drama. A designer dress born for galas, premieres, and every moment that demands luxury fashion with edge.",
-    fabric: "Heavy-weight double-faced silk crepe de chine that cascades like liquid fire, featuring hand-embroidered ruby micro-sequin side panelling with gradient intensity.",
-    customization: "Neckline plunge depth and sequin gradient density are flawlessly tailored to your preference. Hardware finishes available in gold or platinum finish, with optional monogrammed interior.",
-    img: "https://storage.googleapis.com/mixo-sites/images/file-efa8732c-2726-4513-9f7d-66e84a3ead12.jpg",
-    detailImages: [
-      "/details/new_crimson_bodice_1781676541872.png",
-      "/details/new_crimson_texture_1781676555017.png",
-      "/details/new_crimson_drape_1781676568248.png",
-      "/details/placeholder_coming_soon.svg",
-      "/details/placeholder_coming_soon.svg"
+  {
+    "title": "Crimson Allure",
+    "category": "Dresses",
+    "price": "$7,980",
+    "depositAmount": "$2,000",
+    "depositLink": "https://buy.stripe.com/eVq3cv0iE7vs89rdyYb3q02",
+    "description": "Confidence, cut in silk couture. This sleek red carpet gown pairs sumptuous silk crepe with shimmering side panels for unapologetic drama. A designer dress born for galas, premieres, and every moment that demands luxury fashion with edge.",
+    "fabric": "Heavy-weight double-faced silk crepe de chine that cascades like liquid fire, featuring hand-embroidered ruby micro-sequin side panelling with gradient intensity.",
+    "customization": "Neckline plunge depth and sequin gradient density are flawlessly tailored to your preference. Hardware finishes available in gold or platinum finish, with optional monogrammed interior.",
+    "img": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F04669707-071a-432c-82e4-76b144da07e4?alt=media&token=87ed9797-099d-4c08-ad4e-bcac6cc65c4b",
+    "detailImages": [
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F04669707-071a-432c-82e4-76b144da07e4?alt=media&token=87ed9797-099d-4c08-ad4e-bcac6cc65c4b",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F80ea31c0-48f6-4c43-80d3-c606f0b02098?alt=media&token=96ad56d8-3457-47ee-a9e8-d3379f5f13e3",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F2165d976-a9b6-40a1-889b-5ead76256b91?alt=media&token=f492a18a-a513-4c8e-9b2f-4015113869ef",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F22b8cf61-7de1-41cc-8d59-fd926522d69f?alt=media&token=7a1b21ab-2ab2-447c-8975-cb6cc7d0d2b1",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F7400f28a-a028-44c2-bfbe-f2cebf2ac99f?alt=media&token=beba126f-6df6-4bde-b4f3-23c326568472"
     ],
-    aspectClass: "aspect-[4/5]",
-    processImg: "/images/process/sewing.jpg"
+    "aspectClass": "aspect-[4/5]",
+    "processImg": "/images/process/sewing.jpg"
   },
-  
-  { 
-    title: "Blush Couture", 
-    category: "Dresses",
-    price: "$11,700", 
-    depositAmount: "$3,000",
-    depositLink: "https://buy.stripe.com/14AaEXaXig1YgFX8eEb3q03",
-    description: "The ultimate expression of our atelier's bespoke couture craft: layers of hand-dyed rosewater silk organza and delicate petal appliqués converge in a breathtaking statement piece. This haute couture creation elevates modern femininity into wearable art.",
-    fabric: "Hand-dyed rosewater silk organza floating weightlessly over cascading French Chantilly lace, adorned with 3D silk-chiffon floral appliqués, each petal individually shaped and stitched by hand.",
-    customization: "Skirt volume is completely adjustable via a detachable crinoline system, with petal density and train length tailored to your preference. Available in rosewater blush, ivory, champagne, or custom-dyed shades.",
-    img: "https://storage.googleapis.com/mixo-sites/images/file-e25b0f24-1bdb-4182-886e-58dd451f1664.jpg",
-    detailImages: [
-      "/details/new_blushcout_bodice_1781676712185.png",
-      "/details/new_blushcout_texture_1781676722580.png",
-      "/details/new_blushcout_drape_1781676734418.png",
-      "/details/placeholder_coming_soon.svg",
-      "/details/placeholder_coming_soon.svg"
+  {
+    "title": "Blush Couture",
+    "category": "Dresses",
+    "price": "$11,700",
+    "depositAmount": "$3,000",
+    "depositLink": "https://buy.stripe.com/14AaEXaXig1YgFX8eEb3q03",
+    "description": "The ultimate expression of our atelier's bespoke couture craft: layers of hand-dyed rosewater silk organza and delicate petal appliqués converge in a breathtaking statement piece. This haute couture creation elevates modern femininity into wearable art.",
+    "fabric": "Hand-dyed rosewater silk organza floating weightlessly over cascading French Chantilly lace, adorned with 3D silk-chiffon floral appliqués, each petal individually shaped and stitched by hand.",
+    "customization": "Skirt volume is completely adjustable via a detachable crinoline system, with petal density and train length tailored to your preference. Available in rosewater blush, ivory, champagne, or custom-dyed shades.",
+    "img": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F4f8b61de-f7ce-4eab-8056-b80769b17b73?alt=media&token=79857bc2-e2ed-4e7f-9a3a-47cd52717ef9",
+    "detailImages": [
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F4f8b61de-f7ce-4eab-8056-b80769b17b73?alt=media&token=79857bc2-e2ed-4e7f-9a3a-47cd52717ef9",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fe246f5dc-62ca-4efa-9165-9d153e8d8c40?alt=media&token=40c2b7bb-6308-4f89-99fd-1bb38de7e61a",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fd3b06dd7-26e7-45e0-ab77-9d896c730ead?alt=media&token=a76fba4e-7f03-4a4d-b749-05bb4568d03e",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F2fc9991c-01c9-41c3-abf8-12dbf52d9c00?alt=media&token=0664c3de-b030-4c32-834f-04f8844d51b9",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fa458396a-8d0f-42bd-96b9-d87af9fc9bcc?alt=media&token=3ca9fac8-c2ef-4bb9-9224-74b4545ea015"
     ],
-    aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/applique.jpg"
+    "aspectClass": "aspect-[2/3]",
+    "processImg": "/images/process/applique.jpg"
   },
-  { 
-    title: "Pearl Symphony", 
-    category: "Accessories",
-    price: "$4,200", 
-    depositAmount: "$1,000",
-    depositLink: "",
-    description: "A symphony of hand-strung freshwater pearls and brilliant diamond accents, this bespoke accessories masterpiece embodies the quiet grandeur of haute couture jewelry. Exquisite as a bridal accent, mother of the bride treasure, or red carpet finishing touch.",
-    fabric: "18k white gold filigree meticulously interwoven with lustrous South Sea pearls of exceptional nacre quality, accented by VS-clarity diamond pavé set by our master jeweler over sixty painstaking hours.",
-    customization: "Available in rose gold, yellow gold, and platinum finishes. Pearl size graduation, strand length, and diamond accent placement are tailored to your personal aesthetic through private fitting.",
-    img: "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Pearl Symphony",
+    "category": "Accessories",
+    "price": "$4,200",
+    "depositAmount": "$1,000",
+    "depositLink": "",
+    "description": "A symphony of hand-strung freshwater pearls and brilliant diamond accents, this bespoke accessories masterpiece embodies the quiet grandeur of haute couture jewelry. Exquisite as a bridal accent, mother of the bride treasure, or red carpet finishing touch.",
+    "fabric": "18k white gold filigree meticulously interwoven with lustrous South Sea pearls of exceptional nacre quality, accented by VS-clarity diamond pavé set by our master jeweler over sixty painstaking hours.",
+    "customization": "Available in rose gold, yellow gold, and platinum finishes. Pearl size graduation, strand length, and diamond accent placement are tailored to your personal aesthetic through private fitting.",
+    "img": "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/luneville.jpg"
+    "aspectClass": "aspect-[3/4]",
+    "processImg": "/images/process/luneville.jpg"
   },
-  { 
-    title: "Obsidian Clutch", 
-    category: "Accessories",
-    price: "$5,500", 
-    depositAmount: "$1,500",
-    depositLink: "",
-    description: "A structured evening clutch crafted from the world's rarest materials, the essential bespoke accessories companion for any red carpet gown or gala gown moment. This luxury fashion statement piece transforms the art of arrival into a ritual of quiet power.",
-    fabric: "Hand-selected matte Niloticus crocodile leather in deep obsidian, paired with mirror-polished platinum hardware and an interior of hand-dyed midnight silk charmeuse.",
-    customization: "Monogramming available on the interior silk lining in gold or platinum thread. Exotic leather colorways, hardware finishes, and clasp gemstone inlays are available through our bespoke program.",
-    img: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Obsidian Clutch",
+    "category": "Accessories",
+    "price": "$5,500",
+    "depositAmount": "$1,500",
+    "depositLink": "",
+    "description": "A structured evening clutch crafted from the world's rarest materials, the essential bespoke accessories companion for any red carpet gown or gala gown moment. This luxury fashion statement piece transforms the art of arrival into a ritual of quiet power.",
+    "fabric": "Hand-selected matte Niloticus crocodile leather in deep obsidian, paired with mirror-polished platinum hardware and an interior of hand-dyed midnight silk charmeuse.",
+    "customization": "Monogramming available on the interior silk lining in gold or platinum thread. Exotic leather colorways, hardware finishes, and clasp gemstone inlays are available through our bespoke program.",
+    "img": "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[4/5]",
-    processImg: "/images/process/buttons.jpg"
+    "aspectClass": "aspect-[4/5]",
+    "processImg": "/images/process/buttons.jpg"
   },
-  { 
-    title: "Crystal Steps", 
-    category: "Accessories",
-    price: "$2,800", 
-    depositAmount: "$700",
-    depositLink: "",
-    description: "The glass slipper reimagined for the modern muse: a dazzling fusion of transparency and sparkle that elevates any bespoke evening gown or custom wedding dress. These bespoke accessories are luxury fashion's answer to Cinderella, designed for real-world red carpets.",
-    fabric: "Optically pure Italian Lucite heel sculpted to architectural precision, paired with straps encrusted in over three hundred individually hand-set Swarovski crystals with aurora borealis finish.",
-    customization: "Heel height adjustable between 85mm and 110mm. Strap crystal colorway, sole personalization, and custom sizing ensure a perfect bespoke fit for your most important evening.",
-    img: "https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Crystal Steps",
+    "category": "Accessories",
+    "price": "$2,800",
+    "depositAmount": "$700",
+    "depositLink": "",
+    "description": "The glass slipper reimagined for the modern muse: a dazzling fusion of transparency and sparkle that elevates any bespoke evening gown or custom wedding dress. These bespoke accessories are luxury fashion's answer to Cinderella, designed for real-world red carpets.",
+    "fabric": "Optically pure Italian Lucite heel sculpted to architectural precision, paired with straps encrusted in over three hundred individually hand-set Swarovski crystals with aurora borealis finish.",
+    "customization": "Heel height adjustable between 85mm and 110mm. Strap crystal colorway, sole personalization, and custom sizing ensure a perfect bespoke fit for your most important evening.",
+    "img": "https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/handstitch.jpg"
+    "aspectClass": "aspect-[3/4]",
+    "processImg": "/images/process/handstitch.jpg"
   },
-  { 
-    title: "Golden Hour", 
-    category: "Accessories",
-    price: "$3,100", 
-    depositAmount: "$800",
-    depositLink: "",
-    description: "A breathtaking bespoke accessories statement piece that catches and refracts every ray of light into prismatic splendor. Worn alone or layered with haute couture, this handcrafted treasure defines luxury fashion's golden hour: luminous, warm, and impossibly radiant.",
-    fabric: "Solid brass foundation with 24k gold plating applied in three meticulous layers for enduring luster, adorned with hand-set smoked topaz crystals sourced from master gem cutters in Idar-Oberstein.",
-    customization: "Available in sterling silver, 24k gold, and rose gold vermeil finishes. Crystal colorway, chain length, and clasp style are fully customizable through our bespoke accessories atelier.",
-    img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Golden Hour",
+    "category": "Accessories",
+    "price": "$3,100",
+    "depositAmount": "$800",
+    "depositLink": "",
+    "description": "A breathtaking bespoke accessories statement piece that catches and refracts every ray of light into prismatic splendor. Worn alone or layered with haute couture, this handcrafted treasure defines luxury fashion's golden hour: luminous, warm, and impossibly radiant.",
+    "fabric": "Solid brass foundation with 24k gold plating applied in three meticulous layers for enduring luster, adorned with hand-set smoked topaz crystals sourced from master gem cutters in Idar-Oberstein.",
+    "customization": "Available in sterling silver, 24k gold, and rose gold vermeil finishes. Crystal colorway, chain length, and clasp style are fully customizable through our bespoke accessories atelier.",
+    "img": "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/ribbon.jpg"
+    "aspectClass": "aspect-[2/3]",
+    "processImg": "/images/process/ribbon.jpg"
   },
-  { 
-    title: "Velvet Veil", 
-    category: "Accessories",
-    price: "$1,500", 
-    depositAmount: "$400",
-    depositLink: "",
-    description: "A dramatic finishing touch that transforms any haute couture ensemble into a moment of cinematic mystery. This handcrafted veil is among our most coveted bespoke accessories, equally stunning for a custom wedding dress as for a red carpet gown editorial.",
-    fabric: "Sumptuous silk velvet band in deep noir, paired with hand-woven French illusion netting featuring delicate picot edging and scattered micro-crystal accents that catch the light like captured stars.",
-    customization: "Hand-embroidered motifs, from celestial constellations to monogram initials, can adorn the netting. Veil length, velvet band width, and crystal density are tailored to your vision.",
-    img: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Velvet Veil",
+    "category": "Accessories",
+    "price": "$1,500",
+    "depositAmount": "$400",
+    "depositLink": "",
+    "description": "A dramatic finishing touch that transforms any haute couture ensemble into a moment of cinematic mystery. This handcrafted veil is among our most coveted bespoke accessories, equally stunning for a custom wedding dress as for a red carpet gown editorial.",
+    "fabric": "Sumptuous silk velvet band in deep noir, paired with hand-woven French illusion netting featuring delicate picot edging and scattered micro-crystal accents that catch the light like captured stars.",
+    "customization": "Hand-embroidered motifs, from celestial constellations to monogram initials, can adorn the netting. Veil length, velvet band width, and crystal density are tailored to your vision.",
+    "img": "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[4/5]",
-    processImg: "/images/process/dyeing.jpg"
+    "aspectClass": "aspect-[4/5]",
+    "processImg": "/images/process/dyeing.jpg"
   },
-  { 
-    title: "Midnight Elegance", 
-    category: "Dresses",
-    price: "$8,850", 
-    depositAmount: "$2,200",
-    depositLink: "https://buy.stripe.com/3cI14n9Te4jg75namMb3q05",
-    description: "Where darkness whispers luxury fashion. This bespoke evening gown in deep navy velvet is sculpted to perfection, draping with quiet power that commands any red carpet event. A haute couture masterpiece for those who rule the room through understated elegance.",
-    fabric: "Midnight blue silk-viscose pané velvet, extraordinarily soft and plush with a hand-brushed pile that catches the light like a starlit winter sky, fully lined in heavy silk charmeuse.",
-    customization: "Backless plunge depth, sleeve length, and shoulder silhouette are bespoke. Interior lining available in contrasting jewel tones: emerald, ruby, or sapphire silk charmeuse.",
-    img: "https://storage.googleapis.com/mixo-sites/images/file-fd88942d-471c-4ef4-ac9b-1d4292999cb3.jpg",
-    detailImages: [
-      "/details/new_midnight_bodice_1781676446002.png",
-      "/details/new_midnight_texture_1781676459211.png",
-      "/details/new_midnight_drape_1781676475270.png",
-      "/details/placeholder_coming_soon.svg",
-      "/details/placeholder_coming_soon.svg"
+  {
+    "title": "Midnight Elegance",
+    "category": "Dresses",
+    "price": "$8,850",
+    "depositAmount": "$2,200",
+    "depositLink": "https://buy.stripe.com/3cI14n9Te4jg75namMb3q05",
+    "description": "Where darkness whispers luxury fashion. This bespoke evening gown in deep navy velvet is sculpted to perfection, draping with quiet power that commands any red carpet event. A haute couture masterpiece for those who rule the room through understated elegance.",
+    "fabric": "Midnight blue silk-viscose pané velvet, extraordinarily soft and plush with a hand-brushed pile that catches the light like a starlit winter sky, fully lined in heavy silk charmeuse.",
+    "customization": "Backless plunge depth, sleeve length, and shoulder silhouette are bespoke. Interior lining available in contrasting jewel tones: emerald, ruby, or sapphire silk charmeuse.",
+    "img": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Ff4c8fe02-afaa-458f-b217-bc5a3a57ea00?alt=media&token=697ddc89-dcdd-432d-9e94-a4c759b5027e",
+    "detailImages": [
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Ff4c8fe02-afaa-458f-b217-bc5a3a57ea00?alt=media&token=697ddc89-dcdd-432d-9e94-a4c759b5027e",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fdad8d1ef-cacc-410a-bd80-5730beeb582c?alt=media&token=a0cec60d-7425-4271-9500-789ce68eb132",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fb64d52c5-6bb5-4a6f-94c9-d0de05eafa05?alt=media&token=81aa9355-8ba1-49df-a25c-de3349e73549",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F0ea0b5a2-5387-4acf-8573-4cd7c6b28ee2?alt=media&token=af1f50de-7182-44d2-ae18-08e4cc6966c1",
+      "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F1f9c9176-4e00-4688-9d0f-7b39ed300abf?alt=media&token=6630f3ff-ac28-42ce-97bd-aa74f638a0e8"
     ],
-    aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/cutting.jpg"
+    "aspectClass": "aspect-[3/4]",
+    "processImg": "/images/process/cutting.jpg"
   },
-  { 
-    title: "Noir Power", 
-    category: "Jackets",
-    price: "$7,200", 
-    depositAmount: "$1,800",
-    depositLink: "",
-    description: "A commanding couture jacket with exaggerated lapels that redefine power dressing for the modern era. This designer dress alternative bridges the worlds of haute couture tailoring and luxury fashion's boldest silhouettes: fierce, sculpted, and undeniably authoritative.",
-    fabric: "Heavy Italian virgin wool crepe in deep noir, contrasted with lustrous silk duchesse satin peaked lapels and a hand-finished interior of silk twill with branded jacquard weave.",
-    customization: "Shoulder pad architecture, button materials (mother-of-pearl, horn, or gold), lapel width, and overall silhouette are fully bespoke. Sleeve lining monogramming included.",
-    img: "/collections/jacket_two.png",
-    detailImages: [
+  {
+    "title": "Noir Power",
+    "category": "Jackets",
+    "price": "$7,200",
+    "depositAmount": "$1,800",
+    "depositLink": "",
+    "description": "A commanding couture jacket with exaggerated lapels that redefine power dressing for the modern era. This designer dress alternative bridges the worlds of haute couture tailoring and luxury fashion's boldest silhouettes: fierce, sculpted, and undeniably authoritative.",
+    "fabric": "Heavy Italian virgin wool crepe in deep noir, contrasted with lustrous silk duchesse satin peaked lapels and a hand-finished interior of silk twill with branded jacquard weave.",
+    "customization": "Shoulder pad architecture, button materials (mother-of-pearl, horn, or gold), lapel width, and overall silhouette are fully bespoke. Sleeve lining monogramming included.",
+    "img": "/collections/jacket_two.png",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/corset.jpg"
+    "aspectClass": "aspect-[2/3]",
+    "processImg": "/images/process/corset.jpg"
   },
-  { 
-    title: "Ivory Architecture", 
-    category: "Jackets",
-    price: "$9,100", 
-    depositAmount: "$2,300",
-    depositLink: "",
-    description: "A structured double-breasted couture jacket that redefines shape with architectural precision and haute couture craftsmanship. This ivory masterpiece is luxury fashion's answer to modern sculpture, equally at home over a bespoke evening gown or commanding the street as a standalone designer dress.",
-    fabric: "Exquisite cashmere-wool blend woven by heritage mills in the Scottish Borders, brushed to a cloud-soft hand with natural ivory depth that deepens with each wear.",
-    customization: "Interior lining features bespoke hand-painted silk motifs commissioned from our in-house artist. Button finish, belt closure, and shoulder line are tailored through private fitting.",
-    img: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Ivory Architecture",
+    "category": "Jackets",
+    "price": "$9,100",
+    "depositAmount": "$2,300",
+    "depositLink": "",
+    "description": "A structured double-breasted couture jacket that redefines shape with architectural precision and haute couture craftsmanship. This ivory masterpiece is luxury fashion's answer to modern sculpture, equally at home over a bespoke evening gown or commanding the street as a standalone designer dress.",
+    "fabric": "Exquisite cashmere-wool blend woven by heritage mills in the Scottish Borders, brushed to a cloud-soft hand with natural ivory depth that deepens with each wear.",
+    "customization": "Interior lining features bespoke hand-painted silk motifs commissioned from our in-house artist. Button finish, belt closure, and shoulder line are tailored through private fitting.",
+    "img": "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/measuring.jpg"
+    "aspectClass": "aspect-[3/4]",
+    "processImg": "/images/process/measuring.jpg"
   },
-  { 
-    title: "Crimson Drape", 
-    category: "Jackets",
-    price: "$6,500", 
-    depositAmount: "$1,600",
-    depositLink: "",
-    description: "A fluid couture jacket reimagined as a crimson trench that moves like liquid silk; drama distilled into luxury fashion's most wearable silhouette. Layer over a cocktail dress or bespoke evening gown for an entrance that lingers in memory long after you've arrived.",
-    fabric: "Italian water-resistant silk gabardine in deep crimson, with a matte finish that captures movement like poured wine. Fully lined in contrasting silk twill with storm flap detailing.",
-    customization: "Belt thickness, buckle material (brushed gold, silver, or horn), collar height, and hem length are all bespoke. Available in twelve exclusive colorways through private consultation.",
-    img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Crimson Drape",
+    "category": "Jackets",
+    "price": "$6,500",
+    "depositAmount": "$1,600",
+    "depositLink": "",
+    "description": "A fluid couture jacket reimagined as a crimson trench that moves like liquid silk; drama distilled into luxury fashion's most wearable silhouette. Layer over a cocktail dress or bespoke evening gown for an entrance that lingers in memory long after you've arrived.",
+    "fabric": "Italian water-resistant silk gabardine in deep crimson, with a matte finish that captures movement like poured wine. Fully lined in contrasting silk twill with storm flap detailing.",
+    "customization": "Belt thickness, buckle material (brushed gold, silver, or horn), collar height, and hem length are all bespoke. Available in twelve exclusive colorways through private consultation.",
+    "img": "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[4/5]",
-    processImg: "/images/process/steaming.jpg"
+    "aspectClass": "aspect-[4/5]",
+    "processImg": "/images/process/steaming.jpg"
   },
-  { 
-    title: "Onyx Edge", 
-    category: "Jackets",
-    price: "$8,200", 
-    depositAmount: "$2,000",
-    depositLink: "",
-    description: "A sharp, minimalist couture jacket with a dramatic stand collar that cuts through convention with razor precision. This designer dress-level outerwear piece is luxury fashion distilled to its purest form, where every seam speaks of haute couture discipline and artistry.",
-    fabric: "Heavy Italian wool melton in deep onyx with a dense, sculptural hand, contrasted by silk duchesse satin collar facings and interior panel detailing for hidden opulence.",
-    customization: "Hidden interior pockets, silk lining monogramming in metallic thread, collar height, and button concealment are fully bespoke. Dramatic back vent and sleeve length tailored to your frame.",
-    img: "https://images.unsplash.com/photo-1544441893-675973e31985?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Onyx Edge",
+    "category": "Jackets",
+    "price": "$8,200",
+    "depositAmount": "$2,000",
+    "depositLink": "",
+    "description": "A sharp, minimalist couture jacket with a dramatic stand collar that cuts through convention with razor precision. This designer dress-level outerwear piece is luxury fashion distilled to its purest form, where every seam speaks of haute couture discipline and artistry.",
+    "fabric": "Heavy Italian wool melton in deep onyx with a dense, sculptural hand, contrasted by silk duchesse satin collar facings and interior panel detailing for hidden opulence.",
+    "customization": "Hidden interior pockets, silk lining monogramming in metallic thread, collar height, and button concealment are fully bespoke. Dramatic back vent and sleeve length tailored to your frame.",
+    "img": "https://images.unsplash.com/photo-1544441893-675973e31985?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/painting.jpg"
+    "aspectClass": "aspect-[3/4]",
+    "processImg": "/images/process/painting.jpg"
   },
-  { 
-    title: "Tweed Illusion", 
-    category: "Jackets",
-    price: "$7,800", 
-    depositAmount: "$2,000",
-    depositLink: "",
-    description: "A modern couture jacket that reimagines the classic tailored tweed with hand-woven textures and unexpected metallic luminosity. This designer dress companion bridges heritage craft and avant-garde luxury fashion, the kind of haute couture piece that starts conversations and ends debates.",
-    fabric: "Hand-woven French bouclé with interlaced metallic gold and silver threads, creating a subtly shimmering surface that shifts between matte and lustrous depending on the light.",
-    customization: "Trim details, from silk ribbon edging to hand-braided cord, and button choices (vintage crystal, enameled gold, or hand-carved mother-of-pearl) are fully bespoke through our atelier.",
-    img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Tweed Illusion",
+    "category": "Jackets",
+    "price": "$7,800",
+    "depositAmount": "$2,000",
+    "depositLink": "",
+    "description": "A modern couture jacket that reimagines the classic tailored tweed with hand-woven textures and unexpected metallic luminosity. This designer dress companion bridges heritage craft and avant-garde luxury fashion, the kind of haute couture piece that starts conversations and ends debates.",
+    "fabric": "Hand-woven French bouclé with interlaced metallic gold and silver threads, creating a subtly shimmering surface that shifts between matte and lustrous depending on the light.",
+    "customization": "Trim details, from silk ribbon edging to hand-braided cord, and button choices (vintage crystal, enameled gold, or hand-carved mother-of-pearl) are fully bespoke through our atelier.",
+    "img": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/swatches.jpg"
+    "aspectClass": "aspect-[2/3]",
+    "processImg": "/images/process/swatches.jpg"
   },
-  { 
-    title: "Ivory Cascade", 
-    category: "Blouses",
-    price: "$3,400", 
-    depositAmount: "$850",
-    depositLink: "",
-    description: "A masterclass in modern draping and silk couture: this luxury blouse pairs pure silk crepe de chine with dramatic sweeping ties for effortless editorial elegance. A versatile designer dress companion that transitions from boardroom power to evening allure with a single adjustment.",
-    fabric: "100% heavy silk crepe de chine sourced from heritage weavers in Como, Italy. Finished with luminous mother-of-pearl button closures and French-seamed construction throughout.",
-    customization: "Tie length, sleeve volume, and collar structure can be adjusted to your preference. Available in Ivory, Obsidian, Blush, and seasonal exclusive colorways.",
-    img: "https://storage.googleapis.com/mixo-sites/images/file-77426bbf-6aac-41f4-8c9f-16b8a9375343.PNG",
-    detailImages: [
-      "/details/new_blushcout_bodice_1781676712185.png",
-      "/details/new_blushcout_texture_1781676722580.png",
-      "/details/new_blushcout_drape_1781676734418.png",
+  {
+    "title": "Ivory Cascade",
+    "category": "Blouses",
+    "price": "$3,400",
+    "depositAmount": "$850",
+    "depositLink": "",
+    "description": "A masterclass in modern draping and silk couture: this luxury blouse pairs pure silk crepe de chine with dramatic sweeping ties for effortless editorial elegance. A versatile designer dress companion that transitions from boardroom power to evening allure with a single adjustment.",
+    "fabric": "100% heavy silk crepe de chine sourced from heritage weavers in Como, Italy. Finished with luminous mother-of-pearl button closures and French-seamed construction throughout.",
+    "customization": "Tie length, sleeve volume, and collar structure can be adjusted to your preference. Available in Ivory, Obsidian, Blush, and seasonal exclusive colorways.",
+    "img": "https://storage.googleapis.com/mixo-sites/images/file-77426bbf-6aac-41f4-8c9f-16b8a9375343.PNG",
+    "detailImages": [
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
+      "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/sketching.jpg"
+    "aspectClass": "aspect-[3/4]",
+    "processImg": "/images/process/sketching.jpg"
   },
-  { 
-    title: "Chiffon Whisper", 
-    category: "Blouses",
-    price: "$2,900", 
-    depositAmount: "$700",
-    depositLink: "",
-    description: "A sheer luxury blouse of French silk chiffon with intricate hand-pleating that whispers against the skin like a secret. This hand-embroidered piece of silk couture is the perfect layering companion for any bespoke evening gown, cocktail dress, or couture jacket moment.",
-    fabric: "Gossamer French silk chiffon from Lyon with hand-rolled edges, trimmed in heirloom Chantilly lace with scalloped detailing. Each pleat is individually pressed and set by hand.",
-    customization: "Cuff closures available in freshwater pearl or pavé diamond. Pleat density, sleeve length, and chiffon opacity can be adjusted through bespoke fitting consultation.",
-    img: "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Chiffon Whisper",
+    "category": "Blouses",
+    "price": "$2,900",
+    "depositAmount": "$700",
+    "depositLink": "",
+    "description": "A sheer luxury blouse of French silk chiffon with intricate hand-pleating that whispers against the skin like a secret. This hand-embroidered piece of silk couture is the perfect layering companion for any bespoke evening gown, cocktail dress, or couture jacket moment.",
+    "fabric": "Gossamer French silk chiffon from Lyon with hand-rolled edges, trimmed in heirloom Chantilly lace with scalloped detailing. Each pleat is individually pressed and set by hand.",
+    "customization": "Cuff closures available in freshwater pearl or pavé diamond. Pleat density, sleeve length, and chiffon opacity can be adjusted through bespoke fitting consultation.",
+    "img": "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/pleating.jpg"
+    "aspectClass": "aspect-[2/3]",
+    "processImg": "/images/process/pleating.jpg"
   },
-  { 
-    title: "Satin Armor", 
-    category: "Blouses",
-    price: "$3,800", 
-    depositAmount: "$950",
-    depositLink: "",
-    description: "A high-neck luxury blouse that marries silk couture softness with the architectural authority of strong, sculpted shoulders. This designer dress-level silk piece is as commanding beneath a couture jacket as it is striking worn alone. Haute couture power, reimagined for modern women.",
-    fabric: "100-momme Italian silk satin with an extraordinary weight and luminous drape, featuring precision-cut bias panels and concealed internal shoulder architecture for sculptural definition.",
-    customization: "Collar height, tie length, shoulder structure, and cuff detailing are fully bespoke. Available in twelve curated silk colorways, each dyed exclusively for our atelier.",
-    img: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Satin Armor",
+    "category": "Blouses",
+    "price": "$3,800",
+    "depositAmount": "$950",
+    "depositLink": "",
+    "description": "A high-neck luxury blouse that marries silk couture softness with the architectural authority of strong, sculpted shoulders. This designer dress-level silk piece is as commanding beneath a couture jacket as it is striking worn alone. Haute couture power, reimagined for modern women.",
+    "fabric": "100-momme Italian silk satin with an extraordinary weight and luminous drape, featuring precision-cut bias panels and concealed internal shoulder architecture for sculptural definition.",
+    "customization": "Collar height, tie length, shoulder structure, and cuff detailing are fully bespoke. Available in twelve curated silk colorways, each dyed exclusively for our atelier.",
+    "img": "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/pinning.jpg"
+    "aspectClass": "aspect-[3/4]",
+    "processImg": "/images/process/pinning.jpg"
   },
-  { 
-    title: "Organza Cloud", 
-    category: "Blouses",
-    price: "$4,100", 
-    depositAmount: "$1,000",
-    depositLink: "",
-    description: "Voluminous sleeves that float around the arms like sculpted clouds; this luxury blouse transforms silk organza into wearable poetry. A hand-embroidered silk couture statement that pairs effortlessly with a cocktail dress skirt or adds ethereal drama beneath a couture jacket.",
-    fabric: "Hand-dyed silk organza from heritage ateliers in Lyon, treated with a specialized finish that holds its voluminous shape while remaining featherlight. Each sleeve uses over two meters of fabric.",
-    customization: "Sleeve volume, gathered cuff elasticity, and body fit are individually tailored. Available in custom-dyed colorways from whisper pastels to saturated jewel tones.",
-    img: "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Organza Cloud",
+    "category": "Blouses",
+    "price": "$4,100",
+    "depositAmount": "$1,000",
+    "depositLink": "",
+    "description": "Voluminous sleeves that float around the arms like sculpted clouds; this luxury blouse transforms silk organza into wearable poetry. A hand-embroidered silk couture statement that pairs effortlessly with a cocktail dress skirt or adds ethereal drama beneath a couture jacket.",
+    "fabric": "Hand-dyed silk organza from heritage ateliers in Lyon, treated with a specialized finish that holds its voluminous shape while remaining featherlight. Each sleeve uses over two meters of fabric.",
+    "customization": "Sleeve volume, gathered cuff elasticity, and body fit are individually tailored. Available in custom-dyed colorways from whisper pastels to saturated jewel tones.",
+    "img": "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[4/5]",
-    processImg: "/images/process/pressing.jpg"
+    "aspectClass": "aspect-[4/5]",
+    "processImg": "/images/process/pressing.jpg"
   },
-  { 
-    title: "Silk Essential", 
-    category: "Blouses",
-    price: "$2,200", 
-    depositAmount: "$550",
-    depositLink: "",
-    description: "The perfect minimalist luxury blouse: pure silk couture reduced to its most essential, elegant form. This sandwashed silk charmeuse shirt is the foundation of any haute couture wardrobe, effortlessly pairing with everything from a bespoke evening gown skirt to tailored trousers.",
-    fabric: "Sandwashed silk charmeuse with a buttery, lived-in softness achieved through a specialized enzyme wash process. The natural luster creates depth that synthetic fabrics cannot replicate.",
-    customization: "Available in twelve exclusive custom-dye colorways developed by our in-house colorist. Collar shape, cuff style, and body length are tailored through bespoke fitting.",
-    img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Silk Essential",
+    "category": "Blouses",
+    "price": "$2,200",
+    "depositAmount": "$550",
+    "depositLink": "",
+    "description": "The perfect minimalist luxury blouse: pure silk couture reduced to its most essential, elegant form. This sandwashed silk charmeuse shirt is the foundation of any haute couture wardrobe, effortlessly pairing with everything from a bespoke evening gown skirt to tailored trousers.",
+    "fabric": "Sandwashed silk charmeuse with a buttery, lived-in softness achieved through a specialized enzyme wash process. The natural luster creates depth that synthetic fabrics cannot replicate.",
+    "customization": "Available in twelve exclusive custom-dye colorways developed by our in-house colorist. Collar shape, cuff style, and body length are tailored through bespoke fitting.",
+    "img": "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[3/4]",
-    processImg: "/images/process/ironing.jpg"
+    "aspectClass": "aspect-[3/4]",
+    "processImg": "/images/process/ironing.jpg"
   },
-  { 
-    title: "Lace Romance", 
-    category: "Blouses",
-    price: "$4,500", 
-    depositAmount: "$1,100",
-    depositLink: "",
-    description: "An intricate hand-embroidered luxury blouse where French Chantilly lace cascades over silk organza in a demure yet captivating silhouette. This silk couture piece is a mother of the bride favorite and a timeless addition to any haute couture collection. Romance rendered in thread and light.",
-    fabric: "Heirloom-quality French Chantilly lace with floral and foliate motifs, delicately layered over whisper-weight silk organza. Each lace panel is hand-matched for seamless pattern continuity.",
-    customization: "Lace pattern variations, from botanical to geometric, are available upon request. Organza underlayer color, sleeve length, and neckline shape are fully bespoke through atelier consultation.",
-    img: "https://images.unsplash.com/photo-1574291814206-363acdf2aa79?w=800&q=80",
-    detailImages: [
+  {
+    "title": "Lace Romance",
+    "category": "Blouses",
+    "price": "$4,500",
+    "depositAmount": "$1,100",
+    "depositLink": "",
+    "description": "An intricate hand-embroidered luxury blouse where French Chantilly lace cascades over silk organza in a demure yet captivating silhouette. This silk couture piece is a mother of the bride favorite and a timeless addition to any haute couture collection. Romance rendered in thread and light.",
+    "fabric": "Heirloom-quality French Chantilly lace with floral and foliate motifs, delicately layered over whisper-weight silk organza. Each lace panel is hand-matched for seamless pattern continuity.",
+    "customization": "Lace pattern variations, from botanical to geometric, are available upon request. Organza underlayer color, sleeve length, and neckline shape are fully bespoke through atelier consultation.",
+    "img": "https://images.unsplash.com/photo-1574291814206-363acdf2aa79?w=800&q=80",
+    "detailImages": [
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg",
       "/details/placeholder_coming_soon.svg"
     ],
-    aspectClass: "aspect-[2/3]",
-    processImg: "/images/process/embroidery.jpg"
+    "aspectClass": "aspect-[2/3]",
+    "processImg": "/images/process/embroidery.jpg"
   }
 ];
 
@@ -680,10 +679,68 @@ export function EditorialCollection() {
   const [enquiryService, setEnquiryService] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("Dresses");
   const [showAllItems, setShowAllItems] = useState(false);
-  const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
-  const [hiddenItems, setHiddenItems] = useState<string[]>([]);
-  const [vaultAlts, setVaultAlts] = useState<Record<string, string>>({});
-  const [vaultThumbnails, setVaultThumbnails] = useState<Record<string, string>>({});
+  const [imageOverrides, setImageOverrides] = useState<Record<string, string>>(() => {
+    const defaults = {
+      "Blush Enchantress": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F2f7c3f0f-2025-4098-86e5-76e1b21fe5e4?alt=media&token=b174088f-754a-49ef-8d45-ffe114715f60",
+      "Blush Couture": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F4f8b61de-f7ce-4eab-8056-b80769b17b73?alt=media&token=79857bc2-e2ed-4e7f-9a3a-47cd52717ef9",
+      "Crimson Allure": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F04669707-071a-432c-82e4-76b144da07e4?alt=media&token=87ed9797-099d-4c08-ad4e-bcac6cc65c4b",
+      "Midnight Elegance": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Ff4c8fe02-afaa-458f-b217-bc5a3a57ea00?alt=media&token=697ddc89-dcdd-432d-9e94-a4c759b5027e",
+      "Golden Whisper": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fa233bbdb-25ac-47fe-b686-71493e2cc226?alt=media&token=447745e0-6fd4-4fe0-b328-63b25f3199e0",
+      "Fuchsia Majesty": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Ff5720508-8148-4bd3-ab0f-2b8612f15cda?alt=media&token=7be40366-58e3-4eb1-91c8-f24d29299550"
+    };
+    if (typeof window === 'undefined') return defaults;
+    try {
+      const raw = localStorage.getItem('artcouture_image_overrides');
+      return raw ? JSON.parse(raw) : defaults;
+    } catch {
+      return defaults;
+    }
+  });
+  const [hiddenItems, setHiddenItems] = useState<string[]>(() => {
+    const defaults = [
+      "Pearl Symphony",
+      "Golden Hour",
+      "Crystal Steps",
+      "Obsidian Clutch",
+      "Velvet Veil",
+      "Noir Power",
+      "Ivory Architecture",
+      "Crimson Drape",
+      "Onyx Edge",
+      "Tweed Illusion",
+      "Ivory Cascade",
+      "Chiffon Whisper",
+      "Satin Armor",
+      "Organza Cloud",
+      "Silk Essential",
+      "Lace Romance"
+    ];
+    if (typeof window === 'undefined') return defaults;
+    try {
+      const raw = localStorage.getItem('artcouture_hidden_items');
+      return raw ? JSON.parse(raw) : defaults;
+    } catch {
+      return defaults;
+    }
+  });
+  const [vaultAlts, setVaultAlts] = useState<Record<string, string>>(() => {
+    if (typeof window === 'undefined') return {};
+    try {
+      const raw = localStorage.getItem('artcouture_vault_alts');
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  });
+  const [vaultThumbnails, setVaultThumbnails] = useState<Record<string, string>>(() => {
+    if (typeof window === 'undefined') return {};
+    try {
+      const raw = localStorage.getItem('artcouture_vault_thumbnails');
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  });
   const [shopOpen, setShopOpen] = useState(false);
   const [shopCategory, setShopCategory] = useState<string>("All");
   const [isMobile, setIsMobile] = useState(false);
@@ -714,42 +771,41 @@ export function EditorialCollection() {
       if (rawVaultThumbs) setVaultThumbnails(JSON.parse(rawVaultThumbs));
     } catch {}
 
-    // 2. Fetch from Firestore in the background
-    const fetchCloudConfigs = async () => {
+    // 2. Fetch/Sync from Firestore in real-time
+    let unsubHidden: (() => void) | undefined;
+    let unsubOverrides: (() => void) | undefined;
+
+    const setupRealtimeConfigs = async () => {
       try {
-        const { doc, getDoc, collection: fsCollection, getDocs } = await import('firebase/firestore');
+        const { doc, onSnapshot, collection: fsCollection, getDocs } = await import('firebase/firestore');
         const { db } = await import('@/lib/firebase');
 
-        // Fetch overrides
-        const overridesRef = doc(db, 'config', 'image_overrides');
-        const overridesSnap = await getDoc(overridesRef);
-        if (overridesSnap.exists()) {
-          const data = overridesSnap.data();
-          setImageOverrides(data);
-          localStorage.setItem('artcouture_image_overrides', JSON.stringify(data));
-        }
+        // Real-time hidden items listener
+        unsubHidden = onSnapshot(doc(db, 'config', 'hidden_items'), (snap) => {
+          if (snap.exists()) {
+            const data = snap.data();
+            const list = data.hiddenList || [];
+            setHiddenItems(list);
+            localStorage.setItem('artcouture_hidden_items', JSON.stringify(list));
+          }
+        }, (err) => {
+          console.error("Real-time hidden items sync failed:", err);
+        });
 
-        // Fetch hidden items
-        const hiddenRef = doc(db, 'config', 'hidden_items');
-        const hiddenSnap = await getDoc(hiddenRef);
-        if (hiddenSnap.exists()) {
-          const data = hiddenSnap.data();
-          const list = data.hiddenList || [];
-          setHiddenItems(list);
-          localStorage.setItem('artcouture_hidden_items', JSON.stringify(list));
-        }
-
-        // Fetch offerings
-        const offeringsRef = doc(db, 'config', 'offerings');
-        const offeringsSnap = await getDoc(offeringsRef);
-        if (offeringsSnap.exists()) {
-          const data = offeringsSnap.data();
-          setOfferingsConfig(data as any);
-          localStorage.setItem('artcouture_offerings', JSON.stringify(data));
-        }
+        // Real-time image overrides listener
+        unsubOverrides = onSnapshot(doc(db, 'config', 'image_overrides'), (snap) => {
+          if (snap.exists()) {
+            const data = snap.data() as Record<string, string>;
+            setImageOverrides(data);
+            localStorage.setItem('artcouture_image_overrides', JSON.stringify(data));
+          }
+        }, (err) => {
+          console.error("Real-time image overrides sync failed:", err);
+        });
 
         // Fetch vault images for Alt SEO & Thumbnail mapping
         try {
+          const { getDocs } = await import('firebase/firestore');
           const vaultSnap = await getDocs(fsCollection(db, 'vault'));
           const altMapping: Record<string, string> = {};
           const thumbMapping: Record<string, string> = {};
@@ -773,7 +829,12 @@ export function EditorialCollection() {
         console.error("Firestore config sync failed:", e);
       }
     };
-    fetchCloudConfigs();
+    setupRealtimeConfigs();
+
+    return () => {
+      if (unsubHidden) unsubHidden();
+      if (unsubOverrides) unsubOverrides();
+    };
   }, []);
 
   useEffect(() => {
@@ -881,7 +942,7 @@ export function EditorialCollection() {
           : item.price,
       };
     });
-  }, [offeringsConfig, imageOverrides]);
+  }, [offeringsConfig, imageOverrides, visibleCollection]);
 
   return (
     <section id="collection-start" className="bg-[var(--background)] py-32 md:py-48 relative min-h-[100vh]">

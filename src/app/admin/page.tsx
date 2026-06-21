@@ -85,28 +85,182 @@ function cleanFileNameToUrlFriendly(fileName: string): string {
 
 
 const GARMENTS: GarmentData[] = [
-  { title: 'Fuchsia Majesty', category: 'Dresses', price: '$7,955', depositAmount: '$2,000', depositLink: 'https://buy.stripe.com/3cI14nd5q0301L3fH6b3q00', img: 'https://storage.googleapis.com/mixo-sites/images/file-b1585176-4ab0-4441-9ca1-0979786596cd.jpg' },
-  { title: 'Blush Enchantress', category: 'Dresses', price: '$8,700', depositAmount: '$2,200', depositLink: 'https://buy.stripe.com/5kQdR9e9uaHE1L37aAb3q04', img: '/images/blush_enchantress.jpg' },
-  { title: 'Golden Whisper', category: 'Dresses', price: '$9,200', depositAmount: '$2,300', depositLink: 'https://buy.stripe.com/cNi00jaXi3fc0GZ9iIb3q01', img: 'https://storage.googleapis.com/mixo-sites/images/file-fbdb7417-d98d-4d96-99ed-20eb22b057ae.jpg' },
-  { title: 'Crimson Allure', category: 'Dresses', price: '$7,980', depositAmount: '$2,000', depositLink: 'https://buy.stripe.com/eVq3cv0iE7vs89rdyYb3q02', img: 'https://storage.googleapis.com/mixo-sites/images/file-efa8732c-2726-4513-9f7d-66e84a3ead12.jpg' },
-  { title: 'Blush Couture', category: 'Dresses', price: '$11,700', depositAmount: '$3,000', depositLink: 'https://buy.stripe.com/14AaEXaXig1YgFX8eEb3q03', img: 'https://storage.googleapis.com/mixo-sites/images/file-e25b0f24-1bdb-4182-886e-58dd451f1664.jpg' },
-  { title: 'Pearl Symphony', category: 'Accessories', price: '$4,200', depositAmount: '$1,000', depositLink: '', img: 'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80' },
-  { title: 'Obsidian Clutch', category: 'Accessories', price: '$5,500', depositAmount: '$1,500', depositLink: '', img: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&q=80' },
-  { title: 'Crystal Steps', category: 'Accessories', price: '$2,800', depositAmount: '$700', depositLink: '', img: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80' },
-  { title: 'Golden Hour', category: 'Accessories', price: '$3,100', depositAmount: '$800', depositLink: '', img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80' },
-  { title: 'Velvet Veil', category: 'Accessories', price: '$1,500', depositAmount: '$400', depositLink: '', img: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80' },
-  { title: 'Midnight Elegance', category: 'Dresses', price: '$8,850', depositAmount: '$2,200', depositLink: 'https://buy.stripe.com/3cI14n9Te4jg75namMb3q05', img: 'https://storage.googleapis.com/mixo-sites/images/file-fd88942d-471c-4ef4-ac9b-1d4292999cb3.jpg' },
-  { title: 'Noir Power', category: 'Jackets', price: '$7,200', depositAmount: '$1,800', depositLink: '', img: '/collections/jacket_two.png' },
-  { title: 'Ivory Architecture', category: 'Jackets', price: '$9,100', depositAmount: '$2,300', depositLink: '', img: 'https://images.unsplash.com/photo-1550639525-c97d455acf70?w=800&q=80' },
-  { title: 'Crimson Drape', category: 'Jackets', price: '$6,500', depositAmount: '$1,600', depositLink: '', img: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800&q=80' },
-  { title: 'Onyx Edge', category: 'Jackets', price: '$8,200', depositAmount: '$2,000', depositLink: '', img: 'https://images.unsplash.com/photo-1544441893-675973e31985?w=800&q=80' },
-  { title: 'Tweed Illusion', category: 'Jackets', price: '$7,800', depositAmount: '$2,000', depositLink: '', img: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80' },
-  { title: 'Ivory Cascade', category: 'Blouses', price: '$3,400', depositAmount: '$850', depositLink: '', img: 'https://storage.googleapis.com/mixo-sites/images/file-77426bbf-6aac-41f4-8c9f-16b8a9375343.PNG' },
-  { title: 'Chiffon Whisper', category: 'Blouses', price: '$2,900', depositAmount: '$700', depositLink: '', img: 'https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=800&q=80' },
-  { title: 'Satin Armor', category: 'Blouses', price: '$3,800', depositAmount: '$950', depositLink: '', img: 'https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=800&q=80' },
-  { title: 'Organza Cloud', category: 'Blouses', price: '$4,100', depositAmount: '$1,000', depositLink: '', img: 'https://images.unsplash.com/photo-1604176354204-9268737828e4?w=800&q=80' },
-  { title: 'Silk Essential', category: 'Blouses', price: '$2,200', depositAmount: '$550', depositLink: '', img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80' },
-  { title: 'Lace Romance', category: 'Blouses', price: '$4,500', depositAmount: '$1,100', depositLink: '', img: 'https://images.unsplash.com/photo-1574291814206-363acdf2aa79?w=800&q=80' },
+  {
+    "title": "Fuchsia Majesty",
+    "category": "Dresses",
+    "price": "$7,955",
+    "depositAmount": "$2,000",
+    "depositLink": "https://buy.stripe.com/3cI14nd5q0301L3fH6b3q00",
+    "img": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Ff5720508-8148-4bd3-ab0f-2b8612f15cda?alt=media&token=7be40366-58e3-4eb1-91c8-f24d29299550"
+  },
+  {
+    "title": "Blush Enchantress",
+    "category": "Dresses",
+    "price": "$8,700",
+    "depositAmount": "$2,200",
+    "depositLink": "https://buy.stripe.com/5kQdR9e9uaHE1L37aAb3q04",
+    "img": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F2f7c3f0f-2025-4098-86e5-76e1b21fe5e4?alt=media&token=b174088f-754a-49ef-8d45-ffe114715f60"
+  },
+  {
+    "title": "Golden Whisper",
+    "category": "Dresses",
+    "price": "$9,200",
+    "depositAmount": "$2,300",
+    "depositLink": "https://buy.stripe.com/cNi00jaXi3fc0GZ9iIb3q01",
+    "img": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Fa233bbdb-25ac-47fe-b686-71493e2cc226?alt=media&token=447745e0-6fd4-4fe0-b328-63b25f3199e0"
+  },
+  {
+    "title": "Crimson Allure",
+    "category": "Dresses",
+    "price": "$7,980",
+    "depositAmount": "$2,000",
+    "depositLink": "https://buy.stripe.com/eVq3cv0iE7vs89rdyYb3q02",
+    "img": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F04669707-071a-432c-82e4-76b144da07e4?alt=media&token=87ed9797-099d-4c08-ad4e-bcac6cc65c4b"
+  },
+  {
+    "title": "Blush Couture",
+    "category": "Dresses",
+    "price": "$11,700",
+    "depositAmount": "$3,000",
+    "depositLink": "https://buy.stripe.com/14AaEXaXig1YgFX8eEb3q03",
+    "img": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2F4f8b61de-f7ce-4eab-8056-b80769b17b73?alt=media&token=79857bc2-e2ed-4e7f-9a3a-47cd52717ef9"
+  },
+  {
+    "title": "Pearl Symphony",
+    "category": "Accessories",
+    "price": "$4,200",
+    "depositAmount": "$1,000",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80"
+  },
+  {
+    "title": "Obsidian Clutch",
+    "category": "Accessories",
+    "price": "$5,500",
+    "depositAmount": "$1,500",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&q=80"
+  },
+  {
+    "title": "Crystal Steps",
+    "category": "Accessories",
+    "price": "$2,800",
+    "depositAmount": "$700",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80"
+  },
+  {
+    "title": "Golden Hour",
+    "category": "Accessories",
+    "price": "$3,100",
+    "depositAmount": "$800",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80"
+  },
+  {
+    "title": "Velvet Veil",
+    "category": "Accessories",
+    "price": "$1,500",
+    "depositAmount": "$400",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80"
+  },
+  {
+    "title": "Midnight Elegance",
+    "category": "Dresses",
+    "price": "$8,850",
+    "depositAmount": "$2,200",
+    "depositLink": "https://buy.stripe.com/3cI14n9Te4jg75namMb3q05",
+    "img": "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Ff4c8fe02-afaa-458f-b217-bc5a3a57ea00?alt=media&token=697ddc89-dcdd-432d-9e94-a4c759b5027e"
+  },
+  {
+    "title": "Noir Power",
+    "category": "Jackets",
+    "price": "$7,200",
+    "depositAmount": "$1,800",
+    "depositLink": "",
+    "img": "/collections/jacket_two.png"
+  },
+  {
+    "title": "Ivory Architecture",
+    "category": "Jackets",
+    "price": "$9,100",
+    "depositAmount": "$2,300",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=800&q=80"
+  },
+  {
+    "title": "Crimson Drape",
+    "category": "Jackets",
+    "price": "$6,500",
+    "depositAmount": "$1,600",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800&q=80"
+  },
+  {
+    "title": "Onyx Edge",
+    "category": "Jackets",
+    "price": "$8,200",
+    "depositAmount": "$2,000",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1544441893-675973e31985?w=800&q=80"
+  },
+  {
+    "title": "Tweed Illusion",
+    "category": "Jackets",
+    "price": "$7,800",
+    "depositAmount": "$2,000",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80"
+  },
+  {
+    "title": "Ivory Cascade",
+    "category": "Blouses",
+    "price": "$3,400",
+    "depositAmount": "$850",
+    "depositLink": "",
+    "img": "https://storage.googleapis.com/mixo-sites/images/file-77426bbf-6aac-41f4-8c9f-16b8a9375343.PNG"
+  },
+  {
+    "title": "Chiffon Whisper",
+    "category": "Blouses",
+    "price": "$2,900",
+    "depositAmount": "$700",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=800&q=80"
+  },
+  {
+    "title": "Satin Armor",
+    "category": "Blouses",
+    "price": "$3,800",
+    "depositAmount": "$950",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=800&q=80"
+  },
+  {
+    "title": "Organza Cloud",
+    "category": "Blouses",
+    "price": "$4,100",
+    "depositAmount": "$1,000",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=800&q=80"
+  },
+  {
+    "title": "Silk Essential",
+    "category": "Blouses",
+    "price": "$2,200",
+    "depositAmount": "$550",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80"
+  },
+  {
+    "title": "Lace Romance",
+    "category": "Blouses",
+    "price": "$4,500",
+    "depositAmount": "$1,100",
+    "depositLink": "",
+    "img": "https://images.unsplash.com/photo-1574291814206-363acdf2aa79?w=800&q=80"
+  }
 ];
 
 /* ─────────────────────────────────────────────
