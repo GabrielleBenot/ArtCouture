@@ -281,14 +281,14 @@ export default function LookbookPage() {
               <span className="italic font-normal">Steed</span>
             </h3>
             <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-6">
-              From Gabi's expressionist oil canvas of a charging stallion to an elegant, abstract silver motif spanning the back of a structured wool jacket.
+              From Gabi's expressionist oil canvas of a charging stallion to an abstract, blocked mixed-media motif spanning the back of a structured wool jacket.
             </p>
             <div className="space-y-4 font-sans text-xs text-white/45 leading-relaxed mb-8">
               <p>
-                The challenge lay in capturing the movement and raw energy of the horse. We utilized a heavy Japanese wool crepe as the foundation, mapping the gestural brushstrokes of the horse's mane and tail using abstract, raised corded embroidery.
+                The challenge lay in capturing the movement and raw energy of the horse. We utilized a heavy Japanese wool crepe as the foundation, mapping the horse's silhouette into abstract, organic blocks using mixed-media hand embroidery in lilacs, silver, gray, black, and white threads.
               </p>
               <p>
-                The stylized body of the stallion integrates delicate white lace inserts, meticulously embroidered with a mix of silver bullion wires, charcoal silk, and pure white threads. Scattered, hand-applied rhinestones and crystals add a subtle catch-light shimmer, while peak lapels cut from duchesse silk satin complete the authoritative look.
+                Each section is defined by a distinct stitch texture: dense lilac satin stitches, clusters of French knots, and scattered white seed stitches. Integrated linen patches and flowing silver thread lines for the mane and tail create a highly tactile, elegant relief, completed by peak lapels cut from duchesse silk satin.
               </p>
             </div>
             <p className="font-mono text-[9px] uppercase tracking-widest text-[var(--dada-red)] pl-4 border-l border-white/10">
@@ -330,6 +330,65 @@ export default function LookbookPage() {
                 "We interweave Hikihaku gold leaf threads with champagne bouclé loops, bringing historical grandeur to modern structured jackets."
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* SECTION 5b: Feature Article - Deconstructed Mondrian (Art to Blazer) */}
+        <section className="mb-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Images side-by-side */}
+          <div className="lg:col-span-6 grid grid-cols-2 gap-4 group">
+            {/* Front View */}
+            <div className="flex flex-col gap-2">
+              <div className="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/5 rounded-lg relative">
+                <img
+                  src="/images/process/mondrian_blazer_front.png"
+                  alt="Deconstructed Mondrian blazer front view"
+                  className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-[1200ms] ease-in-out"
+                />
+              </div>
+              <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 block">
+                Fig. 05 / Front View (Grayscale / Hover for Color)
+              </span>
+            </div>
+
+            {/* Back View */}
+            <div className="flex flex-col gap-2">
+              <div className="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/5 rounded-lg relative">
+                <img
+                  src="/images/process/mondrian_blazer_back.png"
+                  alt="Deconstructed Mondrian blazer back view"
+                  className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-[1200ms] ease-in-out"
+                />
+              </div>
+              <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 block">
+                Fig. 06 / Back View (Grayscale / Hover for Color)
+              </span>
+            </div>
+          </div>
+
+          {/* Story Text */}
+          <div className="lg:col-span-6 flex flex-col justify-center pl-0 lg:pl-8">
+            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--dada-red)] mb-3 block">
+              Artwork Deconstruction
+            </span>
+            <h3 className="font-serif font-light text-3xl md:text-5xl uppercase tracking-wide mb-6 leading-tight">
+              Deconstructed <br />
+              <span className="italic font-normal">Mondrian</span>
+            </h3>
+            <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-6">
+              Gabrielle Benot's architectural dialogue with Neo-Plasticism, translating Piet Mondrian's strict grid into a fluid, deconstructed white blazer.
+            </p>
+            <div className="space-y-4 font-sans text-xs text-white/45 leading-relaxed mb-8">
+              <p>
+                Inspired by Mondrian's compositional balance, Gabrielle reimagined the vertical and horizontal grid lines as dynamic, intersecting diagonals slicing across a clean white wool crepe blazer. 
+              </p>
+              <p>
+                We hand-embroidered thick black structural cords to anchor the composition. The resulting geometric panels are filled with textured French knots and micro-seed beads in the iconic primary color palette, vibrant yellow, deep cobalt blue, and rich scarlet red.
+              </p>
+            </div>
+            <p className="font-mono text-[9px] uppercase tracking-widest text-[var(--dada-red)] pl-4 border-l border-white/10">
+              <strong>Bespoke Detail:</strong> The embroidery flows continuously from the front lapel, wrapping around the side seams to converge in a major deconstructed focal point across the back.
+            </p>
           </div>
         </section>
 
