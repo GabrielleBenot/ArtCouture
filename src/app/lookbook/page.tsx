@@ -376,18 +376,18 @@ export default function LookbookPage() {
               <span className="italic font-normal">Mondrian</span>
             </h3>
             <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-6">
-              Gabrielle Benot's architectural dialogue with Neo-Plasticism, translating Piet Mondrian's strict grid into a fluid, deconstructed white blazer.
+              Gabrielle Benot's architectural dialogue with Neo-Plasticism, translating Piet Mondrian's strict grid into a structured, deconstructed white blazer.
             </p>
             <div className="space-y-4 font-sans text-xs text-white/45 leading-relaxed mb-8">
               <p>
-                Inspired by Mondrian's compositional balance, Gabrielle reimagined the vertical and horizontal grid lines as dynamic, intersecting diagonals slicing across a clean white wool crepe blazer. 
+                Inspired by Mondrian's compositional balance, Gabrielle selected a thick, smooth, and highly structured white scuba diving fabric (neoprene) to hold a modern, cropped architectural silhouette. The vertical and horizontal grid lines are reimagined as dynamic, intersecting diagonals.
               </p>
               <p>
-                We hand-embroidered thick black structural cords to anchor the composition. The resulting geometric panels are filled with textured French knots and micro-seed beads in the iconic primary color palette, vibrant yellow, deep cobalt blue, and rich scarlet red.
+                We hand-embroidered thick black structural cords directly onto the structured neoprene base. The resulting geometric panels are filled with textured French knots and micro-seed beads in the iconic primary color palette, vibrant yellow, deep cobalt blue, and rich scarlet red.
               </p>
             </div>
             <p className="font-mono text-[9px] uppercase tracking-widest text-[var(--dada-red)] pl-4 border-l border-white/10">
-              <strong>Bespoke Detail:</strong> The front of the blazer remains minimalist and completely clean, with the deconstructed Piet Mondrian-inspired embroidery featured exclusively across the back as a major artistic focal point.
+              <strong>Bespoke Detail:</strong> The front of the scuba blazer remains minimalist and completely clean, with the deconstructed Piet Mondrian-inspired embroidery featured exclusively across the back as a major artistic focal point.
             </p>
           </div>
         </section>
