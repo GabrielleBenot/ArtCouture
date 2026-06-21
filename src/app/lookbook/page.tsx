@@ -138,7 +138,7 @@ export default function LookbookPage() {
               if (el) el.scrollIntoView({ behavior: "smooth" });
             }}
           >
-            <span className="font-mono text-[8px] uppercase tracking-widest">Enter the Issue</span>
+            <span className="font-mono text-[8px] uppercase tracking-widest">Explore the Lookbook</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="12"
@@ -170,7 +170,7 @@ export default function LookbookPage() {
             </h2>
             <div className="w-12 h-[1px] bg-[var(--dada-red)] my-6" />
             <p className="font-mono text-[10px] text-white/40 uppercase tracking-widest leading-relaxed">
-              Issue No. 01 / Summer Edition / Wearable Paintings and Ancient Tambour Craft.
+              Wearable Paintings and Ancient Tambour Craft.
             </p>
           </div>
           
@@ -262,13 +262,13 @@ export default function LookbookPage() {
           <div className="lg:col-span-5 lg:order-2 group">
             <div className="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/5 rounded-lg relative">
               <img
-                src="/images/process/steaming.jpg"
-                alt="Steaming custom jacket embroidery"
+                src="/images/process/stallion_jacket.png"
+                alt="Bespoke structured wool jacket with abstract silver stallion embroidery, lace inserts, and rhinestones"
                 className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-[1200ms] ease-in-out"
               />
             </div>
             <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 mt-2 block">
-              Fig. 03 / Hand-tailoring and Steaming (Grayscale View / Hover for Color)
+              Fig. 03 / The Stallion Motif Embroidery (Grayscale View / Hover for Color)
             </span>
           </div>
 
@@ -281,14 +281,14 @@ export default function LookbookPage() {
               <span className="italic font-normal">Steed</span>
             </h3>
             <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-6">
-              From Gabi's expressionist oil canvas of a charging stallion to a corded gold motif spanning the back of a structured wool jacket.
+              From Gabi's expressionist oil canvas of a charging stallion to an elegant, abstract silver motif spanning the back of a structured wool jacket.
             </p>
             <div className="space-y-4 font-sans text-xs text-white/45 leading-relaxed mb-8">
               <p>
-                The challenge lay in capturing the movement and raw energy of the horse. We utilized a heavy Japanese wool crepe as the foundation. We then mapped the gestural brushstrokes of the horse's mane using raised, corded embroidery. 
+                The challenge lay in capturing the movement and raw energy of the horse. We utilized a heavy Japanese wool crepe as the foundation, mapping the gestural brushstrokes of the horse's mane and tail using abstract, raised corded embroidery.
               </p>
               <p>
-                This thick outline was padded with cotton yarn and overlaid with gold bullion wires and silk threads. The peak lapels were cut from duchesse silk satin to contrast the matte wool, making the jacket look fierce and authoritative.
+                The stylized body of the stallion integrates delicate white lace inserts, meticulously embroidered with a mix of silver bullion wires, charcoal silk, and pure white threads. Scattered, hand-applied rhinestones and crystals add a subtle catch-light shimmer, while peak lapels cut from duchesse silk satin complete the authoritative look.
               </p>
             </div>
             <p className="font-mono text-[9px] uppercase tracking-widest text-[var(--dada-red)] pl-4 border-l border-white/10">
@@ -393,7 +393,7 @@ export default function LookbookPage() {
                   {/* Text Editorial Column */}
                   <div className="w-full lg:w-1/2 flex flex-col justify-center">
                     <span className="font-mono text-xs uppercase tracking-[0.35em] text-[var(--dada-red)] mb-3">
-                      Edition {index + 1}
+                      Look {index + 1}
                     </span>
                     <h2 className="font-serif font-light text-4xl md:text-5xl tracking-wide uppercase mb-2">
                       {item.title}
