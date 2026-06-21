@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Logo } from "./Logo";
 
 const navLinks = [
+  { label: "Home", href: "/" },
   { label: "Shop Boutique", href: "/#shop", isShop: true },
   { label: "Collections", href: "/#collections" },
   { label: "Lookbook", href: "/lookbook" },

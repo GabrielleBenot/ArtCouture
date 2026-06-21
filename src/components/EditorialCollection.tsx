@@ -876,11 +876,6 @@ export function EditorialCollection() {
     // 1. Check general inventory hidden list
     if (hiddenItems.includes(item.title)) return false;
 
-    // 2. Check if corresponding lookbook section is hidden
-    const lookbookId = item.title.toLowerCase().replace(" ", "-");
-    const lookbookMatch = lookbookSections.find(s => s.id === lookbookId);
-    if (lookbookMatch && lookbookMatch.visible === false) return false;
-
     return true;
   });
   const categories = Array.from(new Set(visibleCollection.map(item => item.category)));
