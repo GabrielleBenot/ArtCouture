@@ -213,7 +213,7 @@ const collection = [
     price: "$8,850", 
     depositAmount: "$2,200",
     depositLink: "https://buy.stripe.com/3cI14n9Te4jg75namMb3q05",
-    description: "Where darkness whispers luxury fashion. This couture jacket in deep navy velvet is sculpted to perfection, draping with quiet power that rivals any red carpet gown. A designer dress alternative for those who command a room through understated haute couture mastery.",
+    description: "Where darkness whispers luxury fashion. This bespoke evening gown in deep navy velvet is sculpted to perfection, draping with quiet power that commands any red carpet event. A haute couture masterpiece for those who rule the room through understated elegance.",
     fabric: "Midnight blue silk-viscose pané velvet, extraordinarily soft and plush with a hand-brushed pile that catches the light like a starlit winter sky, fully lined in heavy silk charmeuse.",
     customization: "Backless plunge depth, sleeve length, and shoulder silhouette are bespoke. Interior lining available in contrasting jewel tones: emerald, ruby, or sapphire silk charmeuse.",
     img: "https://storage.googleapis.com/mixo-sites/images/file-fd88942d-471c-4ef4-ac9b-1d4292999cb3.jpg",
