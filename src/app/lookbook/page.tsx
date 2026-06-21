@@ -281,14 +281,14 @@ export default function LookbookPage() {
               <span className="italic font-normal">Steed</span>
             </h3>
             <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-6">
-              From Gabi's expressionist canvas of a charging stallion to a highly textured, paint-inspired embroidery spanning the back of a structured wool jacket.
+              From Gabi's expressionist canvas of a charging stallion to a highly textured, paint-inspired embroidery spanning the back of a cropped, structured wool jacket.
             </p>
             <div className="space-y-4 font-sans text-xs text-white/45 leading-relaxed mb-8">
               <p>
-                Directly inspired by Gabi's textured impasto oil painting, we sought to replicate the rich, layered palette-knife strokes of the canvas. We mapped the horse's silhouette using hand-embroidery threads of varying thicknesses, ranging from thick wool yarns and corded lines to fine metallic and silk threads.
+                Directly inspired by Gabi's textured impasto oil painting, we sought to replicate the rich, layered palette-knife strokes of the canvas. We mapped the horse's silhouette onto a shorter, cropped haute couture wool jacket using hand-embroidery threads of varying thicknesses, ranging from thick wool yarns and corded lines to fine metallic and silk threads.
               </p>
               <p>
-                The color scheme translates the painting's moody canvas: elegant lilacs, soft pinks, lavender, charcoal gray, black, and white, highlighted with subtle hints of gold-leaf and silver threads. A scattering of small, hand-applied crystals adds a delicate catch-light shimmer, bringing the charging horse to life.
+                The deconstructed horse silhouette features unevenly cut fringe threads of varying lengths, with long, loose threads in deep blues, purples, and crimsons dripping dynamically down from the horse's body and tail. A scattering of small, hand-applied crystals adds a delicate catch-light shimmer, bringing the charging horse to life.
               </p>
             </div>
             <p className="font-mono text-[9px] uppercase tracking-widest text-[var(--dada-red)] pl-4 border-l border-white/10">
@@ -388,6 +388,65 @@ export default function LookbookPage() {
             </div>
             <p className="font-mono text-[9px] uppercase tracking-widest text-[var(--dada-red)] pl-4 border-l border-white/10">
               <strong>Bespoke Detail:</strong> The front of the scuba blazer remains minimalist and completely clean, with the deconstructed Piet Mondrian-inspired embroidery featured exclusively across the back as a major artistic focal point.
+            </p>
+          </div>
+        </section>
+
+        {/* SECTION 5c: Feature Article - Surrealist Miró Top (Art to Leather) */}
+        <section className="mb-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Images side-by-side */}
+          <div className="lg:col-span-6 grid grid-cols-2 gap-4 group">
+            {/* Front View */}
+            <div className="flex flex-col gap-2">
+              <div className="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/5 rounded-lg relative">
+                <img
+                  src="/images/process/miro_top_front.png"
+                  alt="Surrealist Miró inspired black leather top front view"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 block">
+                Fig. 07 / Front View (Embroidered Faux Leather)
+              </span>
+            </div>
+
+            {/* Back View */}
+            <div className="flex flex-col gap-2">
+              <div className="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/5 rounded-lg relative">
+                <img
+                  src="/images/process/miro_top_back.png"
+                  alt="Miró inspired black leather top back view with transparent mesh"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 block">
+                Fig. 08 / Back View (Transparent Black Mesh)
+              </span>
+            </div>
+          </div>
+
+          {/* Story Text */}
+          <div className="lg:col-span-6 flex flex-col justify-center pl-0 lg:pl-8">
+            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--dada-red)] mb-3 block">
+                Surrealist Dialogue
+            </span>
+            <h3 className="font-serif font-light text-3xl md:text-5xl uppercase tracking-wide mb-6 leading-tight">
+              Constellation <br />
+              <span className="italic font-normal">Miró</span>
+            </h3>
+            <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-6">
+              Gabrielle Benot's tribute to Joan Miró's whimsical surrealism, translating biomorphic lines into a cropped, structured leather and sheer mesh top.
+            </p>
+            <div className="space-y-4 font-sans text-xs text-white/45 leading-relaxed mb-8">
+              <p>
+                A lifelong admirer of Joan Miró's poetic symbolism, Gabrielle designed a high-fashion, cropped contrast-construction top. The front is structured from premium black faux leather, acting as a dark canvas for a minimalist arrangement of Miró-inspired biomorphic lines and clean primary color pops.
+              </p>
+              <p>
+                The back is cut entirely from sheer, transparent black mesh, completely free of embroidery to create a striking contrast between the structured weight of the front leather and the delicate, clean transparency of the back.
+              </p>
+            </div>
+            <p className="font-mono text-[9px] uppercase tracking-widest text-[var(--dada-red)] pl-4 border-l border-white/10">
+              <strong>Bespoke Detail:</strong> The sparse, whimsical shapes on the front are hand-embroidered with dense satin stitches, presenting an elegant, understated surrealist composition.
             </p>
           </div>
         </section>
