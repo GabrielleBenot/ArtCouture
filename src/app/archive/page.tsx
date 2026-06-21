@@ -164,6 +164,8 @@ export default function ArchivePage() {
                   loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
+                {/* Custom Vignette overlay */}
+                <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_50px_rgba(0,0,0,0.85)] z-10" />
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500" />
               </div>
               <div className="p-6 flex flex-col justify-between flex-grow">
