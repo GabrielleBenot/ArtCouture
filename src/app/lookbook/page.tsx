@@ -87,7 +87,7 @@ const defaultLookbookSections: LookbookSectionConfig[] = [
   { id: "manifesto", title: "From Canvas to Cloth", visible: true, images: {} },
   { id: "poppy", title: "The Transformation of Form (Poppy)", visible: true, images: { main: "/images/process/applique.jpg" } },
   { id: "luneville", title: "The Alchemy of Luneville", visible: true, images: { main: "/images/process/luneville.jpg" } },
-  { id: "hikihaku", title: "Kyoto's Golden Thread (Hikihaku)", visible: true, images: { main: "/images/process/threading.jpg" } },
+  { id: "hikihaku", title: "QRS Golden Thread (Hikihaku)", visible: true, images: { main: "/images/process/threading.jpg" } },
   { id: "stallion", title: "The Painted Steed (Stallion)", visible: true, images: { front: "/images/process/equine_dahlia_main.jpg", back: "/images/process/perfect_jacket.png" } },
   { id: "mondrian", title: "Deconstructed Mondrian", visible: true, images: { front: "/images/process/mondrian_blazer_front.png", back: "/images/process/mondrian_blazer_back.png" } },
   { id: "miro", title: "Constellation Miró", visible: true, images: { front: "/images/process/miro_inspiration.png", back: "/images/process/miro_top_back.png" } },
@@ -337,6 +337,19 @@ export default function LookbookPage() {
       {/* Main Magazine Layout */}
       <main id="magazine-start" className="max-w-6xl mx-auto px-6 md:px-12 pt-16">
         
+        {/* PART I HEADER */}
+        <div className="border-b border-white/10 pb-8 mb-16">
+          <span className="font-mono text-xs uppercase tracking-[0.4em] text-[var(--dada-red)] block mb-3">
+            Part I
+          </span>
+          <h2 className="font-serif font-thin text-5xl md:text-6xl lg:text-7xl uppercase tracking-wider text-white">
+            The Heritage <span className="italic font-light text-white/70">&amp; The Craft</span>
+          </h2>
+          <p className="font-sans text-xs text-white/50 max-w-xl mt-4 leading-relaxed uppercase tracking-wider">
+            An exploration of the brand's philosophy, the ancient French technique of Lunéville embroidery, and the legendary history of Kyoto's golden threads.
+          </p>
+        </div>
+
         {/* SECTION 1: Lead Article - Drop Cap Editorial style */}
         {sections.find(s => s.id === "manifesto")?.visible !== false && (
           <>
@@ -351,7 +364,7 @@ export default function LookbookPage() {
                 </h2>
                 <div className="w-12 h-[1px] bg-[var(--dada-red)] my-6" />
                 <p className="font-mono text-[10px] text-white/40 uppercase tracking-widest leading-relaxed">
-                  Wearable Paintings and Ancient Tambour Craft.
+                  Setting the philosophy, theme, and collaborative spirit.
                 </p>
               </div>
               
@@ -434,6 +447,9 @@ export default function LookbookPage() {
                   The Alchemy of <br />
                   <span className="italic font-normal text-white/90">Luneville</span>
                 </h3>
+                <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-6">
+                  Introducing the tactile, physical craftsmanship (tulle, hook embroidery, and raw materials).
+                </p>
                 <div className="space-y-4 font-sans text-xs text-white/50 leading-relaxed">
                   <p>
                     Born in 1810 in the town of Lunéville, France, the tambour embroidery technique remains the crown jewel of haute couture embellishment. Unlike traditional needle embroidery, Lunéville uses a specialized hook to apply beads and sequins from the reverse side of a translucent frame.
@@ -495,12 +511,15 @@ export default function LookbookPage() {
               </div>
               <div className="lg:order-1">
                 <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--dada-red)] mb-3 block">
-                  04 / Kyoto's Golden Thread
+                  04 / QRS Golden Thread
                 </span>
                 <h3 className="font-serif font-light text-3xl md:text-4xl uppercase tracking-wide mb-6 leading-tight">
-                  Kyoto's Golden <br />
+                  QRS Golden <br />
                   <span className="italic font-normal text-white/90">Thread</span>
                 </h3>
+                <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-6">
+                  Elevating the craft into history, legacy, and the deeper concept behind the collection.
+                </p>
                 <div className="space-y-4 font-sans text-xs text-white/50 leading-relaxed">
                   <p>
                     Known as <em>Hikihaku</em> in Japanese heritage weaving, this ancient craft involves beating 24k gold leaf to microscopic thinness and adhering it to premium mulberry paper. The gilded paper is then sliced into fine ribbons and wrapped around a pure silk core.
@@ -517,6 +536,19 @@ export default function LookbookPage() {
             <div className="w-full border-t border-white/10 my-16 md:my-24" />
           </>
         )}
+
+        {/* PART II HEADER */}
+        <div className="border-b border-white/10 pb-8 mb-16 mt-24">
+          <span className="font-mono text-xs uppercase tracking-[0.4em] text-[var(--dada-red)] block mb-3">
+            Part II
+          </span>
+          <h2 className="font-serif font-thin text-5xl md:text-6xl lg:text-7xl uppercase tracking-wider text-white">
+            The Haute Couture <span className="italic font-light text-white/70">Gallery</span>
+          </h2>
+          <p className="font-sans text-xs text-white/50 max-w-xl mt-4 leading-relaxed uppercase tracking-wider">
+            A visual and product-heavy showcase of our completed signature masterpieces, featuring hand-embroidered, structured, and surrealist designs.
+          </p>
+        </div>
 
         {/* SECTION 5: Feature Article - The Painted Steed (Horse to Jacket) */}
         {sections.find(s => s.id === "stallion")?.visible !== false && (
@@ -582,7 +614,10 @@ export default function LookbookPage() {
                   The Painted <br />
                   <span className="italic font-normal">Steed</span>
                 </h3>
-                <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-6">
+                <p className="font-serif italic text-sm text-white/75 leading-relaxed mb-4">
+                  Launching the visual runway with the raw, powerful equine designs.
+                </p>
+                <p className="font-sans text-xs text-white/50 leading-relaxed mb-6">
                   From Gabi's expressionist canvas of a charging stallion to a highly textured, paint-inspired embroidery spanning the back of a cropped, structured wool jacket.
                 </p>
                 <div className="space-y-4 font-sans text-xs text-white/45 leading-relaxed mb-8">
@@ -666,7 +701,10 @@ export default function LookbookPage() {
                   Deconstructed <br />
                   <span className="italic font-normal">Mondrian</span>
                 </h3>
-                <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-6">
+                <p className="font-serif italic text-sm text-white/75 leading-relaxed mb-4">
+                  Transitioning into structured, geometric modernism.
+                </p>
+                <p className="font-sans text-xs text-white/50 leading-relaxed mb-6">
                   Our collaborative architectural dialogue with Neo-Plasticism, translating Piet Mondrian's strict grid into a structured, deconstructed white blazer.
                 </p>
                 <div className="space-y-4 font-sans text-xs text-white/45 leading-relaxed mb-8">
@@ -758,7 +796,10 @@ export default function LookbookPage() {
                   Constellation <br />
                   <span className="italic font-normal">Miró</span>
                 </h3>
-                <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-6">
+                <p className="font-serif italic text-sm text-white/75 leading-relaxed mb-4">
+                  Concluding with the ethereal, fluid, surrealist masterpiece.
+                </p>
+                <p className="font-sans text-xs text-white/50 leading-relaxed mb-6">
                   Our collaborative, whimsical surrealist composition, translating biomorphic lines into a double-layer embroidered haute couture top.
                 </p>
                 <div className="space-y-4 font-sans text-xs text-white/45 leading-relaxed mb-8">

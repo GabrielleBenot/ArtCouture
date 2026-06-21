@@ -2832,7 +2832,7 @@ const defaultLookbookSections: LookbookSectionConfig[] = [
   { id: "manifesto", title: "From Canvas to Cloth", visible: true, images: {} },
   { id: "poppy", title: "The Transformation of Form (Poppy)", visible: true, images: { main: "/images/process/applique.jpg" } },
   { id: "luneville", title: "The Alchemy of Luneville", visible: true, images: { main: "/images/process/luneville.jpg" } },
-  { id: "hikihaku", title: "Kyoto's Golden Thread (Hikihaku)", visible: true, images: { main: "/images/process/threading.jpg" } },
+  { id: "hikihaku", title: "QRS Golden Thread (Hikihaku)", visible: true, images: { main: "/images/process/threading.jpg" } },
   { id: "stallion", title: "The Painted Steed (Stallion)", visible: true, images: { front: "/images/process/equine_dahlia_main.jpg", back: "/images/process/perfect_jacket.png" } },
   { id: "mondrian", title: "Deconstructed Mondrian", visible: true, images: { front: "/images/process/mondrian_blazer_front.png", back: "/images/process/mondrian_blazer_back.png" } },
   { id: "miro", title: "Constellation Miró", visible: true, images: { front: "/images/process/miro_inspiration.png", back: "/images/process/miro_top_back.png" } },
