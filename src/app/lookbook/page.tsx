@@ -120,22 +120,6 @@ export default function LookbookPage() {
   const [selectedDress, setSelectedDress] = useState<DressItem | null>(null);
   const [selectedLookId, setSelectedLookId] = useState<string | null>(null);
 
-  // Mobile swipe state & touch handlers for Constellation Miró
-  const [activeMiroTab, setActiveMiroTab] = useState<number>(0);
-  const miroTouchStart = React.useRef<number | null>(null);
-  const handleMiroTouchStart = (e: React.TouchEvent) => {
-    miroTouchStart.current = e.touches[0].clientX;
-  };
-  const handleMiroTouchEnd = (e: React.TouchEvent) => {
-    if (miroTouchStart.current === null) return;
-    const diff = miroTouchStart.current - e.changedTouches[0].clientX;
-    if (diff > 50) {
-      setActiveMiroTab(1); // Swipe left -> show Back View
-    } else if (diff < -50) {
-      setActiveMiroTab(0); // Swipe right -> show Front View
-    }
-    miroTouchStart.current = null;
-  };
 
   useEffect(() => {
     setCurrentSlide(activeImage?.initialSlide ?? 0);
@@ -705,10 +689,9 @@ export default function LookbookPage() {
           <>
             <section className="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               {/* Images side-by-side */}
-              {/* Desktop layout: Images side-by-side in a 3-column grid */}
-              <div className="hidden lg:grid lg:col-span-6 grid-cols-3 gap-2 w-full lg:max-w-none group">
+              <div className="lg:col-span-6 flex flex-row gap-3 w-[90%] mx-auto lg:w-full lg:max-w-none group">
                 {/* Inspiration View */}
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 w-1/2">
                   <div 
                     className="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/5 rounded-lg relative cursor-zoom-in"
                     onClick={() => setActiveImage({
@@ -731,12 +714,12 @@ export default function LookbookPage() {
                     />
                   </div>
                   <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 block">
-                    Fig. 08 / Original Art
+                    Fig. 08 / Inspiration Painting
                   </span>
                 </div>
 
                 {/* Front View */}
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 w-1/2">
                   <div 
                     className="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/5 rounded-lg relative cursor-zoom-in"
                     onClick={() => setActiveImage({
@@ -761,171 +744,6 @@ export default function LookbookPage() {
                   <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 block">
                     Fig. 09 / Front View
                   </span>
-                </div>
-
-                {/* Back View */}
-                <div className="flex flex-col gap-2">
-                  <div 
-                    className="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/5 rounded-lg relative cursor-zoom-in"
-                    onClick={() => setActiveImage({
-                      src: sections.find(s => s.id === "miro")?.images.front || "/images/process/miro_inspiration.png",
-                      alt: "Joan Miró inspired original painting",
-                      caption: "Inspiration Painting (Original Art)",
-                      secondarySrc: "/images/process/miro_top_front.png",
-                      secondaryAlt: "Miró inspired double-layer embroidered top front view",
-                      secondaryCaption: "Bespoke Top Front View",
-                      tertiarySrc: sections.find(s => s.id === "miro")?.images.back || "/images/process/miro_top_back.png",
-                      tertiaryAlt: "Miró inspired double-layer embroidered top back view",
-                      tertiaryCaption: "Bespoke Top Back View",
-                      initialSlide: 1
-                    })}
-                  >
-                    <img
-                      src={sections.find(s => s.id === "miro")?.images.back || "/images/process/miro_top_back.png"}
-                      alt="Miró inspired double-layer embroidered top back view"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 block">
-                    Fig. 10 / Back View
-                  </span>
-                </div>
-              </div>
-
-              {/* Mobile layout: Art on top, Garment Views below with swipe/scroll */}
-              <div className="lg:hidden lg:col-span-6 flex flex-col gap-6 w-[95%] mx-auto">
-                {/* Art on top */}
-                <div className="flex flex-col gap-2">
-                  <div 
-                    className="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/5 rounded-lg relative cursor-zoom-in"
-                    onClick={() => setActiveImage({
-                      src: sections.find(s => s.id === "miro")?.images.front || "/images/process/miro_inspiration.png",
-                      alt: "Joan Miró inspired original painting",
-                      caption: "Inspiration Painting (Original Art)",
-                      secondarySrc: "/images/process/miro_top_front.png",
-                      secondaryAlt: "Miró inspired double-layer embroidered top front view",
-                      secondaryCaption: "Bespoke Top Front View",
-                      tertiarySrc: sections.find(s => s.id === "miro")?.images.back || "/images/process/miro_top_back.png",
-                      tertiaryAlt: "Miró inspired double-layer embroidered top back view",
-                      tertiaryCaption: "Bespoke Top Back View",
-                      initialSlide: 0
-                    })}
-                  >
-                    <img
-                      src={sections.find(s => s.id === "miro")?.images.front || "/images/process/miro_inspiration.png"}
-                      alt="Joan Miró inspired original painting"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 block text-center">
-                    Fig. 08 / Original Art (Inspiration Painting)
-                  </span>
-                </div>
-
-                {/* Garment Views below with Swipe */}
-                <div className="flex flex-col gap-2 relative">
-                  <div 
-                    className="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/5 rounded-lg relative cursor-zoom-in touch-pan-y"
-                    onTouchStart={handleMiroTouchStart}
-                    onTouchEnd={handleMiroTouchEnd}
-                  >
-                    {/* The Swipeable Slides */}
-                    <div 
-                      className="flex w-full h-full transition-transform duration-500 ease-out"
-                      style={{ transform: `translateX(-${activeMiroTab * 100}%)` }}
-                    >
-                      {/* Slide 1: Front View */}
-                      <div 
-                        className="w-full h-full shrink-0 relative"
-                        onClick={() => setActiveImage({
-                          src: sections.find(s => s.id === "miro")?.images.front || "/images/process/miro_inspiration.png",
-                          alt: "Joan Miró inspired original painting",
-                          caption: "Inspiration Painting (Original Art)",
-                          secondarySrc: "/images/process/miro_top_front.png",
-                          secondaryAlt: "Miró inspired double-layer embroidered top front view",
-                          secondaryCaption: "Bespoke Top Front View",
-                          tertiarySrc: sections.find(s => s.id === "miro")?.images.back || "/images/process/miro_top_back.png",
-                          tertiaryAlt: "Miró inspired double-layer embroidered top back view",
-                          tertiaryCaption: "Bespoke Top Back View",
-                          initialSlide: 0
-                        })}
-                      >
-                        <img
-                          src="/images/process/miro_top_front.png"
-                          alt="Miró inspired double-layer embroidered top front view"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-
-                      {/* Slide 2: Back View */}
-                      <div 
-                        className="w-full h-full shrink-0 relative"
-                        onClick={() => setActiveImage({
-                          src: sections.find(s => s.id === "miro")?.images.front || "/images/process/miro_inspiration.png",
-                          alt: "Joan Miró inspired original painting",
-                          caption: "Inspiration Painting (Original Art)",
-                          secondarySrc: "/images/process/miro_top_front.png",
-                          secondaryAlt: "Miró inspired double-layer embroidered top front view",
-                          secondaryCaption: "Bespoke Top Front View",
-                          tertiarySrc: sections.find(s => s.id === "miro")?.images.back || "/images/process/miro_top_back.png",
-                          tertiaryAlt: "Miró inspired double-layer embroidered top back view",
-                          tertiaryCaption: "Bespoke Top Back View",
-                          initialSlide: 1
-                        })}
-                      >
-                        <img
-                          src={sections.find(s => s.id === "miro")?.images.back || "/images/process/miro_top_back.png"}
-                          alt="Miró inspired double-layer embroidered top back view"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Navigation Arrows inside slider */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveMiroTab(0);
-                      }}
-                      className={`absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 border border-white/20 flex items-center justify-center text-white transition-opacity z-10 ${activeMiroTab === 0 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-                      aria-label="Previous view"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <polyline points="15 18 9 12 15 6" />
-                      </svg>
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveMiroTab(1);
-                      }}
-                      className={`absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 border border-white/20 flex items-center justify-center text-white transition-opacity z-10 ${activeMiroTab === 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-                      aria-label="Next view"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <polyline points="9 18 15 12 9 6" />
-                      </svg>
-                    </button>
-                  </div>
-
-                  {/* Indicators and Labels */}
-                  <div className="flex flex-col items-center gap-2 mt-2">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => setActiveMiroTab(0)}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${activeMiroTab === 0 ? 'w-4 bg-[var(--dada-red)]' : 'bg-white/20'}`}
-                        aria-label="Go to front view"
-                      />
-                      <button
-                        onClick={() => setActiveMiroTab(1)}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${activeMiroTab === 1 ? 'w-4 bg-[var(--dada-red)]' : 'bg-white/20'}`}
-                        aria-label="Go to back view"
-                      />
-                    </div>
-                    <span className="font-mono text-[8px] uppercase tracking-widest text-white/50">
-                      {activeMiroTab === 0 ? "Fig. 09 / Front View" : "Fig. 10 / Back View"} (Swipe to explore)
-                    </span>
-                  </div>
                 </div>
               </div>
 

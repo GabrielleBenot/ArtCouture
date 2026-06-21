@@ -244,6 +244,29 @@ export default function ArchivePage() {
         </motion.div>
       </section>
 
+      {/* Bottom Back Button */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 flex justify-center border-t border-white/5">
+        <a
+          href={backUrl}
+          className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] bg-white/5 hover:bg-white/10 text-white/85 hover:text-white px-8 py-3.5 rounded-lg border border-white/10 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-white/[0.02]"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="transform group-hover:-translate-x-1 transition-transform"
+          >
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          Back to Lookbook
+        </a>
+      </div>
+
       {/* Swatch Detail Modal Lightbox */}
       <AnimatePresence>
         {selectedSwatch && (
