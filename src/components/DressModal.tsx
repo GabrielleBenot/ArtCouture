@@ -644,27 +644,18 @@ export function DressModal({
             </AnimatePresence>
 
             {/* View Mode Toggle Button */}
-            <button
-              onClick={() => setIsFitMode(!isFitMode)}
-              className="absolute bottom-6 md:bottom-4 right-6 md:right-4 z-50 px-3 py-2 bg-black/50 hover:bg-black/80 backdrop-blur-xl border border-white/10 rounded-full flex items-center gap-1.5 transition-all duration-300 shadow-2xl cursor-pointer group hover:scale-[1.02]"
-              title={isFitMode ? "Crop image to fill layout" : "Show full uncropped image"}
-            >
-              {isFitMode ? (
-                <>
-                  <svg className="w-3.5 h-3.5 text-white/90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 9V4.5M9 9H4.5M9 9L3 3m12 6V4.5m0 4.5h4.5m-4.5 0l6-6M9 15v4.5M9 15H4.5m4.5 0l-6 6m6-6v4.5m0-4.5h4.5m-4.5 0l6 6" />
-                  </svg>
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-white/90 font-medium">Crop to Fill</span>
-                </>
-              ) : (
-                <>
-                  <svg className="w-3.5 h-3.5 text-white/90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75v4.5m0-4.5h-4.5m4.5 0L15 9m5.25 11.25v-4.5m0 4.5h-4.5m4.5 0l-5.25-5.25" />
-                  </svg>
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-white/90 font-medium">View Full Photo</span>
-                </>
-              )}
-            </button>
+            {!isFitMode && (
+              <button
+                onClick={() => setIsFitMode(true)}
+                className="absolute bottom-6 md:bottom-4 right-6 md:right-4 z-50 px-3 py-2 bg-black/50 hover:bg-black/80 backdrop-blur-xl border border-white/10 rounded-full flex items-center gap-1.5 transition-all duration-300 shadow-2xl cursor-pointer group hover:scale-[1.02]"
+                title="Show full uncropped image"
+              >
+                <svg className="w-3.5 h-3.5 text-white/90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75v4.5m0-4.5h-4.5m4.5 0L15 9m5.25 11.25v-4.5m0 4.5h-4.5m4.5 0l-5.25-5.25" />
+                </svg>
+                <span className="font-mono text-[9px] uppercase tracking-wider text-white/90 font-medium">View Full Photo</span>
+              </button>
+            )}
 
             {/* Glassmorphism Editorial Index */}
             {images.length > 1 && (() => {
