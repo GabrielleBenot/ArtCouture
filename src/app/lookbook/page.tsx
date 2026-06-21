@@ -281,14 +281,14 @@ export default function LookbookPage() {
               <span className="italic font-normal">Steed</span>
             </h3>
             <p className="font-serif italic text-sm text-white/70 leading-relaxed mb-6">
-              From Gabi's expressionist oil canvas of a charging stallion to an abstract, blocked mixed-media motif spanning the back of a structured wool jacket.
+              From Gabi's expressionist canvas of a charging stallion to a highly textured, paint-inspired embroidery spanning the back of a structured wool jacket.
             </p>
             <div className="space-y-4 font-sans text-xs text-white/45 leading-relaxed mb-8">
               <p>
-                The challenge lay in capturing the movement and raw energy of the horse. We utilized a heavy Japanese wool crepe as the foundation, mapping the horse's silhouette into abstract, organic blocks using mixed-media hand embroidery in lilacs, silver, gray, black, and white threads.
+                Directly inspired by Gabi's textured impasto oil painting, we sought to replicate the rich, layered palette-knife strokes of the canvas. We mapped the horse's silhouette using hand-embroidery threads of varying thicknesses, ranging from thick wool yarns and corded lines to fine metallic and silk threads.
               </p>
               <p>
-                Each section is defined by a distinct stitch texture: dense lilac satin stitches, clusters of French knots, and scattered white seed stitches. Integrated linen patches and flowing silver thread lines for the mane and tail create a highly tactile, elegant relief, completed by peak lapels cut from duchesse silk satin.
+                The color scheme translates the painting's moody canvas: elegant lilacs, soft pinks, lavender, charcoal gray, black, and white, highlighted with subtle hints of gold-leaf and silver threads. A scattering of small, hand-applied crystals adds a delicate catch-light shimmer, bringing the charging horse to life.
               </p>
             </div>
             <p className="font-mono text-[9px] uppercase tracking-widest text-[var(--dada-red)] pl-4 border-l border-white/10">
@@ -342,12 +342,12 @@ export default function LookbookPage() {
               <div className="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/5 rounded-lg relative">
                 <img
                   src="/images/process/mondrian_blazer_front.png"
-                  alt="Deconstructed Mondrian blazer front view"
-                  className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-[1200ms] ease-in-out"
+                  alt="Minimalist plain white wool blazer front view"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 block">
-                Fig. 05 / Front View (Grayscale / Hover for Color)
+                Fig. 05 / Front View (Plain White Blazer)
               </span>
             </div>
 
@@ -356,12 +356,12 @@ export default function LookbookPage() {
               <div className="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/5 rounded-lg relative">
                 <img
                   src="/images/process/mondrian_blazer_back.png"
-                  alt="Deconstructed Mondrian blazer back view"
-                  className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-[1200ms] ease-in-out"
+                  alt="Deconstructed Mondrian blazer back view with embroidery"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 block">
-                Fig. 06 / Back View (Grayscale / Hover for Color)
+                Fig. 06 / Back View (Deconstructed Mondrian Embroidery)
               </span>
             </div>
           </div>
@@ -387,7 +387,7 @@ export default function LookbookPage() {
               </p>
             </div>
             <p className="font-mono text-[9px] uppercase tracking-widest text-[var(--dada-red)] pl-4 border-l border-white/10">
-              <strong>Bespoke Detail:</strong> The embroidery flows continuously from the front lapel, wrapping around the side seams to converge in a major deconstructed focal point across the back.
+              <strong>Bespoke Detail:</strong> The front of the blazer remains minimalist and completely clean, with the deconstructed Piet Mondrian-inspired embroidery featured exclusively across the back as a major artistic focal point.
             </p>
           </div>
         </section>
