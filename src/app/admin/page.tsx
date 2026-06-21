@@ -1068,7 +1068,7 @@ function GarmentCard({
   isHidden,
   onToggleVisibility,
   photoSlots,
-  onPhotoSlotChange,
+  onPhotoSlotsSave,
   onPhotoSlotClick,
 }: {
   garment: GarmentData;
@@ -1080,7 +1080,7 @@ function GarmentCard({
   isHidden: boolean;
   onToggleVisibility: () => void;
   photoSlots: Record<string, string>;
-  onPhotoSlotChange: (slotKey: string, imageUrl: string | null) => void;
+  onPhotoSlotsSave: (garmentTitle: string, newSlots: Record<string, string>) => void;
   onPhotoSlotClick: (slotIndex: number, callback: (url: string | null) => void) => void;
 }) {
   const [saved, setSaved] = useState(false);
@@ -1101,11 +1101,7 @@ function GarmentCard({
     onSave();
     
     // Persist all slot changes to local storage at once
-    let success = true;
-    for (let i = 0; i < 6; i++) {
-      const key = `${garment.title}__slot_${i}`;
-      onPhotoSlotChange(key, localSlots[key] || null);
-    }
+    onPhotoSlotsSave(garment.title, localSlots);
 
     setSaved(true);
     setTimeout(() => setSaved(false), 1500);
@@ -2217,7 +2213,6 @@ function AdminPanel() {
   }, [photoSlots, imageOverrides, activeTab, updateStorageUsage]);
 
   const handleImageOverride = useCallback(async (garmentTitle: string, imageUrl: string | null) => {
-    let nextOverrides: Record<string, string> = {};
     setImageOverrides((prev) => {
       const next = { ...prev };
       if (imageUrl === null) {
@@ -2225,18 +2220,15 @@ function AdminPanel() {
       } else {
         next[garmentTitle] = imageUrl;
       }
-      nextOverrides = next;
       safeLocalStorageSet(IMAGE_OVERRIDES_KEY, JSON.stringify(next));
+
+      // Sync to Firestore immediately using the fresh object
+      setDoc(doc(db, 'config', 'image_overrides'), next)
+        .catch(e => console.error("Failed to sync image_overrides to Firestore:", e));
+
       return next;
     });
     setPickerTarget(null);
-
-    // Sync to Firestore
-    try {
-      await setDoc(doc(db, 'config', 'image_overrides'), nextOverrides);
-    } catch (e) {
-      console.error("Failed to sync image_overrides to Firestore:", e);
-    }
   }, []);
 
   const handleDeleteSuccess = useCallback((deletedUrl: string) => {
@@ -2648,38 +2640,39 @@ function AdminPanel() {
                     onImageSwap={(title) => setPickerTarget({ garmentTitle: title })}
                     isHidden={hiddenItems.includes(garment.title)}
                     onToggleVisibility={() => {
-                      let nextHidden: string[] = [];
                       setHiddenItems(prev => {
                         const next = prev.includes(garment.title)
                           ? prev.filter(t => t !== garment.title)
                           : [...prev, garment.title];
-                        nextHidden = next;
                         safeLocalStorageSet(HIDDEN_KEY, JSON.stringify(next));
+
+                        // Sync to Firestore immediately using the fresh object
+                        setDoc(doc(db, 'config', 'hidden_items'), { hiddenList: next })
+                          .catch(e => console.error("Failed to sync hidden items:", e));
+
                         return next;
                       });
-
-                      // Sync to Firestore
-                      setDoc(doc(db, 'config', 'hidden_items'), { hiddenList: nextHidden })
-                        .catch(e => console.error("Failed to sync hidden items:", e));
                     }}
                     photoSlots={photoSlots}
-                    onPhotoSlotChange={(slotKey, imageUrl) => {
-                      let nextSlots: Record<string, string> = {};
+                    onPhotoSlotsSave={(garmentTitle, newGarmentSlots) => {
                       setPhotoSlots(prev => {
                         const next = { ...prev };
-                        if (imageUrl === null) {
-                          delete next[slotKey];
-                        } else {
-                          next[slotKey] = imageUrl;
+                        // Clear existing slots for this garment
+                        for (let i = 0; i < 6; i++) {
+                          delete next[`${garmentTitle}__slot_${i}`];
                         }
-                        nextSlots = next;
+                        // Add new ones
+                        Object.entries(newGarmentSlots).forEach(([k, v]) => {
+                          if (v) next[k] = v;
+                        });
                         safeLocalStorageSet(PHOTO_SLOTS_KEY, JSON.stringify(next));
+
+                        // Sync to Firestore in a single write operation
+                        setDoc(doc(db, 'config', 'photo_slots'), next)
+                          .catch(e => console.error("Failed to sync photo slots:", e));
+
                         return next;
                       });
-
-                      // Sync to Firestore
-                      setDoc(doc(db, 'config', 'photo_slots'), nextSlots)
-                        .catch(e => console.error("Failed to sync photo slots:", e));
                     }}
                     onPhotoSlotClick={(slotIndex, callback) => {
                       setPickerTarget({ garmentTitle: garment.title, slotIndex });
