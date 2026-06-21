@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { OfferingConfig, ItemOfferings } from '@/lib/useOfferings';
 import default_config from '@/lib/default_config.json';
 import { db, storage } from '@/lib/firebase';
-import { doc, getDoc, setDoc, collection, getDocs, deleteDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, collection, getDocs, deleteDoc, query, where } from 'firebase/firestore';
 import { ref, uploadString, getDownloadURL, deleteObject } from 'firebase/storage';
 
 /* ─────────────────────────────────────────────
@@ -28,6 +28,7 @@ interface VaultImage {
   uploadedAt: string;
   title?: string;
   altText?: string;
+  hash?: string;
 }
 
 function cleanFileNameToTitle(fileName: string): string {
@@ -211,8 +212,42 @@ function calculateDefaultRentalPrice(priceStr: string): string {
   return `${finalVal.toLocaleString('en-US')}`;
 }
 
+async function computeHash(dataUrl: string): Promise<string> {
+  const msgBuffer = new TextEncoder().encode(dataUrl);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 async function uploadImageToCloud(file: File): Promise<VaultImage> {
   const dataUrl = await compressImage(file, 2400, 0.90);
+  const hash = await computeHash(dataUrl);
+
+  // Check if duplicate exists in Firestore by hash
+  try {
+    const q = query(collection(db, 'vault'), where('hash', '==', hash));
+    const snap = await getDocs(q);
+    if (!snap.empty) {
+      const docSnap = snap.docs[0];
+      const data = docSnap.data();
+      const cleanTitle = data.title || cleanFileNameToTitle(data.name || '');
+      
+      alert(`Duplicate detected: "${file.name}" is identical to "${data.name || 'an existing image'}" already in the Vault. Using the existing image.`);
+      
+      return {
+        id: docSnap.id,
+        name: data.name || file.name,
+        title: cleanTitle,
+        altText: data.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
+        dataUrl: data.url,
+        uploadedAt: data.uploadedAt,
+        hash: hash
+      };
+    }
+  } catch (e) {
+    console.error("Duplicate check failed:", e);
+  }
+
   const imageId = crypto.randomUUID();
   const urlFriendlyName = cleanFileNameToUrlFriendly(file.name);
   const storageRef = ref(storage, `vault/${urlFriendlyName}-${imageId.substring(0, 8)}.jpg`);
@@ -226,6 +261,7 @@ async function uploadImageToCloud(file: File): Promise<VaultImage> {
     altText: `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
     url: downloadUrl,
     uploadedAt: new Date().toISOString(),
+    hash: hash
   };
   await setDoc(doc(db, 'vault', imageId), entry);
 
@@ -236,6 +272,7 @@ async function uploadImageToCloud(file: File): Promise<VaultImage> {
     altText: entry.altText,
     dataUrl: downloadUrl,
     uploadedAt: entry.uploadedAt,
+    hash: hash
   };
 
   // Sync to local storage vault cache for offline fallback
@@ -818,7 +855,12 @@ function ImagePickerModal({
           uploadFile = new File([file], newName, { type: file.type });
         }
         const newImg = await uploadImageToCloud(uploadFile);
-        setVaultImages((prev) => [newImg, ...prev]);
+        setVaultImages((prev) => {
+          if (prev.some(img => img.id === newImg.id)) {
+            return prev;
+          }
+          return [newImg, ...prev];
+        });
         onSelect(newImg.dataUrl); // Auto-select on upload
       } catch (err) {
         console.error("Cloud upload in modal failed:", err);
@@ -1732,11 +1774,171 @@ function ImageOptimizer() {
    Design Vault Tab
    ───────────────────────────────────────────── */
 
+function detectDuplicates(images: VaultImage[]): VaultImage[][] {
+  const groupsByHash: Record<string, VaultImage[]> = {};
+  const groupsByName: Record<string, VaultImage[]> = {};
+
+  images.forEach(img => {
+    if (img.hash) {
+      if (!groupsByHash[img.hash]) {
+        groupsByHash[img.hash] = [];
+      }
+      groupsByHash[img.hash].push(img);
+    } else {
+      const cleanName = img.name.toLowerCase().trim();
+      if (!groupsByName[cleanName]) {
+        groupsByName[cleanName] = [];
+      }
+      groupsByName[cleanName].push(img);
+    }
+  });
+
+  const duplicateGroups: VaultImage[][] = [];
+
+  Object.values(groupsByHash).forEach(group => {
+    if (group.length > 1) {
+      duplicateGroups.push(group);
+    }
+  });
+
+  Object.values(groupsByName).forEach(group => {
+    if (group.length > 1) {
+      const alreadyGrouped = group.some(img => 
+        duplicateGroups.some(g => g.some(existing => existing.id === img.id))
+      );
+      if (!alreadyGrouped) {
+        duplicateGroups.push(group);
+      }
+    }
+  });
+
+  return duplicateGroups;
+}
+
+async function mergeDuplicateGroups(
+  groups: VaultImage[][],
+  allImages: VaultImage[],
+  setImages: React.Dispatch<React.SetStateAction<VaultImage[]>>,
+  onDeleteSuccess?: (dataUrl: string) => void
+): Promise<number> {
+  let deletedCount = 0;
+  
+  let nextSlots: Record<string, string> = {};
+  let nextOverrides: Record<string, string> = {};
+  const slotsRef = doc(db, 'config', 'photo_slots');
+  const overridesRef = doc(db, 'config', 'image_overrides');
+  
+  try {
+    const slotsSnap = await getDoc(slotsRef);
+    if (slotsSnap.exists()) {
+      nextSlots = slotsSnap.data() as Record<string, string>;
+    }
+  } catch (e) {
+    console.error("Failed to load slots during merge:", e);
+  }
+  
+  try {
+    const overridesSnap = await getDoc(overridesRef);
+    if (overridesSnap.exists()) {
+      nextOverrides = overridesSnap.data() as Record<string, string>;
+    }
+  } catch (e) {
+    console.error("Failed to load overrides during merge:", e);
+  }
+
+  let slotsChanged = false;
+  let overridesChanged = false;
+  const deletedUrls: string[] = [];
+  const keptImages: VaultImage[] = [...allImages];
+
+  for (const group of groups) {
+    if (group.length <= 1) continue;
+    
+    const sorted = [...group].sort((a, b) => new Date(a.uploadedAt).getTime() - new Date(b.uploadedAt).getTime());
+    const keeper = sorted[0];
+    const duplicates = sorted.slice(1);
+
+    for (const dup of duplicates) {
+      try {
+        const storageRef = ref(storage, dup.dataUrl);
+        await deleteObject(storageRef);
+      } catch (e) {
+        console.error("Storage delete failed for duplicate:", dup.dataUrl, e);
+      }
+      
+      try {
+        await deleteDoc(doc(db, 'vault', dup.id));
+      } catch (e) {
+        console.error("Firestore vault delete failed for duplicate:", dup.id, e);
+      }
+      
+      Object.entries(nextSlots).forEach(([key, val]) => {
+        if (val === dup.dataUrl || key === dup.id) {
+          nextSlots[key] = keeper.dataUrl;
+          slotsChanged = true;
+        }
+      });
+      
+      Object.entries(nextOverrides).forEach(([key, val]) => {
+        if (val === dup.dataUrl || key === dup.id) {
+          nextOverrides[key] = keeper.dataUrl;
+          overridesChanged = true;
+        }
+      });
+      
+      deletedUrls.push(dup.dataUrl);
+      deletedCount++;
+      
+      const idx = keptImages.findIndex(img => img.id === dup.id);
+      if (idx !== -1) {
+        keptImages.splice(idx, 1);
+      }
+    }
+  }
+
+  if (slotsChanged) {
+    try {
+      await setDoc(slotsRef, nextSlots);
+      localStorage.setItem(PHOTO_SLOTS_KEY, JSON.stringify(nextSlots));
+    } catch (e) {
+      console.error("Failed to save slots:", e);
+    }
+  }
+  
+  if (overridesChanged) {
+    try {
+      await setDoc(overridesRef, nextOverrides);
+      localStorage.setItem(IMAGE_OVERRIDES_KEY, JSON.stringify(nextOverrides));
+    } catch (e) {
+      console.error("Failed to save overrides:", e);
+    }
+  }
+
+  try {
+    localStorage.setItem(VAULT_KEY, JSON.stringify(keptImages));
+  } catch {}
+
+  setImages(keptImages);
+
+  if (onDeleteSuccess) {
+    deletedUrls.forEach(url => {
+      try {
+        onDeleteSuccess(url);
+      } catch {}
+    });
+  }
+
+  return deletedCount;
+}
+
 function DesignVault({ onDeleteSuccess }: { onDeleteSuccess?: (dataUrl: string) => void }) {
   const [images, setImages] = useState<VaultImage[]>([]);
   const [dragOver, setDragOver] = useState(false);
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
   const [editingImage, setEditingImage] = useState<VaultImage | null>(null);
+  const [duplicateGroups, setDuplicateGroups] = useState<VaultImage[][]>([]);
+  const [hasScanned, setHasScanned] = useState(false);
+  const [isMerging, setIsMerging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -1750,7 +1952,8 @@ function DesignVault({ onDeleteSuccess }: { onDeleteSuccess?: (dataUrl: string) 
           return {
             ...img,
             title: cleanTitle,
-            altText: img.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`
+            altText: img.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
+            hash: img.hash
           };
         });
         setImages(mapped);
@@ -1772,6 +1975,7 @@ function DesignVault({ onDeleteSuccess }: { onDeleteSuccess?: (dataUrl: string) 
             altText: data.altText || `${cleanTitle} bespoke haute couture by Gabrielle Benot`,
             dataUrl: data.url,
             uploadedAt: data.uploadedAt,
+            hash: data.hash
           });
         });
         // Sort by uploadedAt descending
@@ -1808,7 +2012,12 @@ function DesignVault({ onDeleteSuccess }: { onDeleteSuccess?: (dataUrl: string) 
       if (!accepted.includes(file.type)) continue;
       try {
         const newImg = await uploadImageToCloud(file);
-        setImages(prev => [newImg, ...prev]);
+        setImages(prev => {
+          if (prev.some(img => img.id === newImg.id)) {
+            return prev;
+          }
+          return [newImg, ...prev];
+        });
       } catch (err) {
         console.error("Failed to upload image via dropzone:", err);
       }
@@ -1850,6 +2059,32 @@ function DesignVault({ onDeleteSuccess }: { onDeleteSuccess?: (dataUrl: string) 
     },
     [images, onDeleteSuccess]
   );
+
+  const handleScan = useCallback(() => {
+    const groups = detectDuplicates(images);
+    setDuplicateGroups(groups);
+    setHasScanned(true);
+  }, [images]);
+
+  const handleMerge = useCallback(async () => {
+    if (duplicateGroups.length === 0) return;
+    const totalDups = duplicateGroups.reduce((acc, g) => acc + (g.length - 1), 0);
+    if (!window.confirm(`Are you sure you want to merge and permanently delete ${totalDups} duplicate image(s)? This will update all active photo slots to point to the kept copies.`)) {
+      return;
+    }
+    setIsMerging(true);
+    try {
+      const deletedCount = await mergeDuplicateGroups(duplicateGroups, images, setImages, onDeleteSuccess);
+      alert(`Successfully merged duplicates! Deleted ${deletedCount} duplicate image(s) from cloud storage and database, and updated all active slots.`);
+      setDuplicateGroups([]);
+      setHasScanned(false);
+    } catch (e) {
+      console.error("Failed to merge duplicates:", e);
+      alert("Failed to merge duplicates. Please check console for errors.");
+    } finally {
+      setIsMerging(false);
+    }
+  }, [duplicateGroups, images, onDeleteSuccess]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
@@ -1904,6 +2139,88 @@ function DesignVault({ onDeleteSuccess }: { onDeleteSuccess?: (dataUrl: string) 
           className="hidden"
         />
       </div>
+
+      {/* Duplicate Detection Tool */}
+      <div className="mb-8 p-6 rounded-xl border border-white/8 bg-white/[0.02] flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h3 className="text-sm font-mono font-medium text-white/90">Vault Duplicate Detector</h3>
+          <p className="text-xs font-mono text-white/40 mt-1">Scan the Vault for identical images or files with the same name to save cloud storage space.</p>
+        </div>
+        <div className="flex items-center gap-3">
+          {hasScanned && (
+            <button
+              onClick={() => {
+                setHasScanned(false);
+                setDuplicateGroups([]);
+              }}
+              className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-xs font-mono text-white/60 cursor-pointer"
+            >
+              Clear
+            </button>
+          )}
+          <button
+            onClick={handleScan}
+            className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-xs font-mono text-white/90 cursor-pointer"
+          >
+            Scan Vault
+          </button>
+        </div>
+      </div>
+
+      {hasScanned && (
+        <div className="mb-8 p-6 rounded-xl border border-violet-500/20 bg-violet-500/[0.02]">
+          {duplicateGroups.length === 0 ? (
+            <div className="flex items-center gap-3">
+              <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p className="text-xs font-mono text-white/80">Scan complete: No duplicate images found in the Vault.</p>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                  <div>
+                    <p className="text-xs font-mono font-medium text-white/90">
+                      Found {duplicateGroups.length} group{duplicateGroups.length > 1 ? 's' : ''} of duplicates (
+                      {duplicateGroups.reduce((acc, g) => acc + (g.length - 1), 0)} redundant image{duplicateGroups.reduce((acc, g) => acc + (g.length - 1), 0) > 1 ? 's' : ''} total).
+                    </p>
+                    <p className="text-[10px] font-mono text-white/40 mt-0.5">Merging will keep the oldest version and delete extra files, redirecting active slots to the kept copy.</p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleMerge}
+                  disabled={isMerging}
+                  className="px-4 py-2 rounded-lg bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 disabled:opacity-50 text-xs font-mono text-amber-300 cursor-pointer self-start md:self-auto"
+                >
+                  {isMerging ? 'Merging...' : 'Merge & Clean Duplicates'}
+                </button>
+              </div>
+
+              {/* Duplicate Previews */}
+              <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4 max-h-60 overflow-y-auto pr-2">
+                {duplicateGroups.map((group, groupIdx) => {
+                  const keeper = [...group].sort((a, b) => new Date(a.uploadedAt).getTime() - new Date(b.uploadedAt).getTime())[0];
+                  const duplicates = group.filter(img => img.id !== keeper.id);
+                  return (
+                    <div key={groupIdx} className="p-3 rounded-lg border border-white/5 bg-white/[0.01] flex gap-3">
+                      <img src={keeper.dataUrl} className="w-12 h-12 rounded object-cover border border-white/10" alt="Keeper preview" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[10px] font-mono font-medium text-white/80 truncate">{keeper.title || keeper.name}</p>
+                        <p className="text-[9px] font-mono text-emerald-400 mt-0.5">Keep: {new Date(keeper.uploadedAt).toLocaleDateString()}</p>
+                        <p className="text-[9px] font-mono text-red-400 mt-0.5">Delete {duplicates.length} duplicate(s)</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Image Grid */}
       {images.length === 0 ? (
