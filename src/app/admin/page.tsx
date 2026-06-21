@@ -564,7 +564,7 @@ function buildDefaults(): OfferingConfig {
     config[g.title] = {
       purchaseSample: { enabled: false, price: g.price, stripeLink: '' },
       commissionBespoke: { enabled: true, depositAmount: g.depositAmount, stripeLink: g.depositLink },
-      rentPhotoshoot: { enabled: false, pricePer3Days: calculateDefaultRentalPrice(g.price), securityDeposit: calculateDefaultSecurityDeposit(g.price), stripeLink: '' },
+      rentPhotoshoot: { enabled: false, pricePer3Days: calculateDefaultRentalPrice(g.price), securityDeposit: calculateDefaultSecurityDeposit(g.price), stripeLink: '', sizes: '' },
     };
   }
   return config;
@@ -1565,6 +1565,17 @@ function GarmentCard({
             })
           }
           placeholder="https://buy.stripe.com/..."
+        />
+        <Field
+          label="Available Sizes for Rent"
+          value={offerings.rentPhotoshoot.sizes || ''}
+          onChange={(v) =>
+            onUpdate({
+              ...offerings,
+              rentPhotoshoot: { ...offerings.rentPhotoshoot, sizes: v },
+            })
+          }
+          placeholder="US 2, US 4, US 6"
         />
       </OfferingSection>
 
@@ -3324,7 +3335,7 @@ function AdminPanel() {
                 const itemConfig = config[garment.title] || {
                   purchaseSample: { enabled: false, price: garment.price, stripeLink: '' },
                   commissionBespoke: { enabled: true, depositAmount: garment.depositAmount, stripeLink: garment.depositLink },
-                  rentPhotoshoot: { enabled: false, pricePer3Days: calculateDefaultRentalPrice(garment.price), securityDeposit: calculateDefaultSecurityDeposit(garment.price), stripeLink: '' },
+                  rentPhotoshoot: { enabled: false, pricePer3Days: calculateDefaultRentalPrice(garment.price), securityDeposit: calculateDefaultSecurityDeposit(garment.price), stripeLink: '', sizes: '' },
                 };
 
                 return (

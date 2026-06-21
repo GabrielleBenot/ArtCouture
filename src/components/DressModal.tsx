@@ -422,6 +422,7 @@ export function DressModal({
       dayRate?: string;
       securityDeposit?: string;
       stripeLink?: string;
+      sizes?: string;
     };
   }
   const [offerings, setOfferings] = useState<OfferingConfig | null>(null);
@@ -476,6 +477,7 @@ export function DressModal({
           dayRate: itemConfig.rentPhotoshoot.pricePer3Days || itemConfig.rentPhotoshoot.pricePerDay,
           securityDeposit: itemConfig.rentPhotoshoot.securityDeposit,
           stripeLink: itemConfig.rentPhotoshoot.stripeLink,
+          sizes: itemConfig.rentPhotoshoot.sizes,
         } : undefined
       });
     }
@@ -820,6 +822,11 @@ export function DressModal({
                                   <div className="border border-black/5 rounded-sm p-4">
                                     <span className="font-mono text-[10px] tracking-widest uppercase block">Rent for Editorial</span>
                                     <span className="font-serif italic text-xs text-[var(--text-muted)] block mt-1">3-day event or editorial shoot</span>
+                                    {offerings.rentEditorial.sizes && (
+                                      <span className="font-mono text-[9px] tracking-wider text-[var(--text-muted)] uppercase block mt-1">
+                                        Available Sizes: {offerings.rentEditorial.sizes}
+                                      </span>
+                                    )}
                                     {offerings.rentEditorial.dayRate && <span className="font-serif text-base text-[var(--text-main)] block mt-2">{offerings.rentEditorial.dayRate} / 3-day rental</span>}
                                     <button type="button" onClick={() => { setAgreementType('rent'); setShowAgreementForm(true); }} className="mt-3 inline-flex items-center gap-2 bg-[var(--dada-red)] text-white px-6 py-2.5 font-mono text-[9px] tracking-widest uppercase hover:bg-black transition-colors duration-300 cursor-pointer">Book Rental</button>
                                   </div>
@@ -1103,6 +1110,11 @@ export function DressModal({
                             <div>
                               <span className="font-mono text-[10px] tracking-widest uppercase block">Rent for Editorial</span>
                               <span className="font-serif italic text-sm text-[var(--text-muted)] mt-1 block">Rent this sample for a 3-day event or editorial shoot</span>
+                              {offerings.rentEditorial.sizes && (
+                                <span className="font-mono text-[9px] tracking-wider text-[var(--text-muted)] uppercase block mt-1">
+                                  Available Sizes: {offerings.rentEditorial.sizes}
+                                </span>
+                              )}
                             </div>
                           </div>
                           {offerings.rentEditorial.dayRate && (

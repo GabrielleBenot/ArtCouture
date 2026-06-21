@@ -13,7 +13,7 @@ export interface OfferingOption {
 export interface ItemOfferings {
   purchaseSample: { enabled: boolean; price: string; stripeLink: string };
   commissionBespoke: { enabled: boolean; depositAmount: string; stripeLink: string };
-  rentPhotoshoot: { enabled: boolean; pricePer3Days: string; securityDeposit: string; stripeLink: string };
+  rentPhotoshoot: { enabled: boolean; pricePer3Days: string; securityDeposit: string; stripeLink: string; sizes?: string };
 }
 
 export interface OfferingConfig {
@@ -25,7 +25,7 @@ const STORAGE_KEY = 'artcouture_offerings';
 const DEFAULT_OFFERINGS: ItemOfferings = {
   purchaseSample: { enabled: false, price: '', stripeLink: '' },
   commissionBespoke: { enabled: false, depositAmount: '', stripeLink: '' },
-  rentPhotoshoot: { enabled: false, pricePer3Days: '$500', securityDeposit: '$1,250', stripeLink: '' },
+  rentPhotoshoot: { enabled: false, pricePer3Days: '$500', securityDeposit: '$1,250', stripeLink: '', sizes: '' },
 };
 
 function getStoredConfig(): OfferingConfig | null {
@@ -72,6 +72,7 @@ export function useOfferings(itemTitle: string): ItemOfferings {
             pricePer3Days: stored.rentPhotoshoot?.pricePer3Days ?? (stored.rentPhotoshoot as any)?.pricePerDay ?? '$500',
             securityDeposit: stored.rentPhotoshoot?.securityDeposit ?? '$1,250',
             stripeLink: stored.rentPhotoshoot?.stripeLink ?? '',
+            sizes: stored.rentPhotoshoot?.sizes ?? '',
           },
         });
       }
@@ -107,6 +108,7 @@ export function useOfferings(itemTitle: string): ItemOfferings {
                 pricePer3Days: stored.rentPhotoshoot?.pricePer3Days ?? (stored.rentPhotoshoot as any)?.pricePerDay ?? '$500',
                 securityDeposit: stored.rentPhotoshoot?.securityDeposit ?? '$1,250',
                 stripeLink: stored.rentPhotoshoot?.stripeLink ?? '',
+                sizes: stored.rentPhotoshoot?.sizes ?? '',
               },
             });
           }
