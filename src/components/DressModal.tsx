@@ -608,7 +608,7 @@ export function DressModal({
         <div className={`transition-all duration-500 shrink-0 relative ${
           isFitMode 
             ? 'absolute inset-0 w-full h-full z-45 p-0 md:p-0 lg:p-0' 
-            : 'w-full md:w-[50%] h-[85vh] md:h-full p-4 md:p-6 lg:p-8'
+            : 'w-full md:w-[50%] h-full md:h-full p-4 md:p-6 lg:p-8'
         }`}>
           <motion.div 
             initial={{ scale: 1.1, opacity: 0 }}
@@ -624,7 +624,7 @@ export function DressModal({
                 style={{ backgroundImage: `url(${activeImage})` }}
               />
             )}
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               <motion.img 
                 key={activeImageIndex}
                 src={activeImage} 
@@ -632,20 +632,21 @@ export function DressModal({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
                 onClick={() => setIsFitMode(!isFitMode)}
-                className={`w-full h-full absolute inset-0 transition-all duration-300 ${
+                className={`w-full h-full absolute inset-0 transition-[filter] duration-300 ${
                   isFitMode 
                     ? 'object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.18)] cursor-zoom-out' 
                     : 'object-cover cursor-zoom-in'
                 }`} 
+                {...({ fetchPriority: "high" } as any)}
               />
             </AnimatePresence>
 
             {/* View Mode Toggle Button */}
             <button
               onClick={() => setIsFitMode(!isFitMode)}
-              className="absolute bottom-4 right-4 z-50 px-3 py-2 bg-black/50 hover:bg-black/80 backdrop-blur-xl border border-white/10 rounded-full flex items-center gap-1.5 transition-all duration-300 shadow-2xl cursor-pointer group hover:scale-[1.02]"
+              className="absolute bottom-6 md:bottom-4 right-6 md:right-4 z-50 px-3 py-2 bg-black/50 hover:bg-black/80 backdrop-blur-xl border border-white/10 rounded-full flex items-center gap-1.5 transition-all duration-300 shadow-2xl cursor-pointer group hover:scale-[1.02]"
               title={isFitMode ? "Crop image to fill layout" : "Show full uncropped image"}
             >
               {isFitMode ? (
@@ -666,77 +667,69 @@ export function DressModal({
             </button>
 
             {/* Glassmorphism Editorial Index */}
-            {images.length > 1 && (
-              <div className={`absolute top-1/3 -translate-y-1/2 left-3 md:left-4 z-50 py-3 md:py-4 px-3 md:px-4 rounded-lg bg-black/25 backdrop-blur-xl border border-white/10 shadow-2xl hidden md:flex flex-col gap-3 md:gap-4 items-start transition-all duration-300 ${isFitMode ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                {images.map((img, idx) => {
-                  const labelSets: Record<string, string[]> = {
-                    Dresses: ["The Silhouette", "The Bodice", "Fabric Detail", "The Hem", "Back View", "Details"],
-                    Accessories: ["The Piece", "The Detail", "Material", "Clasp", "Worn View", "Details"],
-                    Jackets: ["The Front", "The Back", "Lapel Detail", "Lining", "Sleeve", "Details"],
-                    Jewelry: ["The Piece", "The Setting", "Gemstone", "Profile", "Worn View", "Details"],
-                    Blouses: ["The Silhouette", "The Collar", "Fabric Detail", "The Cuff", "Back View", "Details"],
-                  };
-                  const labels = labelSets[dress.category] || labelSets.Dresses;
-                  const label = labels[idx] || `Detail ${idx}`;
-                  return (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveImageIndex(idx)}
-                      className={`relative text-left flex flex-col items-start transition-all duration-700 group pl-3 ${
-                        activeImageIndex === idx 
-                          ? 'opacity-100' 
-                          : 'opacity-50 hover:opacity-100'
-                      }`}
-                    >
-                      {/* Elegant Active Line Indicator */}
-                      <div className={`absolute left-0 top-0.5 bottom-0.5 transition-all duration-500 rounded-full ${
-                        activeImageIndex === idx 
-                          ? 'w-[2px] bg-[var(--dada-red)] shadow-[0_0_10px_rgba(255,89,0,0.6)]' 
-                          : 'w-[1px] bg-white/20 group-hover:bg-white/60'
-                      }`} />
-                      
-                      <span className="font-mono text-[7px] md:text-[8px] tracking-[0.4em] uppercase text-white/70 mb-0.5 leading-none">
-                        0{idx + 1}
-                      </span>
-                      <span className={`font-serif italic text-xs md:text-sm tracking-wider text-white transition-all duration-500 drop-shadow-md leading-none`}>
-                        {label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-            
+            {images.length > 1 && (() => {
+              const labelSetsDesktop: Record<string, string[]> = {
+                Dresses: ["The Silhouette", "The Bodice", "Fabric Detail", "The Hem", "Back View", "Details"],
+                Accessories: ["The Piece", "The Detail", "Material", "Clasp", "Worn View", "Details"],
+                Jackets: ["The Front", "The Back", "Lapel Detail", "Lining", "Sleeve", "Details"],
+                Jewelry: ["The Piece", "The Setting", "Gemstone", "Profile", "Worn View", "Details"],
+                Blouses: ["The Silhouette", "The Collar", "Fabric Detail", "The Cuff", "Back View", "Details"],
+              };
+              const labelSetsMobile: Record<string, string[]> = {
+                Dresses: ["Silhouette", "Bodice", "Fabric", "Hem", "Back", "Details"],
+                Accessories: ["Piece", "Detail", "Material", "Clasp", "Worn", "Details"],
+                Jackets: ["Front", "Back", "Lapel", "Lining", "Sleeve", "Details"],
+                Jewelry: ["Piece", "Setting", "Gem", "Profile", "Worn", "Details"],
+                Blouses: ["Silhouette", "Collar", "Fabric", "Cuff", "Back", "Details"],
+              };
+              const desktopLabels = labelSetsDesktop[dress.category] || labelSetsDesktop.Dresses;
+              const mobileLabels = labelSetsMobile[dress.category] || labelSetsMobile.Dresses;
+              
+              return (
+                <div className={`absolute top-1/3 -translate-y-1/2 left-3 md:left-4 z-50 py-2 px-2.5 md:py-4 md:px-4 rounded-lg bg-black/25 backdrop-blur-xl border border-white/10 shadow-2xl flex flex-col gap-2 md:gap-4 items-start transition-all duration-300 ${isFitMode ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                  {images.map((img, idx) => {
+                    const labelDesktop = desktopLabels[idx] || `Detail ${idx}`;
+                    const labelMobile = mobileLabels[idx] || `Detail ${idx}`;
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveImageIndex(idx)}
+                        className={`relative text-left flex flex-col items-start transition-all duration-700 group pl-2.5 md:pl-3 ${
+                          activeImageIndex === idx 
+                            ? 'opacity-100' 
+                            : 'opacity-50 hover:opacity-100'
+                        }`}
+                      >
+                        {/* Elegant Active Line Indicator */}
+                        <div className={`absolute left-0 top-0.5 bottom-0.5 transition-all duration-500 rounded-full ${
+                          activeImageIndex === idx 
+                            ? 'w-[2px] bg-[var(--dada-red)] shadow-[0_0_10px_rgba(255,89,0,0.6)]' 
+                            : 'w-[1px] bg-white/20 group-hover:bg-white/60'
+                        }`} />
+                        
+                        <span className="font-mono text-[6px] md:text-[8px] tracking-[0.4em] uppercase text-white/70 mb-0.5 leading-none">
+                          0{idx + 1}
+                        </span>
+                        <span className="block md:hidden font-serif italic text-[10px] tracking-wider text-white transition-all duration-500 drop-shadow-md leading-none">
+                          {labelMobile}
+                        </span>
+                        <span className="hidden md:block font-serif italic text-xs md:text-sm tracking-wider text-white transition-all duration-500 drop-shadow-md leading-none">
+                          {labelDesktop}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              );
+            })()}
 
           </motion.div>
-
-          {/* Mobile horizontal image tabs */}
-          {images.length > 1 && (
-            <div className="flex md:hidden gap-2 justify-center py-2 absolute bottom-4 left-0 right-0 z-50">
-              {images.map((img, idx) => {
-                const labels = ["Silhouette", "Bodice", "Fabric", "Hem", "Back", "Details"];
-                return (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveImageIndex(idx)}
-                    className={`font-mono text-[8px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full transition-all duration-300 ${
-                      activeImageIndex === idx
-                        ? 'bg-white text-black'
-                        : 'bg-black/40 text-white/70 backdrop-blur-sm'
-                    }`}
-                  >
-                    {labels[idx] || `0${idx + 1}`}
-                  </button>
-                );
-              })}
-            </div>
-          )}
         </div>
 
         {/* Mobile: "Click for Details" Tab Button */}
         <button
           onClick={() => setMobileDrawerOpen(true)}
-          className="md:hidden fixed left-0 bottom-16 z-30 flex items-center gap-2 bg-[#fafaf8]/90 backdrop-blur-md border border-l-0 border-black/15 pl-4 pr-5 py-3 rounded-r-full text-black/70 hover:text-black transition-all duration-300 shadow-[4px_0_15px_rgba(0,0,0,0.1)] cursor-pointer"
+          className="md:hidden fixed left-0 bottom-12 z-30 flex items-center gap-2 bg-[#fafaf8]/90 backdrop-blur-md border border-l-0 border-black/15 pl-4 pr-5 py-3 rounded-r-full text-black/70 hover:text-black transition-all duration-300 shadow-[4px_0_15px_rgba(0,0,0,0.1)] cursor-pointer"
         >
           <span className="font-mono text-[9px] uppercase tracking-[0.25em]">Click for Details</span>
           <span className="relative flex h-2 w-2">
