@@ -686,7 +686,10 @@ export function DressModal({
               const mobileLabels = labelSetsMobile[dress.category] || labelSetsMobile.Dresses;
               
               return (
-                <div className={`absolute top-1/3 -translate-y-1/2 left-3 md:left-4 z-50 py-2 px-2.5 md:py-4 md:px-4 rounded-lg bg-black/25 backdrop-blur-xl border border-white/10 shadow-2xl flex flex-col gap-2 md:gap-4 items-start transition-all duration-300 ${isFitMode ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                <div className={`absolute top-1/2 -translate-y-1/2 left-0 z-50 py-3.5 pl-3.5 pr-5 md:py-5 md:pl-4 md:pr-6.5 rounded-r-xl bg-black/15 backdrop-blur-md border border-l-0 border-white/10 shadow-2xl flex flex-col gap-3.5 md:gap-4.5 items-start transition-all duration-300 ${isFitMode ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                  {/* Elegant continuous vertical line track */}
+                  <div className="absolute left-3.5 md:left-4 top-3.5 md:top-5 bottom-3.5 md:bottom-5 w-[1px] bg-white/10 pointer-events-none" />
+
                   {images.map((img, idx) => {
                     const labelDesktop = desktopLabels[idx] || `Detail ${idx}`;
                     const labelMobile = mobileLabels[idx] || `Detail ${idx}`;
@@ -694,23 +697,23 @@ export function DressModal({
                       <button
                         key={idx}
                         onClick={() => setActiveImageIndex(idx)}
-                        className={`relative text-left flex flex-col items-start transition-all duration-700 group pl-2.5 md:pl-3 ${
+                        className={`relative text-left flex flex-col items-start transition-all duration-700 group pl-3 md:pl-3.5 ${
                           activeImageIndex === idx 
                             ? 'opacity-100' 
                             : 'opacity-50 hover:opacity-100'
                         }`}
                       >
-                        {/* Elegant Active Line Indicator */}
+                        {/* Elegant Active Line Indicator segment */}
                         <div className={`absolute left-0 top-0.5 bottom-0.5 transition-all duration-500 rounded-full ${
                           activeImageIndex === idx 
                             ? 'w-[2px] bg-[var(--dada-red)] shadow-[0_0_10px_rgba(255,89,0,0.6)]' 
-                            : 'w-[1px] bg-white/20 group-hover:bg-white/60'
+                            : 'w-[1px] bg-white/0 group-hover:bg-white/40'
                         }`} />
                         
-                        <span className="font-mono text-[6px] md:text-[8px] tracking-[0.4em] uppercase text-white/70 mb-0.5 leading-none">
+                        <span className="font-mono text-[7px] md:text-[8px] tracking-[0.4em] uppercase text-white/70 mb-0.5 leading-none">
                           0{idx + 1}
                         </span>
-                        <span className="block md:hidden font-serif italic text-[10px] tracking-wider text-white transition-all duration-500 drop-shadow-md leading-none">
+                        <span className="block md:hidden font-serif italic text-[11.5px] tracking-wider text-white transition-all duration-500 drop-shadow-md leading-none">
                           {labelMobile}
                         </span>
                         <span className="hidden md:block font-serif italic text-xs md:text-sm tracking-wider text-white transition-all duration-500 drop-shadow-md leading-none">
