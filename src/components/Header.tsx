@@ -8,6 +8,7 @@ const navLinks = [
   { label: "Collections", href: "/#collections" },
   { label: "Lookbook", href: "/lookbook" },
   { label: "Archive", href: "/archive" },
+  { label: "Sizing Vault", href: "/measurements" },
   { label: "Our Story", href: "/#story" },
   { label: "FAQ", href: "/#faq" },
   { label: "Contact", href: "/#contact" },
@@ -240,6 +241,12 @@ export function Header() {
             className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white"
           >
             Archive
+          </a>
+          <a
+            href="/measurements"
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white"
+          >
+            Sizing Vault
           </a>
           <a
             href="/#story"

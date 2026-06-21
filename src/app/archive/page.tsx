@@ -20,7 +20,7 @@ const swatches: SwatchItem[] = [
     origin: "Como, Italy",
     type: "Lustrous double-faced satin",
     story: "Woven in heritage silk mills along the shores of Lake Como. This exceptionally heavy silk satin possesses a liquid-like drape and an intense, shimmering luster. It serves as the primary structural canvas for our high-slit silhouettes, offering unmatched drama and architectural posture.",
-    image: "/images/fabric_silk.jpg",
+    image: "/images/archive/silk_satin.png",
     gowns: ["Fuchsia Majesty", "Crimson Allure"],
   },
   {
@@ -29,7 +29,7 @@ const swatches: SwatchItem[] = [
     origin: "Calais, France",
     type: "Fine cordonnet lace",
     story: "Sourced from the historic lacemakers of Calais, France. This Chantilly lace features delicate floral motifs defined by a fine cordonnet outline thread, woven on antique 19th-century Leavers looms. Hand-cut and appliqued motif-by-motif to mold seamlessly to the bodice.",
-    image: "/images/fabric_lace.jpg",
+    image: "/images/archive/chantilly_lace.png",
     gowns: ["Blush Enchantress", "Blush Couture"],
   },
   {
@@ -38,7 +38,7 @@ const swatches: SwatchItem[] = [
     origin: "Lyon, France",
     type: "Swiss-dot illusion tulle",
     story: "An airy, delicate hexagonal mesh with a classic woven dot motif, crafted on traditional tulle looms in Lyon, France. This misty material provides the delicate volume and translucent layering required for our most romantic skirts, catching the light like soft haze.",
-    image: "/images/patterns_fabric.jpg",
+    image: "/images/archive/esprit_tulle.png",
     gowns: ["Blush Enchantress", "Golden Whisper"],
   },
   {
@@ -47,7 +47,7 @@ const swatches: SwatchItem[] = [
     origin: "Wattens, Austria",
     type: "Hand-set crystals and micro-beading",
     story: "Individually selected crystal elements, hand-sewn onto delicate silk backing at our atelier. Embellished with Austrian glass beads and metallic threads to create an intricate, shimmering structure that mimics organic, cascading stardust.",
-    image: "/images/process/crystals.jpg",
+    image: "/images/archive/crystal_beading.png",
     gowns: ["Fuchsia Majesty", "Golden Whisper"],
   },
   {
@@ -56,7 +56,7 @@ const swatches: SwatchItem[] = [
     origin: "Lyon, France",
     type: "Silk-viscose pane velvet",
     story: "Crafted in Lyon, France. This deep navy velvet features an extraordinarily dense, hand-brushed pile. It is designed to capture and absorb light, creating intense shadows and fluid midnight-blue gradients that emphasize form and sculpted shoulders.",
-    image: "/images/fabric_velvet.jpg",
+    image: "/images/archive/midnight_velvet.png",
     gowns: ["Midnight Elegance", "Velvet Veil"],
   },
   {
@@ -65,7 +65,7 @@ const swatches: SwatchItem[] = [
     origin: "Atelier Handcrafted",
     type: "Hand-molded silk florals",
     story: "Created completely in-house. Each individual petal is hand-cut from silk organza and chiffon, hand-dyed in soft rosewater hues, and flame-edged to capture natural curls. The petals are then layered and stitched to form a blossom texture.",
-    image: "/images/process/applique.jpg",
+    image: "/images/archive/chiffon_petals.png",
     gowns: ["Blush Couture"],
   },
   {
@@ -74,7 +74,7 @@ const swatches: SwatchItem[] = [
     origin: "Atelier Handcrafted",
     type: "Tambour frame hand-embroidery",
     story: "A masterclass in historic tambour work. Applied using a specialized hook on a stretched silk tulle frame, this technique stitches beads and silk threads from the reverse side. This process ensures high tension and flawless placement for complex details.",
-    image: "/images/process/luneville.jpg",
+    image: "/images/archive/luneville_embroidery.png",
     gowns: ["Pearl Symphony", "Lace Romance"],
   },
   {
@@ -83,7 +83,7 @@ const swatches: SwatchItem[] = [
     origin: "Kyoto, Japan",
     type: "24k gold leaf-wrapped silk thread",
     story: "Precious gold leaf is beaten to sub-micron thinness, applied onto washi paper, and sliced into microscopic ribbons. These gold ribbons are then hand-wrapped around pure silk cores in Kyoto, creating a metallic thread that catches light with warmth.",
-    image: "/images/process/threading.jpg",
+    image: "/images/archive/gold_threading.png",
     gowns: ["Golden Whisper", "Tweed Illusion"],
   },
   {
@@ -92,7 +92,7 @@ const swatches: SwatchItem[] = [
     origin: "Harare, Zimbabwe",
     type: "Premium hand-glazed matte leather",
     story: "Hand-selected exotic leather of exceptional symmetry. Glazed using natural agate stone to achieve a refined matte-satin texture, this material is tailored for structured accessories, lined with midnight silk charmeuse and bound by platinum hardware.",
-    image: "/images/fabric_crocodile.png",
+    image: "/images/archive/crocodile_leather.png",
     gowns: ["Obsidian Clutch"],
   },
 ];
@@ -270,7 +270,8 @@ export default function ArchivePage() {
                   </p>
                 </div>
 
-                {/* Gowns Shortcuts */}
+                {/* Gowns Shortcuts - Hidden for now until more dresses are added */}
+                {/* 
                 <div>
                   <h4 className="font-mono text-[9px] uppercase tracking-widest text-white/40 mb-3">
                     Featured in Gowns
@@ -287,6 +288,7 @@ export default function ArchivePage() {
                     ))}
                   </div>
                 </div>
+                */}
               </div>
             </motion.div>
           </motion.div>
