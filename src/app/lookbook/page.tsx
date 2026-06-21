@@ -87,8 +87,8 @@ const defaultLookbookSections: LookbookSectionConfig[] = [
   { id: "manifesto", title: "From Canvas to Cloth", visible: true, images: {} },
   { id: "poppy", title: "The Transformation of Form (Poppy)", visible: true, images: { main: "/images/process/applique.jpg" } },
   { id: "luneville", title: "The Alchemy of Luneville", visible: true, images: { main: "/images/process/luneville.jpg" } },
-  { id: "stallion", title: "The Painted Steed (Stallion)", visible: true, images: { front: "/images/process/equine_dahlia_main.jpg", back: "/images/process/perfect_jacket.png" } },
   { id: "hikihaku", title: "Kyoto's Golden Thread (Hikihaku)", visible: true, images: { main: "/images/process/threading.jpg" } },
+  { id: "stallion", title: "The Painted Steed (Stallion)", visible: true, images: { front: "/images/process/equine_dahlia_main.jpg", back: "/images/process/perfect_jacket.png" } },
   { id: "mondrian", title: "Deconstructed Mondrian", visible: true, images: { front: "/images/process/mondrian_blazer_front.png", back: "/images/process/mondrian_blazer_back.png" } },
   { id: "miro", title: "Constellation Miró", visible: true, images: { front: "/images/process/miro_inspiration.png", back: "/images/process/miro_top_back.png" } },
   { id: "fuchsia-majesty", title: "Fuchsia Majesty (Gallery)", visible: true, images: { front: "/images/paintings/dress_from_colorful_face.jpg", back: "https://firebasestorage.googleapis.com/v0/b/art-couture-new-website.firebasestorage.app/o/vault%2Ff5720508-8148-4bd3-ab0f-2b8612f15cda?alt=media&token=7be40366-58e3-4eb1-91c8-f24d29299550" } },
@@ -287,12 +287,14 @@ export default function LookbookPage() {
         {/* Background dark overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/85 to-black z-10" />
         
-        {/* Cinematic Background Image */}
-        <img
-          src="/images/intro_bg.jpg"
-          alt="Art Couture Creative Studio Editorial Lookbook"
-          className="absolute inset-0 w-full h-full object-cover opacity-20 transform scale-105"
-        />
+        <picture className="absolute inset-0 w-full h-full opacity-20 transform scale-105">
+          <source srcSet="/images/intro_bg.webp" type="image/webp" />
+          <img
+            src="/images/intro_bg.jpg"
+            alt="Art Couture Creative Studio Editorial Lookbook"
+            className="w-full h-full object-cover"
+          />
+        </picture>
 
         <div className="relative z-20 max-w-4xl mx-auto flex flex-col items-center">
           <span className="font-mono text-xs uppercase tracking-[0.4em] text-[var(--dada-red)] mb-4 block">
@@ -468,7 +470,55 @@ export default function LookbookPage() {
           </>
         )}
 
-        {/* SECTION 4: Feature Article - The Painted Steed (Horse to Jacket) */}
+        {/* SECTION 4: Ancient Technique Spotlight - Kyoto's Golden Thread */}
+        {sections.find(s => s.id === "hikihaku")?.visible !== false && (
+          <>
+            <section className="mb-24 bg-neutral-950 border border-white/5 rounded-2xl p-8 md:p-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="group lg:order-2 flex flex-col">
+                <div 
+                  className="aspect-video overflow-hidden bg-neutral-900 border border-white/5 rounded-xl relative cursor-zoom-in max-w-[85%] md:max-w-[70%] lg:max-w-none mx-auto w-full"
+                  onClick={() => setActiveImage({
+                    src: sections.find(s => s.id === "hikihaku")?.images.main || "/images/process/threading.jpg",
+                    alt: "Gold leaf wrapped silk thread details",
+                    caption: "Fig. 03 / Hikihaku Gold Leaf Threading"
+                  })}
+                >
+                  <img
+                    src={sections.find(s => s.id === "hikihaku")?.images.main || "/images/process/threading.jpg"}
+                    alt="Gold leaf wrapped silk thread details"
+                    className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-[1200ms] ease-in-out"
+                  />
+                </div>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 mt-2 block text-center lg:text-left w-[85%] md:w-[70%] lg:w-full mx-auto">
+                  Fig. 03 / Hikihaku Gold Leaf Threading (Grayscale View / Hover for Color)
+                </span>
+              </div>
+              <div className="lg:order-1">
+                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--dada-red)] mb-3 block">
+                  04 / Kyoto's Golden Thread
+                </span>
+                <h3 className="font-serif font-light text-3xl md:text-4xl uppercase tracking-wide mb-6 leading-tight">
+                  Kyoto's Golden <br />
+                  <span className="italic font-normal text-white/90">Thread</span>
+                </h3>
+                <div className="space-y-4 font-sans text-xs text-white/50 leading-relaxed">
+                  <p>
+                    Known as <em>Hikihaku</em> in Japanese heritage weaving, this ancient craft involves beating 24k gold leaf to microscopic thinness and adhering it to premium mulberry paper. The gilded paper is then sliced into fine ribbons and wrapped around a pure silk core.
+                  </p>
+                  <p>
+                    This technique yields a thread that maintains the absolute flexibility of silk while reflecting the rich, deep warmth of pure gold. It never tarnishes or loses its luster over centuries.
+                  </p>
+                  <p className="font-serif italic text-white/70 text-xs pt-2">
+                    "We interweave Hikihaku gold leaf threads with champagne bouclé loops, bringing historical grandeur to modern structured jackets."
+                  </p>
+                </div>
+              </div>
+            </section>
+            <div className="w-full border-t border-white/10 my-16 md:my-24" />
+          </>
+        )}
+
+        {/* SECTION 5: Feature Article - The Painted Steed (Horse to Jacket) */}
         {sections.find(s => s.id === "stallion")?.visible !== false && (
           <>
             <section className="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -494,7 +544,7 @@ export default function LookbookPage() {
                     />
                   </div>
                   <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 block">
-                    Fig. 03 / Inspiration Painting
+                    Fig. 04 / Inspiration Painting
                   </span>
                 </div>
 
@@ -518,7 +568,7 @@ export default function LookbookPage() {
                     />
                   </div>
                   <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 block">
-                    Fig. 04 / Stallion Jacket
+                    Fig. 05 / Stallion Jacket
                   </span>
                 </div>
               </div>
@@ -526,7 +576,7 @@ export default function LookbookPage() {
               {/* Story Text */}
               <div className="lg:col-span-6 flex flex-col justify-center pl-0 lg:pl-8">
                 <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--dada-red)] mb-3 block">
-                  04 / The Painted Steed
+                  05 / The Painted Steed
                 </span>
                 <h3 className="font-serif font-light text-3xl md:text-5xl uppercase tracking-wide mb-6 leading-tight">
                   The Painted <br />
@@ -546,54 +596,6 @@ export default function LookbookPage() {
                 <p className="font-mono text-[9px] uppercase tracking-widest text-[var(--dada-red)] pl-4 border-l border-white/10">
                   <strong>Interesting Fact:</strong> The stallion motif is engineered to match the client's shoulders perfectly, so that when worn, the movement of the body makes the horse appear to run.
                 </p>
-              </div>
-            </section>
-            <div className="w-full border-t border-white/10 my-16 md:my-24" />
-          </>
-        )}
-
-        {/* SECTION 5: Ancient Technique Spotlight - Kyoto's Golden Thread */}
-        {sections.find(s => s.id === "hikihaku")?.visible !== false && (
-          <>
-            <section className="mb-24 bg-neutral-950 border border-white/5 rounded-2xl p-8 md:p-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="group lg:order-2 flex flex-col">
-                <div 
-                  className="aspect-video overflow-hidden bg-neutral-900 border border-white/5 rounded-xl relative cursor-zoom-in max-w-[85%] md:max-w-[70%] lg:max-w-none mx-auto w-full"
-                  onClick={() => setActiveImage({
-                    src: sections.find(s => s.id === "hikihaku")?.images.main || "/images/process/threading.jpg",
-                    alt: "Gold leaf wrapped silk thread details",
-                    caption: "Fig. 05 / Hikihaku Gold Leaf Threading"
-                  })}
-                >
-                  <img
-                    src={sections.find(s => s.id === "hikihaku")?.images.main || "/images/process/threading.jpg"}
-                    alt="Gold leaf wrapped silk thread details"
-                    className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-[1200ms] ease-in-out"
-                  />
-                </div>
-                <span className="font-mono text-[8px] uppercase tracking-widest text-white/30 mt-2 block text-center lg:text-left w-[85%] md:w-[70%] lg:w-full mx-auto">
-                  Fig. 05 / Hikihaku Gold Leaf Threading (Grayscale View / Hover for Color)
-                </span>
-              </div>
-              <div className="lg:order-1">
-                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--dada-red)] mb-3 block">
-                  05 / Kyoto's Golden Thread
-                </span>
-                <h3 className="font-serif font-light text-3xl md:text-4xl uppercase tracking-wide mb-6 leading-tight">
-                  Kyoto's Golden <br />
-                  <span className="italic font-normal text-white/90">Thread</span>
-                </h3>
-                <div className="space-y-4 font-sans text-xs text-white/50 leading-relaxed">
-                  <p>
-                    Known as <em>Hikihaku</em> in Japanese heritage weaving, this ancient craft involves beating 24k gold leaf to microscopic thinness and adhering it to premium mulberry paper. The gilded paper is then sliced into fine ribbons and wrapped around a pure silk core.
-                  </p>
-                  <p>
-                    This technique yields a thread that maintains the absolute flexibility of silk while reflecting the rich, deep warmth of pure gold. It never tarnishes or loses its luster over centuries.
-                  </p>
-                  <p className="font-serif italic text-white/70 text-xs pt-2">
-                    "We interweave Hikihaku gold leaf threads with champagne bouclé loops, bringing historical grandeur to modern structured jackets."
-                  </p>
-                </div>
               </div>
             </section>
             <div className="w-full border-t border-white/10 my-16 md:my-24" />

@@ -145,14 +145,17 @@ export function IntroLoader() {
             transition={{ duration: 2.5, ease: "easeOut" }}
             className="absolute inset-0 z-0"
           >
-            <img 
-              src="/images/intro_bg.jpg" 
-              alt="" 
-              role="presentation"
-              loading="eager"
-              fetchPriority="high"
-              className="w-full h-full object-cover"
-            />
+            <picture className="w-full h-full">
+              <source srcSet="/images/intro_bg.webp" type="image/webp" />
+              <img 
+                src="/images/intro_bg.jpg" 
+                alt="" 
+                role="presentation"
+                loading="eager"
+                fetchPriority="high"
+                className="w-full h-full object-cover"
+              />
+            </picture>
           </motion.div>
 
           {/* Dark vignette overlay for text contrast */}
@@ -221,13 +224,16 @@ export function IntroLoader() {
             transition={{ duration: 2.5, ease: "easeOut" }}
             className="absolute inset-0 z-0"
           >
-            <img 
-              src="/images/intro_bg.jpg" 
-              alt="Art Couture by Gabrielle Benot and Charmaigne Menn, bespoke haute couture atelier" 
-              loading="eager"
-              fetchPriority="high"
-              className="w-full h-full object-cover"
-            />
+            <picture className="w-full h-full">
+              <source srcSet="/images/intro_bg.webp" type="image/webp" />
+              <img 
+                src="/images/intro_bg.jpg" 
+                alt="Art Couture by Gabrielle Benot and Charmaigne Menn, bespoke haute couture atelier" 
+                loading="eager"
+                fetchPriority="high"
+                className="w-full h-full object-cover"
+              />
+            </picture>
           </motion.div>
 
           {/* Gradient overlays for text legibility */}

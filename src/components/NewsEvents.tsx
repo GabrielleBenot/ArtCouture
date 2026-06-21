@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface NewsItem {
   tag: string;
@@ -67,8 +67,7 @@ export function NewsEvents() {
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
   const colorTimers = React.useRef<Map<number, NodeJS.Timeout>>(new Map());
   
-  const videoContainerRef = useRef<HTMLDivElement>(null);
-  const isVideoInView = useInView(videoContainerRef, { once: true, margin: "200px" });
+
 
   const handleCardTap = (index: number) => {
     // Toggle expanded state
@@ -144,25 +143,16 @@ export function NewsEvents() {
             <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b border-r border-[var(--dada-red)]/40" />
 
             {/* Video container */}
-            <div ref={videoContainerRef} className="relative aspect-video overflow-hidden bg-black/40">
-              {isVideoInView ? (
-                <video
-                  src="/videos/silk_painting_workshop.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  poster="/images/intro_bg.jpg"
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <img 
-                  src="/images/intro_bg.jpg" 
-                  alt="In the Atelier workshop preview" 
-                  className="w-full h-full object-cover filter blur-[2px]"
-                />
-              )}
+            <div className="relative aspect-video overflow-hidden bg-black/40">
+              <video
+                src="/videos/silk_painting_workshop.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover"
+              />
               {/* Bottom gradient overlay for caption */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 pointer-events-none" />
 

@@ -19,7 +19,7 @@ export function CinematicHero() {
           muted 
           playsInline
           preload="metadata"
-          poster="/images/intro_bg.jpg"
+          poster="/images/intro_bg.webp"
           aria-label="Art Couture haute couture silk fabric flowing in motion at the atelier"
           title="Art Couture atelier silk fabric"
           className="w-full h-full object-cover object-center opacity-80"
