@@ -926,6 +926,20 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+          
+          <div className="flex justify-center mt-12">
+            <a
+              href="/archive"
+              className="group inline-flex items-center gap-5 cursor-pointer"
+            >
+              <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/30 group-hover:text-[var(--dada-red)] transition-colors duration-300">
+                Explore the Atelier Archive
+              </span>
+              <span className="relative w-12 h-[1px] bg-white/15 group-hover:bg-[var(--dada-red)] transition-all duration-500 overflow-hidden">
+                <span className="absolute inset-0 bg-[var(--dada-red)] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+              </span>
+            </a>
+          </div>
         </div>
       </section>
 

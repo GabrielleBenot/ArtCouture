@@ -30,28 +30,53 @@ function CheckoutAgreementForm({ type, dress, stripeLink, onBack }: CheckoutAgre
       type === "rent"
         ? "Your signed rental agreement has been recorded."
         : type === "purchase"
-        ? "Your purchase agreement and return policy acknowledgment have been recorded."
+        ? "Your purchase agreement and acknowledgment have been recorded."
         : "Your bespoke commission agreement and deposit authorization have been recorded.";
 
     return (
-      <div className="w-full text-center py-12">
-        <span className="text-4xl block mb-6">✓</span>
+      <div className="w-full text-center py-12 px-6">
+        <span className="text-4xl block mb-6 text-[var(--dada-red)]">✓</span>
         <h3 className="font-serif italic text-2xl text-[var(--text-main)] mb-4">{successTitle}</h3>
-        <p className="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)] mb-4 animate-pulse">
+        <p className="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)] mb-8 leading-relaxed">
           {successMessage}
         </p>
-        {stripeLink ? (
-          <p className="font-sans text-xs text-black/50">
-            Redirecting to Stripe checkout...
-          </p>
+        
+        {type === "commission" ? (
+          <div className="flex flex-col gap-4 max-w-sm mx-auto">
+            <a
+              href={`/measurements?dress=${encodeURIComponent(dress.title)}`}
+              className="bg-[var(--dada-red)] text-white py-3.5 px-8 font-mono text-[10px] tracking-widest uppercase hover:bg-neutral-800 transition-colors duration-300 text-center rounded-full block cursor-pointer"
+            >
+              Enter Measurement Vault
+            </a>
+            {stripeLink && (
+              <a
+                href={stripeLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border border-neutral-300 hover:border-neutral-800 text-neutral-700 hover:text-black py-3 px-8 font-mono text-[10px] tracking-widest uppercase transition-colors duration-300 text-center rounded-full block cursor-pointer"
+              >
+                Proceed to Stripe Deposit
+              </a>
+            )}
+          </div>
         ) : (
-          <p className="font-sans text-xs text-black/50">
-            (Demo Mode: No payment URL configured for this sample.)
-          </p>
+          <>
+            {stripeLink ? (
+              <p className="font-sans text-xs text-black/50 mb-6">
+                Redirecting to Stripe checkout...
+              </p>
+            ) : (
+              <p className="font-sans text-xs text-black/50 mb-6">
+                (Demo Mode: No payment URL configured for this sample.)
+              </p>
+            )}
+          </>
         )}
+        
         <button
           onClick={onBack}
-          className="mt-8 bg-black text-white px-8 py-3 font-mono text-[10px] tracking-widest uppercase hover:bg-[var(--dada-red)] transition-colors duration-300 cursor-pointer"
+          className="mt-8 text-black/40 hover:text-black font-mono text-[9px] tracking-widest uppercase transition-colors duration-300 cursor-pointer bg-transparent border-none"
         >
           Return to Options
         </button>
@@ -112,7 +137,7 @@ function CheckoutAgreementForm({ type, dress, stripeLink, onBack }: CheckoutAgre
               headers: { Accept: "application/json" },
             });
             setSubmitted(true);
-            if (stripeLink) {
+            if (stripeLink && type !== "commission") {
               window.location.href = stripeLink;
             }
           } catch {

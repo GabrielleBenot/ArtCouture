@@ -4,12 +4,13 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Logo } from "./Logo";
 
 const navLinks = [
-  { label: "Shop Boutique", href: "#shop", isShop: true },
-  { label: "Collections", href: "#collections" },
-  { label: "News & Events", href: "#news" },
-  { label: "Our Story", href: "#story" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "Shop Boutique", href: "/#shop", isShop: true },
+  { label: "Collections", href: "/#collections" },
+  { label: "Lookbook", href: "/lookbook" },
+  { label: "Archive", href: "/archive" },
+  { label: "Our Story", href: "/#story" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const overlayVariants = {
@@ -216,30 +217,38 @@ export function Header() {
         </div>
 
         <div className="flex-1 flex justify-start md:justify-center text-white">
-          <Logo className="h-[2.3rem] md:h-8 w-auto" />
+          <a href="/" className="cursor-pointer" aria-label="Art Couture Home">
+            <Logo className="h-[2.3rem] md:h-8 w-auto" />
+          </a>
         </div>
 
-        <div className="flex-1 hidden md:flex justify-end items-center gap-8">
+        <div className="flex-1 hidden md:flex justify-end items-center gap-6 xl:gap-8">
           <a
-            href="#collections"
+            href="/#collections"
             className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white"
           >
             Collections
           </a>
           <a
-            href="#news"
-            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white hidden lg:block"
+            href="/lookbook"
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white"
           >
-            News &amp; Events
+            Lookbook
           </a>
           <a
-            href="#story"
+            href="/archive"
+            className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white"
+          >
+            Archive
+          </a>
+          <a
+            href="/#story"
             className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white"
           >
             Our Story
           </a>
           <a
-            href="#faq"
+            href="/#faq"
             className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white hidden lg:block"
           >
             FAQ

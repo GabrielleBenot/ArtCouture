@@ -753,6 +753,27 @@ export function EditorialCollection() {
   }, []);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const dressTitle = params.get("dress");
+      if (dressTitle) {
+        const matched = collection.find(
+          (item) => item.title.toLowerCase() === dressTitle.toLowerCase()
+        );
+        if (matched) {
+          setSelectedDress(matched);
+          setTimeout(() => {
+            const el = document.getElementById("collections");
+            if (el) {
+              el.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 100);
+        }
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     // 1. Initial load from localStorage for instant preview
     try {
       const rawOverrides = localStorage.getItem('artcouture_image_overrides');
@@ -949,7 +970,20 @@ export function EditorialCollection() {
       <div className="max-w-[65rem] mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
           <h2 className="text-[5rem] md:text-[8rem] lg:text-[10rem] font-serif font-extralight text-[var(--text-main)] leading-[0.9] tracking-tight mb-8">The Collection</h2>
-          <p className="font-mono text-xs md:text-sm uppercase tracking-[0.4em] text-[var(--text-muted)]">Select an exquisite piece to reveal its story</p>
+          <p className="font-mono text-xs md:text-sm uppercase tracking-[0.4em] text-[var(--text-muted)] mb-8">Select an exquisite piece to reveal its story</p>
+          <div className="flex justify-center mb-4">
+            <a
+              href="/lookbook"
+              className="group inline-flex items-center gap-5 cursor-pointer"
+            >
+              <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/30 group-hover:text-[var(--dada-red)] transition-colors duration-300">
+                View Editorial Lookbook
+              </span>
+              <span className="relative w-12 h-[1px] bg-white/15 group-hover:bg-[var(--dada-red)] transition-all duration-500 overflow-hidden">
+                <span className="absolute inset-0 bg-[var(--dada-red)] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+              </span>
+            </a>
+          </div>
         </div>
 
         {/* Category Tabs */}
