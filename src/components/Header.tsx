@@ -303,6 +303,18 @@ export function Header() {
             animate="visible"
             exit="exit"
           >
+            {/* Brand Logo inside overlay */}
+            <div className="absolute top-6 left-6 z-[60]">
+              <a
+                href="/"
+                onClick={() => setMenuOpen(false)}
+                className="cursor-pointer text-white"
+                aria-label="Art Couture Home"
+              >
+                <Logo className="h-[2.3rem] w-auto" />
+              </a>
+            </div>
+
             <button
               onClick={() => setMenuOpen(false)}
               className="absolute top-6 right-6 text-white p-2 z-[60]"
