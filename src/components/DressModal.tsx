@@ -563,7 +563,7 @@ export function DressModal({
       {/* Background Frost */}
       <div 
         className="absolute inset-0 bg-[#fafaf8]/95 backdrop-blur-2xl"
-        onClick={onClose}
+        onClick={isFitMode ? () => setIsFitMode(false) : onClose}
       />
 
       {/* Modal Content */}
@@ -575,10 +575,17 @@ export function DressModal({
         className="relative w-full h-full md:w-[95vw] md:h-[95vh] bg-[#fafaf8] md:shadow-2xl md:rounded-2xl overflow-hidden flex flex-col md:flex-row pointer-events-auto"
       >
         <button 
-          onClick={onClose}
-          className="absolute top-8 right-8 z-[100] w-12 h-12 flex items-center justify-center bg-white/10 backdrop-blur-md rounded-full text-black hover:text-[var(--dada-red)] transition-colors group border border-black/10 hover:border-[var(--dada-red)]"
+          onClick={isFitMode ? () => setIsFitMode(false) : onClose}
+          className="absolute top-8 right-8 z-[100] w-12 h-12 flex items-center justify-center bg-white/10 backdrop-blur-md rounded-full text-black hover:text-[var(--dada-red)] transition-colors group border border-black/10 hover:border-[var(--dada-red)] cursor-pointer"
+          title={isFitMode ? "Back to details" : "Close details"}
         >
-          <span className="font-mono text-xs tracking-widest">X</span>
+          {isFitMode ? (
+            <svg className="w-4 h-4 text-black group-hover:text-[var(--dada-red)] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+          ) : (
+            <span className="font-mono text-xs tracking-widest">X</span>
+          )}
         </button>
 
         {/* Left: Image */}
@@ -610,10 +617,11 @@ export function DressModal({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
+                onClick={() => setIsFitMode(!isFitMode)}
                 className={`w-full h-full absolute inset-0 transition-all duration-300 ${
                   isFitMode 
-                    ? 'object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.18)]' 
-                    : 'object-cover'
+                    ? 'object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.18)] cursor-zoom-out' 
+                    : 'object-cover cursor-zoom-in'
                 }`} 
               />
             </AnimatePresence>

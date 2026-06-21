@@ -74,7 +74,7 @@ const collection = [
     depositLink: "https://buy.stripe.com/eVq3cv0iE7vs89rdyYb3q02",
     description: "Confidence, cut in silk couture. This sleek red carpet gown pairs sumptuous silk crepe with shimmering side panels for unapologetic drama. A designer dress born for galas, premieres, and every moment that demands luxury fashion with edge.",
     fabric: "Heavy-weight double-faced silk crepe de chine that cascades like liquid fire, featuring hand-embroidered ruby micro-sequin side panelling with gradient intensity.",
-    customization: "Neckline plunge depth and sequin gradient density are flawlessly tailored to your preference. Hardware finishes available in 24k gold or platinum, with optional monogrammed interior.",
+    customization: "Neckline plunge depth and sequin gradient density are flawlessly tailored to your preference. Hardware finishes available in gold or platinum finish, with optional monogrammed interior.",
     img: "https://storage.googleapis.com/mixo-sites/images/file-efa8732c-2726-4513-9f7d-66e84a3ead12.jpg",
     detailImages: [
       "/details/new_crimson_bodice_1781676541872.png",
