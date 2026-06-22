@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "@/components/Header";
 import { db } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
 import { doc, onSnapshot } from "firebase/firestore";
 import { DressModal } from "@/components/DressModal";
 import { collection, DressItem } from "@/components/EditorialCollection";
@@ -100,6 +101,7 @@ const defaultLookbookSections: LookbookSectionConfig[] = [
 ];
 
 export default function LookbookPage() {
+  const router = useRouter();
   const [sections, setSections] = useState<LookbookSectionConfig[]>(defaultLookbookSections);
   const visibleLookbookItems = lookbookItems.filter(
     (item) => sections.find((s) => s.id === item.id)?.visible !== false
@@ -969,6 +971,10 @@ export default function LookbookPage() {
               <div className="flex justify-center mt-24 mb-12">
                 <a
                   href="/?menu=open"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push("/?menu=open");
+                  }}
                   className="font-mono text-xs uppercase tracking-[0.3em] border border-white/20 hover:border-[var(--dada-red)] text-white/80 hover:text-white py-4 px-8 rounded-full transition-all duration-300 bg-black/50 backdrop-blur-md shadow-lg flex items-center gap-2 cursor-pointer"
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">

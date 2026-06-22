@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { useRouter } from "next/navigation";
 
 interface SwatchItem {
   id: string;
@@ -99,6 +100,7 @@ const swatches: SwatchItem[] = [
 ];
 
 export default function ArchivePage() {
+  const router = useRouter();
   const [selectedSwatch, setSelectedSwatch] = useState<SwatchItem | null>(null);
   const [backUrl, setBackUrl] = useState("/lookbook");
 
@@ -126,28 +128,6 @@ export default function ArchivePage() {
     <div className="min-h-screen bg-black text-white selection:bg-[var(--dada-red)] selection:text-white pb-24 relative">
       <Header />
 
-      {/* Back button to Menu */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-32 -mb-24">
-        <a
-          href="/?menu=open"
-          className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors group cursor-pointer"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="transform group-hover:-translate-x-1 transition-transform"
-          >
-            <line x1="19" y1="12" x2="5" y2="12" />
-            <polyline points="12 19 5 12 12 5" />
-          </svg>
-          Return
-        </a>
-      </div>
 
       {/* Hero Section */}
       <section className="relative pt-36 pb-12 px-6 md:px-12 text-center max-w-3xl mx-auto">
@@ -249,6 +229,10 @@ export default function ArchivePage() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 flex justify-center border-t border-white/5">
         <a
           href="/?menu=open"
+          onClick={(e) => {
+            e.preventDefault();
+            router.push("/?menu=open");
+          }}
           className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] bg-white/5 hover:bg-white/10 text-white/85 hover:text-white px-8 py-3.5 rounded-lg border border-white/10 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-white/[0.02]"
         >
           <svg
@@ -341,7 +325,7 @@ export default function ArchivePage() {
                     onClick={() => setSelectedSwatch(null)}
                     className="w-full md:w-auto font-mono text-[10px] uppercase tracking-[0.2em] bg-white/5 hover:bg-white/10 text-white/80 hover:text-white px-6 py-3 rounded-lg border border-white/10 transition-all duration-300 text-center cursor-pointer"
                   >
-                    Back to Menu
+                    Back to Archive
                   </button>
                 </div>
 

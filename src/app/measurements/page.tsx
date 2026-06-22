@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { useRouter } from "next/navigation";
 import { db } from "@/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -21,6 +22,7 @@ interface MeasurementData {
 }
 
 export default function MeasurementVaultPage() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -178,9 +180,13 @@ export default function MeasurementVaultPage() {
           <div className="w-12 h-[1px] bg-white/20 mx-auto my-6" />
           <a
             href="/?menu=open"
+            onClick={(e) => {
+              e.preventDefault();
+              router.push("/?menu=open");
+            }}
             className="inline-block font-mono text-[9px] uppercase tracking-[0.3em] bg-white text-black hover:bg-[var(--dada-red)] hover:text-white py-3 px-8 rounded-full transition-all duration-300 cursor-pointer text-center"
           >
-            Back to Menu
+            Return
           </a>
         </div>
       </div>
@@ -190,6 +196,10 @@ export default function MeasurementVaultPage() {
         <div className="mb-8">
           <a
             href="/?menu=open"
+            onClick={(e) => {
+              e.preventDefault();
+              router.push("/?menu=open");
+            }}
             className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors group cursor-pointer"
           >
             <svg
@@ -205,7 +215,7 @@ export default function MeasurementVaultPage() {
               <line x1="19" y1="12" x2="5" y2="12" />
               <polyline points="12 19 5 12 12 5" />
             </svg>
-            Back to Menu
+            Return
           </a>
         </div>
 

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Logo } from "./Logo";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/#boutique" },
@@ -139,6 +139,7 @@ function FacebookIcon() {
 
 export function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const { scrollY } = useScroll();
   const isScrolled = useTransform(scrollY, [0, 50], [false, true]);
   const [scrolled, setScrolled] = useState(false);
@@ -179,16 +180,24 @@ export function Header() {
     };
     window.addEventListener('openMobileMenu', openMenu);
 
-    if (typeof window !== "undefined") {
-      const searchParams = new URLSearchParams(window.location.search);
-      if (searchParams.get("menu") === "open") {
-        openMenu();
-        const cleanUrl = window.location.pathname + window.location.hash;
-        window.history.replaceState({}, "", cleanUrl || "/");
+    const checkParams = () => {
+      if (typeof window !== "undefined") {
+        const searchParams = new URLSearchParams(window.location.search);
+        if (searchParams.get("menu") === "open") {
+          openMenu();
+          const cleanUrl = window.location.pathname + window.location.hash;
+          window.history.replaceState({}, "", cleanUrl || "/");
+        }
       }
-    }
+    };
 
-    return () => window.removeEventListener('openMobileMenu', openMenu);
+    checkParams();
+    const timer = setTimeout(checkParams, 100);
+
+    return () => {
+      window.removeEventListener('openMobileMenu', openMenu);
+      clearTimeout(timer);
+    };
   }, [pathname]);
 
   const handleLinkClick = useCallback(() => {
@@ -367,21 +376,19 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={(e) => {
+                        e.preventDefault();
+                        setMenuOpen(false);
                         if ((link as any).isShop) {
-                          e.preventDefault();
-                          setMenuOpen(false);
                           if (typeof window !== "undefined" && window.location.pathname === "/") {
                             window.dispatchEvent(new CustomEvent('openShop'));
                           } else {
-                            window.location.href = "/?shop=open";
+                            router.push("/?shop=open");
                           }
                         } else if (link.href.endsWith("#contact")) {
                           handleContactClick(e);
                         } else if (link.href.startsWith("/#")) {
                           const targetId = link.href.substring(2);
                           if (typeof window !== "undefined" && window.location.pathname === "/") {
-                            e.preventDefault();
-                            setMenuOpen(false);
                             const el = document.getElementById(targetId);
                             if (el) {
                               setTimeout(() => {
@@ -389,10 +396,10 @@ export function Header() {
                               }, 150);
                             }
                           } else {
-                            handleLinkClick();
+                            router.push(link.href);
                           }
                         } else {
-                          handleLinkClick();
+                          router.push(link.href);
                         }
                       }}
                       className="font-serif font-thin text-xl sm:text-2xl tracking-[0.15em] uppercase hover:text-[var(--dada-red)] transition-colors duration-300"

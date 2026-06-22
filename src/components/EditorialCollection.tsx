@@ -917,16 +917,24 @@ export function EditorialCollection() {
     const handleOpenShop = () => setShopOpen(true);
     window.addEventListener('openShop', handleOpenShop);
 
-    if (typeof window !== "undefined") {
-      const searchParams = new URLSearchParams(window.location.search);
-      if (searchParams.get("shop") === "open") {
-        setShopOpen(true);
-        const cleanUrl = window.location.pathname + window.location.hash;
-        window.history.replaceState({}, "", cleanUrl || "/");
+    const checkShopParam = () => {
+      if (typeof window !== "undefined") {
+        const searchParams = new URLSearchParams(window.location.search);
+        if (searchParams.get("shop") === "open") {
+          setShopOpen(true);
+          const cleanUrl = window.location.pathname + window.location.hash;
+          window.history.replaceState({}, "", cleanUrl || "/");
+        }
       }
-    }
+    };
 
-    return () => window.removeEventListener('openShop', handleOpenShop);
+    checkShopParam();
+    const timer = setTimeout(checkShopParam, 100);
+
+    return () => {
+      window.removeEventListener('openShop', handleOpenShop);
+      clearTimeout(timer);
+    };
   }, [pathname]);
 
   // Resolve offerings config: localStorage override or default. Re-read when shop opens.
