@@ -24,7 +24,7 @@ export function StorySection() {
               Art Couture was born when European mixed-media painter Gabrielle Benot and South African-born haute couture designer Charmaigne Menn discovered they shared the same obsession: what happens when a painting becomes a dress? Gabrielle, who holds a degree in fashion design from the Scandinavian Academy of Fashion Design in Copenhagen (formerly Margrethe-Skolen), had spent years exhibiting her textured, color-rich canvases in galleries across Europe and the United States.
             </p>
             <p className="text-xs md:text-sm text-white/50 font-mono uppercase tracking-[0.15em] leading-[1.8]">
-              Charmaigne brought over 25 years of bespoke couture experience, having dressed prominent clients across the United States and South Africa with a reputation for impeccable construction and fit. Together as &ldquo;Gabi et Char,&rdquo; they built a luxury atelier where original artworks and one-of-a-kind garments are created side by side. The result is fashion that carries the soul of fine art, and art that moves like couture.
+              Charmaigne, who continued her design education at the Academy of Art in San Francisco, brought over 25 years of bespoke couture experience, having dressed prominent clients across the United States and South Africa with a reputation for impeccable construction and fit. Together as &ldquo;Gabi et Char,&rdquo; they built a luxury atelier where original artworks and one-of-a-kind garments are created side by side. The result is fashion that carries the soul of fine art, and art that moves like couture.
             </p>
           </div>
           <div className="flex flex-col items-center">
