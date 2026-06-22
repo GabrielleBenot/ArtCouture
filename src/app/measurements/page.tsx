@@ -175,47 +175,38 @@ export default function MeasurementVaultPage() {
             To guarantee the absolute structural precision of your custom fitting mannequin profile, the Sizing Vault is exclusively accessible on desktop. Please access this page from a laptop or desktop computer to record your measurements.
           </p>
           <div className="w-12 h-[1px] bg-white/20 mx-auto my-6" />
-          <button
-            type="button"
-            onClick={() => {
-              if (backUrl) {
-                window.location.href = backUrl;
-              } else {
-                window.dispatchEvent(new CustomEvent("openMobileMenu"));
-              }
-            }}
-            className="inline-block font-mono text-[9px] uppercase tracking-[0.3em] bg-white text-black hover:bg-[var(--dada-red)] hover:text-white py-3 px-8 rounded-full transition-all duration-300 cursor-pointer"
+          <a
+            href="/?menu=open"
+            className="inline-block font-mono text-[9px] uppercase tracking-[0.3em] bg-white text-black hover:bg-[var(--dada-red)] hover:text-white py-3 px-8 rounded-full transition-all duration-300 cursor-pointer text-center"
           >
-            {backUrl ? "Back to Lookbook" : "Return"}
-          </button>
+            Back to Menu
+          </a>
         </div>
       </div>
 
       {/* Desktop Interface */}
       <div className="hidden md:block pt-32 px-6 md:px-12 max-w-6xl mx-auto w-full">
-        {backUrl && (
-          <div className="mb-8">
-            <a
-              href={backUrl}
-              className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors group cursor-pointer"
+        <div className="mb-8">
+          <a
+            href="/?menu=open"
+            className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors group cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              className="transform group-hover:-translate-x-1 transition-transform"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="transform group-hover:-translate-x-1 transition-transform"
-              >
-                <line x1="19" y1="12" x2="5" y2="12" />
-                <polyline points="12 19 5 12 12 5" />
-              </svg>
-              Back to Lookbook
-            </a>
-          </div>
-        )}
+              <line x1="19" y1="12" x2="5" y2="12" />
+              <polyline points="12 19 5 12 12 5" />
+            </svg>
+            Back to Menu
+          </a>
+        </div>
 
         {/* Title */}
         <div className="text-center mb-10">

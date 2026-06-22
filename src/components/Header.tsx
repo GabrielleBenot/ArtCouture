@@ -176,6 +176,16 @@ export function Header() {
       setShowContactForm(false);
     };
     window.addEventListener('openMobileMenu', openMenu);
+
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.get("menu") === "open") {
+        openMenu();
+        const cleanUrl = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, "", cleanUrl || "/");
+      }
+    }
+
     return () => window.removeEventListener('openMobileMenu', openMenu);
   }, []);
 

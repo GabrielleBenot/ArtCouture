@@ -963,6 +963,20 @@ export default function LookbookPage() {
                   </div>
                 );
               })}
+
+              {/* Back to Menu button at the bottom of Lookbook */}
+              <div className="flex justify-center mt-24 mb-12">
+                <a
+                  href="/?menu=open"
+                  className="font-mono text-xs uppercase tracking-[0.3em] border border-white/20 hover:border-[var(--dada-red)] text-white/80 hover:text-white py-4 px-8 rounded-full transition-all duration-300 bg-black/50 backdrop-blur-md shadow-lg flex items-center gap-2 cursor-pointer"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <line x1="19" y1="12" x2="5" y2="12" />
+                    <polyline points="12 19 5 12 12 5" />
+                  </svg>
+                  Back to Menu
+                </a>
+              </div>
             </div>
           </section>
         )}

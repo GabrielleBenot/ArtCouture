@@ -125,10 +125,10 @@ export default function ArchivePage() {
     <div className="min-h-screen bg-black text-white selection:bg-[var(--dada-red)] selection:text-white pb-24 relative">
       <Header />
 
-      {/* Back button to Lookbook */}
+      {/* Back button to Menu */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 pt-32 -mb-24">
         <a
-          href={backUrl}
+          href="/?menu=open"
           className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors group cursor-pointer"
         >
           <svg
@@ -144,7 +144,7 @@ export default function ArchivePage() {
             <line x1="19" y1="12" x2="5" y2="12" />
             <polyline points="12 19 5 12 12 5" />
           </svg>
-          Back to Lookbook
+          Back to Menu
         </a>
       </div>
 
@@ -247,7 +247,7 @@ export default function ArchivePage() {
       {/* Bottom Back Button */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 flex justify-center border-t border-white/5">
         <a
-          href={backUrl}
+          href="/?menu=open"
           className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] bg-white/5 hover:bg-white/10 text-white/85 hover:text-white px-8 py-3.5 rounded-lg border border-white/10 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-white/[0.02]"
         >
           <svg
@@ -263,7 +263,7 @@ export default function ArchivePage() {
             <line x1="19" y1="12" x2="5" y2="12" />
             <polyline points="12 19 5 12 12 5" />
           </svg>
-          Back to Lookbook
+          Back to Menu
         </a>
       </div>
 

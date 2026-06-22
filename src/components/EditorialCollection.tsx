@@ -489,7 +489,7 @@ function DressCard({
             src={item.processImg} 
             alt={`Art Couture ${item.title} bespoke couture craftsmanship`} 
             loading={priority ? "eager" : "lazy"}
-            className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-out group-hover:opacity-0 z-[1] ${isInView ? 'opacity-0' : 'opacity-100'}`}
+            className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-out z-[1] hidden md:block md:group-hover:opacity-0 ${isInView ? 'md:opacity-0' : 'md:opacity-100'}`}
             style={{ filter: 'grayscale(100%) sepia(40%) hue-rotate(330deg) brightness(0.75) contrast(0.85)' }}
             {...({ fetchPriority: priority ? "high" : undefined } as any)}
           />
@@ -1236,6 +1236,21 @@ export function EditorialCollection() {
             >
               {/* Header */}
               <div className="pt-10 pb-6 md:pt-16 md:pb-10 px-6 md:px-12 text-center relative">
+                {/* Back to Menu button */}
+                <button
+                  onClick={() => {
+                    setShopOpen(false);
+                    window.dispatchEvent(new CustomEvent('openMobileMenu'));
+                  }}
+                  className="absolute top-6 left-6 md:top-10 md:left-12 flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--dada-red)] transition-colors duration-300 cursor-pointer font-mono text-[10px] uppercase tracking-widest"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                    <line x1="19" y1="12" x2="5" y2="12" />
+                    <polyline points="12 19 5 12 12 5" />
+                  </svg>
+                  <span>Menu</span>
+                </button>
+
                 {/* Close button */}
                 <button
                   onClick={() => setShopOpen(false)}
@@ -1348,6 +1363,23 @@ export function EditorialCollection() {
                     </motion.div>
                   </div>
                 )}
+
+                {/* Back to Menu button at the bottom of the Shop */}
+                <div className="flex justify-center mt-12 mb-8">
+                  <button
+                    onClick={() => {
+                      setShopOpen(false);
+                      window.dispatchEvent(new CustomEvent('openMobileMenu'));
+                    }}
+                    className="font-mono text-xs uppercase tracking-[0.3em] border border-black/20 hover:border-black text-[var(--text-main)] py-4 px-8 rounded-full transition-all duration-300 bg-white/40 backdrop-blur-md shadow-sm flex items-center gap-2 cursor-pointer"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      <line x1="19" y1="12" x2="5" y2="12" />
+                      <polyline points="12 19 5 12 12 5" />
+                    </svg>
+                    Back to Menu
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
