@@ -16,6 +16,7 @@ import { NewsEvents } from "@/components/NewsEvents";
 import { Footer } from "@/components/Footer";
 import { BespokeForm } from "@/components/BespokeForm";
 import { BackToTop } from "@/components/BackToTop";
+import { usePathname } from "next/navigation";
 
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -478,6 +479,7 @@ function PhotoCarousel({ openLightbox }: { openLightbox: (src: string, gallery?:
 }
 
 export default function Home() {
+  const pathname = usePathname();
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [lightboxGallery, setLightboxGallery] = useState<string[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -491,6 +493,28 @@ export default function Home() {
       sessionStorage.removeItem("lookbook_back_target");
     }
   }, []);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const id = hash.replace("#", "");
+        const el = document.getElementById(id);
+        if (el) {
+          setTimeout(() => {
+            el.scrollIntoView({ behavior: "smooth" });
+          }, 350);
+        }
+      }
+    };
+
+    handleHashScroll();
+
+    window.addEventListener("hashchange", handleHashScroll);
+    return () => window.removeEventListener("hashchange", handleHashScroll);
+  }, [pathname]);
 
   // Open lightbox with gallery context
   const openLightbox = (src: string, gallery?: string[]) => {

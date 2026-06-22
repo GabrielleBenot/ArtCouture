@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Logo } from "./Logo";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/#boutique" },
@@ -137,6 +138,7 @@ function FacebookIcon() {
 }
 
 export function Header() {
+  const pathname = usePathname();
   const { scrollY } = useScroll();
   const isScrolled = useTransform(scrollY, [0, 50], [false, true]);
   const [scrolled, setScrolled] = useState(false);
@@ -187,7 +189,7 @@ export function Header() {
     }
 
     return () => window.removeEventListener('openMobileMenu', openMenu);
-  }, []);
+  }, [pathname]);
 
   const handleLinkClick = useCallback(() => {
     setMenuOpen(false);

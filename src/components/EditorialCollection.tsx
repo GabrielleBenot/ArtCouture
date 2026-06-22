@@ -6,6 +6,7 @@ import { MagneticButton } from "./MagneticButton";
 import defaultOfferingsConfig from '@/lib/default_config.json';
 import { db } from "@/lib/firebase";
 import { doc, onSnapshot, getDocs, collection as fsCollection } from "firebase/firestore";
+import { usePathname } from "next/navigation";
 
 export const collection = [
   {
@@ -676,6 +677,7 @@ function ShopCTA({ onClick }: { onClick: () => void }) {
 }
 
 export function EditorialCollection() {
+  const pathname = usePathname();
   const [selectedDress, setSelectedDress] = useState<DressItem | null>(null);
   const [dressFromShop, setDressFromShop] = useState(false);
   const [enquiryService, setEnquiryService] = useState<string | null>(null);
@@ -925,7 +927,7 @@ export function EditorialCollection() {
     }
 
     return () => window.removeEventListener('openShop', handleOpenShop);
-  }, []);
+  }, [pathname]);
 
   // Resolve offerings config: localStorage override or default. Re-read when shop opens.
   const [offeringsConfig, setOfferingsConfig] = useState<Record<string, { purchaseSample: { enabled: boolean; price: string; stripeLink: string } }>>(() => {
