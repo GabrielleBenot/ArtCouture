@@ -365,8 +365,22 @@ export function Header() {
                           e.preventDefault();
                           setMenuOpen(false);
                           window.dispatchEvent(new CustomEvent('openShop'));
-                        } else if (link.href === "#contact") {
+                        } else if (link.href.endsWith("#contact")) {
                           handleContactClick(e);
+                        } else if (link.href.startsWith("/#")) {
+                          const targetId = link.href.substring(2);
+                          if (typeof window !== "undefined" && window.location.pathname === "/") {
+                            e.preventDefault();
+                            setMenuOpen(false);
+                            const el = document.getElementById(targetId);
+                            if (el) {
+                              setTimeout(() => {
+                                el.scrollIntoView({ behavior: "smooth" });
+                              }, 150);
+                            }
+                          } else {
+                            handleLinkClick();
+                          }
                         } else {
                           handleLinkClick();
                         }
