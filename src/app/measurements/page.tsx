@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { db } from "@/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -721,6 +722,7 @@ export default function MeasurementVaultPage() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

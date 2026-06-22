@@ -6,6 +6,7 @@ import { db } from "@/lib/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { DressModal } from "@/components/DressModal";
 import { collection, DressItem } from "@/components/EditorialCollection";
+import { Footer } from "@/components/Footer";
 
 interface LookbookItem {
   id: string;
@@ -1171,6 +1172,7 @@ export default function LookbookPage() {
           lookbookItemId={selectedLookId}
         />
       )}
+      <Footer />
     </div>
   );
 }
