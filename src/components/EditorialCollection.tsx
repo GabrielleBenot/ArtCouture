@@ -914,6 +914,16 @@ export function EditorialCollection() {
   useEffect(() => {
     const handleOpenShop = () => setShopOpen(true);
     window.addEventListener('openShop', handleOpenShop);
+
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.get("shop") === "open") {
+        setShopOpen(true);
+        const cleanUrl = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, "", cleanUrl || "/");
+      }
+    }
+
     return () => window.removeEventListener('openShop', handleOpenShop);
   }, []);
 

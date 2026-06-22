@@ -229,7 +229,11 @@ export function Header() {
         <div className="flex-1 hidden md:block relative z-[60]">
           <button
             onClick={() => {
-              window.dispatchEvent(new CustomEvent('openShop'));
+              if (typeof window !== "undefined" && window.location.pathname === "/") {
+                window.dispatchEvent(new CustomEvent('openShop'));
+              } else {
+                window.location.href = "/?shop=open";
+              }
             }}
             className="font-mono text-xs uppercase tracking-[0.2em] hover:text-[var(--dada-red)] transition-colors text-white cursor-pointer bg-transparent border-none pointer-events-auto"
           >
@@ -364,7 +368,11 @@ export function Header() {
                         if ((link as any).isShop) {
                           e.preventDefault();
                           setMenuOpen(false);
-                          window.dispatchEvent(new CustomEvent('openShop'));
+                          if (typeof window !== "undefined" && window.location.pathname === "/") {
+                            window.dispatchEvent(new CustomEvent('openShop'));
+                          } else {
+                            window.location.href = "/?shop=open";
+                          }
                         } else if (link.href.endsWith("#contact")) {
                           handleContactClick(e);
                         } else if (link.href.startsWith("/#")) {
